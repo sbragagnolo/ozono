@@ -52,8 +52,7 @@ ObjectBrowser >> createGraphNodes [
 { #category : #model }
 ObjectBrowser >> createObject: objectName [ 
 	| object |
-	objectName
-		ifEmpty: [self error: 'el nombre del objeto no debe ser vacio'].
+	self validarNombreObjeto: objectName.
 	object := ObjectBrowserObject createObjectBrowserObjectWithName: objectName
 		andSuperclass: ObjectBrowserClass
 		inObjectBrowser: self.
@@ -64,8 +63,7 @@ ObjectBrowser >> createObject: objectName [
 { #category : #model }
 ObjectBrowser >> createSet: objectName [ 
 	| object |
-	objectName
-		ifEmpty: [self error: 'el nombre del objeto no debe ser vacio'].
+	self validarNombreObjeto: objectName.
 	object := ObjectBrowserCollection createObjectBrowserObjectWithName: objectName
 		andClass: SimpleSet
 		inObjectBrowser: self.
@@ -89,6 +87,11 @@ ObjectBrowser >> initialize [
 { #category : #'initialize-release' }
 ObjectBrowser >> initializeObjectBrowser [
 	Objects := Objects ifNil: [OrderedCollection new].
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> objectNames [
+	^self objects collect:[:each | each name]
 ]
 
 { #category : #ObjectBrowser }
@@ -116,4 +119,17 @@ ObjectBrowser >> removeObject: anObject [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> showObjectGraph [
 	ObjectGrapher new show: self.
+]
+
+{ #category : #model }
+ObjectBrowser >> validarNombreObjeto: objectName [
+	(objectName isNil or: [objectName isEmpty] )
+			ifTrue: [self error: 'el nombre del objeto no debe ser vacio'].
+	objectName first isUppercase
+			ifTrue: [^ self error: 'Los nombres de los objetos deben ir en minúsculas.'].
+	(objectName includes: $ )
+			ifTrue: [^ self error: 'Los nombres de los objetos no pueden tener espacios.'].
+	(self objectNames includes: objectName)
+			ifTrue: [^ self error: 'Ya hay un objeto con ese nombre.'].
+
 ]

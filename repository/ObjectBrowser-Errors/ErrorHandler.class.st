@@ -12,7 +12,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ErrorHandler class >> default [
-	^SimpleErrorHandler
+	^DebugErrorHandler
 ]
 
 { #category : #'as yet unclassified' }

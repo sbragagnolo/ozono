@@ -55,7 +55,9 @@ ObjectBrowserModel >> compileMethod: aText notifying: someone [
 ObjectBrowserModel >> createClone [
 	| objectName |
 	(self errorHandler
-		evaluate: [objectName := self obtenerNombreDeObjeto.
+		evaluate: [
+			self selectedObject isNil ifTrue:[self error:'Debe seleccionar un objeto para clonar'].
+			objectName := self obtenerNombreDeObjeto.
 			self selectedObject cloneWithName: objectName]).
 	self changed
 ]
@@ -207,14 +209,6 @@ ObjectBrowserModel >> obtenerNombreDeArchivo [
 ObjectBrowserModel >> obtenerNombreDeObjeto [
 	| objectName |
 	objectName := self request: 'Nombre del objeto' default: 'nuevo objeto'.
-	objectName notEmpty ifTrue: 
-		[ objectName first isUppercase
-			ifTrue: [^ self error: 'Los nombres de los objetos deben ir en minúsculas.'].
-		 (objectName indexOf: $ ) > 0
-			ifTrue: [^ self error: 'Los nombres de los objetos no pueden tener espacios.'].
-		 (self objectNames includes: objectName)
-			ifTrue: [^ self error: 'Ya hay un objeto con ese nombre.'].
-		].
 	^ objectName
 ]
 

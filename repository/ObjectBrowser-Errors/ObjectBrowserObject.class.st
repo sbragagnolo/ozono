@@ -160,7 +160,7 @@ ObjectBrowserObject >> hasVariable: aVariableName [
 
 { #category : #accessing }
 ObjectBrowserObject >> initialize [
-	prototype := NullObjectBrowserObject new.
+	^self realObject initialize 
 ]
 
 { #category : #accessing }
