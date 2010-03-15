@@ -44,7 +44,8 @@ ObjectBrowserConfiguration >> default: spec [
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
 		spec 
 			package: 'ObjectBrowser'; 
-			package: 'Mondrian' ]
+			package: 'Mondrian' with: [ spec repository: 'http://www.squeaksource.com/Mondrian' ]
+	]
 ]
 
 { #category : #'as yet unclassified' }

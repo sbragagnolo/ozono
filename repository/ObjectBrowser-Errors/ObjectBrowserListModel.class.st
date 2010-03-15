@@ -23,7 +23,6 @@ ObjectBrowserListModel >> listIndex: anIndex [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserListModel >> listKey: aChar from: view [
-	"Responde cuando se presiona un bot
 	"Responde cuando se presiona un boton la lista de objetos."
 
 "	aChar == $f ifTrue: [^ self findMethod].
