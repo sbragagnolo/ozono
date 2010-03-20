@@ -160,7 +160,9 @@ ObjectBrowserObject >> hasVariable: aVariableName [
 
 { #category : #accessing }
 ObjectBrowserObject >> initialize [
-	^self realObject initialize 
+	super initialize.
+	self realObject ifNotNil: [self realObject initialize].
+	^self
 ]
 
 { #category : #accessing }
