@@ -27,6 +27,12 @@ NullObjectBrowserObject >> compileMethod: aText [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
+
+	self error: 'No se puede agregar el método. Ningún objeto está seleccionado'.
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> isNil [
 	^true
 ]

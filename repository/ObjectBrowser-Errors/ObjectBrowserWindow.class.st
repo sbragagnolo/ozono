@@ -102,7 +102,7 @@ ObjectBrowserWindow >> buildWorkspace [
 		text: #contents
 		accept: #accept:
 		readSelection: nil
-		menu: nil) setNameTo: #workspace.
+		menu: #codePaneMenu:shifted:) setNameTo: #workspace.
 	^workspace
 ]
 
