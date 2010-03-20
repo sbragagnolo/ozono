@@ -162,6 +162,7 @@ ObjectBrowserObject >> hasVariable: aVariableName [
 ObjectBrowserObject >> initialize [
 	super initialize.
 	self realObject ifNotNil: [self realObject initialize].
+	prototype ifNil: [ prototype := NullObjectBrowserObject new].
 	^self
 ]
 
