@@ -79,8 +79,8 @@ SimpleSet >> printString [
 	theCollection := set asOrderedCollection.
 	elementsStrings := theCollection allButFirst
 				inject: theCollection first printString
-				into: [:acum :each | acum , ' ' , each printString].
-	^ '(' , elementsStrings , ')'
+				into: [:acum :each | acum , ', ' , each printString].
+	^ '( ' , elementsStrings , ' )'
 ]
 
 { #category : #collection }

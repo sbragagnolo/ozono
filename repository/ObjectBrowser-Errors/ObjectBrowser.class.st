@@ -41,14 +41,6 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowser >> createGraphNodes [
-	| objectSet |
-	objectSet := OrderedCollection new.
-	self objects do:[:obj | obj addToGraphNodeCollection: objectSet ].
-	^objectSet.
-]
-
 { #category : #model }
 ObjectBrowser >> createObject: objectName [ 
 	| object |
@@ -118,7 +110,7 @@ ObjectBrowser >> removeObject: anObject [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> showObjectGraph [
-	ObjectGrapher new show: self.
+
 ]
 
 { #category : #model }

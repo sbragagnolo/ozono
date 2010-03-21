@@ -56,56 +56,6 @@ ObjectBrowserObject class >> new: aName realObject: anObject objectBrowser: ob [
 		 yourself
 ]
 
-{ #category : #printing }
-ObjectBrowserObject >> addInversePrototypeRelationToGraph: aGraph with: anObject [
-	self addRelationToGraph: aGraph between: anObject  and: self label: 'prototype'
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addReferencesToGraphNodeCollection: aColl [
-	self references do:[:obj | obj addToGraphNodeCollection: aColl]
-	
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addRelationToGraph: aGraph between: anObject and: anotherObject label: aLabel [
-	| attributes |
-	attributes := Dictionary with: #label->aLabel.
-	aGraph addNewEdge: anObject->anotherObject  with: attributes associations label: aLabel
-
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addRelationsToGraph: aGraph [ 
-	prototype addInversePrototypeRelationToGraph: aGraph with: self.
-	self variables
-		do: [:v | self
-				addRelationToGraph: aGraph
-				between: self
-				and: (self realObject instVarNamed: v asSymbol)
-				label: v]
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addSelfToGraph: aGraph [
-	aGraph add: self with: #fillcolor -> #palegreen.
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addSelfToGraphNodeCollection: aColl [
-	aColl add: self.
-	
-]
-
-{ #category : #printing }
-ObjectBrowserObject >> addToGraphNodeCollection: aColl [
-	(aColl includes: self) ifFalse:[
-		self addSelfToGraphNodeCollection: aColl.
-		self addReferencesToGraphNodeCollection: aColl.
-		]
-	
-]
-
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarName: variableName.
@@ -161,8 +111,7 @@ ObjectBrowserObject >> hasVariable: aVariableName [
 { #category : #accessing }
 ObjectBrowserObject >> initialize [
 	super initialize.
-	self realObject ifNotNil: [self realObject initialize].
-	prototype ifNil: [ prototype := NullObjectBrowserObject new].
+	self prototype: NullObjectBrowserObject new.
 	^self
 ]
 
@@ -242,7 +191,7 @@ ObjectBrowserObject >> realObject: anObject [
 ObjectBrowserObject >> references [
 	| refs |
 	refs := self variables collect: [:v | self realObject instVarNamed: v asSymbol ].
-	prototype addSelfToGraphNodeCollection: refs.
+	prototype addInversePrototypeRelationship: refs.
 	^refs.
 ]
 

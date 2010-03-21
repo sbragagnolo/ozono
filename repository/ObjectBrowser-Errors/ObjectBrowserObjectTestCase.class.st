@@ -8,8 +8,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> tearDown [
-	ob objects do:[:o | o removeFromSystem].
+ObjectBrowserObjectTestCase >> setUp [
+	ObjectBrowser clean.
 ]
 
 { #category : #'as yet unclassified' }
@@ -45,7 +45,7 @@ ObjectBrowserObjectTestCase >> testCompileMethod [
 	method := 'sumaEntre: a y: b ^a+b'.
 	ob := ObjectBrowser new.
 	object := ob createObject: name.
-	object compileMethod: method.
+	object compileMethod: method notifying: nil.
 	self assert: (object hasMethod: 'sumaEntre:y:').
 ]
 
@@ -66,7 +66,7 @@ ObjectBrowserObjectTestCase >> testRemoveMethod [
 	method := 'sumaEntre: a y: b ^a+b'.
 	ob := ObjectBrowser new.
 	object := ob createObject: name.
-	object compileMethod: method.
+	object compileMethod: method notifying: nil.
 	self assert: (object hasMethod: #sumaEntre:y:).
 	object removeMethod: #sumaEntre:y:.
 	self assert: ((object hasMethod: #sumaEntre:y:) not).

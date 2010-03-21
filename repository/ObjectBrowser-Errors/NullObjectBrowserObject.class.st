@@ -5,15 +5,9 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-NullObjectBrowserObject >> addInversePrototypeRelationToGraph: aGraph with: anObject [
-	"Do nothing, un null object browser object no es prototipo de nadie"
+NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection [
+	"El NullObjectBrowserObject no debe agregarse a la coleccion de objetos"
 	^self
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> addSelfToGraphNodeCollection: aColl [
-	"Do nothing, I don't have to appear in the graph'"
-	^nil
 ]
 
 { #category : #'as yet unclassified' }
@@ -24,12 +18,6 @@ NullObjectBrowserObject >> addVariable: variableName [
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> compileMethod: aText [ 
 	^self error: 'Debe seleccionar un objeto para este metodo'.
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
-
-	self error: 'No se puede agregar el método. Ningún objeto está seleccionado'.
 ]
 
 { #category : #'as yet unclassified' }

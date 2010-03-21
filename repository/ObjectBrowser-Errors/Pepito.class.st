@@ -1,8 +1,5 @@
 Class {
-	#name : #Pepita,
+	#name : #Pepito,
 	#superclass : #ObjectBrowserClass,
-	#instVars : [
-		'energia'
-	],
 	#category : #'ObjectBrowser-Objects'
 }

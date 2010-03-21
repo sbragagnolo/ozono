@@ -14,6 +14,7 @@ ObjectBrowserTestCase >> tearDown [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserTestCase >> testCreateObject [
+	ObjectBrowser clean.
 	ob := ObjectBrowser new.
 	ob objects: OrderedCollection new.
 	ob createObject: 'testObject'.
