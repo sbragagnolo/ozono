@@ -77,6 +77,11 @@ LOOPLesson >> title: anObject [
 	title := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> variableNamed: aByteString [ 
+	^self variables detect:[ :var | var name = aByteString  ].
+]
+
 { #category : #accessing }
 LOOPLesson >> variables [
 	^ variables ifNil:[variables := OrderedCollection new]

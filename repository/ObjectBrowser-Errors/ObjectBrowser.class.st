@@ -80,6 +80,11 @@ ObjectBrowser >> removeObject: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> runGarbageCollector [
+	self shouldBeImplemented
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> showObjectGraph [
 
 ]
