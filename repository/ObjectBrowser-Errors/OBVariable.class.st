@@ -10,7 +10,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 OBVariable >> desreference [
-	self pointsTo: nil
+	self pointTo: nil
+]
+
+{ #category : #'as yet unclassified' }
+OBVariable >> isPointingTo: anObject [
+	^reference = anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -24,13 +29,13 @@ OBVariable >> name: aNameString [
 ]
 
 { #category : #'as yet unclassified' }
-OBVariable >> pointsTo [
-	^reference
+OBVariable >> pointTo: anObject [
+	reference := anObject
 ]
 
 { #category : #'as yet unclassified' }
-OBVariable >> pointsTo: anObject [
-	reference := anObject
+OBVariable >> pointsTo [
+	^reference
 ]
 
 { #category : #'as yet unclassified' }

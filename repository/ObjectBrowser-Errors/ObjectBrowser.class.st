@@ -38,9 +38,14 @@ ObjectBrowser >> createVariable: aVariableNameString [
 	
 	newVariable := (OBVariable new)
 		name: aVariableNameString;
-		pointsTo: ObjectBrowserObject new;
+		pointTo: ObjectBrowserObject new;
 		yourself.
 	LOOPLesson currentLesson addVariable: newVariable.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> dereferencedObjects [
+	self shouldBeImplemented
 ]
 
 { #category : #'initialize-release' }
@@ -81,7 +86,7 @@ ObjectBrowser >> removeObject: anObject [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
-	self shouldBeImplemented
+	LOOPLesson currentLesson runGarbageCollector.
 ]
 
 { #category : #'as yet unclassified' }

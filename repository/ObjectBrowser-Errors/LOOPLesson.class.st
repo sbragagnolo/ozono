@@ -58,6 +58,11 @@ LOOPLesson >> addVariable: aVariable [
 ]
 
 { #category : #accessing }
+LOOPLesson >> dereferencedObjects [
+	^self objects select:[:o | (self referencesObject: o ) not].
+]
+
+{ #category : #accessing }
 LOOPLesson >> objects [
 	^objects ifNil: [objects := OrderedCollection new].
 ]
@@ -65,6 +70,23 @@ LOOPLesson >> objects [
 { #category : #accessing }
 LOOPLesson >> objects: anObject [
 	objects := anObject
+]
+
+{ #category : #accessing }
+LOOPLesson >> referencesObject: anObjectBrowserObject [
+	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> removeObject: anObjectBrowserObject [ 
+	self objects remove: anObjectBrowserObject.
+]
+
+{ #category : #accessing }
+LOOPLesson >> runGarbageCollector [ 
+	self dereferencedObjects do: [:o | 
+		o removeClassFromSystem.
+		self removeObject: o ].
 ]
 
 { #category : #accessing }
