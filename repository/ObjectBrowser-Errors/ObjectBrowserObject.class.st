@@ -5,61 +5,77 @@ Class {
 		'realObject',
 		'objectName',
 		'objectBrowser',
-		'prototype'
+		'prototype',
+		'variables',
+		'methods'
+	],
+	#classVars : [
+		'NextObjectBrowserClassNumber'
 	],
 	#category : #'ObjectBrowser-Model'
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> buildClassForObjectName: aName andSuperclass: aSuperclass [
-	^aSuperclass subclass: (aName capitalized asSymbol)
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'ObjectBrowser-Objects'
+ObjectBrowserObject class >> createNewObjectBrowserObjectClass [
+	^self createNewObjectBrowserObjectClassFrom: ObjectBrowserClass.
 	
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> createObjectBrowserObjectWithName: aName andClass: aClass inObjectBrowser: anObjectBrowser [ 
-	| newObject |
-	newObject := self
-				new: aName
-				realObject: aClass new
-				objectBrowser: anObjectBrowser.
-	anObjectBrowser addObject: newObject.
-	^ newObject
+ObjectBrowserObject class >> createNewObjectBrowserObjectClassFrom: aClass [
+	| objectBrowserClassNumber |
+	objectBrowserClassNumber := NextObjectBrowserClassNumber.
+	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
+	
+	^aClass subclass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol 
+		instanceVariableNames: ''
+		classVariableNames: ''
+		poolDictionaries: ''
+		category: 'ObjectBrowser-Objects'.
+			
+	
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> createObjectBrowserObjectWithName: aName andSuperclass: aSuperclass inObjectBrowser: anObjectBrowser [ 
-	| objectClass |
-	objectClass := self buildClassForObjectName: aName andSuperclass: aSuperclass.
-	^ self
-		createObjectBrowserObjectWithName: aName
-		andClass: objectClass
-		inObjectBrowser: anObjectBrowser
+ObjectBrowserObject class >> initialize [
+	NextObjectBrowserClassNumber := 1
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> new: aName realObject: anObject [
-	^ self new objectName: aName;
-		 realObject: anObject;
-		 yourself
+ObjectBrowserObject class >> new [
+	| klass |
+	klass := self createNewObjectBrowserObjectClass.
+	^super new
+		realObject: klass new;
+		yourself.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> new: aName realObject: anObject objectBrowser: ob [
-	^ self new objectName: aName;
-		 realObject: anObject;
-		objectBrowser: ob;
-		 yourself
+ObjectBrowserObject class >> newFrom: anObo [
+	| klass |
+	klass := self createNewObjectBrowserObjectClassFrom: anObo class.
+	^super new
+		realObject: klass new;
+		prototype: anObo;
+		yourself.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> addInversePrototypeRelationship: references [
+
+	references add: self.
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarName: variableName.
+	variables add: (OBVariable new name: variableName ; yourself ).
 	self changed.
+]
+
+{ #category : #printing }
+ObjectBrowserObject >> clone [
+	^self class newFrom: self.
 ]
 
 { #category : #'as yet unclassified' }
@@ -70,13 +86,17 @@ ObjectBrowserObject >> cloneWithName: aName [
 				andSuperclass: self realClass
 				inObjectBrowser: self objectBrowser.
 	obo prototype: self.
+	self changed.
 	^ obo
 ]
 
 { #category : #printing }
-ObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
+ObjectBrowserObject >> compileMethod: aMethod [
 	| result |
-	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
+	result := self realClass compile: aMethod classified: #'object browser'  notifying: nil.
+	methods add: (OBMethod new 
+		selector: result;
+		yourself).
 	result ifNotNil: [self changed].
 ]
 
@@ -94,7 +114,7 @@ ObjectBrowserObject >> hasClones [
 
 { #category : #accessing }
 ObjectBrowserObject >> hasMethod: aSelector [
-	^self methods includes: aSelector 
+	^self methods anySatisfy: [:m | m selector = aSelector ]
 ]
 
 { #category : #accessing }
@@ -105,14 +125,22 @@ ObjectBrowserObject >> hasReferencesTo: anOBObject [
 
 { #category : #accessing }
 ObjectBrowserObject >> hasVariable: aVariableName [
-	^self variables includes: aVariableName 
+	^self variables anySatisfy: [:v | v name = aVariableName ]
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> initialize [
 	super initialize.
-	self prototype: NullObjectBrowserObject new.
+	self realObject ifNotNil: [self realObject initialize].
+	prototype ifNil: [ prototype := NullObjectBrowserObject new].
+	variables := Set new.
+	methods := Set new.
 	^self
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> inspect [
+	ToolSet inspect: self realObject 
 ]
 
 { #category : #accessing }
@@ -127,17 +155,22 @@ ObjectBrowserObject >> methodCategory: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> methods [
-	^(self myClassMethods, prototype methods) asSet asOrderedCollection
+	^(self myClassMethods union: prototype methods)
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassHasMethod: aSelector [
-	^self myClassMethods includes: aSelector 
+	^self myClassMethodSelectors includes: aSelector 
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> myClassMethodSelectors [
+	^self realClass selectors asOrderedCollection
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassMethods [
-	^self realClass methodDict keys asOrderedCollection
+	^methods
 ]
 
 { #category : #accessing }
@@ -157,12 +190,18 @@ ObjectBrowserObject >> objectName [
 
 { #category : #accessing }
 ObjectBrowserObject >> objectName: anObject [
-	objectName := anObject
+	objectName := anObject.
+	self changed.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> printString [
-	^ self objectName
+	^ 'anObject'
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> prototype [
+	^prototype
 ]
 
 { #category : #'as yet unclassified' }
@@ -237,5 +276,5 @@ ObjectBrowserObject >> sourceCodeAt: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
-	^ self realClass instVarNames asOrderedCollection , prototype variables
+	^ (variables union: prototype variables)
 ]

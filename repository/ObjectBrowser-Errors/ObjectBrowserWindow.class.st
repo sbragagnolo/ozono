@@ -3,15 +3,20 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'objectBrowser',
-		'workspace',
 		'methodEditor',
-		'isWorkspaceSelected',
-		'isMethodEditorSelected',
 		'methodEditorButton',
 		'workspaceButton'
 	],
 	#category : #'ObjectBrowser-UI'
 }
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserWindow class >> menuCommandOn: aBuilder [ 
+	<worldMenu>
+	(aBuilder item: #'Object Browser')
+		parent: #MostUsedTools;  
+		action: [ObjectBrowser open]
+]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow class >> show: anObjectBrowser [
@@ -20,29 +25,36 @@ ObjectBrowserWindow class >> show: anObjectBrowser [
 
 { #category : #view }
 ObjectBrowserWindow >> buildMethodEditor [
+	| model |
 	methodEditor := (PluggableTextMorph
-		on: (MethodEditorModel newOn: self objectBrowser)
+		on: (model := MethodEditorModel newOn: self objectBrowser )
 		text: #selectedSelectorCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.
+	model methodEditorMorph: methodEditor.
 	^methodEditor
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildMethodEditorButton [
-	methodEditorButton := PluggableButtonMorph
-		on: self
-		getState: #isMethodEditorSelected
-		action: #showMethodEditor
-		label: #methodEditorButtonLabel.
-	^methodEditorButton
+ObjectBrowserWindow >> buildMethodList [
+	^ OBPluggableListMorph new
+		on: (MethodListModel newOn: self objectBrowser)
+		list: #listModel
+		selected: #listIndex
+		changeSelected: #listIndex:
+		menu: #listMenu:shifted:
+		keystroke: #listKey:from:;
+		 borderWidth: 0;
+		 enableDragNDrop: false;
+		 autoDeselect: true;
+		 yourself
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildMethodList [
+ObjectBrowserWindow >> buildObjectAttributeList [
 	^ PluggableListMorph new
-		on: (MethodListModel newOn: self objectBrowser)
+		on: (ObjectAttributeListModel newOn: self objectBrowser)
 		list: #listModel
 		selected: #listIndex
 		changeSelected: #listIndex:
@@ -66,24 +78,9 @@ ObjectBrowserWindow >> buildObjectGraphButton [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildObjectList [
-	^ PluggableListMorph new
-		on: (ObjectListModel newOn: self objectBrowser)
-		list: #listModel
-		selected: #listIndex
-		changeSelected: #listIndex:
-		menu: #listMenu:shifted:
-		keystroke: #listKey:from:;
-		 borderWidth: 0;
-		 enableDragNDrop: false;
-		 autoDeselect: true;
-		 yourself
-]
-
-{ #category : #view }
 ObjectBrowserWindow >> buildVariableList [
 	^ PluggableListMorph new
-		on: (VariableListModel newOn: self objectBrowser)
+		on: (VariablesListModel newOn: self objectBrowser)
 		list: #listModel
 		selected: #listIndex
 		changeSelected: #listIndex:
@@ -93,17 +90,6 @@ ObjectBrowserWindow >> buildVariableList [
 		 enableDragNDrop: false;
 		 autoDeselect: true;
 		 yourself
-]
-
-{ #category : #view }
-ObjectBrowserWindow >> buildWorkspace [
-	workspace := (ObjectBrowserPluggableTextMorph
-		on: (ObjectBrowserWorkspaceStore new on: self objectBrowser)
-		text: #contents
-		accept: #accept:
-		readSelection: nil
-		menu: nil) setNameTo: #workspace.
-	^workspace
 ]
 
 { #category : #view }
@@ -120,58 +106,35 @@ ObjectBrowserWindow >> buildWorkspaceButton [
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
-	window := (SystemWindow labelled: 'Object Browser') model: self objectBrowser;
+	window := (SystemWindow labelled: LOOPLesson currentLesson title, ' - Object Browser') model: self objectBrowser;
 		
-		addMorph: self buildObjectList
+		addMorph: self buildVariableList 
 		frame: (0 @ 0 corner: 0.33 @ hSepFrac);
 		
-		addMorph: self buildVariableList
+		addMorph: self buildObjectAttributeList 
 		frame: (0.33 @ 0 corner: 0.66 @ hSepFrac);
 		
 		addMorph: self buildMethodList
 		frame: (0.66 @ 0 corner: 1 @ hSepFrac);
 		
+		
 		addMorph: self buildWorkspaceButton
 		frame: (0 @ hSepFrac corner: 0.25 @ (hSepFrac + 0.1));
 		
-		addMorph: self buildMethodEditorButton
-		frame: (0.28 @ hSepFrac corner: 0.53 @ (hSepFrac + 0.1));
-		
 		addMorph: self buildObjectGraphButton
 		frame: (0.56 @ hSepFrac corner: 0.81 @ (hSepFrac + 0.1));
-		
-		addMorph: self buildWorkspace
-		frame: (0 @ (hSepFrac + 0.1) corner: 1 @ 1);
 		
 		addMorph: self buildMethodEditor
 		frame: (0 @ (hSepFrac + 0.1) corner: 1 @ 1);
 		
 		position: 100 @ 100.
-		
-	self showMethodEditor.
 	
 	^window.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserWindow >> initialize [
-	isMethodEditorSelected  := true.
-	isWorkspaceSelected  := false.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserWindow >> isMethodEditorSelected [
-	^isMethodEditorSelected 
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserWindow >> isWorkspaceSelected [
-	^isWorkspaceSelected
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserWindow >> methodEditorButtonLabel [
-	^'Method Editor'
+	^false
 ]
 
 { #category : #view }
@@ -197,28 +160,13 @@ ObjectBrowserWindow >> show: anObjectBrowser [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> showMethodEditor [
-	isMethodEditorSelected := true.
-	isWorkspaceSelected := false.
-	self swapTextEditors.
-]
-
-{ #category : #view }
 ObjectBrowserWindow >> showWorkspace [
-	isMethodEditorSelected := false.
-	isWorkspaceSelected := true.
-	self swapTextEditors.
-]
-
-{ #category : #view }
-ObjectBrowserWindow >> swapTextEditors. [
-	methodEditor visible:isMethodEditorSelected.
-	workspace visible: isWorkspaceSelected .
-	workspaceButton update: nil.
-	methodEditorButton update: nil.
+	LOOPWorkspace new 
+		setBindings: objectBrowser objectBindings; 
+		openLabel: LOOPLesson currentLesson title, ' - Workspace'
 ]
 
 { #category : #view }
 ObjectBrowserWindow >> workspaceButtonLabel [
-	^'Workspace'
+	^'Open Workspace'
 ]

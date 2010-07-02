@@ -10,5 +10,5 @@ SimpleErrorHandler >> value [
 
 	block
 		on: Error
-		do: [:error | UIManager default inform: error messageText]
+		do: [:error | UIManager default inform: error messageText ]
 ]

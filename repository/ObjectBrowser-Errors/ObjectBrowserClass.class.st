@@ -27,15 +27,8 @@ ObjectBrowserClass >> objectBrowserObjects [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserClass >> objectName [
-	"el nombre mio que despliego"
-
-	^self objectBrowserObjectForMe objectName
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserClass >> printOn: aStream [
 	"eso"
 
-	aStream nextPutAll: self objectName
+	aStream nextPutAll: 'anObject'
 ]

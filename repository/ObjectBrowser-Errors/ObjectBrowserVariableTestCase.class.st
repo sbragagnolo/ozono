@@ -1,0 +1,44 @@
+Class {
+	#name : #ObjectBrowserVariableTestCase,
+	#superclass : #TestCase,
+	#instVars : [
+		'variable'
+	],
+	#category : #'ObjectBrowser-Tests'
+}
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserVariableTestCase >> setUp [
+	variable := OBVariable new name: 'pepita'.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserVariableTestCase >> testDesreferenciarVariable [
+	| anObject |
+	anObject := 2.
+	variable pointsTo: anObject.
+	self assert: variable pointsTo == anObject .
+	variable desreference.
+	self assert: variable pointsTo == nil.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserVariableTestCase >> testNewVariableName [
+	| varName |
+	varName := 'pepita'.
+	variable name: varName.
+	self assert: variable name = varName.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserVariableTestCase >> testNewVariablePointsToNil [
+	self assert: variable pointsTo == nil.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserVariableTestCase >> testPointVariableToObject [
+	| anObject |
+	anObject := 2.
+	variable pointsTo: anObject.
+	self assert: variable pointsTo  = anObject .
+]

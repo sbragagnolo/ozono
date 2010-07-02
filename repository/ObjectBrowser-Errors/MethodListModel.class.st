@@ -13,7 +13,7 @@ MethodListModel >> listMenu: aMenu shifted: shifted [
 
 { #category : #'as yet unclassified' }
 MethodListModel >> listModel [
-	^self methods
+	^self methods asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }

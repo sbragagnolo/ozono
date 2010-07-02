@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ObjectBrowserListModel >> iconAt: anIndex [
+	^(self selectedItem respondsTo: #icon) ifTrue: [ self selectedItem icon] ifFalse: [nil]
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserListModel >> listIndex [
 	^self listModel indexOf: self selectedItem
 ]
@@ -23,7 +28,7 @@ ObjectBrowserListModel >> listIndex: anIndex [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserListModel >> listKey: aChar from: view [
-	"Responde cuando se presiona un bot n la lista de objetos."
+	"Responde cuando se presiona un bot󮠥n la lista de objetos."
 
 "	aChar == $f ifTrue: [^ self findMethod].
 	aChar == $r ifTrue: [^ self recent].

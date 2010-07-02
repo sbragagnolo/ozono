@@ -1,22 +1,13 @@
 Class {
 	#name : #ObjectBrowser,
 	#superclass : #Object,
-	#instVars : [
-		'workspaceText',
-		'selectedObject',
-		'selectedSelector',
-		'selectedVariable'
-	],
-	#classVars : [
-		'Objects'
-	],
 	#category : #'ObjectBrowser-Model'
 }
 
 { #category : #'as yet unclassified' }
 ObjectBrowser class >> clean [
-	Objects do: [:obj | obj removeClassFromSystem].
-	Objects := OrderedCollection new.
+	Variables do: [:var | var pointsTo removeClassFromSystem].
+	Variables := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -29,56 +20,41 @@ ObjectBrowser class >> open [
 	^self new openInWorld; yourself
 ]
 
-{ #category : #model }
-ObjectBrowser >> addObject: anObject [
-	self objects add: anObject.
-	self changed.
-]
-
 { #category : #ObjectBrowser }
 ObjectBrowser >> canDelete: anObjectBrowserObject [
 
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
 ]
 
-{ #category : #model }
-ObjectBrowser >> createObject: objectName [ 
-	| object |
-	self validarNombreObjeto: objectName.
-	object := ObjectBrowserObject createObjectBrowserObjectWithName: objectName
-		andSuperclass: ObjectBrowserClass
-		inObjectBrowser: self.
-	self changed.
-	^object
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> clean [
+	self objects do:[:o | o removeClassFromSystem ].
 ]
 
-{ #category : #model }
-ObjectBrowser >> createSet: objectName [ 
-	| object |
-	self validarNombreObjeto: objectName.
-	object := ObjectBrowserCollection createObjectBrowserObjectWithName: objectName
-		andClass: SimpleSet
-		inObjectBrowser: self.
-	self changed.
-	^object
-]
-
-{ #category : #view }
-ObjectBrowser >> initialExtent [
-	"eso"
-	^ 700@400
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> createVariable: aVariableNameString [
+	| newVariable |
+	self validateVariableName: aVariableNameString.
+	
+	newVariable := (OBVariable new)
+		name: aVariableNameString;
+		pointsTo: ObjectBrowserObject new;
+		yourself.
+	LOOPLesson currentLesson addVariable: newVariable.
 ]
 
 { #category : #'initialize-release' }
 ObjectBrowser >> initialize [
 	super initialize.
+	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
+	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
+	Smalltalk at:#ordered ifAbsentPut: (OBBaseSetCollection new).
 	self initializeObjectBrowser.
-	
 ]
 
 { #category : #'initialize-release' }
 ObjectBrowser >> initializeObjectBrowser [
-	Objects := Objects ifNil: [OrderedCollection new].
+	Variables := Variables ifNil: [OrderedCollection new].
 ]
 
 { #category : #'as yet unclassified' }
@@ -88,17 +64,12 @@ ObjectBrowser >> objectNames [
 
 { #category : #ObjectBrowser }
 ObjectBrowser >> objects [
-	^Objects
-]
-
-{ #category : #ObjectBrowser }
-ObjectBrowser >> objects: aCollection [
-	Objects := aCollection
+	^LOOPLesson currentLesson objects
 ]
 
 { #category : #'initialize-release' }
 ObjectBrowser >> openInWorld [
-	ObjectBrowserWindow show: self
+	ObjectBrowserWindow show: self.
 
 	
 ]
@@ -113,15 +84,18 @@ ObjectBrowser >> showObjectGraph [
 
 ]
 
-{ #category : #model }
-ObjectBrowser >> validarNombreObjeto: objectName [
-	(objectName isNil or: [objectName isEmpty] )
-			ifTrue: [self error: 'el nombre del objeto no debe ser vacio'].
-	objectName first isUppercase
-			ifTrue: [^ self error: 'Los nombres de los objetos deben ir en minúsculas.'].
-	(objectName includes: $ )
-			ifTrue: [^ self error: 'Los nombres de los objetos no pueden tener espacios.'].
-	(self objectNames includes: objectName)
-			ifTrue: [^ self error: 'Ya hay un objeto con ese nombre.'].
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> validateVariableName: aVariableNameString [
+	(self variables anySatisfy: [:v | v name = aVariableNameString ])
+		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ', aVariableNameString  ]
+]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> variableNamed: aVariableNameString [
+	^LOOPLesson currentLesson variableNamed: aVariableNameString.
+]
+
+{ #category : #ObjectBrowser }
+ObjectBrowser >> variables [
+	^LOOPLesson currentLesson variables
 ]

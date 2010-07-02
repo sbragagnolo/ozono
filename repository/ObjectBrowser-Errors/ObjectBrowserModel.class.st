@@ -8,9 +8,6 @@ Class {
 		'selectedVariable',
 		'objectBrowser'
 	],
-	#classVars : [
-		'Objects'
-	],
 	#category : #'ObjectBrowser-UI'
 }
 
@@ -32,23 +29,28 @@ ObjectBrowserModel >> assertMethodSelected [
 
 { #category : #model }
 ObjectBrowserModel >> assertObjectSelected [
-	self selectedObject isNil ifTrue:[self error: 'debe seleccionar un objeto a eliminar']
+	self selectedObjectAttribute isNil ifTrue:[self error: 'debe seleccionar un objeto a eliminar']
 ]
 
 { #category : #model }
 ObjectBrowserModel >> bindingOf: aString [ 
-	| obo |
-	obo := self objects
-				detect: [:anOBO | anOBO objectName = aString]
-				ifNone: [self error: 'No existe el objeto ', aString].
-	^ aString -> obo
+	self error: 'deprecado'
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserModel >> compileMethod: aText notifying: someone [
+ObjectBrowserModel >> compileMethod: aText [ 
 	self errorHandler
-		evaluate: [self selectedObject compileMethod: aText notifying: someone.
-			self changed]
+		evaluate: [	self selectedObject compileMethod: aText.
+					self changed]
+]
+
+{ #category : #model }
+ObjectBrowserModel >> createAttribute [
+	| variableName |
+	(self errorHandler
+		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
+			self selectedObject addVariable: variableName]).
+	self changed
 ]
 
 { #category : #model }
@@ -67,7 +69,7 @@ ObjectBrowserModel >> createObject [
 	| objectName |
 	(self errorHandler
 		evaluate: [objectName := self obtenerNombreDeObjeto.
-			objectBrowser createObject: objectName]).
+			objectBrowser createVariable: objectName]).
 	self changed
 ]
 
@@ -81,15 +83,6 @@ ObjectBrowserModel >> createSet [
 ]
 
 { #category : #model }
-ObjectBrowserModel >> createVariable [
-	| variableName |
-	(self errorHandler
-		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
-			self selectedObject addVariable: variableName]).
-	self changed
-]
-
-{ #category : #model }
 ObjectBrowserModel >> deleteMethod [
 	self errorHandler
 		evaluate: [self assertMethodSelected.
@@ -99,19 +92,10 @@ ObjectBrowserModel >> deleteMethod [
 ]
 
 { #category : #model }
-ObjectBrowserModel >> deleteObject [
-	self errorHandler evaluate: [
-			self assertObjectSelected.
-			self deletionConfirmed
-				ifTrue: [self doDeleteObject].
-		]
-]
-
-{ #category : #model }
 ObjectBrowserModel >> deleteVariable [
 	self errorHandler
 		evaluate: [
-			self selectedVariable
+			self selectedObjectAttribute
 				ifNil: [self error: 'No hay ninguna variable elegida'].
 			self doDeleteVariable.
 			].
@@ -154,7 +138,7 @@ ObjectBrowserModel >> doDeleteObject [
 
 { #category : #model }
 ObjectBrowserModel >> doDeleteVariable. [
-	self selectedObject removeVariable: self selectedVariable.
+	self selectedObject removeVariable: self selectedObjectAttribute.
 	self deselectVariables 
 	
 ]
@@ -167,17 +151,26 @@ ObjectBrowserModel >> errorHandler [
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> initialize [
 	super initialize.
-	self selectedObject: self nullObjectBrowserObject 
+	self selectedObjectBrowserVariable: NullOBVariable new.
 ]
 
 { #category : #model }
 ObjectBrowserModel >> methods [
- ^self selectedObject methods
+	 ^self selectedObject methods
 ]
 
 { #category : #model }
 ObjectBrowserModel >> nullObjectBrowserObject [
 	^NullObjectBrowserObject new
+]
+
+{ #category : #binding }
+ObjectBrowserModel >> objectBindings [
+	|bindings|
+	bindings := Dictionary new.
+	objectBrowser variables do:[:var |
+		bindings at: var name put: var pointsTo ].
+	^bindings 
 ]
 
 { #category : #accessing }
@@ -190,19 +183,14 @@ ObjectBrowserModel >> objectBrowser: anObject [
 	objectBrowser := anObject
 ]
 
-{ #category : #accessing }
-ObjectBrowserModel >> objectNames [
-	^self objects collect: [:obj | obj objectName]
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> objectBrowserVariables [
+	^self objectBrowser variables.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> objects [
 	^self objectBrowser objects.
-]
-
-{ #category : #model }
-ObjectBrowserModel >> obtenerNombreDeArchivo [
-	^UIManager default chooseFileMatching: #(st)
 ]
 
 { #category : #model }
@@ -231,14 +219,35 @@ ObjectBrowserModel >> selectedClass [
 
 { #category : #accessing }
 ObjectBrowserModel >> selectedObject [
-	^ selectedObject
+	^self selectedObjectBrowserVariable pointsTo
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserModel >> selectedObject: anObjectBrowserObject [ 
-	selectedObject := anObjectBrowserObject.
-	selectedVariable := nil.
-	selectedSelector := nil.
+ObjectBrowserModel >> selectedObjectAttribute [
+	^selectedVariable 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> selectedObjectAttribute: anOBVariable [
+	selectedVariable  := anOBVariable.
+	self changed.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> selectedObjectAttributes [
+	^self selectedObject variables
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> selectedObjectBrowserVariable [
+	^selectedObjectBrowserVariable
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> selectedObjectBrowserVariable: anOBVariable [
+	selectedObjectBrowserVariable  := anOBVariable.
+	selectedVariable := NullOBVariable new.
+	selectedSelector := NullOBMethod new.
 	self changed.
 ]
 
@@ -263,17 +272,6 @@ ObjectBrowserModel >> selectedSelectorCode [
 				(self selectedObject sourceCodeAt: self selectedSelector) ]
 ]
 
-{ #category : #accessing }
-ObjectBrowserModel >> selectedVariable [
-	^ selectedVariable 
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserModel >> selectedVariable: aVariableName [
-	selectedVariable := aVariableName.
-	self changed.
-]
-
 { #category : #view }
 ObjectBrowserModel >> selectorListEmpyText [
 | string|
@@ -295,5 +293,5 @@ ObjectBrowserModel >> showObjectGraph [
 
 { #category : #accessing }
 ObjectBrowserModel >> variables [
- ^self selectedObject variables
+	 ^self selectedObjectBrowserVariable pointsTo variables.
 ]

@@ -8,20 +8,42 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserTestCase >> tearDown [
-	ob objects do:[:o | o removeFromSystem ].
+ObjectBrowserTestCase >> setUp [
+	LOOPLesson currentLesson: LOOPLesson freeLesson.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserTestCase >> testCreateObject [
-	ObjectBrowser clean.
+ObjectBrowserTestCase >> tearDown [ 
+	ob clean
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserTestCase >> testCreateDuplicatedVariable [
+	| variableName |
+	variableName :='pepita'.
 	ob := ObjectBrowser new.
-	ob objects: OrderedCollection new.
-	ob createObject: 'testObject'.
-	self assert: 1 equals: (ob objects size).
-	self assert: 'testObject' equals: (ob objects anyOne name).
-	self assert: 'TestObject' equals: (ob objects anyOne realObject class name).
-	
-	"clean"
-	ob objects anyOne realObject class removeFromSystem.
+	ob createVariable: variableName .
+	self should: [ob createVariable: variableName ] raise: Error
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserTestCase >> testCreateVariable [
+	| variableName |
+	variableName :='pepita'.
+	ob := ObjectBrowser new.
+	ob createVariable: variableName .
+	self assert: (ob variableNamed: variableName) pointsTo class = ObjectBrowserObject.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserTestCase >> testRunGarbageCollector [
+	| variableName variableToPepita pepita |
+	variableName :='pepita'.
+	ob := ObjectBrowser new.
+	ob createVariable: variableName .
+	variableToPepita := ob variableNamed: variableName.
+	pepita := variableToPepita pointsTo.
+	variableToPepita desreference.
+	ob runGarbageCollector.
+	self assert:(ob objects includes: pepita) not
 ]

@@ -2,85 +2,88 @@ Class {
 	#name : #ObjectBrowserObjectTestCase,
 	#superclass : #TestCase,
 	#instVars : [
-		'ob'
+		'ob',
+		'obo',
+		'otroObo'
 	],
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 ObjectBrowserObjectTestCase >> setUp [
+	obo := ObjectBrowserObject new.
+]
+
+{ #category : #running }
+ObjectBrowserObjectTestCase >> tearDown [
 	ObjectBrowser clean.
+	obo removeClassFromSystem.
+	otroObo ifNotNil: [otroObo removeClassFromSystem].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'attribute-tests' }
+ObjectBrowserObjectTestCase >> testAddDuplicatedVariable [
+	| varName |
+	varName := 'energia'.
+	obo addVariable: varName .
+	self should: [obo addVariable: varName] raise:Error.
+	self assert: obo variables size = 1.
+]
+
+{ #category : #'method-tests' }
+ObjectBrowserObjectTestCase >> testAddMethod [
+	| method |
+	method := 'unMetodo ^2'.
+	obo compileMethod: method.
+	self assert: obo methods size = 1.
+	self assert: (obo hasMethod: #unMetodo).
+]
+
+{ #category : #'method-tests' }
+ObjectBrowserObjectTestCase >> testAddSintacticBadMethod [
+	| method |
+	method := 'unMetodo ^2['.
+	self should:[obo compileMethod: method] raise: SyntaxErrorNotification .
+]
+
+{ #category : #'attribute-tests' }
 ObjectBrowserObjectTestCase >> testAddVariable [
-	| object name variableName |
-	name:= 'pepito'.
-	variableName := 'polillo'.
-	ob := ObjectBrowser new.
-	ob objects: OrderedCollection new.
-	object := ob createObject: name.
-	object addVariable: variableName.
-	self assert: (object variables includes: variableName).
+	| varName |
+	varName := 'energia'.
+	obo addVariable: varName .
+	self assert: obo variables size = 1.
+	self assert: (obo hasVariable: varName).
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> testCloneObject [
-	| name object cloneName clone |
-	ob := ObjectBrowser new.
-	name := 'pepito'.
-	cloneName := 'sarasin'.
-	object := ob createObject: name.
-	clone := object cloneWithName: cloneName.
-	
-	self assert: (ob objects includes: clone).
-	self assert: cloneName equals: (clone name).
-	self assert: (object realClass) equals: (clone realClass superclass).
+{ #category : #'clone-tests' }
+ObjectBrowserObjectTestCase >> testCloneClassName [
+	otroObo := obo clone.
+	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> testCompileMethod [
-	| object name method |
-	name:= 'pepito'.
-	method := 'sumaEntre: a y: b ^a+b'.
-	ob := ObjectBrowser new.
-	object := ob createObject: name.
-	object compileMethod: method notifying: nil.
-	self assert: (object hasMethod: 'sumaEntre:y:').
+{ #category : #'clone-tests' }
+ObjectBrowserObjectTestCase >> testCloneHasDifferentClass [
+	otroObo := obo clone.
+	self assert: (obo realClass ~= otroObo realClass).
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> testNewObjectBrowserObject [
-	| name object realObject |
-	ob := ObjectBrowser new.
-	name := 'pepito'.
-	object := ob createObject: 'pepito'.
-	self assert: (object objectBrowser objects includes: object).
-	self assert: name equals: object name.
+{ #category : #'clone-tests' }
+ObjectBrowserObjectTestCase >> testClonePrototype [
+	otroObo := obo clone.
+	self assert: (obo == otroObo prototype).
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> testRemoveMethod [
-	| object name method |
-	name:= 'pepito'.
-	method := 'sumaEntre: a y: b ^a+b'.
-	ob := ObjectBrowser new.
-	object := ob createObject: name.
-	object compileMethod: method notifying: nil.
-	self assert: (object hasMethod: #sumaEntre:y:).
-	object removeMethod: #sumaEntre:y:.
-	self assert: ((object hasMethod: #sumaEntre:y:) not).
+{ #category : #'realClass-tests' }
+ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectClass [
+	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserObjectTestCase >> testRemoveVariable [
-	| object name variableName |
-	name:= 'pepito'.
-	variableName := 'polillo'.
-	ob := ObjectBrowser new.
-	object := ob createObject: name.
-	object addVariable: variableName.
-	self assert: (object hasVariable: variableName).
-	object removeVariable: variableName.
-	self assert: ((object hasVariable: variableName) not).
+{ #category : #'method-tests' }
+ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectMethods [
+	self assert: (obo methods isEmpty).
+]
+
+{ #category : #'attribute-tests' }
+ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectVariables [
+	self assert: (obo variables isEmpty).
 ]

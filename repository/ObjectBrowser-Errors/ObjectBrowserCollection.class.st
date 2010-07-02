@@ -5,9 +5,46 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> new [
+	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> new: setName [
-	^self new objectName: setName;
-		realObject: SimpleSet new
+	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newBag [
+	^self basicNew	realObject: SimpleCollection newBag; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newBag: theName [
+	^self newSet objectName: theName;
+		realObject: SimpleCollection newBag.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newOrdered [
+	^self basicNew	realObject: SimpleOrderedCollection newOrdered; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newOrdered: thetName [
+	^self newSet objectName: thetName;
+		realObject: SimpleOrderedCollection newOrdered.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newSet [
+	^self basicNew	realObject: SimpleCollection newSet; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newSet: thetName [
+	^self newSet objectName: thetName;
+		realObject: SimpleCollection newSet.
 ]
 
 { #category : #'as yet unclassified' }
@@ -27,7 +64,6 @@ ObjectBrowserCollection >> addRelationsToGraph: aGraph [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addToGraph: aGraph [
 	self addSelfToGraph: aGraph.
-"	self realObject do:[:o | o addToGraph:aGraph]"
 ]
 
 { #category : #'as yet unclassified' }
@@ -72,8 +108,7 @@ ObjectBrowserCollection >> methodsFor: aCategory [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> printString [
-	^super printString
-"	^self realObject printString"
+	^'a Collection'.
 ]
 
 { #category : #'as yet unclassified' }

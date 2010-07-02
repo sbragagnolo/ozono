@@ -21,6 +21,12 @@ NullObjectBrowserObject >> compileMethod: aText [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
+
+	self error: 'No se puede agregar el método. Ningún objeto está seleccionado'.
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> isNil [
 	^true
 ]
@@ -38,7 +44,7 @@ NullObjectBrowserObject >> removeFromSystem [
 
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> sourceCodeAt: aSelector [ 
-	^self error: 'Esto no deberia pasar - El metodo no esta definido en la jerarquia de prototipo: ', aSelector asString
+	^''
 ]
 
 { #category : #'as yet unclassified' }
