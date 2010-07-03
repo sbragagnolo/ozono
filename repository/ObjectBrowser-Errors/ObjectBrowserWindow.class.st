@@ -5,7 +5,8 @@ Class {
 		'objectBrowser',
 		'methodEditor',
 		'methodEditorButton',
-		'workspaceButton'
+		'workspaceButton',
+		'garbageCollectionButton'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -21,6 +22,16 @@ ObjectBrowserWindow class >> menuCommandOn: aBuilder [
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow class >> show: anObjectBrowser [
 	self new show: anObjectBrowser 
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> buildGarbageCollectionButton [
+	garbageCollectionButton := PluggableButtonMorph
+		on: self objectBrowser 
+		getState: nil
+		action: #runGarbageCollector
+		label: #garbageCollectorButtonLabel.
+	^garbageCollectionButton
 ]
 
 { #category : #view }
@@ -96,7 +107,7 @@ ObjectBrowserWindow >> buildVariableList [
 ObjectBrowserWindow >> buildWorkspaceButton [
 	workspaceButton := PluggableButtonMorph
 		on: self
-		getState: #isWorkspaceSelected
+		getState: nil
 		action: #showWorkspace
 		label: #workspaceButtonLabel.
 	^workspaceButton
@@ -121,20 +132,18 @@ ObjectBrowserWindow >> createView [
 		addMorph: self buildWorkspaceButton
 		frame: (0 @ hSepFrac corner: 0.25 @ (hSepFrac + 0.1));
 		
+		addMorph: self buildGarbageCollectionButton
+		frame: (0.26 @ hSepFrac corner: 0.51 @ (hSepFrac + 0.1));
+		
 		addMorph: self buildObjectGraphButton
 		frame: (0.56 @ hSepFrac corner: 0.81 @ (hSepFrac + 0.1));
 		
 		addMorph: self buildMethodEditor
 		frame: (0 @ (hSepFrac + 0.1) corner: 1 @ 1);
 		
-		position: 100 @ 100.
+		center: World center.
 	
 	^window.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserWindow >> isWorkspaceSelected [
-	^false
 ]
 
 { #category : #view }
@@ -161,9 +170,10 @@ ObjectBrowserWindow >> show: anObjectBrowser [
 
 { #category : #view }
 ObjectBrowserWindow >> showWorkspace [
-	LOOPWorkspace new 
+	(LOOPWorkspace new 
 		setBindings: objectBrowser objectBindings; 
-		openLabel: LOOPLesson currentLesson title, ' - Workspace'
+		openLabel: LOOPLesson currentLesson title, ' - Workspace';
+		containingWindow) center: World center.
 ]
 
 { #category : #view }

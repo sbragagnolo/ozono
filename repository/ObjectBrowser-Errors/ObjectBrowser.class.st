@@ -5,17 +5,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowser class >> clean [
-	Variables do: [:var | var pointsTo removeClassFromSystem].
-	Variables := OrderedCollection new.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowser class >> objects [
-	^Objects
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowser class >> open [
 	^self new openInWorld; yourself
 ]
@@ -27,11 +16,6 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> clean [
-	self objects do:[:o | o removeClassFromSystem ].
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowser >> createVariable: aVariableNameString [
 	| newVariable |
 	self validateVariableName: aVariableNameString.
@@ -40,12 +24,7 @@ ObjectBrowser >> createVariable: aVariableNameString [
 		name: aVariableNameString;
 		pointTo: ObjectBrowserObject new;
 		yourself.
-	LOOPLesson currentLesson addVariable: newVariable.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowser >> dereferencedObjects [
-	self shouldBeImplemented
+	self lesson addVariable: newVariable.
 ]
 
 { #category : #'initialize-release' }
@@ -54,12 +33,11 @@ ObjectBrowser >> initialize [
 	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
 	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
 	Smalltalk at:#ordered ifAbsentPut: (OBBaseSetCollection new).
-	self initializeObjectBrowser.
 ]
 
-{ #category : #'initialize-release' }
-ObjectBrowser >> initializeObjectBrowser [
-	Variables := Variables ifNil: [OrderedCollection new].
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> lesson [
+	^LOOPLesson currentLesson
 ]
 
 { #category : #'as yet unclassified' }
@@ -69,7 +47,7 @@ ObjectBrowser >> objectNames [
 
 { #category : #ObjectBrowser }
 ObjectBrowser >> objects [
-	^LOOPLesson currentLesson objects
+	^self lesson objects
 ]
 
 { #category : #'initialize-release' }
@@ -86,7 +64,7 @@ ObjectBrowser >> removeObject: anObject [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
-	LOOPLesson currentLesson runGarbageCollector.
+	self lesson runGarbageCollector.
 ]
 
 { #category : #'as yet unclassified' }
@@ -102,10 +80,10 @@ ObjectBrowser >> validateVariableName: aVariableNameString [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> variableNamed: aVariableNameString [
-	^LOOPLesson currentLesson variableNamed: aVariableNameString.
+	^self lesson variableNamed: aVariableNameString.
 ]
 
 { #category : #ObjectBrowser }
 ObjectBrowser >> variables [
-	^LOOPLesson currentLesson variables
+	^self lesson variables
 ]

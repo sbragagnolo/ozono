@@ -148,6 +148,11 @@ ObjectBrowserModel >> errorHandler [
 	^ErrorHandler default
 ]
 
+{ #category : #model }
+ObjectBrowserModel >> garbageCollectorButtonLabel [
+	^'Run Garbage Collector'
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> initialize [
 	super initialize.
@@ -210,6 +215,11 @@ ObjectBrowserModel >> request: aTitle default: aDefaultValue [
 	^ UIManager default
 		request: aTitle
 		initialAnswer: aDefaultValue
+]
+
+{ #category : #model }
+ObjectBrowserModel >> runGarbageCollector [
+	self objectBrowser runGarbageCollector.
 ]
 
 { #category : #accessing }

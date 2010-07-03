@@ -58,6 +58,15 @@ LOOPLesson >> addVariable: aVariable [
 ]
 
 { #category : #accessing }
+LOOPLesson >> clean [
+	"hago una copia de la colección para no modificar la original.  Remuevo de la coleccion original cada objeto y le digo que remueva su clase."
+	
+	self objects copy do:[:o | o removeClassFromSystem.].
+	self objects removeAll.
+	self variables removeAll.
+]
+
+{ #category : #accessing }
 LOOPLesson >> dereferencedObjects [
 	^self objects select:[:o | (self referencesObject: o ) not].
 ]
