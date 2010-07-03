@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserVariableTestCase,
-	#superclass : #TestCase,
+	#superclass : #LoopTestCase,
 	#instVars : [
 		'variable'
 	],
@@ -9,6 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ObjectBrowserVariableTestCase >> setUp [
+	super setUp.
 	variable := OBVariable new name: 'pepita'.
 ]
 

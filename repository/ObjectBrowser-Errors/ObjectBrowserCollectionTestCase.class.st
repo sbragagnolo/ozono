@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollectionTestCase,
-	#superclass : #TestCase,
+	#superclass : #LoopTestCase,
 	#category : #'ObjectBrowser-Tests'
 }
 
@@ -13,6 +13,7 @@ ObjectBrowserCollectionTestCase >> agregarRepetidos: coleccion [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> setUp [
+	super setUp.
 	Smalltalk at:#set put: (OBBaseSetCollection new). "esto deberia de estar en el initialize de clase del object browser"	
 	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new). "esto deberia de estar en el initialize de clase del object browser"
 	Smalltalk at:#ordered put: OBBaseOrderedCollection new. "esto deberia de estar en el initialize de clase del object browser"
@@ -35,11 +36,6 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	self agregarRepetidos: sinRepetidos .
 	self assert: 1 equals: sinRepetidos size.
 	
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollectionTestCase >> testCloneCollectionNameExists [
-	set cloneWithName: 'unSet'.
 ]
 
 { #category : #'as yet unclassified' }

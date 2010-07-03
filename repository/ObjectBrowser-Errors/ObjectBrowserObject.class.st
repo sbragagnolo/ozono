@@ -53,7 +53,7 @@ ObjectBrowserObject class >> new [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject class >> newFrom: anObo [
 	| klass |
-	klass := self createNewObjectBrowserObjectClassFrom: anObo class.
+	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass.
 	^super new
 		realObject: klass new;
 		prototype: anObo;
@@ -76,18 +76,6 @@ ObjectBrowserObject >> addVariable: variableName [
 { #category : #printing }
 ObjectBrowserObject >> clone [
 	^self class newFrom: self.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserObject >> cloneWithName: aName [ 
-	| obo |
-	obo := ObjectBrowserObject
-				createObjectBrowserObjectWithName: aName
-				andSuperclass: self realClass
-				inObjectBrowser: self objectBrowser.
-	obo prototype: self.
-	self changed.
-	^ obo
 ]
 
 { #category : #printing }

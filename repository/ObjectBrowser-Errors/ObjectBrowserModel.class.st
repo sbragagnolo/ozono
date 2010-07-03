@@ -54,17 +54,6 @@ ObjectBrowserModel >> createAttribute [
 ]
 
 { #category : #model }
-ObjectBrowserModel >> createClone [
-	| objectName |
-	(self errorHandler
-		evaluate: [
-			self selectedObject isNil ifTrue:[self error:'Debe seleccionar un objeto para clonar'].
-			objectName := self obtenerNombreDeObjeto.
-			self selectedObject cloneWithName: objectName]).
-	self changed
-]
-
-{ #category : #model }
 ObjectBrowserModel >> createObject [
 	| objectName |
 	(self errorHandler

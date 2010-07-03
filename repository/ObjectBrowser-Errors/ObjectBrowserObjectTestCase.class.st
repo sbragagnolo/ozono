@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserObjectTestCase,
-	#superclass : #TestCase,
+	#superclass : #LoopTestCase,
 	#instVars : [
 		'ob',
 		'obo',
@@ -11,14 +11,17 @@ Class {
 
 { #category : #running }
 ObjectBrowserObjectTestCase >> setUp [
+	super setUp.
 	obo := ObjectBrowserObject new.
 ]
 
 { #category : #running }
 ObjectBrowserObjectTestCase >> tearDown [
-	ObjectBrowser clean.
+	super tearDown.
 	obo removeClassFromSystem.
+	obo := nil.
 	otroObo ifNotNil: [otroObo removeClassFromSystem].
+	otroObo := nil.
 ]
 
 { #category : #'attribute-tests' }
