@@ -1,9 +1,9 @@
 Class {
-	#name : #ObjectBrowserObject113,
+	#name : #ObjectBrowserObject114,
 	#superclass : #ObjectBrowserClass,
 	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'object browser' }
-ObjectBrowserObject113 >> clonarUnaColeccion [ ^conjunto clone
+ObjectBrowserObject114 >> clonarUnaColeccion [ ^conjunto clone
 ]

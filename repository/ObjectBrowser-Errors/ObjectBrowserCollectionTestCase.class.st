@@ -21,7 +21,7 @@ ObjectBrowserCollectionTestCase >> setUp [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 	|miBolsa|
-	miBolsa := bolsa clone.
+	miBolsa := bag clone.
 	self assert: 0 equals: miBolsa size.
 	self agregarRepetidos: miBolsa .
 	self assert: 2 equals: miBolsa size.
@@ -31,7 +31,7 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	|sinRepetidos|	
-	sinRepetidos := conjunto clone .
+	sinRepetidos := set clone .
 	self agregarRepetidos: sinRepetidos .
 	self assert: 1 equals: sinRepetidos size.
 	
@@ -39,38 +39,35 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCloneCollectionNameExists [
-	conjunto cloneWithName: 'unSet'.
-	conjunto cloneWithName: 'unSet'.
+	set cloneWithName: 'unSet'.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateBagCollection [
 	|miConjunto |
-	Smalltalk at:#bolsa ifAbsentPut: (OBBaseBagCollection new). 
-	miConjunto:= bolsa clone.
+	miConjunto:= bag clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateOrderedCollection [
 	|miConjunto |
-	miConjunto:= conjuntoOrdenado clone.
+	miConjunto:= ordered clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateSetCollection [
 	|miConjunto |
-	miConjunto:= conjunto clone.
+	miConjunto:= set clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollectionTestCase >> testCreateSetCollectionFromObject [
-	| method obo |
-	obo := ObjectBrowserObject new.
-	method := 'clonarUnaColeccion ^conjunto clone'.
-	obo compileMethod: method.
-	self assert: obo methods size = 1.
-	self assert: (obo hasMethod: #unMetodo).
+ObjectBrowserCollectionTestCase >> testObtainFirst [
+	|miConjunto |
+	miConjunto:= ordered clone.
+	miConjunto add: 1.
+	miConjunto add: 2.
+	self assert: 1 equals: miConjunto first .
 ]
