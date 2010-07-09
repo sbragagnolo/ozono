@@ -26,3 +26,8 @@ ObjectBrowserSimpleCollectionTestCase >> setUp [
 	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
 	Smalltalk at:#ordered put: OBBaseOrderedCollection new. 
 ]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserSimpleCollectionTestCase >> tearDown [ 
+	(ObjectBrowserClass subclasses select:[:c | c name beginsWith: 'ObjectBrowserObject']) do:[:c | c removeFromSystem ].
+]
