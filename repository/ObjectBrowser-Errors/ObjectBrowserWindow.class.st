@@ -39,7 +39,7 @@ ObjectBrowserWindow >> buildMethodEditor [
 	| model |
 	methodEditor := (PluggableTextMorph
 		on: (model := MethodEditorModel newOn: self objectBrowser )
-		text: #selectedSelectorCode
+		text: #selectedMethodCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.

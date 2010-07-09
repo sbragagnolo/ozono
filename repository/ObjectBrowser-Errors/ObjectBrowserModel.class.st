@@ -24,7 +24,7 @@ ObjectBrowserModel >> assertDeletionConfirmed [
 
 { #category : #model }
 ObjectBrowserModel >> assertMethodSelected [
-	self selectedSelector ifNil: [self error: 'Hay que elegir el método a borrar'].
+	self selectedMethod ifNil: [self error: 'Hay que elegir el método a borrar'].
 ]
 
 { #category : #model }
@@ -75,8 +75,8 @@ ObjectBrowserModel >> createSet [
 ObjectBrowserModel >> deleteMethod [
 	self errorHandler
 		evaluate: [self assertMethodSelected.
-			self deletionConfirmed
-				ifTrue: [self doDeleteMethod]].
+				self deletionConfirmed
+					ifTrue: [self doDeleteMethod]].
 	self changed.
 ]
 
@@ -103,7 +103,7 @@ ObjectBrowserModel >> deselectObject [
 
 { #category : #model }
 ObjectBrowserModel >> deselectSelector [
-	self selectedSelector: nil.
+	self selectedMethod: nil.
 ]
 
 { #category : #model }
@@ -113,7 +113,7 @@ ObjectBrowserModel >> deselectVariables [
 
 { #category : #model }
 ObjectBrowserModel >> doDeleteMethod [
-	self selectedObject removeMethod: self selectedSelector.
+	self selectedObject removeMethod: self selectedMethod.
 	self deselectSelector
 ]
 
@@ -217,6 +217,27 @@ ObjectBrowserModel >> selectedClass [
 ]
 
 { #category : #accessing }
+ObjectBrowserModel >> selectedMethod [
+	^ selectedSelector
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> selectedMethod: aMethod [
+	selectedSelector := aMethod.
+	self changed.
+]
+
+{ #category : #accessing }
+ObjectBrowserModel >> selectedMethodCode [
+	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
+
+	^(self selectedMethod isNil)
+			ifTrue: [self selectorListEmpyText]
+			ifFalse: [
+				(self selectedObject sourceCodeAt: self selectedMethod) ]
+]
+
+{ #category : #accessing }
 ObjectBrowserModel >> selectedObject [
 	^self selectedObjectBrowserVariable pointsTo
 ]
@@ -248,27 +269,6 @@ ObjectBrowserModel >> selectedObjectBrowserVariable: anOBVariable [
 	selectedVariable := NullOBVariable new.
 	selectedSelector := NullOBMethod new.
 	self changed.
-]
-
-{ #category : #accessing }
-ObjectBrowserModel >> selectedSelector [
-	^ selectedSelector
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserModel >> selectedSelector: aSelector [
-	selectedSelector := aSelector.
-	self changed.
-]
-
-{ #category : #accessing }
-ObjectBrowserModel >> selectedSelectorCode [
-	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
-
-	^(self selectedSelector isNil)
-			ifTrue: [self selectorListEmpyText]
-			ifFalse: [
-				(self selectedObject sourceCodeAt: self selectedSelector) ]
 ]
 
 { #category : #view }

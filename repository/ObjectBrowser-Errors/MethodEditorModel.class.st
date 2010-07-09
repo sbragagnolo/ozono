@@ -39,7 +39,7 @@ MethodEditorModel >> menu: unMenu [
 
 { #category : #'as yet unclassified' }
 MethodEditorModel >> methodCode [
-	^self model selectedSelector
+	^self model selectedMethod
 ]
 
 { #category : #'as yet unclassified' }
@@ -50,6 +50,6 @@ MethodEditorModel >> methodEditorMorph: aMorph [
 { #category : #'as yet unclassified' }
 MethodEditorModel >> update: anObject [ 
 	super update: anObject.
-	self changed: #selectedSelectorCode.
+	self changed: #selectedMethodCode.
 	self changed: #listModel
 ]

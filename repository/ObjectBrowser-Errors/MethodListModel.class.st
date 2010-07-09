@@ -23,10 +23,10 @@ MethodListModel >> methods [
 
 { #category : #'as yet unclassified' }
 MethodListModel >> selectedItem [
-	^self model selectedSelector
+	^self model selectedMethod
 ]
 
 { #category : #'as yet unclassified' }
-MethodListModel >> selectedItem: aSelector [
-	self model selectedSelector: aSelector
+MethodListModel >> selectedItem: aMethod [
+	self model selectedMethod: aMethod
 ]

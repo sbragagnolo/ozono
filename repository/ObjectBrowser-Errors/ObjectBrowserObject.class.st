@@ -238,8 +238,9 @@ ObjectBrowserObject >> removeFromSystem [
 ]
 
 { #category : #accessing }
-ObjectBrowserObject >> removeMethod: aSelector [
-	self realClass removeSelector: aSelector.
+ObjectBrowserObject >> removeMethod: aMethod [
+	self realClass removeSelector: aMethod selector.
+	self myClassMethods remove: aMethod.
 	self changed.
 ]
 
