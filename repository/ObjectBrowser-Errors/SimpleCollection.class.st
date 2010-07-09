@@ -2,8 +2,7 @@ Class {
 	#name : #SimpleCollection,
 	#superclass : #ObjectBrowserClass,
 	#instVars : [
-		'colection',
-		'prototype'
+		'colection'
 	],
 	#category : #'ObjectBrowser-Model'
 }
@@ -41,11 +40,6 @@ SimpleCollection >> add: anObject [
 	colection add: anObject
 ]
 
-{ #category : #initialization }
-SimpleCollection >> addAll: aCollection [
-	colection addAll: aCollection.
-]
-
 { #category : #collection }
 SimpleCollection >> allSatisfy: aBlock [
 	^colection allSatisfy: aBlock
@@ -58,7 +52,7 @@ SimpleCollection >> anySatisfy: aBlock [
 
 { #category : #collection }
 SimpleCollection >> collect: aBlock [
-	^self prototype clone addAll: (colection collect: aBlock)
+	^self class new: (colection collect: aBlock)
 ]
 
 { #category : #collection }
@@ -73,20 +67,17 @@ SimpleCollection >> includes: anObject [
 
 { #category : #initialization }
 SimpleCollection >> initializeBag [
-	colection := Bag  new.
-	prototype:= bag.
+	colection := Bag  new
 ]
 
 { #category : #initialization }
 SimpleCollection >> initializeOrdered [ 
-	colection := OrderedCollection  new.
-	prototype := ordered.
+	colection := OrderedCollection  new
 ]
 
 { #category : #initialization }
 SimpleCollection >> initializeSet [
-	colection := Set new.
-	prototype := set.
+	colection := Set new
 ]
 
 { #category : #collection }
@@ -112,11 +103,6 @@ SimpleCollection >> printString [
 ]
 
 { #category : #collection }
-SimpleCollection >> prototype [ 
-	^prototype .
-]
-
-{ #category : #collection }
 SimpleCollection >> remove: anObject [ 
 	colection
 		remove: anObject
@@ -125,7 +111,12 @@ SimpleCollection >> remove: anObject [
 
 { #category : #collection }
 SimpleCollection >> select: aBlock [
-	^self prototype clone addAll:  (colection select: aBlock)
+	^self class new: (colection select: aBlock)
+]
+
+{ #category : #collection }
+SimpleCollection >> set: aSet [
+	colection := aSet.
 ]
 
 { #category : #collection }

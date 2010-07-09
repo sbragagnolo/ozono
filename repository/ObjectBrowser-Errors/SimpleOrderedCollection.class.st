@@ -4,57 +4,57 @@ Class {
 	#category : #'ObjectBrowser-Model'
 }
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> add: newObject after: oldObject [ 
 	"Add the argument, newObject, as an element of the receiver. Put it in 
 	the sequence just succeeding oldObject. Answer newObject."
 	^colection add: newObject after: oldObject .
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> add: newObject afterIndex: index [ 
 	"Add the argument, newObject, as an element of the receiver. Put it in 
 	the sequence just after index. Answer newObject."
 	^colection add: newObject afterIndex: index 
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> add: newObject before: oldObject [ 
 	"Add the argument, newObject, as an element of the receiver. Put it in 
 	the sequence just preceding oldObject. Answer newObject."
 	^colection add: newObject before: oldObject 
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> add: newObject beforeIndex: index [ 
 	"Add the argument, newObject, as an element of the receiver. Put it in 
 	the sequence just after index. Answer newObject."
 	^colection add: newObject beforeIndex: index 
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> at: anInteger [ 
 	"Answer my element at index anInteger. at: is used by a knowledgeable
 	client to access an existing element"
 	^colection at: anInteger .
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> at: anInteger put: anObject [ 
 	^colection at: anInteger put: anObject 
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> first [ 
 	^colection first 
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> last [ 
 	^colection last
 ]
 
-{ #category : #collection }
+{ #category : #'as yet unclassified' }
 SimpleOrderedCollection >> removeAt: index [
 	^colection removeAt: index
 ]

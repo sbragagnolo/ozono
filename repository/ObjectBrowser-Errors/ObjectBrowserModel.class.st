@@ -7,7 +7,8 @@ Class {
 		'selectedSelector',
 		'selectedVariable',
 		'objectBrowser',
-		'selectedObjectBrowserVariable'
+		'selectedObjectBrowserVariable',
+		'variableBindings'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -59,7 +60,8 @@ ObjectBrowserModel >> createObject [
 	| objectName |
 	(self errorHandler
 		evaluate: [objectName := self obtenerNombreDeObjeto.
-			objectBrowser createVariable: objectName]).
+			objectBrowser createVariable: objectName.
+			self updateVariableBindings.]).
 	self changed
 ]
 
@@ -147,6 +149,7 @@ ObjectBrowserModel >> garbageCollectorButtonLabel [
 ObjectBrowserModel >> initialize [
 	super initialize.
 	self selectedObjectBrowserVariable: NullOBVariable new.
+	variableBindings  := Dictionary new.
 ]
 
 { #category : #model }
@@ -161,11 +164,9 @@ ObjectBrowserModel >> nullObjectBrowserObject [
 
 { #category : #binding }
 ObjectBrowserModel >> objectBindings [
-	|bindings|
-	bindings := Dictionary new.
 	objectBrowser variables do:[:var |
-		bindings at: var name put: var ].
-	^bindings 
+		variableBindings at: var name put: var ].
+	^variableBindings 
 ]
 
 { #category : #accessing }
@@ -298,6 +299,17 @@ ObjectBrowserModel >> selectorListEmpyText [
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> showObjectGraph [
 	self objectBrowser showObjectGraph
+]
+
+{ #category : #binding }
+ObjectBrowserModel >> updateVariableBindings [ 
+	objectBrowser variables do:[:var |
+		self variableBindings at: var name put: var ].
+]
+
+{ #category : #binding }
+ObjectBrowserModel >> variableBindings [
+	^variableBindings 
 ]
 
 { #category : #accessing }

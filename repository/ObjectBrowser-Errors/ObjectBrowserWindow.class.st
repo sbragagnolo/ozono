@@ -171,7 +171,7 @@ ObjectBrowserWindow >> show: anObjectBrowser [
 { #category : #view }
 ObjectBrowserWindow >> showWorkspace [
 	(LOOPWorkspace new 
-		setBindings: objectBrowser objectBindings; 
+		setBindings: objectBrowser variableBindings; 
 		openLabel: LOOPLesson currentLesson title, ' - Workspace';
 		containingWindow) center: World center.
 ]
