@@ -71,6 +71,11 @@ LOOPLesson >> dereferencedObjects [
 	^self objects select:[:o | (self referencesObject: o ) not].
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> hasVariable: aVariable [
+	^self variables includes: aVariable 
+]
+
 { #category : #accessing }
 LOOPLesson >> objects [
 	^objects ifNil: [objects := OrderedCollection new].

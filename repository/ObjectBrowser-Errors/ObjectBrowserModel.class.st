@@ -6,7 +6,8 @@ Class {
 		'selectedObject',
 		'selectedSelector',
 		'selectedVariable',
-		'objectBrowser'
+		'objectBrowser',
+		'selectedObjectBrowserVariable'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -163,7 +164,7 @@ ObjectBrowserModel >> objectBindings [
 	|bindings|
 	bindings := Dictionary new.
 	objectBrowser variables do:[:var |
-		bindings at: var name put: var pointsTo ].
+		bindings at: var name put: var ].
 	^bindings 
 ]
 

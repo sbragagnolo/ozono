@@ -9,6 +9,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+OBVariable >> <- anObject [
+	(LOOPLesson currentLesson hasVariable: anObject) 
+		ifTrue:[self pointTo: anObject pointsTo]
+		ifFalse:[self pointTo: (ObjectBrowserObject new realObject: anObject)]
+	
+	
+]
+
+{ #category : #'as yet unclassified' }
 OBVariable >> desreference [
 	self pointTo: nil
 ]
