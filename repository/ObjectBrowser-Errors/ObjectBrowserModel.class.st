@@ -199,6 +199,15 @@ ObjectBrowserModel >> removeFromSystem: anObjectBrowserObject [
 	anObjectBrowserObject removeFromSystem
 ]
 
+{ #category : #model }
+ObjectBrowserModel >> renameAttribute [
+	| attributeName |
+	(self errorHandler
+		evaluate: [attributeName := self request: 'Nombre de la variable' default: self selectedObjectAttribute  name.
+			self selectedObjectAttribute name: attributeName]).
+	self changed
+]
+
 { #category : #view }
 ObjectBrowserModel >> request: aTitle default: aDefaultValue [
 	^ UIManager default
