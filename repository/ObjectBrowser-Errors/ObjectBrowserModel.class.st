@@ -24,6 +24,13 @@ ObjectBrowserModel >> actionsForAttributeListWith: selectedAttribute [
 	^self selectedObject actionsForAttributeListWith: selectedAttribute
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> actionsForObjectVariableList [
+	^(OrderedCollection with: #('crear nuevo objeto' #createObject))
+		addAll: self selectedObject actionsForObjectVariableList;
+		asArray.
+]
+
 { #category : #model }
 ObjectBrowserModel >> assertDeletionConfirmed [
 	^UIManager default confirm: '¿Seguro que quiere eliminar el método?'
@@ -42,6 +49,18 @@ ObjectBrowserModel >> assertObjectSelected [
 { #category : #model }
 ObjectBrowserModel >> bindingOf: aString [ 
 	self error: 'deprecado'
+]
+
+{ #category : #model }
+ObjectBrowserModel >> cloneObject [
+	| objectName |
+	(self errorHandler
+		evaluate: [
+			self assertObjectSelected.
+			objectName := self obtenerNombreDeObjeto.
+			objectBrowser createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone.
+			self updateVariableBindings.]).
+	self changed
 ]
 
 { #category : #'as yet unclassified' }

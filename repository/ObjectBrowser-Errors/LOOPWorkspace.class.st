@@ -10,7 +10,7 @@ LOOPWorkspace >> bindingOf: aString [
 	bindings isNil
 		ifTrue: [self initializeBindings].
 	(bindings includesKey: aString)
-		ifTrue:[^ bindings associationAt: aString]
+		ifTrue:[^ (bindings associationAt: aString)]
 		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido'].
 	
 ]

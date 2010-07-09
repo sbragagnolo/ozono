@@ -10,6 +10,11 @@ NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> actionsForObjectVariableList [
+	^#()
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection [
 	"El NullObjectBrowserObject no debe agregarse a la coleccion de objetos"
 	^self

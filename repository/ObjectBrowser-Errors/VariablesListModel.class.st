@@ -6,13 +6,13 @@ Class {
 
 { #category : #'as yet unclassified' }
 VariablesListModel >> listMenu: aMenu shifted: shifted [ 
-	aMenu addList: #(
+	aMenu addList: (model actionsForObjectVariableList).
+	" aMenu addList: #(
 			#('crear nuevo objeto' #createObject) 
-"			#('crear nueva coleccion' #createSet) 
-			#('clonar' #createClone) 
-			#- 
+			#('clonar' #cloneObject) 
+		#- 
 			#('renombrar objeto' #renameObject)
-			#('eliminar objeto' #deleteObject)").
+			#('eliminar objeto' #deleteObject)"
 	^ aMenu
 ]
 

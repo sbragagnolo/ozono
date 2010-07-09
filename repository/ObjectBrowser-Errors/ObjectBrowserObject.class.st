@@ -68,6 +68,15 @@ ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	^actions asArray
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> actionsForObjectVariableList [
+	^#(
+		#('clonar' #cloneObject) 
+		#- "
+		#('renombrar objeto' #renameObject)
+		#('eliminar objeto' #deleteObject)").
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addInversePrototypeRelationship: references [
 

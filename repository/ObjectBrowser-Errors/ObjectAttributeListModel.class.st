@@ -6,12 +6,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 ObjectAttributeListModel >> listMenu: aMenu shifted: shifted [
-	| list |
 	"Los actions que se pueden hacer dependen del model"
-	list := 
-		model actionsForAttributeListWith: self selectedItem.
-	aMenu addList: list.
-	^ aMenu
+	^aMenu addList: (model actionsForAttributeListWith: self selectedItem)
 ]
 
 { #category : #'as yet unclassified' }

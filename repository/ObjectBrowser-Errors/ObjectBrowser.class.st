@@ -17,13 +17,18 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> createVariable: aVariableNameString [
+	self createVariable: aVariableNameString  referencingTo: ObjectBrowserObject new
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrowserObject [
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
 	newVariable := (OBVariable new)
-		originalName: aVariableNameString;
 		name: aVariableNameString;
-		pointTo: ObjectBrowserObject new;
+		originalName: aVariableNameString;
+		pointTo: anObjectBrowserObject;
 		yourself.
 	self lesson addVariable: newVariable.
 ]
