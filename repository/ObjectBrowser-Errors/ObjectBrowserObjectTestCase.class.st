@@ -90,3 +90,16 @@ ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectMethods [
 ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectVariables [
 	self assert: (obo variables isEmpty).
 ]
+
+{ #category : #'method-tests' }
+ObjectBrowserObjectTestCase >> testRemoveMethod [
+	| methodString method |
+	methodString := 'unMetodo ^2'.
+	obo compileMethod: methodString.
+	method := obo methodOfSelector: #unMetodo.
+	obo removeMethod: method.
+	
+	self assert: obo methods size = 0.
+	self assert: (obo hasMethod: #unMetodo) not.
+	self assert: (obo realClass includesSelector: method selector) not
+]

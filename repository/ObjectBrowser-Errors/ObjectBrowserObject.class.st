@@ -142,6 +142,11 @@ ObjectBrowserObject >> methodCategory: aSelector [
 ]
 
 { #category : #accessing }
+ObjectBrowserObject >> methodOfSelector: aSelector [
+	^self myClassMethods detect: [:m | m selector = aSelector ].
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> methods [
 	^(self myClassMethods union: prototype methods)
 ]
