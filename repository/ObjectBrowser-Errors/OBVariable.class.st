@@ -22,6 +22,18 @@ OBVariable >> desreference [
 	self pointTo: nil
 ]
 
+{ #category : #messages }
+OBVariable >> doesNotUnderstand: aMessage [
+	^self pointsTo perform: aMessage selector withArguments: aMessage arguments
+]
+
+{ #category : #messages }
+OBVariable >> errorNotIndexable [
+	"Create an error notification that the receiver is not indexable."
+
+	self error: ('Instances of {1} are not indexable' translated format: {self pointsTo printString})
+]
+
 { #category : #'as yet unclassified' }
 OBVariable >> isPointingTo: anObject [
 	^reference = anObject
