@@ -148,7 +148,7 @@ ObjectBrowserObject >> methods [
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassHasMethod: aSelector [
-	^self myClassMethodSelectors includes: aSelector 
+	^self myClassMethods includes: aSelector 
 ]
 
 { #category : #accessing }
@@ -255,11 +255,11 @@ ObjectBrowserObject >> size [
 ]
 
 { #category : #accessing }
-ObjectBrowserObject >> sourceCodeAt: aSelector [ 
-	^ (self myClassHasMethod: aSelector)
-		ifTrue: [(self realClass sourceCodeAt: aSelector)
+ObjectBrowserObject >> sourceCodeAt: aMethod [
+	^ (self myClassHasMethod: aMethod)
+		ifTrue: [(self realClass sourceCodeAt: aMethod selector)
 				makeSelectorBoldIn: self realClass]
-		ifFalse: [prototype sourceCodeAt: aSelector]
+		ifFalse: [prototype sourceCodeAt: aMethod]
 ]
 
 { #category : #accessing }

@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #'object browser' }
-ObjectBrowserObject1 >> displayString [
-	^'guille'
+ObjectBrowserObject1 >> amasdasd [
+	^2
+
+]
+
+{ #category : #'object browser' }
+ObjectBrowserObject1 >> messageSelectorAndArgumentNames [
+ ^2
 ]
