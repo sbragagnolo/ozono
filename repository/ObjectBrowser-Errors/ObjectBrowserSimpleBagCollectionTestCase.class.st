@@ -1,6 +1,8 @@
 Class {
 	#name : #ObjectBrowserSimpleBagCollectionTestCase,
 	#superclass : #ObjectBrowserSimpleCollectionTestCase,
+	#traits : 'OBSimpleCollectionTrait',
+	#classTraits : 'OBSimpleCollectionTrait classTrait',
 	#category : #'ObjectBrowser-Tests'
 }
 
@@ -20,5 +22,5 @@ ObjectBrowserSimpleBagCollectionTestCase >> expectedOnCollect [
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleBagCollectionTestCase >> setUp [ 
 	super setUp .
-	colection := bag clone.
+	self collection:  bag clone.
 ]

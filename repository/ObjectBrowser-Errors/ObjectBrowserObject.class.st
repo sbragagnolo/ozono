@@ -73,6 +73,16 @@ ObjectBrowserObject >> addVariable: variableName [
 	self changed.
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> at: index [
+	^self realObject at: index .
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> at: index put: obj [
+	^self realObject at: index put: obj.
+]
+
 { #category : #printing }
 ObjectBrowserObject >> clone [
 	^self class newFrom: self.
