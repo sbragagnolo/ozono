@@ -3,10 +3,20 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'reference'
+		'reference',
+		'originalName'
 	],
 	#category : #'ObjectBrowser-Model'
 }
+
+{ #category : #'as yet unclassified' }
+OBVariable class >> newNamed: variableName [
+
+	^self new
+		name: variableName;
+		originalName: variableName;
+		yourself 
+]
 
 { #category : #'as yet unclassified' }
 OBVariable >> <- anObject [
@@ -15,6 +25,12 @@ OBVariable >> <- anObject [
 		ifFalse:[self pointTo: (ObjectBrowserObject new realObject: anObject)]
 	
 	
+]
+
+{ #category : #'as yet unclassified' }
+OBVariable >> actionsForAttributeList [
+	^#(('renombar variable'		renameAttribute)
+		('eliminar variable'		deleteVariable))
 ]
 
 { #category : #'as yet unclassified' }
@@ -49,6 +65,11 @@ OBVariable >> name: aNameString [
 	name := aNameString
 ]
 
+{ #category : #accessing }
+OBVariable >> originalName: anObject [
+	originalName := anObject
+]
+
 { #category : #'as yet unclassified' }
 OBVariable >> pointTo: anObject [
 	reference := anObject
@@ -62,4 +83,15 @@ OBVariable >> pointsTo [
 { #category : #'as yet unclassified' }
 OBVariable >> printString [ 
 	^self name
+]
+
+{ #category : #'as yet unclassified' }
+OBVariable >> removeFrom: aRealClass [
+	aRealClass removeInstVarName: originalName.
+]
+
+{ #category : #'as yet unclassified' }
+OBVariable >> renameAs: aString [
+
+	self name: aString 
 ]

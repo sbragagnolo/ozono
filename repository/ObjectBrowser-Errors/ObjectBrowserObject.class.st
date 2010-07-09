@@ -60,6 +60,14 @@ ObjectBrowserObject class >> newFrom: anObo [
 		yourself.
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
+	| actions |
+	actions := OrderedCollection with: #('crear nueva variable'		createAttribute).
+	actions addAll: (selectedAttribute actionsForAttributeList).
+	^actions asArray
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addInversePrototypeRelationship: references [
 
@@ -69,7 +77,7 @@ ObjectBrowserObject >> addInversePrototypeRelationship: references [
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarName: variableName.
-	variables add: (OBVariable new name: variableName ; yourself ).
+	variables add: (OBVariable newNamed: variableName).
 	self changed.
 ]
 
@@ -260,8 +268,9 @@ ObjectBrowserObject >> removeMethod: aMethod [
 ]
 
 { #category : #accessing }
-ObjectBrowserObject >> removeVariable: variableName [
-	self realClass removeInstVarName: variableName.
+ObjectBrowserObject >> removeVariable: anAttribute [
+	anAttribute removeFrom: self realClass.
+	variables remove: anAttribute.
 	self changed.
 ]
 

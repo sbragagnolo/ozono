@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+NullOBVariable >> actionsForAttributeList [
+	^#()
+]
+
+{ #category : #'as yet unclassified' }
 NullOBVariable >> pointsTo [
 	^NullObjectBrowserObject new.
 ]

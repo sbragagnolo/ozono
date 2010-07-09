@@ -21,6 +21,7 @@ ObjectBrowser >> createVariable: aVariableNameString [
 	self validateVariableName: aVariableNameString.
 	
 	newVariable := (OBVariable new)
+		originalName: aVariableNameString;
 		name: aVariableNameString;
 		pointTo: ObjectBrowserObject new;
 		yourself.

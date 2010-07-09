@@ -19,6 +19,11 @@ ObjectBrowserModel class >> newWithOB: anOB [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> actionsForAttributeListWith: selectedAttribute [
+	^self selectedObject actionsForAttributeListWith: selectedAttribute
+]
+
 { #category : #model }
 ObjectBrowserModel >> assertDeletionConfirmed [
 	^UIManager default confirm: '¿Seguro que quiere eliminar el método?'
@@ -111,7 +116,7 @@ ObjectBrowserModel >> deselectSelector [
 
 { #category : #model }
 ObjectBrowserModel >> deselectVariables [
-	self selectedVariable: nil.
+	self selectedObjectAttribute: NullOBVariable new.
 ]
 
 { #category : #model }
@@ -129,7 +134,7 @@ ObjectBrowserModel >> doDeleteObject [
 ]
 
 { #category : #model }
-ObjectBrowserModel >> doDeleteVariable. [
+ObjectBrowserModel >> doDeleteVariable [
 	self selectedObject removeVariable: self selectedObjectAttribute.
 	self deselectVariables 
 	
@@ -206,7 +211,7 @@ ObjectBrowserModel >> renameAttribute [
 	| attributeName |
 	(self errorHandler
 		evaluate: [attributeName := self request: 'Nombre de la variable' default: self selectedObjectAttribute  name.
-			self selectedObjectAttribute name: attributeName]).
+			self selectedObjectAttribute renameAs: attributeName]).
 	self changed
 ]
 

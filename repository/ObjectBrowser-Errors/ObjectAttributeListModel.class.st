@@ -6,10 +6,11 @@ Class {
 
 { #category : #'as yet unclassified' }
 ObjectAttributeListModel >> listMenu: aMenu shifted: shifted [
-	aMenu addList: #(
-		('crear nueva variable'		createAttribute)
-				-
-		('eliminar variable'		deleteAttribute)).
+	| list |
+	"Los actions que se pueden hacer dependen del model"
+	list := 
+		model actionsForAttributeListWith: self selectedItem.
+	aMenu addList: list.
 	^ aMenu
 ]
 
