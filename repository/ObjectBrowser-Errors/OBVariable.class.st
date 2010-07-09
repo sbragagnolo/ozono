@@ -34,6 +34,11 @@ OBVariable >> actionsForAttributeList [
 ]
 
 { #category : #'as yet unclassified' }
+OBVariable >> asStringOrText [ 
+	^self name
+]
+
+{ #category : #'as yet unclassified' }
 OBVariable >> desreference [
 	self pointTo: nil
 ]
@@ -82,7 +87,7 @@ OBVariable >> pointsTo [
 
 { #category : #'as yet unclassified' }
 OBVariable >> printString [ 
-	^self name
+	^self pointsTo printString 
 ]
 
 { #category : #'as yet unclassified' }
