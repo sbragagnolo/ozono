@@ -13,6 +13,11 @@ ObjectBrowserClass class >> new [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserClass >> displayString [
+	^'anObject'
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserClass >> objectBrowserObjectForMe [
 	"el OBO que me representa"
 
@@ -30,5 +35,5 @@ ObjectBrowserClass >> objectBrowserObjects [
 ObjectBrowserClass >> printOn: aStream [
 	"eso"
 
-	aStream nextPutAll: 'anObject'
+	aStream nextPutAll: self displayString
 ]

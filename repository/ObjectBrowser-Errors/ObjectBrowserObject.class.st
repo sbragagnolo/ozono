@@ -183,8 +183,8 @@ ObjectBrowserObject >> objectName: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject >> printString [
-	^ 'anObject'
+ObjectBrowserObject >> printOn: aStream [
+	self realObject printOn: aStream .
 ]
 
 { #category : #'as yet unclassified' }
