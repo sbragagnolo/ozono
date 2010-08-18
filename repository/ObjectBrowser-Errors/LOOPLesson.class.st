@@ -6,9 +6,11 @@ Class {
 		'title',
 		'objects'
 	],
-	#classInstVars : [
-		'Lessons',
+	#classVars : [
 		'CurrentLesson'
+	],
+	#classInstVars : [
+		'Lessons'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
@@ -19,18 +21,8 @@ LOOPLesson class >> addLesson: aLesson [
 ]
 
 { #category : #accessing }
-LOOPLesson class >> currentLesson [
-	^ CurrentLesson ifNil:[ CurrentLesson := self freeLesson ] ifNotNil:[ CurrentLesson ]
-]
-
-{ #category : #accessing }
-LOOPLesson class >> currentLesson: anObject [
-	CurrentLesson := anObject
-]
-
-{ #category : #accessing }
 LOOPLesson class >> freeLesson [
-	^self new title:'Free Lesson'
+	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
 	
 ]
 
@@ -46,14 +38,13 @@ LOOPLesson class >> lessons: anObject [
 
 { #category : #accessing }
 LOOPLesson class >> openFreeLesson [
-	self currentLesson: self freeLesson.
-	ObjectBrowser open.
+	(ObjectBrowser onLesson: self freeLesson) openInWorld
 	
 ]
 
 { #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
-	self variables add: aVariable.
+	self objectBrowserVariables add: aVariable.
 	self objects add: aVariable pointsTo.
 ]
 
@@ -72,8 +63,8 @@ LOOPLesson >> dereferencedObjects [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> hasVariable: aVariable [
-	^self variables includes: aVariable 
+LOOPLesson >> hasVariable: aVariableName [
+	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 
 { #category : #accessing }

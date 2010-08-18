@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'name',
 		'reference',
-		'originalName'
+		'originalName',
+		'lesson'
 	],
 	#category : #'ObjectBrowser-Model'
 }
@@ -20,7 +21,7 @@ OBVariable class >> newNamed: variableName [
 
 { #category : #'as yet unclassified' }
 OBVariable >> <- anObject [
-	(LOOPLesson currentLesson hasVariable: anObject) 
+	(lesson hasVariable: anObject) 
 		ifTrue:[self pointTo: anObject pointsTo]
 		ifFalse:[self pointTo: (ObjectBrowserObject new realObject: anObject)]
 	

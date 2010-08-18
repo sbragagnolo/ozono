@@ -13,20 +13,21 @@ MethodListModel >> listMenu: aMenu shifted: shifted [
 
 { #category : #'as yet unclassified' }
 MethodListModel >> listModel [
-	^self methods asOrderedCollection 
-]
-
-{ #category : #'as yet unclassified' }
-MethodListModel >> methods [
-	^self model methods
+	^self selectors asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
 MethodListModel >> selectedItem [
-	^self model selectedMethod
+	^self model selectedObjectSelector
 ]
 
 { #category : #'as yet unclassified' }
 MethodListModel >> selectedItem: aMethod [
-	self model selectedMethod: aMethod
+	self model selectedObjectSelector: aMethod.
+	self changed.
+]
+
+{ #category : #'as yet unclassified' }
+MethodListModel >> selectors [
+	^self model selectedObjectMethods
 ]

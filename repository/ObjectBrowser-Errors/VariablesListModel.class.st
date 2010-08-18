@@ -31,7 +31,7 @@ VariablesListModel >> selectedItem: anObjectBrowserVariable [
 	self model selectedObjectBrowserVariable: anObjectBrowserVariable
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 VariablesListModel >> variables [
-	^self model objectBrowserVariables
+	^self model variables
 ]

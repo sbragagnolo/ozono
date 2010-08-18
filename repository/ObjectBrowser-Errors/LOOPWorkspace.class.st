@@ -1,16 +1,26 @@
 Class {
 	#name : #LOOPWorkspace,
 	#superclass : #SHWorkspace,
+	#instVars : [
+		'lesson'
+	],
 	#category : #'ObjectBrowser-UI'
 }
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> bindingOf: aString [ 
-	"Variables must be always declared, and they are bound to the current object browser"
-	bindings isNil
-		ifTrue: [self initializeBindings].
-	(bindings includesKey: aString)
-		ifTrue:[^ (bindings associationAt: aString)]
+	(self hasBindingOf: aString)
+		ifTrue:[^ aString -> (lesson variableNamed: aString)]
 		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido'].
 	
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> hasBindingOf: aString [ 
+	^lesson hasVariable: aString.
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> lesson: aLesson [
+	lesson := aLesson.
 ]

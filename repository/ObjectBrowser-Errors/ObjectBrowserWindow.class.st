@@ -16,7 +16,7 @@ ObjectBrowserWindow class >> menuCommandOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #'Object Browser')
 		parent: #MostUsedTools;  
-		action: [ObjectBrowser open]
+		action: [LOOPLesson openFreeLesson]
 ]
 
 { #category : #'as yet unclassified' }
@@ -117,7 +117,7 @@ ObjectBrowserWindow >> buildWorkspaceButton [
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
-	window := (SystemWindow labelled: LOOPLesson currentLesson title, ' - Object Browser') model: self objectBrowser;
+	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') model: self objectBrowser;
 		
 		addMorph: self buildVariableList 
 		frame: (0 @ 0 corner: 0.33 @ hSepFrac);
@@ -163,7 +163,7 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 ObjectBrowserWindow >> show: anObjectBrowser [ 
-	self objectBrowser: (ObjectBrowserModel newWithOB: anObjectBrowser).
+	self objectBrowser: anObjectBrowser.
 	self createView openInWorld.
 	
 ]
@@ -171,8 +171,8 @@ ObjectBrowserWindow >> show: anObjectBrowser [
 { #category : #view }
 ObjectBrowserWindow >> showWorkspace [
 	(LOOPWorkspace new 
-		setBindings: objectBrowser variableBindings; 
-		openLabel: LOOPLesson currentLesson title, ' - Workspace';
+		lesson: objectBrowser lesson; 
+		openLabel: objectBrowser title, ' - Workspace';
 		containingWindow) center: World center.
 ]
 

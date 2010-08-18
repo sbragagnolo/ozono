@@ -1,6 +1,9 @@
 Class {
 	#name : #LoopTestCase,
 	#superclass : #TestCase,
+	#instVars : [
+		'currentLesson'
+	],
 	#category : #'ObjectBrowser-Tests'
 }
 
@@ -11,5 +14,5 @@ LoopTestCase >> setUp [
 
 { #category : #'as yet unclassified' }
 LoopTestCase >> tearDown [ 
-	LOOPLesson currentLesson clean
+	currentLesson clean.
 ]
