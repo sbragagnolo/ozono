@@ -78,7 +78,8 @@ OBVariable >> originalName: anObject [
 
 { #category : #'as yet unclassified' }
 OBVariable >> pointTo: anObject [
-	reference := anObject
+	reference := anObject.
+	self changed.
 ]
 
 { #category : #'as yet unclassified' }
