@@ -18,9 +18,7 @@ LOOPWorkspace >> bindingOf: aString [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> doItReceiver [
-	^LOOPExecutionContext new
-		lesson: lesson;
-		yourself.
+	^lesson executionContext
 ]
 
 { #category : #'as yet unclassified' }

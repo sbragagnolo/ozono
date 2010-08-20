@@ -2,9 +2,10 @@ Class {
 	#name : #LOOPExecutionContext,
 	#superclass : #Object,
 	#instVars : [
-		'lesson'
+		'lesson',
+		'pepita'
 	],
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #'as yet unclassified' }
@@ -14,8 +15,7 @@ LOOPExecutionContext class >> evaluatorClass [
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> commitChanges [
-	lesson variables do:[:v | self getValueFromContext: v.
-		self class removeInstVarName: v name].
+	lesson variables do:[:v | self getValueFromContext: v].
 	
 ]
 
@@ -39,7 +39,6 @@ LOOPExecutionContext >> prepare [
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> putInContext: anOBVariable [
-	self class addInstVarName: anOBVariable name.
 	self instVarNamed: anOBVariable name put: anOBVariable pointsTo.
 	
 ]

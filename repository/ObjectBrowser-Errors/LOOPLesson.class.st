@@ -4,36 +4,19 @@ Class {
 	#instVars : [
 		'variables',
 		'title',
-		'objects'
+		'objects',
+		'executionContext'
 	],
 	#classVars : [
 		'CurrentLesson'
-	],
-	#classInstVars : [
-		'Lessons'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #accessing }
-LOOPLesson class >> addLesson: aLesson [
-	self lessons add: aLesson 
-]
-
-{ #category : #accessing }
 LOOPLesson class >> freeLesson [
 	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
 	
-]
-
-{ #category : #accessing }
-LOOPLesson class >> lessons [
-	^ Lessons
-]
-
-{ #category : #accessing }
-LOOPLesson class >> lessons: anObject [
-	Lessons := anObject
 ]
 
 { #category : #accessing }
@@ -46,6 +29,7 @@ LOOPLesson class >> openFreeLesson [
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
 	self objects add: aVariable pointsTo.
+	self executionContext class addInstVarName: aVariable name.
 ]
 
 { #category : #accessing }
@@ -62,9 +46,21 @@ LOOPLesson >> dereferencedObjects [
 	^self objects select:[:o | (self referencesObject: o ) not].
 ]
 
+{ #category : #accessing }
+LOOPLesson >> executionContext [
+	^executionContext
+]
+
 { #category : #'as yet unclassified' }
 LOOPLesson >> hasVariable: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
+]
+
+{ #category : #accessing }
+LOOPLesson >> initialize [
+	 executionContext := LOOPExecutionContext new
+							lesson: self;
+							yourself.
 ]
 
 { #category : #accessing }
