@@ -44,7 +44,7 @@ LOOPLesson class >> openFreeLesson [
 
 { #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
-	self objectBrowserVariables add: aVariable.
+	self variables add: aVariable.
 	self objects add: aVariable pointsTo.
 ]
 

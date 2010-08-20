@@ -42,5 +42,4 @@ LOOPWorkspace >> hasBindingOf: aString [
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> lesson: aLesson [
 	lesson := aLesson.
-	pane textMorph lesson: aLesson.
 ]
