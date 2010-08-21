@@ -83,6 +83,29 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 	self lesson addVariable: newVariable.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> deleteVariable [
+	self errorHandler
+		evaluate: [
+			self selectedObjectAttribute
+				ifNil: [self error: 'No hay ninguna variable elegida'].
+			self doDeleteVariable.
+			].
+	self changed
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> deselectVariables [
+	self selectedObjectAttribute: NullOBVariable new.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> doDeleteVariable [
+	self selectedObject removeVariable: self selectedObjectAttribute.
+	self deselectVariables 
+	
+]
+
 { #category : #accessing }
 ObjectBrowser >> errorHandler [
 	^ErrorHandler default

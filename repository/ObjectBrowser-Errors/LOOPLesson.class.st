@@ -38,6 +38,7 @@ LOOPLesson >> clean [
 	
 	self objects copy do:[:o | o removeClassFromSystem.].
 	self objects removeAll.
+	self variables do:[:v | executionContext class removeInstVarName: v name].
 	self variables removeAll.
 	self initialize.
 ]
