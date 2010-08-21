@@ -20,15 +20,6 @@ OBVariable class >> newNamed: variableName [
 ]
 
 { #category : #'as yet unclassified' }
-OBVariable >> <- anObject [
-	(lesson hasVariable: anObject) 
-		ifTrue:[self pointTo: anObject pointsTo]
-		ifFalse:[self pointTo: (ObjectBrowserObject new realObject: anObject)]
-	
-	
-]
-
-{ #category : #'as yet unclassified' }
 OBVariable >> actionsForAttributeList [
 	^#(('renombar variable'		renameAttribute)
 		('eliminar variable'		deleteVariable))

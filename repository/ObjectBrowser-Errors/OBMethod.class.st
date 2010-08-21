@@ -10,12 +10,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 OBMethod >> icon [
-	^#breakpoint
-]
-
-{ #category : #'as yet unclassified' }
-OBMethod >> iconAt: anIndex [
-	^#breakpoint
+	^nil
 ]
 
 { #category : #'as yet unclassified' }

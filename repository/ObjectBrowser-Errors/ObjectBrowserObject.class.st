@@ -193,6 +193,11 @@ ObjectBrowserObject >> myClassMethods [
 	^methods
 ]
 
+{ #category : #printing }
+ObjectBrowserObject >> object [
+	^self
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> objectBrowser [
 	^objectBrowser

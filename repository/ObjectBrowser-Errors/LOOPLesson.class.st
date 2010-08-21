@@ -39,6 +39,7 @@ LOOPLesson >> clean [
 	self objects copy do:[:o | o removeClassFromSystem.].
 	self objects removeAll.
 	self variables removeAll.
+	self initialize.
 ]
 
 { #category : #accessing }
@@ -51,8 +52,18 @@ LOOPLesson >> executionContext [
 	^executionContext
 ]
 
+{ #category : #accessing }
+LOOPLesson >> hasObject: anObject [
+	^objects includes: anObject.
+]
+
 { #category : #'as yet unclassified' }
 LOOPLesson >> hasVariable: aVariableName [
+	^self variables anySatisfy: [:v | v name = aVariableName ].
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> hasVariableNamed: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 

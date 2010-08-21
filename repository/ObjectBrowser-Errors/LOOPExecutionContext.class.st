@@ -2,8 +2,9 @@ Class {
 	#name : #LOOPExecutionContext,
 	#superclass : #Object,
 	#instVars : [
-		'lesson',
-		'pepita'
+		'_lesson',
+		'pepita',
+		'pepona'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
@@ -15,30 +16,31 @@ LOOPExecutionContext class >> evaluatorClass [
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> commitChanges [
-	lesson variables do:[:v | self getValueFromContext: v].
-	
+	_lesson variables do:[:v | self getValueFromContext: v].
 ]
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> getValueFromContext: anOBVariable [
 	| value |
 	value := self instVarNamed: anOBVariable name.
-	anOBVariable pointTo: value.
+	(_lesson hasObject: value) 
+		ifTrue: [anOBVariable pointTo: value] 
+		ifFalse: [anOBVariable pointTo: (NoObjectBrowserObject new: value)].
 	
 ]
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> lesson: aLesson [
-	lesson := aLesson.
+	_lesson := aLesson.
 ]
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> prepare [
-	lesson variables do:[:v | self putInContext: v].
+	_lesson variables do:[:v | self putInContext: v].
 ]
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> putInContext: anOBVariable [
-	self instVarNamed: anOBVariable name put: anOBVariable pointsTo.
+	self instVarNamed: anOBVariable name put: anOBVariable pointsTo object.
 	
 ]
