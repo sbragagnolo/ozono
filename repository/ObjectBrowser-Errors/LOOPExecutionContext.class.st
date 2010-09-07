@@ -24,6 +24,7 @@ LOOPExecutionContext class >> evaluatorClass [
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> commitChanges [
 	_lesson variables do:[:v | self getValueFromContext: v].
+	_lesson changed.
 ]
 
 { #category : #'as yet unclassified' }

@@ -47,6 +47,17 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
 ]
 
+{ #category : #showing }
+ObjectBrowser >> cloneObject [
+	| objectName |
+	(self errorHandler
+		evaluate: [
+			objectName := self obtenerNombreDeObjeto.
+			self createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone.
+			]).
+	self changed
+]
+
 { #category : #accessing }
 ObjectBrowser >> compileMethod: aText [ 
 	self errorHandler
@@ -205,15 +216,6 @@ ObjectBrowser >> openInWorld [
 { #category : #model }
 ObjectBrowser >> removeObject: anObject [
 	self objects remove: anObject.
-]
-
-{ #category : #accessing }
-ObjectBrowser >> renameAttribute [
-	| attributeName |
-	(self errorHandler
-		evaluate: [attributeName := self request: 'Nombre de la variable' default: self selectedObjectAttribute  name.
-			self selectedObjectAttribute renameAs: attributeName]).
-	self changed
 ]
 
 { #category : #accessing }
