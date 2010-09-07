@@ -26,9 +26,14 @@ LOOPLesson class >> openFreeLesson [
 ]
 
 { #category : #accessing }
+LOOPLesson >> addObject: anObject [
+	self objects add: anObject.
+]
+
+{ #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
-	self objects add: aVariable pointsTo.
+	self addObject: aVariable pointsTo.
 	self executionContext class addInstVarName: aVariable name.
 ]
 
@@ -51,6 +56,17 @@ LOOPLesson >> dereferencedObjects [
 { #category : #accessing }
 LOOPLesson >> executionContext [
 	^executionContext
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> fileIn: aFileName [
+	^Compiler new 
+			evaluate: aFileName readStream
+			in: nil
+			to: self
+			notifying: self
+			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
+			logged: true.
 ]
 
 { #category : #accessing }
@@ -100,6 +116,21 @@ LOOPLesson >> runGarbageCollector [
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
 		self removeObject: o ].
+]
+
+{ #category : #accessing }
+LOOPLesson >> select [
+	self halt.
+]
+
+{ #category : #accessing }
+LOOPLesson >> selectFrom: start to: end [ 
+]
+
+{ #category : #accessing }
+LOOPLesson >> selectionInterval [
+	"asco para poder hacer fileins"
+	^1 to: 0
 ]
 
 { #category : #accessing }

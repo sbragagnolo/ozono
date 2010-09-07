@@ -12,7 +12,8 @@ Class {
 		'ahora',
 		'bolsita',
 		'ordenadito',
-		'pepita'
+		'pepita',
+		'pepota'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }

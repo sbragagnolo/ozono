@@ -320,6 +320,8 @@ ObjectBrowserObject >> variables [
 ObjectBrowserObject >> writeCreationScriptOver: stream [
 	| objectVariable |
 	objectVariable := self realClass name asLowercase.
+	
+	stream nextPutAll: '| ', objectVariable , '|'.
 	stream nextPutAll: objectVariable,  ' := ', ObjectBrowserObject name , ' new.'.
 	stream cr.
 	
@@ -329,7 +331,10 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 		].
 	
 	self methods do:[ :m |
-		stream nextPutAll: objectVariable , ' compileMethod: ''' , m code, '''.'.
+		stream nextPutAll: objectVariable , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
 		stream cr.
 		].
+	
+	stream nextPutAll: 'self addObject: ', objectVariable, '.'.
+	stream cr.
 ]
