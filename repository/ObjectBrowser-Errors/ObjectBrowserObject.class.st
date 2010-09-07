@@ -111,6 +111,7 @@ ObjectBrowserObject >> compileMethod: aMethod [
 	result := self realClass compile: aMethod classified: #'object browser'  notifying: nil.
 	methods add: (OBMethod new 
 		selector: result;
+		object: self;
 		yourself).
 	result ifNotNil: [self changed].
 ]
@@ -120,6 +121,18 @@ ObjectBrowserObject >> doesNotUnderstand: aMessage [
 	(self realObject respondsTo: aMessage selector) not
 		ifTrue: [self error: self printString , ' no entiende el mensaje ' , aMessage selector].
 	^self realObject perform: aMessage selector withArguments: aMessage arguments
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> fileOut [
+
+	| internalStream |
+	internalStream := (String new: 100) writeStream.
+
+	self writeCreationScriptOver: internalStream.
+
+	internalStream trailer.
+	FileStream writeSourceCodeFrom: internalStream baseName: 'fileOut' isSt: true.
 ]
 
 { #category : #accessing }
@@ -295,13 +308,28 @@ ObjectBrowserObject >> size [
 
 { #category : #accessing }
 ObjectBrowserObject >> sourceCodeAt: aMethod [
-	^ (self myClassHasMethod: aMethod)
-		ifTrue: [(self realClass sourceCodeAt: aMethod selector)
-				makeSelectorBoldIn: self realClass]
-		ifFalse: [prototype sourceCodeAt: aMethod]
+	^ aMethod code.
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
 	^ (variables union: prototype variables)
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeCreationScriptOver: stream [
+	| objectVariable |
+	objectVariable := self realClass name asLowercase.
+	stream nextPutAll: objectVariable,  ' := ', ObjectBrowserObject name , ' new.'.
+	stream cr.
+	
+	self variables do:[ :v | 
+		stream nextPutAll: objectVariable, ' addVariable: ''', v name, '''.'.
+		stream cr.
+		].
+	
+	self methods do:[ :m |
+		stream nextPutAll: objectVariable , ' compileMethod: ''' , m code, '''.'.
+		stream cr.
+		].
 ]

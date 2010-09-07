@@ -8,6 +8,14 @@ Class {
 	#category : #'ObjectBrowser-Model'
 }
 
+{ #category : #accessing }
+OBMethod >> code [
+	^(object myClassHasMethod: self)
+		ifTrue: [(object realClass sourceCodeAt: self selector)
+				makeSelectorBoldIn: object realClass]
+		ifFalse: [object prototype sourceCodeAt: self]
+]
+
 { #category : #'as yet unclassified' }
 OBMethod >> icon [
 	^nil

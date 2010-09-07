@@ -11,7 +11,8 @@ Class {
 		'anotonio',
 		'ahora',
 		'bolsita',
-		'ordenadito'
+		'ordenadito',
+		'pepita'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
