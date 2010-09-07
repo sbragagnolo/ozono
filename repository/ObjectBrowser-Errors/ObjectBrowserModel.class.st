@@ -1,3 +1,18 @@
+"
+ESTA CLASE ESTA DEPRECADAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+ObjectBrowserModel has not been documented yet. The class comment should describe the purpose of the class, its collaborations and its variables.
+
+Instance Variables:
+	workspaceText	<ProtoObject | PseudoContext>
+	selectedObject	<ProtoObject | PseudoContext>
+	selectedSelector	<NullOBMethod>
+	selectedVariable	<OBVariable>
+	objectBrowser	<Object>
+	selectedObjectBrowserVariable	<NullOBVariable | OBVariable>
+	variableBindings	<Dictionary>
+"
 Class {
 	#name : #ObjectBrowserModel,
 	#superclass : #Object,
@@ -21,322 +36,283 @@ ObjectBrowserModel class >> newWithOB: anOB [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> actionsForAttributeListWith: selectedAttribute [
-	^self selectedObject actionsForAttributeListWith: selectedAttribute
+self deprecated: 'Use ObjectBrowser instead'
+"	^self selectedObject actionsForAttributeListWith: selectedAttribute"
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> actionsForObjectVariableList [
-	^(OrderedCollection with: #('crear nuevo objeto' #createObject))
+self deprecated: 'Use ObjectBrowser instead'
+"	^(OrderedCollection with: #('crear nuevo objeto' #createObject) with: #('crear nueva coleccion' #createCollection))
 		addAll: self selectedObject actionsForObjectVariableList;
-		asArray.
+		asArray."
 ]
 
 { #category : #model }
 ObjectBrowserModel >> assertDeletionConfirmed [
-	^UIManager default confirm: '¿Seguro que quiere eliminar el método?'
+self deprecated: 'Use ObjectBrowser instead'
+"	^UIManager default confirm: '¿Seguro que quiere eliminar el método?'"
 ]
 
 { #category : #model }
 ObjectBrowserModel >> assertMethodSelected [
-	self selectedMethod ifNil: [self error: 'Hay que elegir el método a borrar'].
+self deprecated: 'Use ObjectBrowser instead'
+"	self selectedMethod ifNil: [self error: 'Hay que elegir el método a borrar']."
 ]
 
 { #category : #model }
 ObjectBrowserModel >> assertObjectSelected [
-	self selectedObjectAttribute isNil ifTrue:[self error: 'debe seleccionar un objeto a eliminar']
+self deprecated: 'Use ObjectBrowser instead'
+"	self selectedObjectAttribute isNil ifTrue:[self error: 'debe seleccionar un objeto a eliminar']"
 ]
 
 { #category : #model }
 ObjectBrowserModel >> bindingOf: aString [ 
-	self error: 'deprecado'
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> cloneObject [
-	| objectName |
+self deprecated: 'Use ObjectBrowser instead'
+"	| objectName |
 	(self errorHandler
 		evaluate: [
 			self assertObjectSelected.
-			objectName := self obtenerNombreDeObjeto.
+			objectName := self obtainObjectName.
 			objectBrowser createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone.
 			self updateVariableBindings.]).
-	self changed
+	self changed"
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> compileMethod: aText [ 
-	self errorHandler
+self deprecated: 'Use ObjectBrowser instead'
+"	self errorHandler
 		evaluate: [	self selectedObject compileMethod: aText.
-					self changed]
+					self changed]"
 ]
 
 { #category : #model }
 ObjectBrowserModel >> createAttribute [
-	| variableName |
+self deprecated: 'Use ObjectBrowser instead'
+"	| variableName |
 	(self errorHandler
 		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
 			self selectedObject addVariable: variableName]).
-	self changed
+	self changed"
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserModel >> createCollection [
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> createObject [
-	| objectName |
-	(self errorHandler
-		evaluate: [objectName := self obtenerNombreDeObjeto.
-			objectBrowser createVariable: objectName.
-			self updateVariableBindings.]).
-	self changed
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> createSet [
-	| objectName |
-	(self errorHandler
-		evaluate: [objectName := self obtenerNombreDeObjeto.
-			objectBrowser createSet: objectName]).
-	self changed
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deleteMethod [
-	self errorHandler
-		evaluate: [self assertMethodSelected.
-				self deletionConfirmed
-					ifTrue: [self doDeleteMethod]].
-	self changed.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deleteVariable [
-	self errorHandler
-		evaluate: [
-			self selectedObjectAttribute
-				ifNil: [self error: 'No hay ninguna variable elegida'].
-			self doDeleteVariable.
-			].
-	self changed
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deletionConfirmed [
-	^UIManager default confirm: '¿Seguro que quiere eliminar?'
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deselectObject [
-	self selectedObject: self nullObjectBrowserObject.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deselectSelector [
-	self selectedMethod: nil.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> deselectVariables [
-	self selectedObjectAttribute: NullOBVariable new.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> doDeleteMethod [
-	self selectedObject removeMethod: self selectedMethod.
-	self deselectSelector
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> doDeleteObject [
-	self selectedObject removeFromSystem.
-	self deselectObject.
-	self deselectVariables.
-	self deselectSelector.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> doDeleteVariable [
-	self selectedObject removeVariable: self selectedObjectAttribute.
-	self deselectVariables 
-	
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> errorHandler [
-	^ErrorHandler default
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> garbageCollectorButtonLabel [
-	^'Run Garbage Collector'
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> initialize [
-	super initialize.
-	self selectedObjectBrowserVariable: NullOBVariable new.
-	variableBindings  := Dictionary new.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> methods [
-	 ^self selectedObject methods
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> nullObjectBrowserObject [
-	^NullObjectBrowserObject new
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #binding }
 ObjectBrowserModel >> objectBindings [
-	objectBrowser variables do:[:var |
-		variableBindings at: var name put: var ].
-	^variableBindings 
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> objectBrowser [
-	^ objectBrowser
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> objectBrowser: anObject [
-	objectBrowser := anObject
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> objectBrowserVariables [
-	^self objectBrowser variables.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> objects [
-	^self objectBrowser objects.
+self deprecated: 'Use ObjectBrowser instead'
+]
+
+{ #category : #model }
+ObjectBrowserModel >> obtainCollectionType [
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> obtenerNombreDeObjeto [
-	| objectName |
-	objectName := self request: 'Nombre del objeto' default: 'nuevo objeto'.
-	^ objectName
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> removeFromSystem: anObjectBrowserObject [
-	anObjectBrowserObject removeFromSystem
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> renameAttribute [
-	| attributeName |
-	(self errorHandler
-		evaluate: [attributeName := self request: 'Nombre de la variable' default: self selectedObjectAttribute  name.
-			self selectedObjectAttribute renameAs: attributeName]).
-	self changed
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #view }
 ObjectBrowserModel >> request: aTitle default: aDefaultValue [
-	^ UIManager default
-		request: aTitle
-		initialAnswer: aDefaultValue
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #model }
 ObjectBrowserModel >> runGarbageCollector [
-	self objectBrowser runGarbageCollector.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> selectedClass [
-	^ self selectedObject realClass
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> selectedMethod [
-	^ selectedSelector
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedMethod: aMethod [
-	selectedSelector := aMethod.
-	self changed.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> selectedMethodCode [
-	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
-
-	^(self selectedMethod isNil)
-			ifTrue: [self selectorListEmpyText]
-			ifFalse: [
-				(self selectedObject sourceCodeAt: self selectedMethod) ]
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> selectedObject [
-	^self selectedObjectBrowserVariable pointsTo
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedObjectAttribute [
-	^selectedVariable 
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedObjectAttribute: anOBVariable [
-	selectedVariable  := anOBVariable.
-	self changed.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedObjectAttributes [
-	^self selectedObject variables
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedObjectBrowserVariable [
-	^selectedObjectBrowserVariable
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> selectedObjectBrowserVariable: anOBVariable [
-	selectedObjectBrowserVariable  := anOBVariable.
-	selectedVariable := NullOBVariable new.
-	selectedSelector := NullOBMethod new.
-	self changed.
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #view }
 ObjectBrowserModel >> selectorListEmpyText [
-| string|
-
-	string := 'messageSelectorAndArgumentNames
-	"comment stating purpose of message"
-
-	| temporary variable names |
-	statements'.
-
-	^ (Text fromString: string) makeSelectorBold 
-	
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserModel >> showObjectGraph [
-	self objectBrowser showObjectGraph
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #binding }
 ObjectBrowserModel >> updateVariableBindings [ 
-	objectBrowser variables do:[:var |
-		self variableBindings at: var name put: var ].
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #binding }
 ObjectBrowserModel >> variableBindings [
-	^variableBindings 
+self deprecated: 'Use ObjectBrowser instead'
 ]
 
 { #category : #accessing }
 ObjectBrowserModel >> variables [
-	 ^self selectedObjectBrowserVariable pointsTo variables.
+self deprecated: 'Use ObjectBrowser instead'
 ]

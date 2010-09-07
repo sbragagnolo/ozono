@@ -3,7 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'_lesson',
-		'sss'
+		'sss',
+		'hola',
+		'tengo',
+		'peipyo',
+		'joaco',
+		'anotonio',
+		'ahora',
+		'bolsita',
+		'ordenadito'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }

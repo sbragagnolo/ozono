@@ -34,6 +34,13 @@ ObjectBrowser >> actionsForObjectVariableList [
 		asArray.
 ]
 
+{ #category : #accessing }
+ObjectBrowser >> addExtraItems: aMenu [
+	"Aca nos pasan el menu y le agregamos los submenus que querramos, en mi caso le agrego todo lo de las colecciones :)"
+
+	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections. 
+]
+
 { #category : #ObjectBrowser }
 ObjectBrowser >> canDelete: anObjectBrowserObject [
 
@@ -57,12 +64,43 @@ ObjectBrowser >> createAttribute [
 ]
 
 { #category : #showing }
+ObjectBrowser >> createBag [
+	self createCollection: bag.
+]
+
+{ #category : #showing }
+ObjectBrowser >> createCollection: type [
+	|collectionName|
+
+	(self errorHandler
+		evaluate: [
+			collectionName := self obtainObjectName.
+			self createVariable: collectionName referencingTo: type clone.
+		]).
+	self changed.
+	
+
+]
+
+{ #category : #showing }
 ObjectBrowser >> createObject [
 	| objectName |
+
 	(self errorHandler
-		evaluate: [objectName := self obtenerNombreDeObjeto.
+		evaluate: [
+			objectName := self obtainObjectName.
 			self createVariable: objectName]).
 	self changed
+]
+
+{ #category : #showing }
+ObjectBrowser >> createOrdered [
+	self createCollection: ordered.
+]
+
+{ #category : #showing }
+ObjectBrowser >> createSet [
+	self createCollection: set.
 ]
 
 { #category : #'as yet unclassified' }
@@ -151,9 +189,9 @@ ObjectBrowser >> objects [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> obtenerNombreDeObjeto [
+ObjectBrowser >> obtainObjectName [
 	| objectName |
-	objectName := self request: 'Nombre del objeto' default: 'nuevo objeto'.
+	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
 	^ objectName
 ]
 
@@ -267,6 +305,22 @@ ObjectBrowser >> selectorListEmpyText [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> showObjectGraph [
 
+]
+
+{ #category : #accessing }
+ObjectBrowser >> subMenuCollections [
+	| menuCrearColeccion |
+	menuCrearColeccion := MenuMorph new target: self; yourself .
+	menuCrearColeccion add:'set' action: #createSet.
+	menuCrearColeccion add:'bag' action: #createBag.
+	menuCrearColeccion add:'ordered' action: #createOrdered.
+	^menuCrearColeccion.
+	
+]
+
+{ #category : #accessing }
+ObjectBrowser >> subMenuCollectionsName [
+	^'Crear nuevo conjunto'
 ]
 
 { #category : #showing }

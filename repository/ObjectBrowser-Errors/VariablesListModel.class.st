@@ -7,12 +7,8 @@ Class {
 { #category : #'as yet unclassified' }
 VariablesListModel >> listMenu: aMenu shifted: shifted [ 
 	aMenu addList: (model actionsForObjectVariableList).
-	" aMenu addList: #(
-			#('crear nuevo objeto' #createObject) 
-			#('clonar' #cloneObject) 
-		#- 
-			#('renombrar objeto' #renameObject)
-			#('eliminar objeto' #deleteObject)"
+	aMenu addLine.
+	model addExtraItems: aMenu.
 	^ aMenu
 ]
 

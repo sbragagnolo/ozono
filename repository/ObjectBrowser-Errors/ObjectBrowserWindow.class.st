@@ -37,7 +37,7 @@ Gb8DeEs6z/3CU5IAAAAASUVORK5CYII='
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow class >> menuCommandOn: aBuilder [ 
 	<worldMenu>
-	(aBuilder item: #'Object Browser')
+	(aBuilder item: #'Loop Browser')
 		parent: #MostUsedTools;  
 		action: [LOOPLesson openFreeLesson];
 		icon: self icon.
@@ -141,7 +141,7 @@ ObjectBrowserWindow >> buildWorkspaceButton [
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
-	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') model: self objectBrowser;
+	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
 		
 		addMorph: self buildVariableList 
 		frame: (0 @ 0 corner: 0.33 @ hSepFrac);
