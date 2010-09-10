@@ -233,6 +233,11 @@ ObjectBrowserObject >> objectName: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> posibleName [
+	^ self realClass name asLowercase.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> printOn: aStream [
 	self realObject printOn: aStream.
 ]
@@ -317,24 +322,52 @@ ObjectBrowserObject >> variables [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeCreateObjectOn: stream [ .
+	stream nextPutAll: self posibleName ,  ' := ', ObjectBrowserObject name , ' new.'.
+	stream cr.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeCreationScriptOver: stream [
 	| objectVariable |
-	objectVariable := self realClass name asLowercase.
+	objectVariable := self posibleName.
 	
 	stream nextPutAll: '| ', objectVariable , '|'.
-	stream nextPutAll: objectVariable,  ' := ', ObjectBrowserObject name , ' new.'.
-	stream cr.
 	
-	self variables do:[ :v | 
-		stream nextPutAll: objectVariable, ' addVariable: ''', v name, '''.'.
-		stream cr.
-		].
-	
-	self methods do:[ :m |
-		stream nextPutAll: objectVariable , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
-		stream cr.
-		].
-	
+	self writeStateScriptOn: stream .
+
 	stream nextPutAll: 'self addObject: ', objectVariable, '.'.
 	stream cr.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeMethodsOn: stream [ .
+	
+	self methods do:[ :m |
+		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
+		stream cr.
+		].
+
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeStateScriptOn: stream [ 
+.
+	self writeCreateObjectOn: stream .
+	stream cr.
+	self writeVarianblesOn: stream .
+	stream cr.
+	self writeMethodsOn: stream .
+	stream cr.
+	
+
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeVarianblesOn: stream [ .
+
+	self variables do:[ :v | 
+		stream nextPutAll: self posibleName , ' addVariable: ''', v name, '''.'.
+		stream cr.
+		].
 ]

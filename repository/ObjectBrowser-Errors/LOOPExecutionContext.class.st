@@ -13,7 +13,9 @@ Class {
 		'bolsita',
 		'ordenadito',
 		'pepita',
-		'pepota'
+		'pepota',
+		'esto',
+		'esTest'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }

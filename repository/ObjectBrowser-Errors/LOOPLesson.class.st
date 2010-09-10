@@ -70,6 +70,18 @@ LOOPLesson >> fileIn: aFileName [
 ]
 
 { #category : #accessing }
+LOOPLesson >> fileOut [
+
+	| internalStream |
+	internalStream := (String new: 100) writeStream.
+
+	self writeCreationScriptOver: internalStream.
+
+	internalStream trailer.
+	FileStream writeSourceCodeFrom: internalStream baseName: 'lessonFileOut' isSt: true.
+]
+
+{ #category : #accessing }
 LOOPLesson >> hasObject: anObject [
 	^objects includes: anObject.
 ]
@@ -156,4 +168,22 @@ LOOPLesson >> variables [
 { #category : #accessing }
 LOOPLesson >> variables: anObject [
 	variables := anObject
+]
+
+{ #category : #accessing }
+LOOPLesson >> writeCreationScriptOver: stream [
+
+	
+	stream nextPutAll: '| '.
+	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName, ' ' ] .
+	stream nextPutAll: ' theLesson |'.
+	stream cr ; cr.
+	
+	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr ; cr] .
+	stream cr.
+	stream nextPutAll: 'theLesson := LOOPLesson new title: ''Imported-Lesson'''.
+	self objects do:[ :anObject | stream nextPutAll: 'theLesson addObject: ', anObject posibleName, '.' . stream cr] .
+	
+	stream cr.
+	
 ]
