@@ -78,7 +78,7 @@ LOOPLesson >> fileOut [
 	self writeCreationScriptOver: internalStream.
 
 	internalStream trailer.
-	FileStream writeSourceCodeFrom: internalStream baseName: 'lessonFileOut' isSt: true.
+	FileStream writeSourceCodeFrom: internalStream baseName: self title asFileName isSt: true.
 ]
 
 { #category : #accessing }
@@ -101,6 +101,11 @@ LOOPLesson >> initialize [
 	 executionContext := LOOPExecutionContext new
 							lesson: self;
 							yourself.
+]
+
+{ #category : #accessing }
+LOOPLesson >> lessonIdentification [
+	^self title asLegalSelector
 ]
 
 { #category : #accessing }
@@ -171,18 +176,22 @@ LOOPLesson >> variables: anObject [
 ]
 
 { #category : #accessing }
-LOOPLesson >> writeCreationScriptOver: stream [
-
+LOOPLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
 	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName, ' ' ] .
-	stream nextPutAll: ' theLesson |'.
+	stream nextPutAll: self lessonIdentification,' |'.
 	stream cr ; cr.
+]
+
+{ #category : #accessing }
+LOOPLesson >> writeCreationScriptOver: stream [
+
+	self writeAllTheVariablesOn: stream .
 	
 	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr ; cr] .
-	stream cr.
-	stream nextPutAll: 'theLesson := LOOPLesson new title: ''Imported-Lesson'''.
-	self objects do:[ :anObject | stream nextPutAll: 'theLesson addObject: ', anObject posibleName, '.' . stream cr] .
+	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,''''.
+	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
 	
 	stream cr.
 	

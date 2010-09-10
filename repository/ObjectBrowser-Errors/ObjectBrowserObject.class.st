@@ -354,11 +354,8 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 ObjectBrowserObject >> writeStateScriptOn: stream [ 
 .
 	self writeCreateObjectOn: stream .
-	stream cr.
 	self writeVarianblesOn: stream .
-	stream cr.
 	self writeMethodsOn: stream .
-	stream cr.
 	
 
 ]
