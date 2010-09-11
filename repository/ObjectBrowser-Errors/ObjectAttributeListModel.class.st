@@ -5,14 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> listMenu: aMenu shifted: shifted [
-	"Los actions que se pueden hacer dependen del model"
-	^aMenu addList: (model actionsForAttributeListWith: self selectedItem)
+ObjectAttributeListModel >> listModel [
+	^self selectedObjectAttributes asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> listModel [
-	^self selectedObjectAttributes asOrderedCollection 
+ObjectAttributeListModel >> menuSelector [
+	^#attributeListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }

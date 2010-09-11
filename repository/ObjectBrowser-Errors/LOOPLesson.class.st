@@ -10,18 +10,41 @@ Class {
 	#classVars : [
 		'CurrentLesson'
 	],
+	#classInstVars : [
+		'lessons'
+	],
 	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #accessing }
-LOOPLesson class >> browseLessons [
-	(LOOPWindow on: self) openInWorld
+LOOPLesson class >> browseLessons [ 
+	(LOOPBrowser on: self) openInWorld
 	
+	
+]
+
+{ #category : #creation }
+LOOPLesson class >> createFreeLesson [
+	| lesson |
+	lesson := self newFreeLesson.
+	self lessons add: lesson.
+	^lesson.
 ]
 
 { #category : #accessing }
 LOOPLesson class >> freeLesson [
 	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
+	
+]
+
+{ #category : #accessing }
+LOOPLesson class >> lessons [
+	^lessons ifNil: [ lessons := OrderedCollection new ].
+]
+
+{ #category : #accessing }
+LOOPLesson class >> newFreeLesson [
+	^self new title:'Free Lesson'
 	
 ]
 
@@ -122,6 +145,11 @@ LOOPLesson >> objects [
 { #category : #accessing }
 LOOPLesson >> objects: anObject [
 	objects := anObject
+]
+
+{ #category : #showing }
+LOOPLesson >> openInWorld [
+	(ObjectBrowser onLesson: self) openInWorld
 ]
 
 { #category : #accessing }

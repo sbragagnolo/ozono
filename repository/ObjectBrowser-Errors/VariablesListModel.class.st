@@ -5,16 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-VariablesListModel >> listMenu: aMenu shifted: shifted [ 
-	aMenu addList: (model actionsForObjectVariableList).
-	aMenu addLine.
-	model addExtraItems: aMenu.
-	^ aMenu
+VariablesListModel >> listModel [
+	^self variables asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
-VariablesListModel >> listModel [
-	^self variables asOrderedCollection 
+VariablesListModel >> menuSelector [
+	^#variablesListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }

@@ -2,7 +2,8 @@ Class {
 	#name : #ObjectBrowserListModel,
 	#superclass : #ObjectModel,
 	#instVars : [
-		'selectedObject'
+		'selectedObject',
+		'menuSelector'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -39,7 +40,12 @@ ObjectBrowserListModel >> listKey: aChar from: view [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserListModel >> listMenu: aMenu shifted: shifted [
-	"Default dows nothing"
+	^self model perform: self menuSelector with: aMenu with: shifted 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserListModel >> menuSelector [
+	^#listMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }

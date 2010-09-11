@@ -5,15 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MethodListModel >> listMenu: aMenu shifted: shifted [
-	aMenu addList: #(
-		('borrar metodo'			deleteMethod)).
-	^ aMenu
+MethodListModel >> listModel [
+	^self selectors asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
-MethodListModel >> listModel [
-	^self selectors asOrderedCollection 
+MethodListModel >> menuSelector [
+	^#methodListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }

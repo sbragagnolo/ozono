@@ -17,11 +17,6 @@ ObjectBrowser class >> onLesson: aLOOPLesson [
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowser class >> open [
-	^self new openInWorld; yourself
-]
-
 { #category : #accessing }
 ObjectBrowser >> actionsForAttributeListWith: selectedAttribute [
 	^self selectedObject actionsForAttributeListWith: selectedAttribute
@@ -39,6 +34,11 @@ ObjectBrowser >> addExtraItems: aMenu [
 	"Aca nos pasan el menu y le agregamos los submenus que querramos, en mi caso le agrego todo lo de las colecciones :)"
 
 	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections. 
+]
+
+{ #category : #menues }
+ObjectBrowser >> attributeListMenu: aMenu shifted: shifted [
+	^aMenu addList: (self actionsForAttributeListWith: self selectedObjectAttribute)
 ]
 
 { #category : #ObjectBrowser }
@@ -182,6 +182,13 @@ ObjectBrowser >> lesson [
 { #category : #accessing }
 ObjectBrowser >> lesson: aLOOPLesson [ 
 	lesson := aLOOPLesson.
+]
+
+{ #category : #menues }
+ObjectBrowser >> methodListMenu: aMenu shifted: shifted [
+	aMenu addList: #(
+		('borrar metodo'			deleteMethod)).
+	^ aMenu
 ]
 
 { #category : #ObjectBrowser }
@@ -344,4 +351,12 @@ ObjectBrowser >> variableNamed: aVariableNameString [
 { #category : #ObjectBrowser }
 ObjectBrowser >> variables [
 	^self lesson variables
+]
+
+{ #category : #menues }
+ObjectBrowser >> variablesListMenu: aMenu shifted: shifted [
+	aMenu addList: (self actionsForObjectVariableList).
+	aMenu addLine.
+	self addExtraItems: aMenu.
+	^ aMenu
 ]
