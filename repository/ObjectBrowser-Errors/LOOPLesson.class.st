@@ -153,6 +153,11 @@ LOOPLesson >> openInWorld [
 ]
 
 { #category : #accessing }
+LOOPLesson >> printString [
+	^self title
+]
+
+{ #category : #accessing }
 LOOPLesson >> referencesObject: anObjectBrowserObject [
 	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
 ]
@@ -167,11 +172,6 @@ LOOPLesson >> runGarbageCollector [
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
 		self removeObject: o ].
-]
-
-{ #category : #accessing }
-LOOPLesson >> select [
-	self halt.
 ]
 
 { #category : #accessing }
