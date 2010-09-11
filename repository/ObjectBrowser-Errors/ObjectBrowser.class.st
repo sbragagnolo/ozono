@@ -6,7 +6,8 @@ Class {
 		'selectedObjectBrowserVariable',
 		'selectedObjectBrowserSelector',
 		'selectedObjectAttribute',
-		'selectedObjectSelector'
+		'selectedObjectSelector',
+		'window'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -133,6 +134,11 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> delete [
+	window delete.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> deleteVariable [
 	self errorHandler
 		evaluate: [
@@ -215,8 +221,7 @@ ObjectBrowser >> obtainObjectName [
 
 { #category : #'initialize-release' }
 ObjectBrowser >> openInWorld [
-	ObjectBrowserWindow show: self.
-
+	window := ObjectBrowserWindow show: self.
 	
 ]
 

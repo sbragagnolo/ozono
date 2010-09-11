@@ -13,7 +13,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow class >> show: anObjectBrowser [
-	self new show: anObjectBrowser 
+	^self new show: anObjectBrowser
 ]
 
 { #category : #view }
@@ -156,8 +156,7 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 { #category : #view }
 ObjectBrowserWindow >> show: anObjectBrowser [ 
 	self objectBrowser: anObjectBrowser.
-	self createView openInWorld.
-	
+	^self createView openInWorld.
 ]
 
 { #category : #view }

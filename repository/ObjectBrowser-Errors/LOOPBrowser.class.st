@@ -61,6 +61,11 @@ LOOPBrowser >> createNewFreeLesson [
 	lesson openInWorld.
 ]
 
+{ #category : #accessing }
+LOOPBrowser >> initialize [
+	self selectedLesson: NullLOOPLesson new.
+]
+
 { #category : #creation }
 LOOPBrowser >> lessonContainer: aLessonContainer [
 	lessonContainer := aLessonContainer
@@ -68,7 +73,7 @@ LOOPBrowser >> lessonContainer: aLessonContainer [
 
 { #category : #showing }
 LOOPBrowser >> lessonListMenu: aMenu shifted: shifted [
-	^aMenu addList: (OrderedCollection with: #('abrir' #openSelectedLesson)).
+	^aMenu addList: self selectedLesson menuActions.
 ]
 
 { #category : #creation }
@@ -89,6 +94,15 @@ LOOPBrowser >> openInWorld [
 { #category : #accessing }
 LOOPBrowser >> openSelectedLesson [
 	self selectedLesson openInWorld
+]
+
+{ #category : #accessing }
+LOOPBrowser >> removeSelectedLesson [
+	| lesson |
+	lesson := self selectedLesson.
+	lesson delete.
+	self lessons remove: lesson.
+	self changed.
 ]
 
 { #category : #accessing }

@@ -5,7 +5,8 @@ Class {
 		'variables',
 		'title',
 		'objects',
-		'executionContext'
+		'executionContext',
+		'browser'
 	],
 	#classVars : [
 		'CurrentLesson'
@@ -77,6 +78,11 @@ LOOPLesson >> clean [
 	self initialize.
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> delete [
+	browser ifNotNil: [ :br | br delete ]
+]
+
 { #category : #accessing }
 LOOPLesson >> dereferencedObjects [
 	^self objects select:[:o | (self referencesObject: o ) not].
@@ -137,6 +143,13 @@ LOOPLesson >> lessonIdentification [
 	^self title asLegalSelector
 ]
 
+{ #category : #showing }
+LOOPLesson >> menuActions [
+	^OrderedCollection
+		with: #('abrir' #openSelectedLesson)
+		with: #('eliminar' #removeSelectedLesson)
+]
+
 { #category : #accessing }
 LOOPLesson >> objects [
 	^objects ifNil: [objects := OrderedCollection new].
@@ -149,7 +162,7 @@ LOOPLesson >> objects: anObject [
 
 { #category : #showing }
 LOOPLesson >> openInWorld [
-	(ObjectBrowser onLesson: self) openInWorld
+	browser := (ObjectBrowser onLesson: self) openInWorld
 ]
 
 { #category : #accessing }
