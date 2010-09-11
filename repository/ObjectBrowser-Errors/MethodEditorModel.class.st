@@ -5,7 +5,7 @@ Class {
 		'methodCode',
 		'methodEditorMorph'
 	],
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }

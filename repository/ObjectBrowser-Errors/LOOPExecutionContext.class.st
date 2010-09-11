@@ -2,20 +2,7 @@ Class {
 	#name : #LOOPExecutionContext,
 	#superclass : #Object,
 	#instVars : [
-		'_lesson',
-		'sss',
-		'hola',
-		'tengo',
-		'peipyo',
-		'joaco',
-		'anotonio',
-		'ahora',
-		'bolsita',
-		'ordenadito',
-		'pepita',
-		'pepota',
-		'esto',
-		'esTest'
+		'_lesson'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }

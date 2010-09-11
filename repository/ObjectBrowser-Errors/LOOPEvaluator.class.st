@@ -1,7 +1,7 @@
 Class {
 	#name : #LOOPEvaluator,
 	#superclass : #Compiler,
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #'as yet unclassified' }

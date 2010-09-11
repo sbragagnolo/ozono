@@ -8,7 +8,7 @@ Class {
 		'selectedObjectAttribute',
 		'selectedObjectSelector'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #creation }

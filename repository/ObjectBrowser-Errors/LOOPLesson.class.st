@@ -14,6 +14,12 @@ Class {
 }
 
 { #category : #accessing }
+LOOPLesson class >> browseLessons [
+	(LOOPWindow on: self) openInWorld
+	
+]
+
+{ #category : #accessing }
 LOOPLesson class >> freeLesson [
 	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
 	
