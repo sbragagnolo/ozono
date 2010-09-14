@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'ob',
 		'obo',
-		'otroObo'
+		'otroObo',
+		'lesson'
 	],
 	#category : #'ObjectBrowser-Tests'
 }
@@ -12,7 +13,8 @@ Class {
 { #category : #running }
 ObjectBrowserObjectTestCase >> setUp [
 	super setUp.
-	obo := ObjectBrowserObject new.
+	lesson := LOOPLesson new.
+	obo := ObjectBrowserObject newOn: lesson.
 ]
 
 { #category : #running }

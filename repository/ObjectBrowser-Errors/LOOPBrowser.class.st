@@ -59,6 +59,7 @@ LOOPBrowser >> createNewFreeLesson [
 	| lesson |
 	lesson := lessonContainer createFreeLesson.
 	lesson openInWorld.
+	window delete.
 ]
 
 { #category : #accessing }
@@ -102,6 +103,7 @@ LOOPBrowser >> removeSelectedLesson [
 	lesson := self selectedLesson.
 	lesson delete.
 	self lessons remove: lesson.
+	lesson removeFromSystem.
 	self changed.
 ]
 

@@ -18,9 +18,10 @@ ObjectBrowserTestCase >> testCreateDuplicatedVariable [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserTestCase >> testCreateVariable [
-	| variableName |
+	| variableName lesson |
 	variableName :='pepita'.
-	ob := ObjectBrowser new.
+	lesson := LOOPLesson new.
+	ob := ObjectBrowser newOn: lesson.
 	ob createVariable: variableName .
 	self assert: (ob variableNamed: variableName) pointsTo class = ObjectBrowserObject.
 ]

@@ -7,7 +7,8 @@ Class {
 		'objectBrowser',
 		'prototype',
 		'variables',
-		'methods'
+		'methods',
+		'lesson'
 	],
 	#classVars : [
 		'NextObjectBrowserClassNumber'
@@ -16,23 +17,17 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> createNewObjectBrowserObjectClass [
-	^self createNewObjectBrowserObjectClassFrom: ObjectBrowserClass.
+ObjectBrowserObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson [
+	| objectBrowserClassNumber |
+	objectBrowserClassNumber := NextObjectBrowserClassNumber.
+	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
+	^aLesson createClass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol subclassOf: aClass			
 	
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> createNewObjectBrowserObjectClassFrom: aClass [
-	| objectBrowserClassNumber |
-	objectBrowserClassNumber := NextObjectBrowserClassNumber.
-	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
-	
-	^aClass subclass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol 
-		instanceVariableNames: ''
-		classVariableNames: ''
-		poolDictionaries: ''
-		category: 'ObjectBrowser-Objects'.
-			
+ObjectBrowserObject class >> createNewObjectBrowserObjectClassIn: aLesson [
+	^self createNewObjectBrowserObjectClassFrom: ObjectBrowserClass in: aLesson.
 	
 ]
 
@@ -42,21 +37,23 @@ ObjectBrowserObject class >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> new [
+ObjectBrowserObject class >> newFrom: anObo on: aLesson [
 	| klass |
-	klass := self createNewObjectBrowserObjectClass.
+	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
 	^super new
 		realObject: klass new;
+		prototype: anObo;
+		lesson: aLesson;
 		yourself.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject class >> newFrom: anObo [
+ObjectBrowserObject class >> newOn: aLesson [
 	| klass |
-	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass.
+	klass := self createNewObjectBrowserObjectClassIn: aLesson.
 	^super new
 		realObject: klass new;
-		prototype: anObo;
+		lesson: aLesson;
 		yourself.
 ]
 
@@ -102,7 +99,7 @@ ObjectBrowserObject >> at: index put: obj [
 
 { #category : #printing }
 ObjectBrowserObject >> clone [
-	^self class newFrom: self.
+	^self class newFrom: self on: self lesson.
 ]
 
 { #category : #printing }
@@ -174,6 +171,16 @@ ObjectBrowserObject >> inspect [
 { #category : #accessing }
 ObjectBrowserObject >> isNull [
 	^false
+]
+
+{ #category : #printing }
+ObjectBrowserObject >> lesson [
+	^lesson
+]
+
+{ #category : #printing }
+ObjectBrowserObject >> lesson: aLesson [
+	lesson := aLesson
 ]
 
 { #category : #accessing }

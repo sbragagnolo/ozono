@@ -6,7 +6,9 @@ Class {
 		'title',
 		'objects',
 		'executionContext',
-		'browser'
+		'browser',
+		'loopExecutionContextClass',
+		'lessonEnvironment'
 	],
 	#classVars : [
 		'CurrentLesson'
@@ -24,23 +26,12 @@ LOOPLesson class >> browseLessons [
 	
 ]
 
-{ #category : #accessing }
-LOOPLesson class >> cleanAllLessons [
-	self lessons do: [ :lesson | lesson clean  ].
-]
-
 { #category : #creation }
 LOOPLesson class >> createFreeLesson [
 	| lesson |
 	lesson := self newFreeLesson.
 	self lessons add: lesson.
 	^lesson.
-]
-
-{ #category : #accessing }
-LOOPLesson class >> deleteAllLessons [
-	self cleanAllLessons .
-	lessons := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -87,6 +78,20 @@ LOOPLesson >> clean [
 	self variables do:[:v | executionContext class removeInstVarName: v name].
 	self variables removeAll.
 	self initialize.
+]
+
+{ #category : #accessing }
+LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
+
+		^ClassBuilder new
+			name: aClassName
+			inEnvironment: self lessonEnvironment
+			subclassOf: aSuperClass
+			type: aSuperClass typeOfClass
+			instanceVariableNames: ''
+			classVariableNames: ''
+			poolDictionaries: ''
+			category: 'ObjectBrowser-Lessons'
 ]
 
 { #category : #'as yet unclassified' }
@@ -144,14 +149,24 @@ LOOPLesson >> hasVariableNamed: aVariableName [
 
 { #category : #accessing }
 LOOPLesson >> initialize [
-	 executionContext := LOOPExecutionContext new
+	executionContext := self loopExecutionContextClass new
 							lesson: self;
 							yourself.
 ]
 
 { #category : #accessing }
+LOOPLesson >> lessonEnvironment [
+	^lessonEnvironment ifNil: [ lessonEnvironment := SystemDictionary new ].
+]
+
+{ #category : #accessing }
 LOOPLesson >> lessonIdentification [
 	^self title asLegalSelector
+]
+
+{ #category : #accessing }
+LOOPLesson >> loopExecutionContextClass [
+	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LOOPExecutionContext subclassOf: LOOPExecutionContext.	 ]
 ]
 
 { #category : #showing }
@@ -184,6 +199,11 @@ LOOPLesson >> printString [
 { #category : #accessing }
 LOOPLesson >> referencesObject: anObjectBrowserObject [
 	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> removeFromSystem [
+	self lessonEnvironment removeAll.
 ]
 
 { #category : #'as yet unclassified' }

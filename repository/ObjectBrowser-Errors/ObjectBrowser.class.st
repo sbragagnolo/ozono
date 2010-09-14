@@ -53,7 +53,7 @@ ObjectBrowser >> cloneObject [
 	| objectName |
 	(self errorHandler
 		evaluate: [
-			objectName := self obtenerNombreDeObjeto.
+			objectName := self obtainObjectName.
 			self createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone.
 			]).
 	self changed
@@ -117,7 +117,7 @@ ObjectBrowser >> createSet [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> createVariable: aVariableNameString [
-	self createVariable: aVariableNameString  referencingTo: ObjectBrowserObject new
+	self createVariable: aVariableNameString  referencingTo: (ObjectBrowserObject newOn: self lesson).
 ]
 
 { #category : #'as yet unclassified' }
