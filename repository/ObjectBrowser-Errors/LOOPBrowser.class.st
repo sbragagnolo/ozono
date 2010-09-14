@@ -103,7 +103,7 @@ LOOPBrowser >> removeSelectedLesson [
 	lesson := self selectedLesson.
 	lesson delete.
 	self lessons remove: lesson.
-	lesson removeFromSystem.
+	lesson clean.
 	self changed.
 ]
 
