@@ -57,9 +57,8 @@ LOOPBrowser >> createFreeLesson [
 { #category : #creation }
 LOOPBrowser >> createNewFreeLesson [
 	| lesson |
-	lesson := lessonContainer createFreeLesson.
+	lesson := lessonContainer createLessonNamed: self obtainLessonName.
 	lesson openInWorld.
-	window delete.
 ]
 
 { #category : #accessing }
@@ -87,6 +86,13 @@ LOOPBrowser >> newFreeLessonLabel [
 	^'New Free Lesson'
 ]
 
+{ #category : #creation }
+LOOPBrowser >> obtainLessonName [
+	| lessonName |
+	lessonName := self request: 'Nombre de la leccion' default: 'Free Lesson'.
+	^ lessonName
+]
+
 { #category : #showing }
 LOOPBrowser >> openInWorld [
 	window := LOOPWindow show: self.
@@ -105,6 +111,13 @@ LOOPBrowser >> removeSelectedLesson [
 	self lessons remove: lesson.
 	lesson clean.
 	self changed.
+]
+
+{ #category : #creation }
+LOOPBrowser >> request: aTitle default: aDefaultValue [
+	^ UIManager default
+		request: aTitle
+		initialAnswer: aDefaultValue
 ]
 
 { #category : #accessing }

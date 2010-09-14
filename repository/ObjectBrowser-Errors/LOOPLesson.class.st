@@ -39,6 +39,11 @@ LOOPLesson class >> createFreeLesson [
 	^lesson.
 ]
 
+{ #category : #creation }
+LOOPLesson class >> createLessonNamed: title [ 
+	^self createFreeLesson title:  title; yourself .
+]
+
 { #category : #accessing }
 LOOPLesson class >> deleteAllLessons [
 	self cleanAllLessons .
