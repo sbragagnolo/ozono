@@ -27,7 +27,6 @@ LOOPLesson class >> browseLessons [
 { #category : #accessing }
 LOOPLesson class >> cleanAllLessons [
 	self lessons do: [ :lesson | lesson clean  ].
-	lessons := OrderedCollection new.
 ]
 
 { #category : #creation }
@@ -36,6 +35,12 @@ LOOPLesson class >> createFreeLesson [
 	lesson := self newFreeLesson.
 	self lessons add: lesson.
 	^lesson.
+]
+
+{ #category : #accessing }
+LOOPLesson class >> deleteAllLessons [
+	self cleanAllLessons .
+	lessons := OrderedCollection new.
 ]
 
 { #category : #accessing }
