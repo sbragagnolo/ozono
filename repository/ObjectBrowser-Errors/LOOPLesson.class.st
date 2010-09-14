@@ -289,7 +289,9 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
 	stream cr.
 	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
-	
+	stream cr.
+	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
+
 	stream cr.
 	
 ]

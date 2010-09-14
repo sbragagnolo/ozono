@@ -79,9 +79,7 @@ OBVariable >> printString [
 
 { #category : #messages }
 OBVariable >> referencePosibleName [
-	(self pointsTo isKindOf: ObjectBrowserObject ) 
-		ifTrue: [ ^self pointsTo posibleName ] 
-		ifFalse: [^ self pointsTo printString ].
+	^self pointsTo posibleName
 ]
 
 { #category : #'as yet unclassified' }
