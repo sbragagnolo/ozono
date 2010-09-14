@@ -49,7 +49,7 @@ LOOPWindow >> createView [
 	window model: loopBrowser.
 	window addMorph: self buildNewFreeLessonButton frame: (0@0.8 corner: 1@1 ).
 	window addMorph: self buildLessonList frame: (0@0 corner: 1@0.8).
-	window center: World center.
+"	window center: World center."
 ]
 
 { #category : #creation }
@@ -60,11 +60,6 @@ LOOPWindow >> delete [
 { #category : #accessing }
 LOOPWindow >> loopBrowser: aLOOPBrowser [ 
 	loopBrowser := aLOOPBrowser
-]
-
-{ #category : #accessing }
-LOOPWindow >> newFreeLessonLabel [
-	^loopBrowser newFreeLessonLabel
 ]
 
 { #category : #creation }
