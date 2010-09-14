@@ -35,11 +35,6 @@ OBVariable >> desreference [
 ]
 
 { #category : #messages }
-OBVariable >> doesNotUnderstand: aMessage [
-	^self pointsTo perform: aMessage selector withArguments: aMessage arguments
-]
-
-{ #category : #messages }
 OBVariable >> errorNotIndexable [
 	"Create an error notification that the receiver is not indexable."
 
@@ -80,6 +75,13 @@ OBVariable >> pointsTo [
 { #category : #'as yet unclassified' }
 OBVariable >> printString [ 
 	^self pointsTo printString 
+]
+
+{ #category : #messages }
+OBVariable >> referencePosibleName [
+	(self pointsTo isKindOf: ObjectBrowserObject ) 
+		ifTrue: [ ^self pointsTo posibleName ] 
+		ifFalse: [^ self pointsTo printString ].
 ]
 
 { #category : #'as yet unclassified' }

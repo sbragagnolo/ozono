@@ -107,7 +107,7 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 			instanceVariableNames: ''
 			classVariableNames: ''
 			poolDictionaries: ''
-			category: 'ObjectBrowser-Lessons'
+			category: 'Useless'
 ]
 
 { #category : #'as yet unclassified' }
@@ -219,6 +219,7 @@ LOOPLesson >> referencesObject: anObjectBrowserObject [
 
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeFromSystem [
+	self lessonEnvironment valuesDo: [ :c | c removeFromSystem ]
 	self lessonEnvironment removeAll.
 ]
 
@@ -283,8 +284,10 @@ LOOPLesson >> writeCreationScriptOver: stream [
 
 	self writeAllTheVariablesOn: stream .
 	
+	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream. stream cr ; cr] .
 	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr ; cr] .
-	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,''''.
+	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
+	stream cr.
 	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
 	
 	stream cr.

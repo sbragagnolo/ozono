@@ -228,15 +228,11 @@ ObjectBrowserObject >> objectBrowser: anOB [
 	objectBrowser := anOB 
 ]
 
-{ #category : #accessing }
-ObjectBrowserObject >> objectName [
-	^ objectName
-]
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> objectPointedBy:  varName [
+	^self realObject instVarNamed: varName 
+	
 
-{ #category : #accessing }
-ObjectBrowserObject >> objectName: anObject [
-	objectName := anObject.
-	self changed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -277,11 +273,23 @@ ObjectBrowserObject >> realObject: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> referencePosibleName: name [
+	|object|
+	object := self objectPointedBy: name.
+
+	( object isKindOf: ObjectBrowserObject ) 
+		ifTrue: [ ^object posibleName ] 
+		ifFalse: [^ object printString ].
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> references [
 	| refs |
-	refs := self variables collect: [:v | self realObject instVarNamed: v asSymbol ].
+	refs := self variables collect: [:v | self objectPointedBy:  v asSymbol].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
+	
+
 ]
 
 { #category : #accessing }
@@ -341,7 +349,7 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 	
 	stream nextPutAll: '| ', objectVariable , '|'.
 	
-	self writeStateScriptOn: stream .
+	self writeObjectDescriptionScriptOn:  stream .
 
 	stream nextPutAll: 'self addObject: ', objectVariable, '.'.
 	stream cr.
@@ -358,12 +366,21 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject >> writeStateScriptOn: stream [ 
-.
+ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream [ 
+
 	self writeCreateObjectOn: stream .
 	self writeVarianblesOn: stream .
 	self writeMethodsOn: stream .
 	
+
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeStateScriptOn: stream [
+	"saves the state, all the variables values and relationships"
+	self variables do:  [ :var | 
+			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (self referencePosibleName: var name) , '.'. 
+			stream cr].
 
 ]
 
