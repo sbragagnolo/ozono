@@ -52,6 +52,7 @@ LOOPBrowser >> createFreeLesson [
 	| lesson |
 	lesson := lessonContainer createFreeLesson.
 	lesson openInWorld.
+
 ]
 
 { #category : #creation }
@@ -59,6 +60,12 @@ LOOPBrowser >> createNewFreeLesson [
 	| lesson |
 	lesson := lessonContainer createLessonNamed: self obtainLessonName.
 	lesson openInWorld.
+	self changed .
+]
+
+{ #category : #accessing }
+LOOPBrowser >> fileOutSelectedLesson [
+	self selectedLesson fileOut 
 ]
 
 { #category : #accessing }

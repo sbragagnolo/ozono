@@ -216,6 +216,7 @@ LOOPLesson >> menuActions [
 	^OrderedCollection
 		with: #('abrir' #openSelectedLesson)
 		with: #('eliminar' #removeSelectedLesson)
+		with: #('exportar' #fileOutSelectedLesson)
 ]
 
 { #category : #accessing }
@@ -245,7 +246,7 @@ LOOPLesson >> referencesObject: anObjectBrowserObject [
 
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeFromSystem [
-	self lessonEnvironment valuesDo: [ :c | c removeFromSystem ]
+	self lessonEnvironment valuesDo: [ :c | c removeFromSystem ].
 	self lessonEnvironment removeAll.
 ]
 
