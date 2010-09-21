@@ -51,6 +51,17 @@ LOOPLesson class >> deleteAllLessons [
 ]
 
 { #category : #accessing }
+LOOPLesson class >> fileIn: aFileName [
+	^Compiler new 
+			evaluate: aFileName readStream
+			in: nil
+			to: self
+			notifying: self
+			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
+			logged: true.
+]
+
+{ #category : #accessing }
 LOOPLesson class >> freeLesson [
 	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
 	
@@ -71,6 +82,21 @@ LOOPLesson class >> newFreeLesson [
 LOOPLesson class >> openFreeLesson [
 	(ObjectBrowser onLesson: self freeLesson) openInWorld
 	
+]
+
+{ #category : #accessing }
+LOOPLesson class >> select [
+]
+
+{ #category : #accessing }
+LOOPLesson class >> selectFrom: start to: end [ 
+	"asco para fileIn #2"
+]
+
+{ #category : #accessing }
+LOOPLesson class >> selectionInterval [
+	"asco para poder hacer fileins"
+	^1 to: 0
 ]
 
 { #category : #accessing }
@@ -271,6 +297,14 @@ LOOPLesson >> variables: anObject [
 ]
 
 { #category : #accessing }
+LOOPLesson >> writeAddScriptToLessonOn: stream [
+	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
+	stream cr.
+	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
+	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
+]
+
+{ #category : #accessing }
 LOOPLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
@@ -281,17 +315,17 @@ LOOPLesson >> writeAllTheVariablesOn: stream [
 
 { #category : #accessing }
 LOOPLesson >> writeCreationScriptOver: stream [
-
+	
+	"primero la definicion de variables"
 	self writeAllTheVariablesOn: stream .
 	
-	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream. stream cr ; cr] .
-	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr ; cr] .
-	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
-	stream cr.
-	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
-	stream cr.
-	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
-
-	stream cr.
+	"despues la descripcion del objeto: su creacion, variables y metodos"
+	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream. stream cr] .
+	
+	"despues el estado"
+	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr] .
+	
+	"despues la incorporacion a la lesson"
+	self writeAddScriptToLessonOn: stream .
 	
 ]
