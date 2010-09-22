@@ -347,8 +347,8 @@ ObjectBrowserObject >> variables [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject >> writeCreateObjectOn: stream [ .
-	stream nextPutAll: self posibleName ,  ' := ', ObjectBrowserObject name , ' new.'.
+ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
+	stream nextPutAll: self posibleName ,  ' := ', ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification , '.' .
 	stream cr.
 ]
 
@@ -376,9 +376,9 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream [ 
+ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
-	self writeCreateObjectOn: stream .
+	self writeCreateObjectOn: stream lesson: aLesson.
 	self writeVarianblesOn: stream .
 	self writeMethodsOn: stream .
 	

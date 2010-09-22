@@ -184,12 +184,14 @@ LOOPLesson >> fileIn: aFileName [
 LOOPLesson >> fileOut [
 
 	| internalStream |
-	internalStream := (String new: 100) writeStream.
+	[internalStream := (String new: 100) writeStream.
 
 	self writeCreationScriptOver: internalStream.
 
 	internalStream trailer.
 	FileStream writeSourceCodeFrom: internalStream baseName: self title asFileName isSt: true.
+	
+	] ensure: [ internalStream close ]
 ]
 
 { #category : #accessing }
@@ -317,12 +319,7 @@ LOOPLesson >> variables: anObject [
 
 { #category : #accessing }
 LOOPLesson >> writeAddScriptToLessonOn: stream [
-	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
-	stream cr.
-	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
 	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
-	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
-	stream cr.
 	stream nextPutAll: '^ ', self lessonIdentification , '.'.
 	stream cr.
 ]
@@ -342,8 +339,13 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	"primero la definicion de variables"
 	self writeAllTheVariablesOn: stream .
 	
+	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
+	stream cr.
+	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
+	stream cr.
+	
 	"despues la descripcion del objeto: su creacion, variables y metodos"
-	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream. stream cr] .
+	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self. stream cr] .
 	
 	"despues el estado"
 	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr] .
