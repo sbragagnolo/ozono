@@ -68,6 +68,19 @@ LOOPBrowser >> fileOutSelectedLesson [
 	self selectedLesson fileOut 
 ]
 
+{ #category : #creation }
+LOOPBrowser >> importLesson [
+	| lesson |
+	lesson := LOOPLesson fileIn:  self obtainLessonName.
+	lesson openInWorld.
+	self changed .
+]
+
+{ #category : #accessing }
+LOOPBrowser >> importLessonLabel [
+	^'Import Lesson'
+]
+
 { #category : #accessing }
 LOOPBrowser >> initialize [
 	self selectedLesson: NullLOOPLesson new.

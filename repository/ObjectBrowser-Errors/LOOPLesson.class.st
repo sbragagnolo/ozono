@@ -19,6 +19,11 @@ Class {
 	#category : #'ObjectBrowser-Lessons'
 }
 
+{ #category : #creation }
+LOOPLesson class >> addLesson: lesson. [
+	self lessons add: lesson.
+]
+
 { #category : #accessing }
 LOOPLesson class >> browseLessons [ 
 	(LOOPBrowser on: self) openInWorld
@@ -35,7 +40,7 @@ LOOPLesson class >> cleanAllLessons [
 LOOPLesson class >> createFreeLesson [
 	| lesson |
 	lesson := self newFreeLesson.
-	self lessons add: lesson.
+	self addLesson: lesson.
 	^lesson.
 ]
 
@@ -53,7 +58,7 @@ LOOPLesson class >> deleteAllLessons [
 { #category : #accessing }
 LOOPLesson class >> fileIn: aFileName [
 	^Compiler new 
-			evaluate: aFileName readStream
+			evaluate: (StandardFileStream fileNamed: aFileName) readStream
 			in: nil
 			to: self
 			notifying: self
@@ -109,6 +114,19 @@ LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
 	self addObject: aVariable pointsTo.
 	self executionContext class addInstVarName: aVariable name.
+]
+
+{ #category : #accessing }
+LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
+	|aVariable|
+	aVariable :=	 (OBVariable new)
+		name: theReferenceName ;
+		originalName: theReferenceName;
+		pointTo: anObject ;
+		yourself.
+	
+	self addVariable: aVariable.
+
 ]
 
 { #category : #accessing }
@@ -208,7 +226,7 @@ LOOPLesson >> lessonIdentification [
 
 { #category : #accessing }
 LOOPLesson >> loopExecutionContextClass [
-	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LOOPExecutionContext subclassOf: LOOPExecutionContext.	 ]
+	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LOOPExecutionContext subclassOf: LOOPExecutionContext. ]
 ]
 
 { #category : #showing }
@@ -303,6 +321,10 @@ LOOPLesson >> writeAddScriptToLessonOn: stream [
 	stream cr.
 	self objects do:[ :anObject | stream nextPutAll: self lessonIdentification, ' addObject: ', anObject posibleName, '.' . stream cr] .
 	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
+	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
+	stream cr.
+	stream nextPutAll: '^ ', self lessonIdentification , '.'.
+	stream cr.
 ]
 
 { #category : #accessing }
