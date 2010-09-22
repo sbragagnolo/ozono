@@ -189,7 +189,7 @@ LOOPLesson >> fileOut [
 	self writeCreationScriptOver: internalStream.
 
 	internalStream trailer.
-	FileStream writeSourceCodeFrom: internalStream baseName: self title asFileName isSt: true.
+	FileStream writeSourceCodeFrom: internalStream baseName: self lessonIdentification asFileName isSt: true.
 	
 	] ensure: [ internalStream close ]
 ]
