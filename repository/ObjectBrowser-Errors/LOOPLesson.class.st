@@ -226,7 +226,7 @@ LOOPLesson >> lessonIdentification [
 
 { #category : #accessing }
 LOOPLesson >> loopExecutionContextClass [
-	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LOOPExecutionContext subclassOf: LOOPExecutionContext. ]
+	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LessonExecutionContext subclassOf: LOOPExecutionContext. ]
 ]
 
 { #category : #showing }

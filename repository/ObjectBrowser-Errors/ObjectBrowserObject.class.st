@@ -332,6 +332,16 @@ ObjectBrowserObject >> sourceCodeAt: aMethod [
 ]
 
 { #category : #accessing }
+ObjectBrowserObject >> variable: varName pointTo: anObject [
+	self realObject instVarNamed: varName put: anObject.
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> variableNamed: varName [
+	^self variables detect: [:v | v name = varName ].
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> variables [
 	^ (variables union: prototype variables)
 ]
