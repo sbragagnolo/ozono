@@ -135,8 +135,11 @@ LOOPBrowser >> removeSelectedLesson [
 
 { #category : #accessing }
 LOOPBrowser >> renameSelectedLesson [
-	self selectedLesson title: self obtainLessonName.
-	self changed .
+	|newTitle|
+	
+	newTitle := self obtainLessonName.
+	(newTitle notNil and: [newTitle notEmpty]) 
+		ifTrue: [self selectedLesson title: newTitle.	self changed ].
 ]
 
 { #category : #creation }
