@@ -133,6 +133,12 @@ LOOPBrowser >> removeSelectedLesson [
 	self changed.
 ]
 
+{ #category : #accessing }
+LOOPBrowser >> renameSelectedLesson [
+	self selectedLesson title: self obtainLessonName.
+	self changed .
+]
+
 { #category : #creation }
 LOOPBrowser >> request: aTitle default: aDefaultValue [
 	^ UIManager default

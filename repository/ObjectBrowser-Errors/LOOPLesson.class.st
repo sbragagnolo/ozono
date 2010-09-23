@@ -236,6 +236,7 @@ LOOPLesson >> menuActions [
 	^OrderedCollection
 		with: #('abrir' #openSelectedLesson)
 		with: #('eliminar' #removeSelectedLesson)
+		with: #('renombrar' #renameSelectedLesson)
 		with: #('exportar' #fileOutSelectedLesson)
 ]
 
