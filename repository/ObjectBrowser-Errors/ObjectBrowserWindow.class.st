@@ -70,6 +70,16 @@ ObjectBrowserWindow >> buildObjectAttributeList [
 ]
 
 { #category : #view }
+ObjectBrowserWindow >> buildObjectBrowserTree [
+	^PluggableTreeMorph 
+		on: self objectBrowser
+		list: #lessonOrganization
+		selected: #selectedItem
+		changeSelected: #selectedItem:
+		menu: nil
+]
+
+{ #category : #view }
 ObjectBrowserWindow >> buildObjectGraphButton [
 	| objectGraphButton |
 	objectGraphButton := PluggableButtonMorph
@@ -111,8 +121,11 @@ ObjectBrowserWindow >> createView [
 	hSepFrac := 0.45.
 	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
 		
+		addMorph: self buildObjectBrowserTree
+		frame: (0@0 corner: 0.17@hSepFrac);
+		
 		addMorph: self buildVariableList 
-		frame: (0 @ 0 corner: 0.33 @ hSepFrac);
+		frame: (0.17 @ 0 corner: 0.33 @ hSepFrac);
 		
 		addMorph: self buildObjectAttributeList 
 		frame: (0.33 @ 0 corner: 0.66 @ hSepFrac);

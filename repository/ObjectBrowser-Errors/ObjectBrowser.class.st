@@ -7,7 +7,9 @@ Class {
 		'selectedObjectBrowserSelector',
 		'selectedObjectAttribute',
 		'selectedObjectSelector',
-		'window'
+		'window',
+		'organization',
+		'selectedItem'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -190,6 +192,11 @@ ObjectBrowser >> lesson: aLOOPLesson [
 	lesson := aLOOPLesson.
 ]
 
+{ #category : #accessing }
+ObjectBrowser >> lessonOrganization [
+	^organization ifNil: [ organization := OrderedCollection with: (VariablesOrganization for: self)]
+]
+
 { #category : #menues }
 ObjectBrowser >> methodListMenu: aMenu shifted: shifted [
 	aMenu addList: #(
@@ -240,6 +247,21 @@ ObjectBrowser >> request: aTitle default: aDefaultValue [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
 	self lesson runGarbageCollector.
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedItem [
+	^selectedItem
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedItem: anItem [
+	selectedItem := anItem
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedItemMenu: aMenuMorph shifted: shifted [
+	^self selectedItem selectedItemMenu: aMenuMorph shifted: shifted
 ]
 
 { #category : #accessing }
