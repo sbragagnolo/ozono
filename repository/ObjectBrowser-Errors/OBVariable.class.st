@@ -53,7 +53,7 @@ OBVariable >> isPointingTo: anObject [
 
 { #category : #menues }
 OBVariable >> menu: aMenuMorph [ 
-	^aMenuMorph addList: self actionsForAttributeList
+	^self pointsTo menu: aMenuMorph.
 ]
 
 { #category : #'as yet unclassified' }

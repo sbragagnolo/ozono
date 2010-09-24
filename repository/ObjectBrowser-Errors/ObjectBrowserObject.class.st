@@ -184,6 +184,11 @@ ObjectBrowserObject >> lesson: aLesson [
 ]
 
 { #category : #accessing }
+ObjectBrowserObject >> menu: aMenuMorph [
+	^aMenuMorph addList: (self actionsForObjectVariableList).
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> methodCategory: aSelector [
 	^ self realClass organization categoryOfElement: aSelector.
 ]

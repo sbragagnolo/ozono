@@ -266,11 +266,6 @@ ObjectBrowser >> selectedItemMenu: aMenuMorph [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedItemMenu: aMenuMorph shifted: shifted [
-	^self selectedItem selectedItemMenu: aMenuMorph shifted: shifted
-]
-
-{ #category : #accessing }
 ObjectBrowser >> selectedMethodCode [
 	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
 
