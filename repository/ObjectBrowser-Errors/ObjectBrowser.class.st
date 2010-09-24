@@ -194,7 +194,7 @@ ObjectBrowser >> lesson: aLOOPLesson [
 
 { #category : #accessing }
 ObjectBrowser >> lessonOrganization [
-	^organization ifNil: [ organization := OrderedCollection with: (VariablesOrganization for: self)]
+	^organization ifNil: [ organization := OrderedCollection with: (ObjectsOrganization for: self)]
 ]
 
 { #category : #menues }

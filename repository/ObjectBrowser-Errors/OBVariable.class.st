@@ -25,6 +25,11 @@ OBVariable >> actionsForAttributeList [
 ]
 
 { #category : #'as yet unclassified' }
+OBVariable >> asString [
+	^self name
+]
+
+{ #category : #'as yet unclassified' }
 OBVariable >> asStringOrText [ 
 	^self name
 ]
