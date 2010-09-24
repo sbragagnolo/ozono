@@ -76,7 +76,7 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 		list: #lessonOrganization
 		selected: #selectedItem
 		changeSelected: #selectedItem:
-		menu: nil
+		menu: #selectedItemMenu:
 ]
 
 { #category : #view }
@@ -164,6 +164,11 @@ ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow >> objectGraphButtonLabel [
 	^'Object Diagram'
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> selectedItemMenu: aMenu [
+	self selectedItem menu: aMenu.
 ]
 
 { #category : #view }

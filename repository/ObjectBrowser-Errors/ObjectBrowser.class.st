@@ -194,7 +194,8 @@ ObjectBrowser >> lesson: aLOOPLesson [
 
 { #category : #accessing }
 ObjectBrowser >> lessonOrganization [
-	^organization ifNil: [ organization := OrderedCollection with: (ObjectsOrganization for: self)]
+	^organization ifNil: [ organization := OrderedCollection 
+		with: (OBListItemWrapper with: (ObjectsOrganization for: self))]
 ]
 
 { #category : #menues }
@@ -257,6 +258,11 @@ ObjectBrowser >> selectedItem [
 { #category : #accessing }
 ObjectBrowser >> selectedItem: anItem [
 	selectedItem := anItem
+]
+
+{ #category : #menues }
+ObjectBrowser >> selectedItemMenu: aMenuMorph [ 
+	^self selectedItem menu: aMenuMorph
 ]
 
 { #category : #accessing }

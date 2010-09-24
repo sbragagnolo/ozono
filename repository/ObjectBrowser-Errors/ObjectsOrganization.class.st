@@ -1,12 +1,15 @@
 Class {
 	#name : #ObjectsOrganization,
-	#superclass : #ListItemWrapper,
+	#superclass : #Object,
+	#instVars : [
+		'objectBrowser'
+	],
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization class >> for: anItem [
-	^self with: anItem.
+ObjectsOrganization class >> for: anObjectBrowser [
+	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
 { #category : #'as yet unclassified' }
@@ -16,10 +19,15 @@ ObjectsOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> contents [
-	^self item variables collect:[:v | ListItemWrapper with: v model: v ]
+	^objectBrowser variables collect:[:v | ListItemWrapper with: v model: v ]
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> selectedItemMenu: aMenuMorph shifted: shifted [
+ObjectsOrganization >> menu: aMenu [
+	^aMenu addList: (OrderedCollection with: #('crear nuevo objeto' #createObject))
+]
 
+{ #category : #'as yet unclassified' }
+ObjectsOrganization >> objectBrowser: anObjectBrowser [
+	objectBrowser := anObjectBrowser
 ]
