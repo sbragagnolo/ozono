@@ -51,6 +51,11 @@ OBVariable >> isPointingTo: anObject [
 	^reference = anObject
 ]
 
+{ #category : #menues }
+OBVariable >> menu: aMenuMorph [ 
+	^aMenuMorph addList: self actionsForAttributeList
+]
+
 { #category : #'as yet unclassified' }
 OBVariable >> name [
 	^name
