@@ -23,6 +23,11 @@ NoObjectBrowserObject >> compileMethod: aText [
 	self error: 'No puede modificarse este objeto'
 ]
 
+{ #category : #printing }
+NoObjectBrowserObject >> displayString [
+	^self object printString
+]
+
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph

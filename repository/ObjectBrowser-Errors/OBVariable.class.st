@@ -26,7 +26,7 @@ OBVariable >> actionsForAttributeList [
 
 { #category : #'as yet unclassified' }
 OBVariable >> asString [
-	^self name
+	^self name, ' - (' , self pointsTo displayString , ')'.
 ]
 
 { #category : #'as yet unclassified' }
