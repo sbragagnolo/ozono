@@ -60,7 +60,9 @@ LOOPWorkspace >> lesson: aLesson [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> menu: aMenuBuilder [
-	^aMenuBuilder addList: (OrderedCollection with: #('open' #openWorkspace))
+	^aMenuBuilder addList: (OrderedCollection
+		with: #('abrir' #openWorkspace)
+		with: #('eliminar' #removeWorkspace))
 ]
 
 { #category : #'as yet unclassified' }

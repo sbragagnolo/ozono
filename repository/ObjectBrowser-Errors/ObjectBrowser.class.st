@@ -149,6 +149,7 @@ ObjectBrowser >> createWorkspace [
 { #category : #showing }
 ObjectBrowser >> createWorkspace: workspaceLabel. [
 	self workspaces add: (LOOPWorkspace openLabel: workspaceLabel).
+	self changed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -264,6 +265,12 @@ ObjectBrowser >> openWorkspace [
 { #category : #model }
 ObjectBrowser >> removeObject: anObject [
 	self objects remove: anObject.
+]
+
+{ #category : #showing }
+ObjectBrowser >> removeWorkspace [
+	self workspaces remove: self selectedItem.
+	self changed.
 ]
 
 { #category : #accessing }
