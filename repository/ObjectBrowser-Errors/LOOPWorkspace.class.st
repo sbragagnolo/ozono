@@ -35,6 +35,7 @@ LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 			readSelection: nil menu: #codePaneMenu:shifted:.
 	pane  font: StandardFonts codeFont.
 	window addMorph: pane frame: (0@0 corner: 1@1).
+	self label: labelString.
 	^ window
 ]
 
