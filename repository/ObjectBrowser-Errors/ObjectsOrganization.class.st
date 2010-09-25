@@ -19,7 +19,12 @@ ObjectsOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> contents [
-	^objectBrowser variables collect:[:v | ListItemWrapper with: v model: v ]
+	^objectBrowser variables collect:[:v | OBListItemWrapper with: v model: v ]
+]
+
+{ #category : #'as yet unclassified' }
+ObjectsOrganization >> icon [
+	^ObjectBrowserIcons homeIcon
 ]
 
 { #category : #'as yet unclassified' }

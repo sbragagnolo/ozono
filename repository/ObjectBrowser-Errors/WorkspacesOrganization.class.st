@@ -19,7 +19,12 @@ WorkspacesOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> contents [
-	^objectBrowser workspaces collect:[ :w | ListItemWrapper with: w model: w ]
+	^objectBrowser workspaces collect:[ :w | OBListItemWrapper with: w model: w ]
+]
+
+{ #category : #'as yet unclassified' }
+WorkspacesOrganization >> icon [
+	^ObjectBrowserIcons folderIcon
 ]
 
 { #category : #'as yet unclassified' }

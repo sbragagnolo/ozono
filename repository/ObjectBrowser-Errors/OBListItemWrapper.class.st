@@ -20,6 +20,11 @@ OBListItemWrapper >> contents [
 ]
 
 { #category : #'as yet unclassified' }
+OBListItemWrapper >> icon [
+	^self model icon
+]
+
+{ #category : #'as yet unclassified' }
 OBListItemWrapper >> menu: aMenu [
 	^self model menu: aMenu
 ]

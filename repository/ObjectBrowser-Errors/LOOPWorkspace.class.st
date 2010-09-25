@@ -45,6 +45,11 @@ LOOPWorkspace >> hasBindingOf: aString [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPWorkspace >> icon [
+	^ObjectBrowserIcons workspaceIcon
+]
+
+{ #category : #'as yet unclassified' }
 LOOPWorkspace >> label [
 	^label
 ]

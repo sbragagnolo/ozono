@@ -34,6 +34,11 @@ OBVariable >> asStringOrText [
 	^self name
 ]
 
+{ #category : #accessing }
+OBVariable >> contents [
+	^OrderedCollection new
+]
+
 { #category : #'as yet unclassified' }
 OBVariable >> desreference [
 	self pointTo: nil
@@ -44,6 +49,11 @@ OBVariable >> errorNotIndexable [
 	"Create an error notification that the receiver is not indexable."
 
 	self error: ('Instances of {1} are not indexable' translated format: {self pointsTo printString})
+]
+
+{ #category : #showing }
+OBVariable >> icon [
+	^ObjectBrowserIcons referenceIcon
 ]
 
 { #category : #'as yet unclassified' }
