@@ -179,6 +179,11 @@ ObjectBrowser >> deleteVariable [
 	self changed
 ]
 
+{ #category : #accessing }
+ObjectBrowser >> dereferenceSelectedVariable [
+	self selectedObjectBrowserVariable desreference.
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> deselectVariables [
 	self selectedObjectAttribute: NullOBVariable new.

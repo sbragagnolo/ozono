@@ -41,7 +41,7 @@ OBVariable >> contents [
 
 { #category : #'as yet unclassified' }
 OBVariable >> desreference [
-	self pointTo: nil
+	self pointTo: (NoObjectBrowserObject new: nil).
 ]
 
 { #category : #messages }
@@ -68,7 +68,9 @@ OBVariable >> makeSelectionOn: anObjectBrowser [
 
 { #category : #menues }
 OBVariable >> menu: aMenuMorph [ 
-	^self pointsTo menu: aMenuMorph.
+	aMenuMorph add: 'dereferenciar' action: #dereferenceSelectedVariable.
+	self pointsTo menu: aMenuMorph.
+	^aMenuMorph
 ]
 
 { #category : #'as yet unclassified' }

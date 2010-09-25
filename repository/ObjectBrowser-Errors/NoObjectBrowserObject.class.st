@@ -23,6 +23,11 @@ NoObjectBrowserObject >> compileMethod: aText [
 	self error: 'No puede modificarse este objeto'
 ]
 
+{ #category : #menu }
+NoObjectBrowserObject >> menu: aMenuMorph [ 
+	^aMenuMorph
+]
+
 { #category : #accessing }
 NoObjectBrowserObject >> methods [
 	^methods

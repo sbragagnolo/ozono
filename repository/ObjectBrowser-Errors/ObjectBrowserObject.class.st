@@ -106,11 +106,11 @@ ObjectBrowserObject >> clone [
 ObjectBrowserObject >> compileMethod: aMethod [
 	| result |
 	result := self realClass compile: aMethod classified: #'object browser'  notifying: nil.
-	methods add: (OBMethod new 
+	methods at: result put: (OBMethod new 
 		selector: result;
 		object: self;
 		yourself).
-	result ifNotNil: [self changed].
+	self changed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -159,7 +159,7 @@ ObjectBrowserObject >> initialize [
 	self realObject ifNotNil: [self realObject initialize].
 	prototype ifNil: [ prototype := NullObjectBrowserObject new].
 	variables := Set new.
-	methods := Set new.
+	methods := Dictionary new.
 	^self
 ]
 
@@ -205,7 +205,7 @@ ObjectBrowserObject >> methods [
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassHasMethod: aSelector [
-	^self myClassMethods includes: aSelector 
+	^self myClassMethods includesKey: aSelector 
 ]
 
 { #category : #accessing }
@@ -215,7 +215,7 @@ ObjectBrowserObject >> myClassMethodSelectors [
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassMethods [
-	^methods
+	^methods values
 ]
 
 { #category : #printing }

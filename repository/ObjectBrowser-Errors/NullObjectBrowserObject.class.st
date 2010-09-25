@@ -41,6 +41,11 @@ NullObjectBrowserObject >> isNil [
 	^true
 ]
 
+{ #category : #menu }
+NullObjectBrowserObject >> menu: aMenuMorph [ 
+	^aMenuMorph
+]
+
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> methods [
 	^ OrderedCollection new
