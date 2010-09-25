@@ -61,6 +61,11 @@ OBVariable >> isPointingTo: anObject [
 	^reference = anObject
 ]
 
+{ #category : #selection }
+OBVariable >> makeSelectionOn: anObjectBrowser [ 
+	anObjectBrowser selectedObjectBrowserVariable: self.
+]
+
 { #category : #menues }
 OBVariable >> menu: aMenuMorph [ 
 	^self pointsTo menu: aMenuMorph.

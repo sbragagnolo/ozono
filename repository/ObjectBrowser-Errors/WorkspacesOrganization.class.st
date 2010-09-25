@@ -27,6 +27,11 @@ WorkspacesOrganization >> icon [
 	^ObjectBrowserIcons folderIcon
 ]
 
+{ #category : #selection }
+WorkspacesOrganization >> makeSelectionOn: anObjectBrowser [ 
+	anObjectBrowser workspacesOrganizationSelected
+]
+
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> menu: aMenu [
 	^aMenu addList: (OrderedCollection with: #('crear nuevo workspace' #createWorkspace))

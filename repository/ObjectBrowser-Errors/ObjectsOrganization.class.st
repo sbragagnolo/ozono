@@ -27,6 +27,11 @@ ObjectsOrganization >> icon [
 	^ObjectBrowserIcons homeIcon
 ]
 
+{ #category : #selection }
+ObjectsOrganization >> makeSelectionOn: anObjectBrowser [ 
+	anObjectBrowser objectsOrganizationSelected.
+]
+
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> menu: aMenu [
 	^aMenu addList: (OrderedCollection with: #('crear nuevo objeto' #createObject))

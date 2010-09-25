@@ -9,7 +9,8 @@ Class {
 		'selectedObjectSelector',
 		'window',
 		'organization',
-		'selectedItem'
+		'selectedItem',
+		'selectedWorkspace'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -48,6 +49,11 @@ ObjectBrowser >> attributeListMenu: aMenu shifted: shifted [
 ObjectBrowser >> canDelete: anObjectBrowserObject [
 
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
+]
+
+{ #category : #accessing }
+ObjectBrowser >> changed [
+	super changed.
 ]
 
 { #category : #showing }
@@ -147,8 +153,13 @@ ObjectBrowser >> createWorkspace [
 ]
 
 { #category : #showing }
-ObjectBrowser >> createWorkspace: workspaceLabel. [
-	self workspaces add: (LOOPWorkspace openLabel: workspaceLabel).
+ObjectBrowser >> createWorkspace: workspaceLabel [
+	| workspace |
+	workspace := LOOPWorkspace new 
+		openLabel: self title, ' - Workspace';
+		lesson: self lesson.
+	self workspaces add: workspace.
+	workspace containingWindow center: World center.
 	self changed.
 ]
 
@@ -240,6 +251,11 @@ ObjectBrowser >> objects [
 ]
 
 { #category : #accessing }
+ObjectBrowser >> objectsOrganizationSelected [
+	self selectedObjectBrowserVariable: NullOBVariable new.
+]
+
+{ #category : #accessing }
 ObjectBrowser >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
@@ -292,7 +308,8 @@ ObjectBrowser >> selectedItem [
 
 { #category : #accessing }
 ObjectBrowser >> selectedItem: anItem [
-	selectedItem := anItem
+	selectedItem := anItem.
+	selectedItem ifNotNil: [ selectedItem makeSelectionOn: self. ]
 ]
 
 { #category : #menues }
@@ -360,6 +377,11 @@ ObjectBrowser >> selectedObjectSelector: aMethod [
 	self changed.
 ]
 
+{ #category : #accessing }
+ObjectBrowser >> selectedWorkspace: aWorkspace [
+	selectedWorkspace := aWorkspace
+]
+
 { #category : #showing }
 ObjectBrowser >> selectorListEmpyText [
 	| string|
@@ -424,7 +446,18 @@ ObjectBrowser >> variablesListMenu: aMenu shifted: shifted [
 	^ aMenu
 ]
 
+{ #category : #accessing }
+ObjectBrowser >> workspaceSelected: aWorkspace [
+	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedWorkspace: aWorkspace.
+]
+
 { #category : #menues }
 ObjectBrowser >> workspaces [
 	^self lesson workspaces
+]
+
+{ #category : #selection }
+ObjectBrowser >> workspacesOrganizationSelected [
+	self selectedObjectBrowserVariable: NullOBVariable new.
 ]

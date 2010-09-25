@@ -64,6 +64,11 @@ LOOPWorkspace >> lesson: aLesson [
 	lesson := aLesson.
 ]
 
+{ #category : #selection }
+LOOPWorkspace >> makeSelectionOn: anObjectBrowser [ 
+	anObjectBrowser workspaceSelected: self.
+]
+
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> menu: aMenuBuilder [
 	^aMenuBuilder addList: (OrderedCollection
