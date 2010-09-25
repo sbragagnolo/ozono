@@ -8,7 +8,8 @@ Class {
 		'executionContext',
 		'browser',
 		'loopExecutionContextClass',
-		'lessonEnvironment'
+		'lessonEnvironment',
+		'workspaces'
 	],
 	#classVars : [
 		'CurrentLesson'
@@ -316,6 +317,11 @@ LOOPLesson >> variables [
 { #category : #accessing }
 LOOPLesson >> variables: anObject [
 	variables := anObject
+]
+
+{ #category : #accessing }
+LOOPLesson >> workspaces [
+	^ workspaces ifNil:[ workspaces := OrderedCollection new]
 ]
 
 { #category : #accessing }

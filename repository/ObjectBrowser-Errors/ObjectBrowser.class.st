@@ -135,6 +135,22 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 	self lesson addVariable: newVariable.
 ]
 
+{ #category : #showing }
+ObjectBrowser >> createWorkspace [
+	| workspaceLabel |
+	(self errorHandler
+		evaluate: [
+			workspaceLabel := self obtainWorkpaceLabel.
+			self createWorkspace: workspaceLabel.
+			]).
+	self changed
+]
+
+{ #category : #showing }
+ObjectBrowser >> createWorkspace: workspaceLabel. [
+	self workspaces add: (LOOPWorkspace openLabel: workspaceLabel).
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> delete [
 	window delete.
@@ -195,7 +211,9 @@ ObjectBrowser >> lesson: aLOOPLesson [
 { #category : #accessing }
 ObjectBrowser >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
-		with: (OBListItemWrapper with: (ObjectsOrganization for: self))]
+		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
+		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
+		]
 ]
 
 { #category : #menues }
@@ -227,10 +245,20 @@ ObjectBrowser >> obtainObjectName [
 	^ objectName
 ]
 
+{ #category : #showing }
+ObjectBrowser >> obtainWorkpaceLabel [
+	^self request: 'Nombre del workspace' default: 'nuevoWorkspace'.
+]
+
 { #category : #'initialize-release' }
 ObjectBrowser >> openInWorld [
 	window := ObjectBrowserWindow show: self.
 	
+]
+
+{ #category : #showing }
+ObjectBrowser >> openWorkspace [
+	self selectedItem openInWorld
 ]
 
 { #category : #model }
@@ -387,4 +415,9 @@ ObjectBrowser >> variablesListMenu: aMenu shifted: shifted [
 	aMenu addLine.
 	self addExtraItems: aMenu.
 	^ aMenu
+]
+
+{ #category : #menues }
+ObjectBrowser >> workspaces [
+	^self lesson workspaces
 ]

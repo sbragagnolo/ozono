@@ -3,10 +3,17 @@ Class {
 	#superclass : #SHWorkspace,
 	#instVars : [
 		'lesson',
-		'pane'
+		'pane',
+		'label',
+		'window'
 	],
 	#category : #'ObjectBrowser-UI'
 }
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> asString [
+	^self label
+]
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> bindingOf: aString [ 
@@ -23,7 +30,6 @@ LOOPWorkspace >> doItReceiver [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
-	| window  |
 	window := (SystemWindow labelled: labelString) model: self.
 	pane := PluggableTextMorph on: self text: #contents accept: #acceptContents:
 			readSelection: nil menu: #codePaneMenu:shifted:.
@@ -38,6 +44,26 @@ LOOPWorkspace >> hasBindingOf: aString [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPWorkspace >> label [
+	^label
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> label: aLabel [
+	label := aLabel
+]
+
+{ #category : #'as yet unclassified' }
 LOOPWorkspace >> lesson: aLesson [
 	lesson := aLesson.
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> menu: aMenuBuilder [
+	^aMenuBuilder addList: (OrderedCollection with: #('open' #openWorkspace))
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> openInWorld [
+	window openInWorld
 ]
