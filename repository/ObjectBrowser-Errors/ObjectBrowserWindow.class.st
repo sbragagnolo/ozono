@@ -118,14 +118,14 @@ ObjectBrowserWindow >> buildWorkspaceButton [
 { #category : #view }
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
-	hSepFrac := 0.45.
+	hSepFrac := 0.55.
 	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
 		
 		addMorph: self buildObjectBrowserTree
-		frame: (0@0 corner: 0.17@hSepFrac);
+		frame: (0@0 corner: 0.33@hSepFrac);
 		
-		addMorph: self buildVariableList 
-		frame: (0.17 @ 0 corner: 0.33 @ hSepFrac);
+		"addMorph: self buildVariableList 
+		frame: (0.17 @ 0 corner: 0.33 @ hSepFrac);"
 		
 		addMorph: self buildObjectAttributeList 
 		frame: (0.33 @ 0 corner: 0.66 @ hSepFrac);
@@ -134,17 +134,17 @@ ObjectBrowserWindow >> createView [
 		frame: (0.66 @ 0 corner: 1 @ hSepFrac);
 		
 		
-		addMorph: self buildWorkspaceButton
+		"addMorph: self buildWorkspaceButton
 		frame: (0 @ hSepFrac corner: 0.25 @ (hSepFrac + 0.1));
 		
 		addMorph: self buildGarbageCollectionButton
 		frame: (0.26 @ hSepFrac corner: 0.51 @ (hSepFrac + 0.1));
 		
 		addMorph: self buildObjectGraphButton
-		frame: (0.56 @ hSepFrac corner: 0.81 @ (hSepFrac + 0.1));
+		frame: (0.56 @ hSepFrac corner: 0.81 @ (hSepFrac + 0.1));"
 		
 		addMorph: self buildMethodEditor
-		frame: (0 @ (hSepFrac + 0.1) corner: 1 @ 1);
+		frame: (0 @ (hSepFrac) corner: 1 @ 1);
 		
 		center: World center.
 	
