@@ -92,8 +92,17 @@ ObjectBrowserCollection >> hasReferencesTo: anOBObject [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserCollection >> icon [
+	^nil
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> isNull [
 	^false
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
 ]
 
 { #category : #'as yet unclassified' }
@@ -145,6 +154,11 @@ ObjectBrowserCollection >> signalNotModificableCollection [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> sourceCodeAt: aSelector [
 	^'Código mágico :O'
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> treeContents [
+	^OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }

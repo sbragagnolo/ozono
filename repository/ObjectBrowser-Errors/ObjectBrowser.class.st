@@ -230,7 +230,7 @@ ObjectBrowser >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
 		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
 		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
-		]
+		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))]
 ]
 
 { #category : #menues }
@@ -281,6 +281,11 @@ ObjectBrowser >> openInWorld [
 { #category : #showing }
 ObjectBrowser >> openWorkspace [
 	self selectedItem openInWorld
+]
+
+{ #category : #menues }
+ObjectBrowser >> orphanObjects [
+	^self objects reject: [ :o | self variables anySatisfy: [:v | v pointsTo = o ] ]
 ]
 
 { #category : #model }
