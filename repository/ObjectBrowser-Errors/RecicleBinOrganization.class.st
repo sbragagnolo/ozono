@@ -29,7 +29,7 @@ RecicleBinOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 RecicleBinOrganization >> menu: aMenu [
-	^aMenu
+	^aMenu addList: (OrderedCollection with: #('Recolectar basura' #runGarbageCollector))
 ]
 
 { #category : #'as yet unclassified' }
