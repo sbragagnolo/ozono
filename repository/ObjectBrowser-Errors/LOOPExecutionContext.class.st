@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'_lesson',
 		'nuevaReferencia',
-		'nuevaReferenciaaa'
+		'nuevaReferenciaaa',
+		'setcito'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
