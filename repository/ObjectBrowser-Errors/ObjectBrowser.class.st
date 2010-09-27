@@ -156,7 +156,7 @@ ObjectBrowser >> createWorkspace [
 ObjectBrowser >> createWorkspace: workspaceLabel [
 	| workspace |
 	workspace := LOOPWorkspace new 
-		openLabel: self title, ' - Workspace';
+		openLabel: workspaceLabel;
 		lesson: self lesson.
 	self workspaces add: workspace.
 	workspace containingWindow center: World center.
