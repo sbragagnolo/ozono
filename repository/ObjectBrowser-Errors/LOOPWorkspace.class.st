@@ -80,3 +80,8 @@ LOOPWorkspace >> menu: aMenuBuilder [
 LOOPWorkspace >> openInWorld [
 	window openInWorld
 ]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> treeContents [
+	^OrderedCollection new
+]

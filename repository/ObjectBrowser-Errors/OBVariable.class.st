@@ -34,11 +34,6 @@ OBVariable >> asStringOrText [
 	^self name
 ]
 
-{ #category : #accessing }
-OBVariable >> contents [
-	^OrderedCollection new
-]
-
 { #category : #'as yet unclassified' }
 OBVariable >> desreference [
 	self pointTo: (NoObjectBrowserObject new: nil).
@@ -118,4 +113,9 @@ OBVariable >> removeFrom: aRealClass [
 OBVariable >> renameAs: aString [
 
 	self name: aString 
+]
+
+{ #category : #accessing }
+OBVariable >> treeContents [
+	^OrderedCollection new
 ]

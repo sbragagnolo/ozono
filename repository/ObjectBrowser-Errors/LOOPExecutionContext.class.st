@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'_lesson',
-		'nuevaReferencia'
+		'nuevaReferencia',
+		'nuevaReferenciaaa'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }

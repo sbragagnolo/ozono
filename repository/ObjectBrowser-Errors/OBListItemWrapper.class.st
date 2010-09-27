@@ -16,7 +16,7 @@ OBListItemWrapper >> asString [
 
 { #category : #'as yet unclassified' }
 OBListItemWrapper >> contents [
-	^self model contents
+	^self model treeContents
 ]
 
 { #category : #'as yet unclassified' }

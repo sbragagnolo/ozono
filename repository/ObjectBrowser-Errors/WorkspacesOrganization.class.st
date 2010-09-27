@@ -18,11 +18,6 @@ WorkspacesOrganization >> asString [
 ]
 
 { #category : #'as yet unclassified' }
-WorkspacesOrganization >> contents [
-	^objectBrowser workspaces collect:[ :w | OBListItemWrapper with: w model: w ]
-]
-
-{ #category : #'as yet unclassified' }
 WorkspacesOrganization >> icon [
 	^ObjectBrowserIcons folderIcon
 ]
@@ -40,4 +35,9 @@ WorkspacesOrganization >> menu: aMenu [
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> objectBrowser: anObjectBrowser [
 	objectBrowser := anObjectBrowser.
+]
+
+{ #category : #'as yet unclassified' }
+WorkspacesOrganization >> treeContents [
+	^objectBrowser workspaces collect:[ :w | OBListItemWrapper with: w model: w ]
 ]

@@ -18,11 +18,6 @@ ObjectsOrganization >> asString [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> contents [
-	^objectBrowser variables collect:[:v | OBListItemWrapper with: v model: v ]
-]
-
-{ #category : #'as yet unclassified' }
 ObjectsOrganization >> icon [
 	^ObjectBrowserIcons homeIcon
 ]
@@ -40,4 +35,9 @@ ObjectsOrganization >> menu: aMenu [
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> objectBrowser: anObjectBrowser [
 	objectBrowser := anObjectBrowser
+]
+
+{ #category : #'as yet unclassified' }
+ObjectsOrganization >> treeContents [
+	^objectBrowser variables collect:[:v | OBListItemWrapper with: v model: v ]
 ]
