@@ -205,7 +205,7 @@ ObjectBrowserObject >> methods [
 
 { #category : #accessing }
 ObjectBrowserObject >> myClassHasMethod: aSelector [
-	^self myClassMethods includesKey: aSelector 
+	^self myClassMethods includes: aSelector 
 ]
 
 { #category : #accessing }

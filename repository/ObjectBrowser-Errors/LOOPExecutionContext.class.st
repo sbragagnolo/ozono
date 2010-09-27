@@ -2,7 +2,8 @@ Class {
 	#name : #LOOPExecutionContext,
 	#superclass : #Object,
 	#instVars : [
-		'_lesson'
+		'_lesson',
+		'nuevaReferencia'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
