@@ -19,7 +19,7 @@ RecicleBinOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 RecicleBinOrganization >> icon [
-	^nil
+	^ObjectBrowserIcons trashIcon
 ]
 
 { #category : #'as yet unclassified' }
