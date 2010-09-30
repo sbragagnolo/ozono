@@ -69,6 +69,7 @@ LOOPLesson class >> fileIn: aFileName [
 
 { #category : #accessing }
 LOOPLesson class >> freeLesson [
+	self deprecated.
 	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
 	
 ]
@@ -86,6 +87,7 @@ LOOPLesson class >> newFreeLesson [
 
 { #category : #accessing }
 LOOPLesson class >> openFreeLesson [
+	self deprecated.
 	(ObjectBrowser onLesson: self freeLesson) openInWorld
 	
 ]
@@ -162,7 +164,10 @@ LOOPLesson >> delete [
 
 { #category : #accessing }
 LOOPLesson >> dereferencedObjects [
-	^self objects select:[:o | (self referencesObject: o ) not].
+	| referencedObjects dereferenced |
+	referencedObjects := self referencedObjects.
+	dereferenced := self objects reject:[:o | referencedObjects includes: o].
+	^dereferenced
 ]
 
 { #category : #accessing }
@@ -259,6 +264,14 @@ LOOPLesson >> openInWorld [
 { #category : #accessing }
 LOOPLesson >> printString [
 	^self title
+]
+
+{ #category : #accessing }
+LOOPLesson >> referencedObjects [
+	| referencedObjects |
+	referencedObjects := Set new.
+	self variables do:[ :v | v pointsTo fullfillObjectBrowserObjectsCollection: referencedObjects ].
+	^referencedObjects
 ]
 
 { #category : #accessing }

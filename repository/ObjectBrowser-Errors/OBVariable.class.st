@@ -53,7 +53,7 @@ OBVariable >> icon [
 
 { #category : #'as yet unclassified' }
 OBVariable >> isPointingTo: anObject [
-	^reference = anObject
+	^(reference = anObject)
 ]
 
 { #category : #selection }

@@ -9,7 +9,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 LoopTestCase >> setUp [
-	LOOPLesson currentLesson: LOOPLesson freeLesson.
+	"LOOPLesson currentLesson: LOOPLesson freeLesson."
+	currentLesson := LOOPLesson new.
 ]
 
 { #category : #'as yet unclassified' }

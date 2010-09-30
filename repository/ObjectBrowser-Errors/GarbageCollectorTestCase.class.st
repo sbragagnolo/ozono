@@ -14,7 +14,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	
 	variableName :='pepita'.
 	anotherVariableName := 'popote'.
-	ob := ObjectBrowser new.
+	ob := ObjectBrowser onLesson: currentLesson.
 	
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
@@ -31,18 +31,20 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	anotherVariable desreference.
 	
 	ob runGarbageCollector.
-	self assert:(ob objects includes: popote) not
+	self assert:(ob objects includes: popote)
 ]
 
 { #category : #'as yet unclassified' }
 GarbageCollectorTestCase >> testSimpleRunGarbageCollector [
 	| variableName variableToPepita pepita |
 	variableName :='pepita'.
-	ob := ObjectBrowser new.
+	ob := ObjectBrowser onLesson: currentLesson.
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
 	pepita := variableToPepita pointsTo.
 	variableToPepita desreference.
+	
 	ob runGarbageCollector.
+	
 	self assert:(ob objects includes: pepita) not
 ]

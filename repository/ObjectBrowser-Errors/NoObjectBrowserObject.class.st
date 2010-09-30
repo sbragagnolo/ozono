@@ -28,6 +28,13 @@ NoObjectBrowserObject >> displayString [
 	^self object printString
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aSet [ 
+	(aSet includes: self) ifFalse:[
+		aSet add: self 
+		]
+]
+
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph

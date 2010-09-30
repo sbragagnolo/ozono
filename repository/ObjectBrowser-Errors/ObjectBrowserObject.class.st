@@ -132,6 +132,14 @@ ObjectBrowserObject >> fileOut [
 	FileStream writeSourceCodeFrom: internalStream baseName: 'fileOut' isSt: true.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
+	(aCollection includes: self) ifFalse: [
+		aCollection add: self.
+		self variables do: [ :v | (self objectPointedBy: v name) fullfillObjectBrowserObjectsCollection: aCollection ].
+		]
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> hasClones [
 	^self realClass subclasses notEmpty
@@ -315,7 +323,7 @@ ObjectBrowserObject >> removeFromSystem [
 { #category : #accessing }
 ObjectBrowserObject >> removeMethod: aMethod [
 	self realClass removeSelector: aMethod selector.
-	self myClassMethods remove: aMethod.
+	methods removeKey: aMethod selector.
 	self changed.
 ]
 
