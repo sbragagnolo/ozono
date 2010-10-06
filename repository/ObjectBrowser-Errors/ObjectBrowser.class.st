@@ -55,7 +55,7 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 { #category : #ObjectBrowser }
 ObjectBrowser >> changed [
 	super changed.
-	"self dependants do: [ :d | d refresh ]."
+	self dependants do: [ :d | d refresh ].
 ]
 
 { #category : #showing }
@@ -141,6 +141,7 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 		pointTo: anObjectBrowserObject;
 		yourself.
 	self lesson addVariable: newVariable.
+	self selectedItem: newVariable.
 ]
 
 { #category : #showing }
@@ -162,6 +163,7 @@ ObjectBrowser >> createWorkspace: workspaceLabel [
 		lesson: self lesson.
 	self workspaces add: workspace.
 	workspace containingWindow center: World center.
+	self selectedItem: workspace.
 	self changed.
 ]
 
@@ -297,7 +299,7 @@ ObjectBrowser >> openWorkspace [
 
 { #category : #menues }
 ObjectBrowser >> orphanObjects [
-	^self objects reject: [ :o | self variables anySatisfy: [:v | v pointsTo = o ] ]
+	^(self lesson dereferencedObjects) collect: [ :o | DereferencedObject newOn: o].
 ]
 
 { #category : #model }

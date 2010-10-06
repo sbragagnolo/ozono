@@ -99,7 +99,7 @@ LOOPLesson >> addObject: anObject [
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
 	self addObject: aVariable pointsTo.
-	"self executionContext class addInstVarName: aVariable name."
+	self executionContext class addInstVarName: aVariable name.
 ]
 
 { #category : #accessing }

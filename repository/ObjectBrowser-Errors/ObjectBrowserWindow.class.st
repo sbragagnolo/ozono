@@ -170,7 +170,8 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 ObjectBrowserWindow >> refresh [
-	objectBrowserTree roots: self objectBrowser lessonOrganization
+	objectBrowserTree list: self objectBrowser lessonOrganization.
+	objectBrowserTree selection: self objectBrowser selectedItem.
 ]
 
 { #category : #view }
