@@ -6,7 +6,8 @@ Class {
 		'methodEditor',
 		'methodEditorButton',
 		'workspaceButton',
-		'garbageCollectionButton'
+		'garbageCollectionButton',
+		'objectBrowserTree'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -71,12 +72,12 @@ ObjectBrowserWindow >> buildObjectAttributeList [
 
 { #category : #view }
 ObjectBrowserWindow >> buildObjectBrowserTree [
-	^PluggableTreeMorph 
+	^objectBrowserTree := (PluggableTreeMorph 
 		on: self objectBrowser
 		list: #lessonOrganization
 		selected: #selectedItem
 		changeSelected: #selectedItem:
-		menu: #selectedItemMenu:
+		menu: #selectedItemMenu:)
 ]
 
 { #category : #view }
@@ -158,12 +159,18 @@ ObjectBrowserWindow >> objectBrowser [
 
 { #category : #view }
 ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
-	objectBrowser := anObjectBrowser 
+	objectBrowser := anObjectBrowser.
+	objectBrowser dependant: self.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow >> objectGraphButtonLabel [
 	^'Object Diagram'
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> refresh [
+	objectBrowserTree roots: self objectBrowser lessonOrganization
 ]
 
 { #category : #view }

@@ -11,9 +11,6 @@ Class {
 		'lessonEnvironment',
 		'workspaces'
 	],
-	#classVars : [
-		'CurrentLesson'
-	],
 	#classInstVars : [
 		'lessons'
 	],
@@ -68,13 +65,6 @@ LOOPLesson class >> fileIn: aFileName [
 ]
 
 { #category : #accessing }
-LOOPLesson class >> freeLesson [
-	self deprecated.
-	^CurrentLesson ifNil:[ CurrentLesson := self new title:'Free Lesson'].
-	
-]
-
-{ #category : #accessing }
 LOOPLesson class >> lessons [
 	^lessons ifNil: [ lessons := OrderedCollection new ].
 ]
@@ -82,13 +72,6 @@ LOOPLesson class >> lessons [
 { #category : #accessing }
 LOOPLesson class >> newFreeLesson [
 	^self new title:'Free Lesson'
-	
-]
-
-{ #category : #accessing }
-LOOPLesson class >> openFreeLesson [
-	self deprecated.
-	(ObjectBrowser onLesson: self freeLesson) openInWorld
 	
 ]
 
@@ -116,7 +99,7 @@ LOOPLesson >> addObject: anObject [
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
 	self addObject: aVariable pointsTo.
-	self executionContext class addInstVarName: aVariable name.
+	"self executionContext class addInstVarName: aVariable name."
 ]
 
 { #category : #accessing }
@@ -135,12 +118,12 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 { #category : #accessing }
 LOOPLesson >> clean [
 	"hago una copia de la colección para no modificar la original.  Remuevo de la coleccion original cada objeto y le digo que remueva su clase."
-	self objects copy do:[:o | o removeClassFromSystem.].
+	"self objects copy do:[:o | o removeClassFromSystem.]."
 	self objects removeAll.
 	self variables do:[:v | executionContext class removeInstVarName: v name].
 	self variables removeAll.
 	self removeFromSystem.
-	self initialize.
+	self class instVarNames do: [ :vn | self instVarNamed: vn put: nil].
 ]
 
 { #category : #accessing }

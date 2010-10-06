@@ -10,7 +10,8 @@ Class {
 		'window',
 		'organization',
 		'selectedItem',
-		'selectedWorkspace'
+		'selectedWorkspace',
+		'dependants'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -51,9 +52,10 @@ ObjectBrowser >> canDelete: anObjectBrowserObject [
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
 ]
 
-{ #category : #accessing }
+{ #category : #ObjectBrowser }
 ObjectBrowser >> changed [
 	super changed.
+	"self dependants do: [ :d | d refresh ]."
 ]
 
 { #category : #showing }
@@ -177,6 +179,16 @@ ObjectBrowser >> deleteVariable [
 			self doDeleteVariable.
 			].
 	self changed
+]
+
+{ #category : #ObjectBrowser }
+ObjectBrowser >> dependant: aDependant [
+	self dependants add: aDependant.
+]
+
+{ #category : #ObjectBrowser }
+ObjectBrowser >> dependants [
+	^dependants ifNil: [ dependants := Set new].
 ]
 
 { #category : #accessing }
