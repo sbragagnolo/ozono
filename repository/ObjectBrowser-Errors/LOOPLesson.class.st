@@ -291,6 +291,11 @@ LOOPLesson >> selectionInterval [
 ]
 
 { #category : #accessing }
+LOOPLesson >> tests [
+	^OrderedCollection new
+]
+
+{ #category : #accessing }
 LOOPLesson >> title [
 	^ title
 ]

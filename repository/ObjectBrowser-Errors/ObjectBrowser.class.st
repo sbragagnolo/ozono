@@ -244,7 +244,9 @@ ObjectBrowser >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
 		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
 		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
-		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))]
+		with: (OBListItemWrapper with: (TestsOrganization for: self))
+		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))
+		]
 ]
 
 { #category : #menues }
@@ -439,6 +441,16 @@ ObjectBrowser >> subMenuCollections [
 { #category : #accessing }
 ObjectBrowser >> subMenuCollectionsName [
 	^'Crear nuevo conjunto'
+]
+
+{ #category : #menues }
+ObjectBrowser >> tests [
+	^self lesson tests
+]
+
+{ #category : #menues }
+ObjectBrowser >> testsOrganizationSelected [
+	self selectedObjectBrowserVariable: NullOBVariable new.
 ]
 
 { #category : #showing }
