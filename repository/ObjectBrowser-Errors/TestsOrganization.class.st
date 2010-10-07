@@ -19,7 +19,7 @@ TestsOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> icon [
-	^nil
+	^ObjectBrowserIcons testsIcon
 ]
 
 { #category : #'as yet unclassified' }
