@@ -136,7 +136,7 @@ ObjectBrowserObject >> fileOut [
 ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 	(aCollection includes: self) ifFalse: [
 		aCollection add: self.
-		self variables do: [ :v | (self objectPointedBy: v name) fullfillObjectBrowserObjectsCollection: aCollection ].
+		self variables do: [ :v | (self objectPointedBy: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 
