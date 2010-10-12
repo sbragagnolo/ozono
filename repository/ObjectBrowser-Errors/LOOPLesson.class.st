@@ -55,13 +55,18 @@ LOOPLesson class >> deleteAllLessons [
 
 { #category : #accessing }
 LOOPLesson class >> fileIn: aFileName [
-	^Compiler new 
-			evaluate: (StandardFileStream fileNamed: aFileName) readStream
+	| lessonImported inStream |
+	
+	[ inStream := StandardFileStream fileNamed: aFileName.
+		lessonImported := Compiler new 
+			evaluate: inStream readStream
 			in: nil
 			to: self
 			notifying: self
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
+		] ensure: [inStream close.].
+		^ lessonImported.
 ]
 
 { #category : #accessing }
