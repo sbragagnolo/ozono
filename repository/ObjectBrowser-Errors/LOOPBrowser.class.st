@@ -73,13 +73,7 @@ LOOPBrowser >> fileOutSelectedLesson [
 
 { #category : #creation }
 LOOPBrowser >> importLesson [
-	| lesson lessonName |
-	lessonName :=self obtainLessonName.
-	lessonName ifNotNil:[
-		lesson := LOOPLesson fileIn:  lessonName .
-		lesson openInWorld.
-		self changed .
-	]
+	LOOPImportFileList open.
 ]
 
 { #category : #accessing }
