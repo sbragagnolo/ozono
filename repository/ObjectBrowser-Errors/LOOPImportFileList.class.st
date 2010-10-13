@@ -22,16 +22,18 @@ LOOPImportFileList >> importLoopLessonService [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPImportFileList >> isLoopLessonFile: aSuffix [
+LOOPImportFileList >> isLoopLessonFile: aFileName [
+	|aSuffix|
+	aSuffix := self class suffixOf: aFileName.
 	^ aSuffix = 'st'
 	
 ]
 
 { #category : #'as yet unclassified' }
-LOOPImportFileList >> myServicesForFile: aFullName suffix: aSuffix [
-	^(self isLoopLessonFile: aSuffix)
+LOOPImportFileList >> itemsForFile: aFileName [
+	^(self isLoopLessonFile: aFileName)
 		ifTrue: [self myServicesForLoopLessonFile]
-		ifFalse: [super myServicesForFile: aFullName suffix: aSuffix]
+		ifFalse: [super itemsForFile: aFileName]
 	
 ]
 
