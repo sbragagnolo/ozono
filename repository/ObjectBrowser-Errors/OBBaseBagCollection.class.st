@@ -15,6 +15,11 @@ OBBaseBagCollection >> cloneWithName: theName [
 ]
 
 { #category : #'as yet unclassified' }
+OBBaseBagCollection >> collectionTypeName [
+	^'Bag'
+]
+
+{ #category : #'as yet unclassified' }
 OBBaseBagCollection >> printString [
 	^ 'a BaseBagCollection'
 ]

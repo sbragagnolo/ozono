@@ -1,8 +1,28 @@
 Class {
 	#name : #ObjectBrowserCollection,
 	#superclass : #ObjectBrowserObject,
+	#instVars : [
+		'posibleName'
+	],
+	#classVars : [
+		'NextCollectionClassNumberAvailable'
+	],
 	#category : #'ObjectBrowser-Model'
 }
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> basicNew [	
+	^super basicNew posibleName: self name asLowercase , self collectionClassNumber asString ; yourself 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> collectionClassNumber [
+	"devuelve un numero valido de coleccion en el sistema, que no se repite con otra colleccion"
+	NextCollectionClassNumberAvailable ifNil: [NextCollectionClassNumberAvailable := 0].
+	NextCollectionClassNumberAvailable :=  NextCollectionClassNumberAvailable + 1.
+	^ NextCollectionClassNumberAvailable - 1.
+
+]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> new [
@@ -116,6 +136,21 @@ ObjectBrowserCollection >> methodsFor: aCategory [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserCollection >> myNewScriptOn: aLesson [
+	^ObjectBrowserCollection name, ' new', self realObject prototype collectionTypeName.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> posibleName [ 
+	^ posibleName 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> posibleName: aPosibleName [
+	posibleName := aPosibleName .
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> printString [
 	^'a Collection'.
 ]
@@ -164,4 +199,20 @@ ObjectBrowserCollection >> treeContents [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> variables [
 	^ OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
+
+	self writeCreateObjectOn: stream lesson: aLesson.
+
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> writeStateScriptOn: stream [
+		"saves the state, all the variables values and relationships"
+	self do:  [ :obj | 
+			stream nextPutAll: self posibleName , ' add: ' , (self posibleNameForObject: obj) , '.'. 
+			stream cr].
+
 ]

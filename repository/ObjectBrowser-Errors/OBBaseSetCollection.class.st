@@ -15,6 +15,11 @@ OBBaseSetCollection >> cloneWithName: theName [
 ]
 
 { #category : #'as yet unclassified' }
+OBBaseSetCollection >> collectionTypeName [
+	^'Set'
+]
+
+{ #category : #'as yet unclassified' }
 OBBaseSetCollection >> printString [
 	^ 'a BaseSetCollection'
 ]

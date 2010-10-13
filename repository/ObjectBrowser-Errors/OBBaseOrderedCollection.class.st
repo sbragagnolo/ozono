@@ -15,6 +15,11 @@ OBBaseOrderedCollection >> cloneWithName: theName [
 ]
 
 { #category : #'as yet unclassified' }
+OBBaseOrderedCollection >> collectionTypeName [
+	^'OrderedCollection'
+]
+
+{ #category : #'as yet unclassified' }
 OBBaseOrderedCollection >> printString [
 	^ 'a BaseOrderedCollection'
 ]

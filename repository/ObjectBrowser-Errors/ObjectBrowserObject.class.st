@@ -226,6 +226,11 @@ ObjectBrowserObject >> myClassMethods [
 	^methods values
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> myNewScriptOn: aLesson [
+	^ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification
+]
+
 { #category : #printing }
 ObjectBrowserObject >> object [
 	^self
@@ -251,6 +256,15 @@ ObjectBrowserObject >> objectPointedBy:  varName [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> posibleName [
 	^ self realClass name asLowercase.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> posibleNameForObject: object [ 
+	"me devuelve en posible name para los objetos FIXME! algo mas lindo...."
+	
+	( object isKindOf: ObjectBrowserObject ) 
+		ifTrue: [ ^object posibleName ] 
+		ifFalse: [^ object printString ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -290,9 +304,7 @@ ObjectBrowserObject >> referencePosibleName: name [
 	|object|
 	object := self objectPointedBy: name.
 
-	( object isKindOf: ObjectBrowserObject ) 
-		ifTrue: [ ^object posibleName ] 
-		ifFalse: [^ object printString ].
+	^ self posibleNameForObject: object 
 ]
 
 { #category : #'as yet unclassified' }
@@ -361,7 +373,7 @@ ObjectBrowserObject >> variables [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
-	stream nextPutAll: self posibleName ,  ' := ', ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification , '.' .
+	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
 ]
 
