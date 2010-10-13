@@ -111,7 +111,7 @@ ObjectBrowser >> createObject [
 	(self errorHandler
 		evaluate: [
 			objectName := self obtainObjectName.
-			self createVariable: objectName]).
+			objectName ifNotNil: [self createVariable: objectName]]).
 	self changed
 ]
 
