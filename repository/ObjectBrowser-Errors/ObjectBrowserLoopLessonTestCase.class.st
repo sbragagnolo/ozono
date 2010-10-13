@@ -15,6 +15,11 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> contentPOintedTo: anObjectBrowserObject byAtribute: atributeName [
+	^(anObjectBrowserObject variableNamed: atributeName ) pointsTo.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> createPepitaObObject: lesson [
 	|pepita|
 	
@@ -45,8 +50,29 @@ ObjectBrowserLoopLessonTestCase >> createRosarioObObject: lesson [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
+	^lessonTitle asLegalSelector , '.st' .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> importEmptyLesson [
+	^ LOOPLesson fileIn: (self fileName: self lessonEmptyTitle).
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> importLessonWithObjects [
+	^ LOOPLesson fileIn: (self fileName: self lessonWithObjectsTitle ).
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importLessonWithState [
-	^ LOOPLesson fileIn: (self lessonWithStateTitle asFileName , '.st' ).
+	^ LOOPLesson fileIn: (self fileName: self lessonWithStateTitle).
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> lessonEmptyTitle [
+	
+	^'Lesson Empty'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,8 +88,14 @@ ObjectBrowserLoopLessonTestCase >> lessonWithStateTitle [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> prepareEmptyLesson [
+	^ LOOPLesson new title: self lessonEmptyTitle.
+
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLesson [
-	| lesson pepita rosario|
+	| lesson |
 	lesson := LOOPLesson new title: self lessonWithObjectsTitle.
 	self addObjectsTo: lesson .
 	
@@ -86,35 +118,34 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileInEmptyLessonSuccess [
-
+ObjectBrowserLoopLessonTestCase >> tearDownLesson: lessonTitle [
+	FileDirectory default deleteFileNamed: (self fileName: lessonTitle)
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileInLessonWithObjectsNoStateSuccess [
+ObjectBrowserLoopLessonTestCase >> testExportImportEmptyLessonSuccess [
+	| lesson lessonImported |
+	lesson := self prepareEmptyLesson.
+	lesson fileOut .
+	lessonImported := self importEmptyLesson.
+	self assert: lesson title equals:  lessonImported title.
+	self assert: 0 equals:  lessonImported objects size.
+	self tearDownLesson: self lessonEmptyTitle.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileInLessonWithObjectsStateSuccess [
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileOutEmptyLessonSuccess [
-
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileOutLessonWithObjectsNoStateSuccess [
+ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsNoStateSuccess [
 	| lesson lessonImported |
 	lesson := self prepareLesson.
 	lesson fileOut .
 	lessonImported := self importLessonWithObjects.
 	self assert: lesson title equals:  lessonImported title.
-	self assert: lesson objects equals:  lessonImported objects.
+	self assert: lesson objects size equals:  lessonImported objects size.
+	self tearDownLesson: self lessonWithObjectsTitle .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> testFileOutLessonWithObjectsStateSuccess [
+ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess [
 	| lesson lessonImported |
 	lesson := self prepareLessonWithState.
 	lesson fileOut .
@@ -122,4 +153,5 @@ ObjectBrowserLoopLessonTestCase >> testFileOutLessonWithObjectsStateSuccess [
 	self assert: lesson title equals:  lessonImported title.
 	self assert: lesson objects size equals:  lessonImported objects size.
 	self assert: nil equals:  (self contentPOintedTo: (lessonImported objects at: 1) byAtribute: 'energia'). 
+	self tearDownLesson: self lessonWithStateTitle.
 ]

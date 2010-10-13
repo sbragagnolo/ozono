@@ -66,6 +66,7 @@ LOOPLesson class >> fileIn: aFileName [
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
 		] ensure: [inStream close.].
+		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
 		^ lessonImported.
 ]
 

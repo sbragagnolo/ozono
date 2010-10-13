@@ -57,10 +57,13 @@ LOOPBrowser >> createFreeLesson [
 
 { #category : #creation }
 LOOPBrowser >> createNewFreeLesson [
-	| lesson |
-	lesson := lessonContainer createLessonNamed: self obtainLessonName.
-	lesson openInWorld.
-	self changed .
+	| lesson lessonName |
+	lessonName :=self obtainLessonName.
+	lessonName ifNotNil:[
+		lesson := lessonContainer createLessonNamed: lessonName .
+		lesson openInWorld.
+		self changed .
+	]
 ]
 
 { #category : #accessing }
@@ -70,10 +73,13 @@ LOOPBrowser >> fileOutSelectedLesson [
 
 { #category : #creation }
 LOOPBrowser >> importLesson [
-	| lesson |
-	lesson := LOOPLesson fileIn:  self obtainLessonName.
-	lesson openInWorld.
-	self changed .
+	| lesson lessonName |
+	lessonName :=self obtainLessonName.
+	lessonName ifNotNil:[
+		lesson := LOOPLesson fileIn:  lessonName .
+		lesson openInWorld.
+		self changed .
+	]
 ]
 
 { #category : #accessing }
