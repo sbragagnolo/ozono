@@ -97,7 +97,8 @@ ObjectBrowser >> createCollection: type [
 	(self errorHandler
 		evaluate: [
 			collectionName := self obtainObjectName.
-			self createVariable: collectionName referencingTo: type clone.
+			collectionName 
+				ifNotNil: [ self createVariable: collectionName referencingTo: type clone ].
 		]).
 	self changed.
 	
@@ -340,7 +341,7 @@ ObjectBrowser >> selectedItem: anItem [
 
 { #category : #menues }
 ObjectBrowser >> selectedItemMenu: aMenuMorph [ 
-	^self selectedItem menu: aMenuMorph
+	^self selectedItem ifNotNil: [ :item | item menu: aMenuMorph]
 ]
 
 { #category : #accessing }
