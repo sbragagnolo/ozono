@@ -73,14 +73,50 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 ]
 
 { #category : #view }
+ObjectBrowserWindow >> createGroupTab [
+	^TabGroupMorph new
+		addPage: self createObjectEditionTab label: 'Objetos';
+		selectedPageIndex: 1;
+		yourself
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> createObjectEditionTab [
+	| hSepFrac panel |
+	hSepFrac := 0.45.
+	panel := OBGroupingMorph new
+		color: (Color gray);
+		layoutPolicy: (ProportionalLayout new);
+		addMorph: self buildObjectAttributeList 
+			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
+		addMorph: self buildMethodList
+			frame: (0.50001@ 0 corner: 1 @ hSepFrac -0.01);
+		addMorph: self buildMethodEditor
+			frame: (0@hSepFrac corner: 1 @ 1).
+	methodEditor color: Color white.
+	^panel.
+]
+
+{ #category : #view }
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
-	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
-		
+	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') 
+		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
-		frame: (0@0 corner: 0.33@1);
-		
+			frame: (0@0 corner: 0.33@1);
+		addMorph: self createGroupTab
+			frame: (0.33@0 corner: 1@1);
+		center: World center.
+	
+	^window.
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> createViewOld [
+	| hSepFrac window |
+	hSepFrac := 0.45.
+	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
 		addMorph: self buildObjectAttributeList 
 		frame: (0.33 @ 0 corner: 0.66 @ hSepFrac);
 		

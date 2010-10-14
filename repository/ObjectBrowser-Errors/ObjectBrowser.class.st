@@ -132,6 +132,10 @@ ObjectBrowser >> createSet [
 	self createCollection: set.
 ]
 
+{ #category : #menues }
+ObjectBrowser >> createTest [
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> createVariable: aVariableNameString [
 	self createVariable: aVariableNameString  referencingTo: (ObjectBrowserObject newOn: self lesson).
