@@ -76,6 +76,7 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 ObjectBrowserWindow >> createGroupTab [
 	^TabGroupMorph new
 		addPage: self createObjectEditionTab label: 'Objetos';
+		addPage: self createTestRunnerTab label: 'Tests';
 		selectedPageIndex: 1;
 		yourself
 ]
@@ -94,6 +95,23 @@ ObjectBrowserWindow >> createObjectEditionTab [
 		addMorph: self buildMethodEditor
 			frame: (0@hSepFrac corner: 1 @ 1).
 	methodEditor color: Color white.
+	^panel.
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> createTestRunnerTab [
+	| hSepFrac panel |
+	hSepFrac := 0.45.
+	panel := OBGroupingMorph new
+		color: (Color gray);
+		layoutPolicy: (ProportionalLayout new)";
+		addMorph: self buildObjectAttributeList 
+			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
+		addMorph: self buildMethodList
+			frame: (0.50001@ 0 corner: 1 @ hSepFrac -0.01);
+		addMorph: self buildMethodEditor
+			frame: (0@hSepFrac corner: 1 @ 1)".
+	"methodEditor color: Color white."
 	^panel.
 ]
 
