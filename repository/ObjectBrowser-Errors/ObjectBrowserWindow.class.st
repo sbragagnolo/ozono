@@ -20,13 +20,15 @@ ObjectBrowserWindow class >> show: anObjectBrowser [
 { #category : #view }
 ObjectBrowserWindow >> buildMethodEditor [
 	| model |
-	methodEditor := (PluggableTextMorph
+	methodEditor := (PluggableShoutMorph
 		on: (model := MethodEditorModel newOn: self objectBrowser )
 		text: #selectedMethodCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.
+	self objectBrowser addObjectSelectionInterested: methodEditor.
 	model methodEditorMorph: methodEditor.
+	
 	^methodEditor
 ]
 

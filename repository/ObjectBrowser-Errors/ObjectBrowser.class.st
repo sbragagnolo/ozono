@@ -11,7 +11,8 @@ Class {
 		'organization',
 		'selectedItem',
 		'selectedWorkspace',
-		'dependants'
+		'dependants',
+		'objectSelectionInterested'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -39,6 +40,11 @@ ObjectBrowser >> addExtraItems: aMenu [
 	"Aca nos pasan el menu y le agregamos los submenus que querramos, en mi caso le agrego todo lo de las colecciones :)"
 
 	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections. 
+]
+
+{ #category : #'dependents access' }
+ObjectBrowser >> addObjectSelectionInterested: anInterested [
+	self objectSelectionInterested add: anInterested
 ]
 
 { #category : #menues }
@@ -267,6 +273,11 @@ ObjectBrowser >> objectNames [
 	^self objects collect:[:each | each name]
 ]
 
+{ #category : #'dependents access' }
+ObjectBrowser >> objectSelectionInterested [
+	^objectSelectionInterested ifNil: [ objectSelectionInterested := Set new ]
+]
+
 { #category : #ObjectBrowser }
 ObjectBrowser >> objects [
 	^self lesson objects
@@ -385,6 +396,7 @@ ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := NullOBVariable new.
 	selectedObjectSelector := NullOBMethod new.
+	anOBVariable notifySelectionTo: self objectSelectionInterested.
 	self changed.
 ]
 

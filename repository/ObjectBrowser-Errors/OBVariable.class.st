@@ -78,6 +78,11 @@ OBVariable >> name: aNameString [
 	name := aNameString
 ]
 
+{ #category : #messages }
+OBVariable >> notifySelectionTo: anObserverCollection [
+	anObserverCollection do: [ :o | o classOrMetaClass: self pointsTo realClass ]
+]
+
 { #category : #accessing }
 OBVariable >> originalName: anObject [
 	originalName := anObject
