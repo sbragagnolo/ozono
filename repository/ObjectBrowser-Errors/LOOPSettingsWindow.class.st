@@ -18,30 +18,101 @@ LOOPSettingsWindow class >> openInWorld [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPSettingsWindow >> createGroupTab [
-	^TabGroupMorph new
-		addPage: self createSettingsTab label: 'Configuraciones';
-		addPage: self createStatsTab label: 'Estadisticas';
-		selectedPageIndex: 1;
-		yourself
+LOOPSettingsWindow >> aBoxMorph [
+	|defaultSettings |
+	
+	defaultSettings := NewTextMorph new.
+	defaultSettings color: Color lightGreen .
+	defaultSettings margin: 5.
+	defaultSettings text: 'Willy Lamas' asText . 
+	^defaultSettings .
+	
 ]
 
 { #category : #'as yet unclassified' }
-LOOPSettingsWindow >> createSettingsTab [ 
-	| hSepFrac panel |
-	hSepFrac := 0.45.
-	panel := OBGroupingMorph new
-		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new).
+LOOPSettingsWindow >> aRedBoxMorph [
+	|defaultSettings |
+	
+	defaultSettings := NewTextMorph new.
+	defaultSettings color: Color lightRed .
+	defaultSettings margin: 5.
+	defaultSettings text: 'Roque No Entiendo Nada' asText . 
+	^defaultSettings .
+	
+]
+
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> addDefaultSettingsText: panel [
+	|defaultSettings stream |
+	
+"fixme: refactor me please"
+	stream := (String new: 100) writeStream.
+	stream nextPutAll: 'Idioma: Español' ; cr.
+	stream nextPutAll: 'Dialecto: Smalltalk' ; cr.
+	stream trailer.
+
+	defaultSettings := NewTextMorph new.
+	defaultSettings color: Color veryLightGray.
+	defaultSettings margin: 5.
+	defaultSettings text: stream contents asText . 
+	
+	panel addMorph: defaultSettings frame: (0@0.0 corner: 1@ 0.9).
+	panel addMorph: self buildOpenSettingsBrowserButton frame: (0.0@0.9 corner: 1@1).
 	^panel.
 ]
 
 { #category : #'as yet unclassified' }
-LOOPSettingsWindow >> createStatsTab [ 
+LOOPSettingsWindow >> addDefaultStatsText: panel [
+	panel addMorph: self aBoxMorph frame: (0.0@0.0 corner: 0.33@ 0.3).
+	panel addMorph: self aBoxMorph frame: (0.33@0.0 corner: 0.66@ 0.3).
+	panel addMorph: self aBoxMorph frame: (0.66@0.0 corner: 1.0@0.3).
+	
+	panel addMorph: self aBoxMorph frame: (0.0@0.3 corner: 0.33@ 0.6).
+	panel addMorph: self aBoxMorph frame: (0.33@0.3 corner: 0.66@ 0.6).
+	panel addMorph: self aRedBoxMorph frame: (0.66@0.3 corner: 1.0@0.6).
+	
+	panel addMorph: self aBoxMorph frame: (0.0@0.6 corner: 0.33@0.9).
+	panel addMorph: self aBoxMorph frame: (0.33@0.6 corner: 0.66@0.9).
+	panel addMorph: self aRedBoxMorph frame: (0.66@0.6 corner: 1.0@0.9).
+	
+	panel addMorph: self buildOpenLessonsReportsButton frame: (0.0@0.9 corner: 1@1).
+
+	^panel.
+]
+
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> buildOpenLessonsReportsButton [ 
+	^PluggableButtonMorph 
+		on: self 
+		getState: nil
+		action: #openSettingsBrowser
+		label: #openLessosReportsConfigurationLabel
+]
+
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> buildOpenSettingsBrowserButton [ 
+	^PluggableButtonMorph 
+		on: self 
+		getState: nil
+		action: #openSettingsBrowser
+		label: #openSettingBrowserLabel
+]
+
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> createGroupTab [
+	^TabGroupMorph new
+		addPage: (self addDefaultSettingsText: self createNewTab) label: 'Configuraciones';
+		addPage: (self addDefaultStatsText:  self createNewTab) label: 'Estadisticas';
+		selectedPageIndex: 2;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> createNewTab [ 
 	| hSepFrac panel |
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
-		color: (Color gray);
+		color: (Color white);
 		layoutPolicy: (ProportionalLayout new).
 	^panel.
 ]
@@ -52,29 +123,24 @@ LOOPSettingsWindow >> createView [
 
 	hSepFrac := 0.45.
 	window := (SystemWindow labelled: 'LOOP Controls') 
-		addMorph: self createGroupTab
-			frame: (0.0@0 corner: 1@1);
+		addMorph: self createGroupTab frame: (0@0 corner: 1@1);
 		center: World center.
-	
 	^window.
 ]
 
 { #category : #'as yet unclassified' }
-LOOPSettingsWindow >> selectedItem [
-	"Answer the currently selected item or nil if none."
-
-	^nil
+LOOPSettingsWindow >> openLessosReportsConfigurationLabel [
+	^'Configurar estadísticas'
 ]
 
 { #category : #'as yet unclassified' }
-LOOPSettingsWindow >> settingOrganization [
+LOOPSettingsWindow >> openSettingBrowserLabel [
+	^'Modificar configuraciones'
+]
 
-	^organization ifNil: [ organization := OrderedCollection 
-		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
-		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
-		with: (OBListItemWrapper with: (TestsOrganization for: self))
-		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))
-		]
+{ #category : #'as yet unclassified' }
+LOOPSettingsWindow >> openSettingsBrowser [
+	SettingBrowser open.
 ]
 
 { #category : #'as yet unclassified' }
