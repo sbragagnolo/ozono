@@ -140,9 +140,9 @@ ObjectBrowserWindow >> createView [
 	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
-			frame: (0@0 corner: 0.33@1);
+			frame: (0@0 corner: 0.2@1);
 		addMorph: self createGroupTab
-			frame: (0.33@0 corner: 1@1);
+			frame: (0.2@0 corner: 1@1);
 		center: World center.
 	
 	^window.
