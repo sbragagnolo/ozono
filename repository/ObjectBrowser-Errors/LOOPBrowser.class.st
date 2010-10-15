@@ -48,6 +48,11 @@ LOOPBrowser class >> on: aLOOPLessonContainer [
 ]
 
 { #category : #creation }
+LOOPBrowser >> chooseTheFile. [
+	^ UIManager default chooseFileMatching: nil label: 'Selecciona la leccion'.
+]
+
+{ #category : #creation }
 LOOPBrowser >> createFreeLesson [
 	| lesson |
 	lesson := lessonContainer createFreeLesson.
@@ -73,7 +78,14 @@ LOOPBrowser >> fileOutSelectedLesson [
 
 { #category : #creation }
 LOOPBrowser >> importLesson [
-	LOOPImportFileList open.
+	"LOOPImportFileList open. - > esto abre el browser con el boton importar que esta ahora"
+	| lesson lessonName |
+	lessonName :=self chooseTheFile.
+	lessonName ifNotNil:[
+		lesson := LOOPLesson fileIn: lessonName .
+		lesson openInWorld.
+		self changed .
+	]
 ]
 
 { #category : #accessing }
