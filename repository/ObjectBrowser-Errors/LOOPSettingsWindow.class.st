@@ -123,6 +123,27 @@ LOOPSettingsWindow >> addDefaultStatsText: panel [
 	^panel.
 ]
 
+{ #category : #tabs }
+LOOPSettingsWindow >> addNotImplementedWarningText: panel [
+	|stream |
+
+	stream := (String new: 100) writeStream.
+	stream cr.
+	stream nextPutAll: '  Los paneles aquí mostrados son un prototipo'; cr;cr.
+	stream nextPutAll: '  Las funcionalidades han sido pensadas pero quedaron fuera del scope.'; cr;cr.
+	stream nextPutAll: '  Se espera que en el siguiente proyecto'; cr;cr.
+	stream nextPutAll: '  sean implementados, ya que el modelo ha sido pensado para que así lo hagan.'; cr;cr.
+	
+	panel addMorph: (self ligthLightGreyBox ) frame: (0.0@0.0 corner: 1.0@ 0.1).
+	panel addMorph: (self ligthLightGreyBox ) frame: (0.9@0.1 corner: 1.0@ 1.0).
+	panel addMorph: (self ligthLightGreyBox ) frame: (0.0@0.1 corner: 0.1@ 1.0).
+	panel addMorph: (self ligthLightGreyBox ) frame: (0.0@0.9 corner: 1.0@ 1.0).
+	panel addMorph: (self whiteTextMorphWithText: stream contents) frame: (0.1@0.1 corner: 0.9@ 0.9).
+
+	
+	^panel.
+]
+
 { #category : #buttons }
 LOOPSettingsWindow >> buildOpenLessonsReportsButton [ 
 	^PluggableButtonMorph 
@@ -159,9 +180,10 @@ LOOPSettingsWindow >> combinaciones: coordenadaX conjunto: posiblesY [
 { #category : #tabs }
 LOOPSettingsWindow >> createGroupTab [
 	^TabGroupMorph new
+		addPage: (self addNotImplementedWarningText:  self createNewTab) label: 'Importante';
 		addPage: (self addDefaultSettingsText: self createNewTab) label: 'Configuraciones';
 		addPage: (self addDefaultStatsText:  self createNewTab) label: 'Estadisticas';
-		selectedPageIndex: 1;
+		selectedPageIndex: 2;
 		yourself
 ]
 
