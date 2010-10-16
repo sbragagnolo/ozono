@@ -47,35 +47,36 @@ LOOPSettingsWindow >> aPosibleName [
 
 { #category : #tabs }
 LOOPSettingsWindow >> addDefaultSettingsText: panel [
-	|defaultSettings stream idioma idiomaSeleccionado lessonsTitles lessonsProgrammingLanguages dialecto |
+	|stream idioma idiomaSeleccionado lessonsTitles lessonsProgrammingLanguages dialecto |
 	
 "fixme: refactor me please"
-	stream := (String new: 100) writeStream.
-	stream nextPutAll: 'Idioma: Español' ; cr.
-	stream nextPutAll: 'Dialecto:' ; cr.
-	LOOPLesson lessons do:[:lesson | stream nextPutAll: lesson title, ' Smalltalk' ; cr ].
-	stream trailer.
-	
-	
-	defaultSettings  := self textMorphWithText: stream contents.
-	
-	idioma := self textMorphWithText: 'Idioma: '.
-	idiomaSeleccionado := self whiteTextMorphWithText: 'Español'.
-	dialecto := self textMorphWithText: 'Dialecto: '.
+	idioma := self textMorphWithText: ' Idioma: '.
+	idiomaSeleccionado := self whiteTextMorphWithText: '  Español'.
+	dialecto := self textMorphWithText: ' Dialecto: '.
 
 	stream := (String new: 100) writeStream.
-	LOOPLesson lessons do:[:lesson | stream nextPutAll: lesson title; cr ].
+	LOOPLesson lessons do:[:lesson | stream nextPutAll: '  ',lesson title; cr ].
 	lessonsTitles := self whiteTextMorphWithText: stream contents .
 
 	stream := (String new: 100) writeStream.
-	LOOPLesson lessons do:[:lesson | stream nextPutAll: 'Smalltalk'; cr ].
+	LOOPLesson lessons do:[:lesson | stream nextPutAll: '  Smalltalk'; cr ].
 	lessonsProgrammingLanguages := self whiteTextMorphWithText: stream contents .	
 	
-	panel addMorph: idioma frame: (0.0@0.0 corner: 1@ 0.1).
-	panel addMorph: idiomaSeleccionado  frame: (0.0@0.1 corner: 1@ 0.2).
-	panel addMorph: dialecto frame: (0.0@0.2 corner: 1@ 0.3).
-	panel addMorph: lessonsTitles  frame: (0.0@0.3 corner: 1@ 0.9).
-	panel addMorph: lessonsProgrammingLanguages  frame: (0.3@0.3 corner: 1@ 0.9).
+	panel addMorph: idioma frame: (0.0@0.0 corner: 0.4@ 0.1).
+	panel addMorph: idiomaSeleccionado  frame: (0.4@0.0 corner: 1@ 0.1).
+	panel addMorph: self ligthLightGreyBox frame: (0.0@0.1 corner: 1@ 0.15).
+	
+	panel addMorph: dialecto frame: (0.0@0.15 corner: 0.4@ 0.7).
+	panel addMorph: (self textMorphWithText: ' Lección') frame: (0.4@0.15 corner: 0.7@ 0.25).
+	panel addMorph: (self textMorphWithText: ' Dialecto Seleccionado') frame: (0.7@0.15 corner: 1@ 0.25).
+	panel addMorph: lessonsTitles  frame: (0.4@0.25 corner: 0.7@ 0.7).
+	panel addMorph: lessonsProgrammingLanguages  frame: (0.7@0.25 corner: 1@ 0.7).
+	panel addMorph: self ligthLightGreyBox frame: (0.0@0.7 corner: 1.0@ 0.75).
+
+	panel addMorph: (self textMorphWithText: ' Chequeo de Tipos') frame: (0.0@0.75 corner: 0.4@ 0.85).
+	panel addMorph: (self whiteTextMorphWithText: '  Desactivado')   frame: (0.4@0.75 corner: 1@ 0.85).
+	panel addMorph: self ligthLightGreyBox frame: (0.0@0.85 corner: 1.0@ 0.9).
+	
 	panel addMorph: self buildOpenSettingsBrowserButton frame: (0.0@0.9 corner: 1@1).
 	^panel.
 ]
@@ -106,7 +107,7 @@ LOOPSettingsWindow >> addDefaultSettingsTree: panel [
 { #category : #statsView }
 LOOPSettingsWindow >> addDefaultStatsText: panel [
 	| cantidadPaneles cotaMaximaX cotaMaximaY |
-	cantidadPaneles := 6.
+	cantidadPaneles := 7.
 	cotaMaximaX := 1.
 	cotaMaximaY := 0.9.
 	
@@ -180,6 +181,16 @@ LOOPSettingsWindow >> createView [
 		addMorph: self createGroupTab frame: (0@0 corner: 1@1);
 		center: World center.
 	^window.
+]
+
+{ #category : #morphs }
+LOOPSettingsWindow >> ligthLightGreyBox [
+	|defaultSettings |
+	
+	defaultSettings := self textMorphWithText: '' .
+	defaultSettings backgroundColor: Color veryVeryLightGray .
+	^defaultSettings .
+	
 ]
 
 { #category : #buttons }
@@ -266,12 +277,12 @@ LOOPSettingsWindow >> show [
 LOOPSettingsWindow >> textMorphWithText: textInside [
 	|defaultSettings |
 	
-	defaultSettings := NewTextMorph new.
-	defaultSettings color: Color veryVeryLightGray .
-	defaultSettings margin: 6.
-	defaultSettings text: textInside asText. 
+	defaultSettings  := TextMorph authoringPrototype.
+	defaultSettings  autoFit: false.
+	defaultSettings backgroundColor: Color veryLightGray.
+	defaultSettings borderWidth: 1.
+	defaultSettings  contents: textInside translated asText.
 	^defaultSettings .
-	
 ]
 
 { #category : #statsView }
@@ -284,7 +295,6 @@ LOOPSettingsWindow >> whiteTextMorphWithText: textInside [
 	|defaultSettings |
 	
 	defaultSettings := self textMorphWithText: textInside .
-	defaultSettings color: Color white .
+	defaultSettings  backgroundColor: Color white .
 	^defaultSettings .
-	
 ]
