@@ -22,34 +22,26 @@ LOOPSettingsWindow >> aBoxMorph [
 	|defaultSettings |
 	
 	defaultSettings := NewTextMorph new.
-	defaultSettings color: Color lightGreen .
+	defaultSettings color: self aPosibleColor .
 	defaultSettings margin: 5.
-	defaultSettings text: 'Willy Lamas' asText . 
+	defaultSettings text: self aPosibleName asText . 
 	^defaultSettings .
 	
 ]
 
 { #category : #morphs }
-LOOPSettingsWindow >> aRedBoxMorph [
-	|defaultSettings |
-	
-	defaultSettings := NewTextMorph new.
-	defaultSettings color: Color lightRed .
-	defaultSettings margin: 5.
-	defaultSettings text: 'Roque No Entiendo Nada' asText . 
-	^defaultSettings .
-	
+LOOPSettingsWindow >> aPosibleColor [ 
+	| posibles |
+	posibles := OrderedCollection with: Color lightGreen with: Color lightYellow with:Color lightRed.
+	^posibles at: self posiblePositionRandom.
+
 ]
 
 { #category : #morphs }
-LOOPSettingsWindow >> aYellowBoxMorph [
-	|defaultSettings |
-	
-	defaultSettings := NewTextMorph new.
-	defaultSettings color: Color lightYellow  .
-	defaultSettings margin: 5.
-	defaultSettings text: 'Pepe esta en el limite' asText . 
-	^defaultSettings .
+LOOPSettingsWindow >> aPosibleName [
+	| posibles |
+	posibles := OrderedCollection with: 'Willy Lamas' with: 'Brangangolo' with: 'Gutierrez'.
+	^posibles at: self posiblePositionRandom.
 	
 ]
 
@@ -75,26 +67,19 @@ LOOPSettingsWindow >> addDefaultSettingsText: panel [
 
 { #category : #statsView }
 LOOPSettingsWindow >> addDefaultStatsText: panel [
-"	panel addMorph: self aBoxMorph frame: (0.0@0.0 corner: 0.33@ 0.3).
-	panel addMorph: self aBoxMorph frame: (0.33@0.0 corner: 0.66@ 0.3).
-	panel addMorph: self aBoxMorph frame: (0.66@0.0 corner: 1.0@0.3).
-	
-	panel addMorph: self aBoxMorph frame: (0.0@0.3 corner: 0.33@ 0.6).
-	panel addMorph: self aBoxMorph frame: (0.33@0.3 corner: 0.66@ 0.6).
-	panel addMorph: self aRedBoxMorph frame: (0.66@0.3 corner: 1.0@0.6).
-	
-	panel addMorph: self aBoxMorph frame: (0.0@0.6 corner: 0.33@0.9).
-	panel addMorph: self aBoxMorph frame: (0.33@0.6 corner: 0.66@0.9).
-	panel addMorph: self aRedBoxMorph frame: (0.66@0.6 corner: 1.0@0.9)."
-	
 	| cantidadPaneles cotaMaximaX cotaMaximaY |
-	cantidadPaneles := 5.
+	cantidadPaneles := 6.
 	cotaMaximaX := 1.
 	cotaMaximaY := 0.9.
 	
-	(self posiblesPuntosInferiores: cantidadPaneles maximoX: cotaMaximaX maximoY: cotaMaximaY ) do: [:puntoInferior | panel addMorph:  self aBoxMorph frame: (puntoInferior corner: (self puntoSuperior: puntoInferior  incrementoX: cotaMaximaX /cantidadPaneles  incrementoY: cotaMaximaY/cantidadPaneles ))].
+	(self posiblesPuntosInferiores: cantidadPaneles maximoX: cotaMaximaX maximoY: cotaMaximaY ) do: 
+		[:puntoInferior | 
+			panel addMorph:  self aBoxMorph frame: 
+				(puntoInferior corner: (self puntoSuperior: puntoInferior  incrementoX: cotaMaximaX /cantidadPaneles  incrementoY: cotaMaximaY/cantidadPaneles))
+		].
 	
-	panel addMorph: self buildOpenLessonsReportsButton frame: (0.0@0.9 corner: 1@1).
+	panel addMorph: self buildOpenLessonsReportsButton frame: (0.0@0.9 corner: 0.5@1).
+	panel addMorph: self buildViewConfigurationButton frame: (0.5@0.9 corner: 1@1).
 
 	^panel.
 ]
@@ -115,6 +100,15 @@ LOOPSettingsWindow >> buildOpenSettingsBrowserButton [
 		getState: nil
 		action: #openSettingsBrowser
 		label: #openSettingBrowserLabel
+]
+
+{ #category : #buttons }
+LOOPSettingsWindow >> buildViewConfigurationButton [
+	^PluggableButtonMorph 
+		on: self 
+		getState: nil
+		action: #openFunctionalityNotImplented
+		label: #openViewConfigurationLabel
 ]
 
 { #category : #statsView }
@@ -151,8 +145,15 @@ LOOPSettingsWindow >> createView [
 ]
 
 { #category : #buttons }
+LOOPSettingsWindow >> openFunctionalityNotImplented [
+	^ UIManager default
+		request: 'Funcionalidad no implementada'
+		initialAnswer: 'Esto es a modo de prototipo'.
+]
+
+{ #category : #buttons }
 LOOPSettingsWindow >> openLessosReportsConfigurationLabel [
-	^'Configurar estadísticas'
+	^'Configurar estadísticas por alumno'
 ]
 
 { #category : #buttons }
@@ -163,6 +164,27 @@ LOOPSettingsWindow >> openSettingBrowserLabel [
 { #category : #buttons }
 LOOPSettingsWindow >> openSettingsBrowser [
 	SettingBrowser open.
+]
+
+{ #category : #buttons }
+LOOPSettingsWindow >> openViewConfigurationLabel [
+	^'Configurar vista'
+]
+
+{ #category : #morphs }
+LOOPSettingsWindow >> posiblePositionRandom [
+	| random |
+.	
+	random := Random new next. 
+	random < 0.6
+		ifTrue: [ ^1]
+		ifFalse: [ 
+			random < 0.85 
+				ifTrue: [^2] 
+				ifFalse:[^3] 
+		]
+	
+
 ]
 
 { #category : #statsView }
@@ -204,5 +226,5 @@ LOOPSettingsWindow >> show [
 
 { #category : #statsView }
 LOOPSettingsWindow >> valorPosible: posible cota: maximo [
-	^ posible <= maximo .
+	^ posible < maximo .
 ]
