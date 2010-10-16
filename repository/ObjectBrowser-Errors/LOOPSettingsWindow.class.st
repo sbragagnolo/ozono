@@ -47,22 +47,60 @@ LOOPSettingsWindow >> aPosibleName [
 
 { #category : #tabs }
 LOOPSettingsWindow >> addDefaultSettingsText: panel [
-	|defaultSettings stream |
+	|defaultSettings stream idioma idiomaSeleccionado lessonsTitles lessonsProgrammingLanguages dialecto |
 	
 "fixme: refactor me please"
 	stream := (String new: 100) writeStream.
 	stream nextPutAll: 'Idioma: Español' ; cr.
-	stream nextPutAll: 'Dialecto: Smalltalk' ; cr.
+	stream nextPutAll: 'Dialecto:' ; cr.
+	LOOPLesson lessons do:[:lesson | stream nextPutAll: lesson title, ' Smalltalk' ; cr ].
 	stream trailer.
-
-	defaultSettings := NewTextMorph new.
-	defaultSettings color: Color veryLightGray.
-	defaultSettings margin: 5.
-	defaultSettings text: stream contents asText . 
 	
-	panel addMorph: defaultSettings frame: (0@0.0 corner: 1@ 0.9).
+	
+	defaultSettings  := self textMorphWithText: stream contents.
+	
+	idioma := self textMorphWithText: 'Idioma: '.
+	idiomaSeleccionado := self whiteTextMorphWithText: 'Español'.
+	dialecto := self textMorphWithText: 'Dialecto: '.
+
+	stream := (String new: 100) writeStream.
+	LOOPLesson lessons do:[:lesson | stream nextPutAll: lesson title; cr ].
+	lessonsTitles := self whiteTextMorphWithText: stream contents .
+
+	stream := (String new: 100) writeStream.
+	LOOPLesson lessons do:[:lesson | stream nextPutAll: 'Smalltalk'; cr ].
+	lessonsProgrammingLanguages := self whiteTextMorphWithText: stream contents .	
+	
+	panel addMorph: idioma frame: (0.0@0.0 corner: 1@ 0.1).
+	panel addMorph: idiomaSeleccionado  frame: (0.0@0.1 corner: 1@ 0.2).
+	panel addMorph: dialecto frame: (0.0@0.2 corner: 1@ 0.3).
+	panel addMorph: lessonsTitles  frame: (0.0@0.3 corner: 1@ 0.9).
+	panel addMorph: lessonsProgrammingLanguages  frame: (0.3@0.3 corner: 1@ 0.9).
 	panel addMorph: self buildOpenSettingsBrowserButton frame: (0.0@0.9 corner: 1@1).
 	^panel.
+]
+
+{ #category : #tabs }
+LOOPSettingsWindow >> addDefaultSettingsTree: panel [
+	| treeMorph contentMorph |
+	
+	"Tree"
+	treeMorph := PluggableTreeMorph new.
+	treeMorph model: self; setSelectedSelector: #onItemClicked:.
+
+	panel 
+		addMorph: treeMorph 
+		fullFrame: (LayoutFrame fractions: (0@0 corner: 0.3@1) ).
+
+	contentMorph := PluggableTextMorph on: self 
+			text: nil accept: nil
+			readSelection: nil menu: nil.
+	contentMorph setText: 'Este panel es un prototipo de las configuraciones disponibles'.
+
+	panel addMorph: treeMorph  frame: (0@0.0 corner: 0.3@ 0.9).
+	panel addMorph: contentMorph fullFrame: (LayoutFrame fractions: (0.3@0 corner: 1@0.9)).
+	panel addMorph: self buildOpenSettingsBrowserButton frame: (0.0@0.9 corner: 1@1).
+	^panel
 ]
 
 { #category : #statsView }
@@ -122,7 +160,7 @@ LOOPSettingsWindow >> createGroupTab [
 	^TabGroupMorph new
 		addPage: (self addDefaultSettingsText: self createNewTab) label: 'Configuraciones';
 		addPage: (self addDefaultStatsText:  self createNewTab) label: 'Estadisticas';
-		selectedPageIndex: 2;
+		selectedPageIndex: 1;
 		yourself
 ]
 
@@ -224,7 +262,29 @@ LOOPSettingsWindow >> show [
 	^window.
 ]
 
+{ #category : #morphs }
+LOOPSettingsWindow >> textMorphWithText: textInside [
+	|defaultSettings |
+	
+	defaultSettings := NewTextMorph new.
+	defaultSettings color: Color veryVeryLightGray .
+	defaultSettings margin: 6.
+	defaultSettings text: textInside asText. 
+	^defaultSettings .
+	
+]
+
 { #category : #statsView }
 LOOPSettingsWindow >> valorPosible: posible cota: maximo [
 	^ posible < maximo .
+]
+
+{ #category : #morphs }
+LOOPSettingsWindow >> whiteTextMorphWithText: textInside [
+	|defaultSettings |
+	
+	defaultSettings := self textMorphWithText: textInside .
+	defaultSettings color: Color white .
+	^defaultSettings .
+	
 ]

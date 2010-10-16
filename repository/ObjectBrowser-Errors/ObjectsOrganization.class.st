@@ -14,7 +14,7 @@ ObjectsOrganization class >> for: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> asString [
-	^'Variables'
+	^'Referencias'
 ]
 
 { #category : #'as yet unclassified' }
