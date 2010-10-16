@@ -17,7 +17,7 @@ LOOPSettingsWindow class >> openInWorld [
 	^LOOPSettingsWindow new show.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #morphs }
 LOOPSettingsWindow >> aBoxMorph [
 	|defaultSettings |
 	
@@ -29,7 +29,7 @@ LOOPSettingsWindow >> aBoxMorph [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #morphs }
 LOOPSettingsWindow >> aRedBoxMorph [
 	|defaultSettings |
 	
@@ -41,7 +41,19 @@ LOOPSettingsWindow >> aRedBoxMorph [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #morphs }
+LOOPSettingsWindow >> aYellowBoxMorph [
+	|defaultSettings |
+	
+	defaultSettings := NewTextMorph new.
+	defaultSettings color: Color lightYellow  .
+	defaultSettings margin: 5.
+	defaultSettings text: 'Pepe esta en el limite' asText . 
+	^defaultSettings .
+	
+]
+
+{ #category : #tabs }
 LOOPSettingsWindow >> addDefaultSettingsText: panel [
 	|defaultSettings stream |
 	
@@ -61,9 +73,9 @@ LOOPSettingsWindow >> addDefaultSettingsText: panel [
 	^panel.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #statsView }
 LOOPSettingsWindow >> addDefaultStatsText: panel [
-	panel addMorph: self aBoxMorph frame: (0.0@0.0 corner: 0.33@ 0.3).
+"	panel addMorph: self aBoxMorph frame: (0.0@0.0 corner: 0.33@ 0.3).
 	panel addMorph: self aBoxMorph frame: (0.33@0.0 corner: 0.66@ 0.3).
 	panel addMorph: self aBoxMorph frame: (0.66@0.0 corner: 1.0@0.3).
 	
@@ -73,14 +85,21 @@ LOOPSettingsWindow >> addDefaultStatsText: panel [
 	
 	panel addMorph: self aBoxMorph frame: (0.0@0.6 corner: 0.33@0.9).
 	panel addMorph: self aBoxMorph frame: (0.33@0.6 corner: 0.66@0.9).
-	panel addMorph: self aRedBoxMorph frame: (0.66@0.6 corner: 1.0@0.9).
+	panel addMorph: self aRedBoxMorph frame: (0.66@0.6 corner: 1.0@0.9)."
+	
+	| cantidadPaneles cotaMaximaX cotaMaximaY |
+	cantidadPaneles := 5.
+	cotaMaximaX := 1.
+	cotaMaximaY := 0.9.
+	
+	(self posiblesPuntosInferiores: cantidadPaneles maximoX: cotaMaximaX maximoY: cotaMaximaY ) do: [:puntoInferior | panel addMorph:  self aBoxMorph frame: (puntoInferior corner: (self puntoSuperior: puntoInferior  incrementoX: cotaMaximaX /cantidadPaneles  incrementoY: cotaMaximaY/cantidadPaneles ))].
 	
 	panel addMorph: self buildOpenLessonsReportsButton frame: (0.0@0.9 corner: 1@1).
 
 	^panel.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #buttons }
 LOOPSettingsWindow >> buildOpenLessonsReportsButton [ 
 	^PluggableButtonMorph 
 		on: self 
@@ -89,7 +108,7 @@ LOOPSettingsWindow >> buildOpenLessonsReportsButton [
 		label: #openLessosReportsConfigurationLabel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #buttons }
 LOOPSettingsWindow >> buildOpenSettingsBrowserButton [ 
 	^PluggableButtonMorph 
 		on: self 
@@ -98,7 +117,13 @@ LOOPSettingsWindow >> buildOpenSettingsBrowserButton [
 		label: #openSettingBrowserLabel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #statsView }
+LOOPSettingsWindow >> combinaciones: coordenadaX conjunto: posiblesY [ 
+	^posiblesY collect: [:coordenadaY | (coordenadaX@coordenadaY)].
+
+]
+
+{ #category : #tabs }
 LOOPSettingsWindow >> createGroupTab [
 	^TabGroupMorph new
 		addPage: (self addDefaultSettingsText: self createNewTab) label: 'Configuraciones';
@@ -107,7 +132,7 @@ LOOPSettingsWindow >> createGroupTab [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tabs }
 LOOPSettingsWindow >> createNewTab [ 
 	| hSepFrac panel |
 	hSepFrac := 0.45.
@@ -119,28 +144,53 @@ LOOPSettingsWindow >> createNewTab [
 
 { #category : #'as yet unclassified' }
 LOOPSettingsWindow >> createView [
-	| hSepFrac |
-
-	hSepFrac := 0.45.
 	window := (SystemWindow labelled: 'LOOP Controls') 
 		addMorph: self createGroupTab frame: (0@0 corner: 1@1);
 		center: World center.
 	^window.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #buttons }
 LOOPSettingsWindow >> openLessosReportsConfigurationLabel [
 	^'Configurar estadísticas'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #buttons }
 LOOPSettingsWindow >> openSettingBrowserLabel [
 	^'Modificar configuraciones'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #buttons }
 LOOPSettingsWindow >> openSettingsBrowser [
 	SettingBrowser open.
+]
+
+{ #category : #statsView }
+LOOPSettingsWindow >> posiblesPuntosInferiores: cantidadPaneles maximoX: cotaMaximaX maximoY: cotaMaximaY [
+	| posiblesX posiblesY posiblesPuntosInferioes |
+	posiblesX := self posiblesValores: cotaMaximaX  particiones: cantidadPaneles .
+	posiblesY := self posiblesValores: cotaMaximaY  particiones: cantidadPaneles .
+	^(posiblesX inject: Set new into: [:puntos :coordenadaX | puntos union: (self combinaciones: coordenadaX conjunto: posiblesY )]) select: [:punto | punto x < 0.9] 
+
+]
+
+{ #category : #statsView }
+LOOPSettingsWindow >> posiblesValores: maximo incremento: inc base: inicial [
+	| posibles |
+	posibles := Set new.
+	(self valorPosible: inicial cota: maximo)
+		ifTrue:[ posibles add: inicial. posibles addAll: (self posiblesValores: maximo incremento: inc base: inicial+inc)].
+	^ posibles.
+]
+
+{ #category : #statsView }
+LOOPSettingsWindow >> posiblesValores: cota particiones: cantidadParticiones [
+	^ self posiblesValores: cota incremento: cota / cantidadParticiones base: 0.
+]
+
+{ #category : #statsView }
+LOOPSettingsWindow >> puntoSuperior: punto incrementoX: incX incrementoY: incY [
+	^(incX + punto x)@(incY + punto y)
 ]
 
 { #category : #'as yet unclassified' }
@@ -150,4 +200,9 @@ LOOPSettingsWindow >> show [
 	window extent: 700@500.
 	window center: World center.
 	^window.
+]
+
+{ #category : #statsView }
+LOOPSettingsWindow >> valorPosible: posible cota: maximo [
+	^ posible <= maximo .
 ]
