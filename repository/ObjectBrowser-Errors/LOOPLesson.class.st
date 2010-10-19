@@ -9,7 +9,8 @@ Class {
 		'browser',
 		'loopExecutionContextClass',
 		'lessonEnvironment',
-		'workspaces'
+		'workspaces',
+		'tests'
 	],
 	#classInstVars : [
 		'lessons'
@@ -130,6 +131,13 @@ LOOPLesson >> clean [
 	self variables removeAll.
 	self removeFromSystem.
 	self class instVarNames do: [ :vn | self instVarNamed: vn put: nil].
+]
+
+{ #category : #accessing }
+LOOPLesson >> compileTest: aTestText [
+	| result |
+	result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
+	self testDictionary at: result put: (OBTest new: result).
 ]
 
 { #category : #accessing }
@@ -297,8 +305,13 @@ LOOPLesson >> selectionInterval [
 ]
 
 { #category : #accessing }
+LOOPLesson >> testDictionary [
+	^tests ifNil: [ tests := Dictionary new ]
+]
+
+{ #category : #accessing }
 LOOPLesson >> tests [
-	^OrderedCollection new
+	^self testDictionary keys
 ]
 
 { #category : #accessing }
