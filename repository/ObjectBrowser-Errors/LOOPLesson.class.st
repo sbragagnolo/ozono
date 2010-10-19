@@ -137,7 +137,7 @@ LOOPLesson >> clean [
 LOOPLesson >> compileTest: aTestText [
 	| result |
 	result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
-	self testDictionary at: result put: (OBTest new: result).
+	self testDictionary at: result put: (OBTest newText: result onLesson: self).
 ]
 
 { #category : #accessing }

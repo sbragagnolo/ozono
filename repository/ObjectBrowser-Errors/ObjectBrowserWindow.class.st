@@ -7,7 +7,8 @@ Class {
 		'methodEditorButton',
 		'workspaceButton',
 		'garbageCollectionButton',
-		'objectBrowserTree'
+		'objectBrowserTree',
+		'statusMorph'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -140,8 +141,10 @@ ObjectBrowserWindow >> createTestRunnerTab [
 		frame: (0@0 corner: 0.499@0.499).
 	panel addMorph: testEditor
 		frame: (0@0.499 corner: 1@1).
+	panel addMorph: (statusMorph := (NewTextMorph  new color: Color red; yourself))	
+		frame: (0.499@0 corner: 1@0.09).
 	panel addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
-		frame: (0.499@0 corner: 1@0.1).
+		frame: (0.499@0.1 corner: 1@0.2).
 	^panel.
 ]
 

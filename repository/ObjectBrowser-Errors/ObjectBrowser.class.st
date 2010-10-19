@@ -354,7 +354,12 @@ ObjectBrowser >> request: aTitle default: aDefaultValue [
 
 { #category : #testing }
 ObjectBrowser >> runAllTests [
-	
+	| results |
+	results := TestResult new.
+	self lesson tests do: [ :t | 
+		self lesson executionContext  selector: t selector.
+		self lesson executionContext run: results.
+		]
 ]
 
 { #category : #accessing }

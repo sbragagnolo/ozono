@@ -9,13 +9,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OBTest class >> new: aTestSelector [
-	^self new
-		selector: aTestSelector;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
 OBTest class >> newText: aTestSelector onLesson: aLesson [
 	^self new
 		selector: aTestSelector;
@@ -25,7 +18,7 @@ OBTest class >> newText: aTestSelector onLesson: aLesson [
 
 { #category : #'as yet unclassified' }
 OBTest >> code [
-	^lesson executionContext methodDict at: selector
+	^lesson executionContext class sourceCodeAt: selector
 ]
 
 { #category : #'as yet unclassified' }
