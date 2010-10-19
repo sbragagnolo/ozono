@@ -39,5 +39,5 @@ TestsOrganization >> objectBrowser: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> treeContents [ 
-	^objectBrowser tests
+	^OrderedCollection new
 ]

@@ -16,10 +16,10 @@ ObjectTestsListModel >> menuSelector [
 
 { #category : #'as yet unclassified' }
 ObjectTestsListModel >> selectedItem [
-	^nil
+	^self model selectedTest
 ]
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> selectedItem: aVariable [
-	"Nothing"
+ObjectTestsListModel >> selectedItem: aTest [
+	self model selectedTest: aTest
 ]

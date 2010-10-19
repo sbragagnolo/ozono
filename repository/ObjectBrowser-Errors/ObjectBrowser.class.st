@@ -51,7 +51,7 @@ ObjectBrowser >> addObjectSelectionInterested: anInterested [
 
 { #category : #'dependents access' }
 ObjectBrowser >> addTestSelectionInterested: anInterested [
-	self testSelectionInterested add: anInterested
+	anInterested classOrMetaClass: self lesson loopExecutionContextClass
 ]
 
 { #category : #menues }
@@ -437,6 +437,12 @@ ObjectBrowser >> selectedObjectSelector: aMethod [
 { #category : #accessing }
 ObjectBrowser >> selectedTest [
 	^selectedTest
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedTest: aTest [
+	selectedTest := aTest.
+	self changed.
 ]
 
 { #category : #accessing }

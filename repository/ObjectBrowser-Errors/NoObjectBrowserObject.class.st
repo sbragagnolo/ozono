@@ -56,6 +56,11 @@ NoObjectBrowserObject >> posibleName [
 ]
 
 { #category : #accessing }
+NoObjectBrowserObject >> realClass [
+	^realObject class
+]
+
+{ #category : #accessing }
 NoObjectBrowserObject >> realObject: anObject [ 
 	realObject := anObject.
 	methods := realObject class methods 

@@ -24,6 +24,25 @@ TestEditorModel >> errorHandler [
 ]
 
 { #category : #'as yet unclassified' }
+TestEditorModel >> methodCode [
+	^self model selectedTest code
+]
+
+{ #category : #'as yet unclassified' }
+TestEditorModel >> selectedTestCode [
+	| c |
+	c := self model selectedTest ifNotNil: [ :t | t code ].
+	^c
+]
+
+{ #category : #'as yet unclassified' }
 TestEditorModel >> testEditorMorph: aMorph [
 	testEditorMorph := aMorph.
+]
+
+{ #category : #'as yet unclassified' }
+TestEditorModel >> update: anObject [ 
+	super update: anObject.
+	self changed: #selectedTestCode.
+	self changed: #listModel
 ]

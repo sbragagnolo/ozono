@@ -311,7 +311,7 @@ LOOPLesson >> testDictionary [
 
 { #category : #accessing }
 LOOPLesson >> tests [
-	^self testDictionary keys
+	^self testDictionary values
 ]
 
 { #category : #accessing }
