@@ -13,8 +13,7 @@ Class {
 		'selectedWorkspace',
 		'dependants',
 		'objectSelectionInterested',
-		'selectedTest',
-		'testSelectionInterested'
+		'selectedTest'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -357,9 +356,10 @@ ObjectBrowser >> runAllTests [
 	| results |
 	results := TestResult new.
 	self lesson tests do: [ :t | 
-		self lesson executionContext  selector: t selector.
+		self lesson executionContext setTestSelector: t selector.
 		self lesson executionContext run: results.
-		]
+		].
+	(self dependants detect: [ :d | d isKindOf: ObjectBrowserWindow ]) setTestsResults: results.
 ]
 
 { #category : #accessing }

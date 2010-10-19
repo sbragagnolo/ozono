@@ -141,7 +141,7 @@ ObjectBrowserWindow >> createTestRunnerTab [
 		frame: (0@0 corner: 0.499@0.499).
 	panel addMorph: testEditor
 		frame: (0@0.499 corner: 1@1).
-	panel addMorph: (statusMorph := (NewTextMorph  new color: Color red; yourself))	
+	panel addMorph: (statusMorph := (NewTextMorph  new color: Color red; readOnly: true; yourself))	
 		frame: (0.499@0 corner: 1@0.09).
 	panel addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
 		frame: (0.499@0.1 corner: 1@0.2).
@@ -191,6 +191,12 @@ ObjectBrowserWindow >> selectedItemMenu: aMenu [
 ]
 
 { #category : #view }
+ObjectBrowserWindow >> setTestsResults: result [
+	statusMorph text: result printString.
+	statusMorph color: (self statusColorFor: result).
+]
+
+{ #category : #view }
 ObjectBrowserWindow >> show: anObjectBrowser [ 
 	self objectBrowser: anObjectBrowser.
 	^self createView openInWorld.
@@ -202,6 +208,15 @@ ObjectBrowserWindow >> showWorkspace [
 		openLabel: objectBrowser title, ' - Workspace';
 		lesson: objectBrowser lesson; 
 		containingWindow) center: World center.
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> statusColorFor: result [
+	result hasErrors 
+		ifTrue: [ ^ Color red ].
+	result hasFailures 
+		ifTrue: [ ^ Color yellow ].
+	^Color green
 ]
 
 { #category : #view }

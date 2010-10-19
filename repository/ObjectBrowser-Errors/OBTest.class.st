@@ -32,6 +32,11 @@ OBTest >> printString [
 ]
 
 { #category : #'as yet unclassified' }
+OBTest >> selector [
+	^selector
+]
+
+{ #category : #'as yet unclassified' }
 OBTest >> selector: aTestSelector [
 	selector := aTestSelector
 ]
