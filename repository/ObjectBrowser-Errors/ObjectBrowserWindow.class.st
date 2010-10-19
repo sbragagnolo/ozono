@@ -159,25 +159,6 @@ ObjectBrowserWindow >> createView [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> createViewOld [
-	| hSepFrac window |
-	hSepFrac := 0.45.
-	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') model: self objectBrowser;
-		addMorph: self buildObjectAttributeList 
-		frame: (0.33 @ 0 corner: 0.66 @ hSepFrac);
-		
-		addMorph: self buildMethodList
-		frame: (0.66 @ 0 corner: 1 @ hSepFrac);
-		
-		addMorph: self buildMethodEditor
-		frame: (0.33@ (hSepFrac) corner: 1 @ 1);
-		
-		center: World center.
-	
-	^window.
-]
-
-{ #category : #view }
 ObjectBrowserWindow >> objectBrowser [
 	^objectBrowser 
 ]
