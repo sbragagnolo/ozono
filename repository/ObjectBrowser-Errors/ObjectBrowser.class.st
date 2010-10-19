@@ -12,7 +12,9 @@ Class {
 		'selectedItem',
 		'selectedWorkspace',
 		'dependants',
-		'objectSelectionInterested'
+		'objectSelectionInterested',
+		'selectedTest',
+		'testSelectionInterested'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -47,6 +49,11 @@ ObjectBrowser >> addObjectSelectionInterested: anInterested [
 	self objectSelectionInterested add: anInterested
 ]
 
+{ #category : #'dependents access' }
+ObjectBrowser >> addTestSelectionInterested: anInterested [
+	self testSelectionInterested add: anInterested
+]
+
 { #category : #menues }
 ObjectBrowser >> attributeListMenu: aMenu shifted: shifted [
 	^aMenu addList: (self actionsForAttributeListWith: self selectedObjectAttribute)
@@ -79,6 +86,13 @@ ObjectBrowser >> cloneObject [
 ObjectBrowser >> compileMethod: aText [ 
 	self errorHandler
 		evaluate: [	self selectedObject compileMethod: aText.
+					self changed]
+]
+
+{ #category : #accessing }
+ObjectBrowser >> compileTest: aText [ 
+	self errorHandler
+		evaluate: [	self lesson compileTest: aText.
 					self changed]
 ]
 
@@ -421,6 +435,19 @@ ObjectBrowser >> selectedObjectSelector: aMethod [
 ]
 
 { #category : #accessing }
+ObjectBrowser >> selectedTest [
+	^selectedTest
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedTestCode [
+	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
+
+	^self selectedTest ifNil: [ 'newwww testtt' ]
+						ifNotNil: [ 'existee' ]
+]
+
+{ #category : #accessing }
 ObjectBrowser >> selectedWorkspace: aWorkspace [
 	selectedWorkspace := aWorkspace
 ]
@@ -458,6 +485,11 @@ ObjectBrowser >> subMenuCollections [
 { #category : #accessing }
 ObjectBrowser >> subMenuCollectionsName [
 	^'Crear nuevo conjunto'
+]
+
+{ #category : #'dependents access' }
+ObjectBrowser >> testSelectionInterested [
+	^testSelectionInterested ifNil: [ testSelectionInterested := Set new ]
 ]
 
 { #category : #menues }

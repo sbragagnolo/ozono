@@ -1,6 +1,6 @@
 Class {
 	#name : #LOOPExecutionContext,
-	#superclass : #Object,
+	#superclass : #TestCase,
 	#instVars : [
 		'_lesson'
 	],
