@@ -352,6 +352,16 @@ ObjectBrowser >> request: aTitle default: aDefaultValue [
 		initialAnswer: aDefaultValue
 ]
 
+{ #category : #testing }
+ObjectBrowser >> runAllTests [
+	
+]
+
+{ #category : #accessing }
+ObjectBrowser >> runAllTestsLabel [
+	^'Probar Todos'
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
 	self lesson runGarbageCollector.
