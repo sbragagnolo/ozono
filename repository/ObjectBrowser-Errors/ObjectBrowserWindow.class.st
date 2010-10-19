@@ -118,19 +118,49 @@ ObjectBrowserWindow >> createObjectEditionTab [
 
 { #category : #view }
 ObjectBrowserWindow >> createTestRunnerTab [
-	| hSepFrac panel |
+	| hSepFrac panel testRunner aBuilder window |
 	hSepFrac := 0.45.
+
+"	testRunner := TestRunner new.
+	aBuilder := PSToolBuilder new.
 	panel := OBGroupingMorph new
 		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new)";
-		addMorph: self buildObjectAttributeList 
-			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
-		addMorph: self buildMethodList
-			frame: (0.50001@ 0 corner: 1 @ hSepFrac -0.01);
-		addMorph: self buildMethodEditor
-			frame: (0@hSepFrac corner: 1 @ 1)".
-	"methodEditor color: Color white."
-	^panel.
+		layoutPolicy: (ProportionalLayout new).
+	panel addMorph: (testRunner buildCategoriesWith: aBuilder) frame: (0.00 @ 0.00 corner: 0.25 @ 0.92 ).
+	panel addMorph: (testRunner buildClassesWith: aBuilder) frame: (0.25 @ 0.00 corner: 0.50 @ 0).
+	panel addMorph: (testRunner buildStatusWith: aBuilder) frame: (0.50 @ 0.00 corner: 1.00 @ 0.08).
+	panel addMorph: (testRunner buildFailureListWith: aBuilder) frame: (0.50 @ 0.08 corner: 1.00 @ 0.50).
+	panel addMorph: (testRunner buildErrorListWith: aBuilder) frame: (0.50 @ 0.50 corner: 1.00 @ 0.92).
+	panel addMorph: (testRunner buildButtonsWith: aBuilder) frame: (0.00 @ 0.92 corner: 1.00 @ 1.00).
+	^panel."
+testRunner := TestRunner new.
+aBuilder := PSToolBuilder new.
+
+window := aBuilder pluggableWindowSpec new
+		model: testRunner; label: 'El label del test runner'; extent: 640@480;
+		children: (OrderedCollection new 
+			add: ((testRunner buildCategoriesWith: aBuilder)
+				frame: (0.00 @ 0.00 corner: 0.25 @ 0.92 );
+				yourself);
+			add: ((testRunner buildClassesWith: aBuilder)
+				frame: (0.25 @ 0.00 corner: 0.50 @ 0.92 );
+				yourself);
+			add: ((testRunner buildStatusWith: aBuilder)
+				frame: (0.50 @ 0.00 corner: 1.00 @ 0.08);
+				yourself);
+			add: ((testRunner buildFailureListWith: aBuilder)
+				frame: (0.50 @ 0.08 corner: 1.00 @ 0.50);
+				yourself);
+			add: ((testRunner buildErrorListWith: aBuilder)
+				frame: (0.50 @ 0.50 corner: 1.00 @ 0.92);
+				yourself);
+			add: ((testRunner buildButtonsWith: aBuilder)
+				frame: (0.00 @ 0.92 corner: 1.00 @ 1.00);
+				yourself);
+			yourself);
+		yourself.
+^aBuilder build: window.
+
 ]
 
 { #category : #view }
