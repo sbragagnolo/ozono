@@ -57,7 +57,7 @@ DereferencedObject >> menu: aMenuBuilder [
 
 { #category : #accessing }
 DereferencedObject >> realObject [
-	^dereferencedObject realObject.
+	^dereferencedObject.
 ]
 
 { #category : #'as yet unclassified' }

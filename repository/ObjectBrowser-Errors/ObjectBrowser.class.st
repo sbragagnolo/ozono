@@ -341,7 +341,7 @@ ObjectBrowser >> recoverObject [
 		evaluate: [
 			variableName := self request: 'Nombre de la referencia' default: 'recuperadoDeLaPapelera'.
 			variableName ifNotNil: [ 
-				self createVariable: variableName referencingTo: (ObjectBrowserObject newOn:  self lesson withRealObject: self selectedDerreferencedObject realObject).
+				self createVariable: variableName referencingTo: self selectedDerreferencedObject realObject.
 				]
 		]).
 	self changed
