@@ -57,6 +57,14 @@ ObjectBrowserObject class >> newOn: aLesson [
 		yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject class >> newOn: aLesson withRealObject: realObject [
+	^super new
+		realObject: realObject;
+		lesson: aLesson;
+		yourself.
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	| actions |

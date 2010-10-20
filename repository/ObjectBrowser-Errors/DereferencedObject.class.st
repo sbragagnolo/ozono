@@ -15,6 +15,13 @@ DereferencedObject class >> newOn: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+DereferencedObject >> actions [
+		^#(
+		#('recuperar' #recoverObject) 
+		#- ).
+]
+
+{ #category : #'as yet unclassified' }
 DereferencedObject >> asString [
 	^dereferencedObject displayString
 ]
@@ -25,18 +32,32 @@ DereferencedObject >> dereferencedObject: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+DereferencedObject >> fullfillObjectBrowserObjectsCollection: aSet [ 
+"Codigo repetidoooooo"
+		(aSet  includes: self) ifFalse: [
+		aSet  add: self.
+		self variables do: [ :v | (self objectPointedBy: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aSet ]].
+		]
+]
+
+{ #category : #'as yet unclassified' }
 DereferencedObject >> icon [
 	^nil
 ]
 
 { #category : #'as yet unclassified' }
 DereferencedObject >> makeSelectionOn: aBrowser [
-	"Nothing"
+	^aBrowser selectDereferencedObject: self .
 ]
 
 { #category : #'as yet unclassified' }
 DereferencedObject >> menu: aMenuBuilder [
-	^aMenuBuilder
+	^aMenuBuilder addList: self actions
+]
+
+{ #category : #accessing }
+DereferencedObject >> realObject [
+	^dereferencedObject realObject.
 ]
 
 { #category : #'as yet unclassified' }

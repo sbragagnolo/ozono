@@ -13,7 +13,8 @@ Class {
 		'selectedWorkspace',
 		'dependants',
 		'objectSelectionInterested',
-		'selectedTest'
+		'selectedTest',
+		'selectedDerreferencedObject'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -76,7 +77,7 @@ ObjectBrowser >> cloneObject [
 	(self errorHandler
 		evaluate: [
 			objectName := self obtainObjectName.
-			self createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone.
+			objectName ifNotNil: [self createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone].
 			]).
 	self changed
 ]
@@ -333,6 +334,19 @@ ObjectBrowser >> orphanObjects [
 	^(self lesson dereferencedObjects) collect: [ :o | DereferencedObject newOn: o].
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> recoverObject [
+	| variableName |
+	(self errorHandler
+		evaluate: [
+			variableName := self request: 'Nombre de la referencia' default: 'recuperadoDeLaPapelera'.
+			variableName ifNotNil: [ 
+				self createVariable: variableName referencingTo: (ObjectBrowserObject newOn:  self lesson withRealObject: self selectedDerreferencedObject realObject).
+				]
+		]).
+	self changed
+]
+
 { #category : #model }
 ObjectBrowser >> removeObject: anObject [
 	self objects remove: anObject.
@@ -370,6 +384,20 @@ ObjectBrowser >> runAllTestsLabel [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
 	self lesson runGarbageCollector.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
+	selectedObjectBrowserVariable  := NullOBVariable new.
+	selectedObjectAttribute := NullOBVariable new.
+	selectedObjectSelector := NullOBMethod new.
+	selectedDerreferencedObject := aDerreferencedObject .
+	self changed.
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedDerreferencedObject [
+	^selectedDerreferencedObject  .
 ]
 
 { #category : #accessing }

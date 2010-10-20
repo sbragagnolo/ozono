@@ -276,6 +276,11 @@ LOOPLesson >> referencesObject: anObjectBrowserObject [
 	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
 ]
 
+{ #category : #accessing }
+LOOPLesson >> removeDerrefencedObject: aDereferencedObject [ 
+	self dereferencedObjects remove: aDereferencedObject .
+]
+
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeFromSystem [
 	self lessonEnvironment valuesDo: [ :c | c removeFromSystem ].
