@@ -21,7 +21,7 @@ OBVariable class >> newNamed: variableName [
 
 { #category : #'as yet unclassified' }
 OBVariable >> actionsForAttributeList [
-	^#(('eliminar variable'		deleteVariable))
+	^#(('Eliminar variable'		deleteVariable))
 ]
 
 { #category : #'as yet unclassified' }

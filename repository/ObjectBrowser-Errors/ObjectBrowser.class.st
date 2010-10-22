@@ -97,11 +97,16 @@ ObjectBrowser >> compileTest: aText [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> confirmDeletion [ 
+	^UIManager default confirm: 'Esta seguro de eliminar' trueChoice: 'Si' falseChoice: 'No' .
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> createAttribute [
 	| variableName |
 	(self errorHandler
 		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
-			self selectedObject addVariable: variableName]).
+			variableName ifNotNil: [self selectedObject addVariable: variableName]]).
 	self changed
 ]
 
@@ -175,8 +180,9 @@ ObjectBrowser >> createWorkspace [
 	(self errorHandler
 		evaluate: [
 			workspaceLabel := self obtainWorkpaceLabel.
+			workspaceLabel ifNotNil:[
 			self createWorkspace: workspaceLabel.
-			]).
+			]]).
 	self changed
 ]
 
@@ -203,7 +209,7 @@ ObjectBrowser >> deleteVariable [
 		evaluate: [
 			self selectedObjectAttribute
 				ifNil: [self error: 'No hay ninguna variable elegida'].
-			self doDeleteVariable.
+			self confirmDeletion ifTrue:[self doDeleteVariable].
 			].
 	self changed
 ]
@@ -221,6 +227,7 @@ ObjectBrowser >> dependants [
 { #category : #accessing }
 ObjectBrowser >> dereferenceSelectedVariable [
 	self selectedObjectBrowserVariable desreference.
+	self changed .
 ]
 
 { #category : #'as yet unclassified' }

@@ -164,7 +164,7 @@ LOOPLesson >> dereferencedObjects [
 	| referencedObjects dereferenced |
 	referencedObjects := self referencedObjects.
 	dereferenced := self objects reject:[:o | referencedObjects includes: o].
-	^dereferenced
+	^dereferenced asSet.
 ]
 
 { #category : #accessing }
