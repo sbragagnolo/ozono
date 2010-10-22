@@ -361,7 +361,7 @@ ObjectBrowser >> removeObject: anObject [
 
 { #category : #showing }
 ObjectBrowser >> removeWorkspace [
-	self workspaces remove: self selectedItem.
+	self confirmDeletion ifTrue: [self workspaces remove: self selectedItem].
 	self changed.
 ]
 
