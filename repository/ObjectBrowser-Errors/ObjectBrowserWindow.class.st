@@ -176,7 +176,7 @@ ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserWindow >> objectGraphButtonLabel [
-	^'Object Diagram'
+	^'Diagrama de objetos'
 ]
 
 { #category : #view }
@@ -221,5 +221,5 @@ ObjectBrowserWindow >> statusColorFor: result [
 
 { #category : #view }
 ObjectBrowserWindow >> workspaceButtonLabel [
-	^'Open Workspace'
+	^'Abrir Workspace'
 ]

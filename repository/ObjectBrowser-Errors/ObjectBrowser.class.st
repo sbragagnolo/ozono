@@ -204,6 +204,18 @@ ObjectBrowser >> delete [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> deleteObject [
+	self errorHandler
+		evaluate: [
+			self selectedObject
+				ifNil: [self error: 'No hay ninguna referencia elegida'].
+			self selectedObject realObject isNil ifFalse: [self error: 'El objeto no esta desrefenciado'].
+			self confirmDeletion ifTrue:[self doDeleteObject].
+			].
+	self changed
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> deleteVariable [
 	self errorHandler
 		evaluate: [
@@ -317,6 +329,7 @@ ObjectBrowser >> objectsOrganizationSelected [
 ObjectBrowser >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
+	self validateVariableName: objectName .
 	^ objectName
 ]
 

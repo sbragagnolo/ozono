@@ -77,9 +77,8 @@ ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 ObjectBrowserObject >> actionsForObjectVariableList [
 	^#(
 		#('clonar' #cloneObject) 
-		#- "
-		#('renombrar objeto' #renameObject)
-		#('eliminar objeto' #deleteObject)").
+"		#('renombrar objeto' #renameObject)"
+		).
 ]
 
 { #category : #'as yet unclassified' }

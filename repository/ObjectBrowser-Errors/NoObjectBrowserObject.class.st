@@ -13,6 +13,11 @@ NoObjectBrowserObject class >> new: anObject [
 	^self new realObject: anObject; yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> actionsForAttributeListWith: aNullOBVariable [ 
+	^#()
+]
+
 { #category : #accessing }
 NoObjectBrowserObject >> actionsForObjectVariableList [
 	^OrderedCollection new.

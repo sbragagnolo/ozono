@@ -11,7 +11,7 @@ NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> actionsForObjectVariableList [
-	^#()
+	^#(#('eliminar' #deleteObject))
 ]
 
 { #category : #'as yet unclassified' }
