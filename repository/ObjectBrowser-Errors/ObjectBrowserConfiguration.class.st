@@ -42,7 +42,7 @@ ObjectBrowserConfiguration >> default: spec [
 	spec for: #common do: [
 		spec blessing: #beta.
 		
-		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
+		spec repository: 'http://www.squeaksource.com/smallUML'.	
 		spec 
 			package: 'ObjectBrowser';
 			project: 'smallUML' with:[spec
