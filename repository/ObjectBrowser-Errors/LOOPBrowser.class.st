@@ -90,7 +90,7 @@ LOOPBrowser >> importLesson [
 
 { #category : #accessing }
 LOOPBrowser >> importLessonLabel [
-	^'Import Lesson'
+	^'Importar Leccion'
 ]
 
 { #category : #accessing }
@@ -115,7 +115,7 @@ LOOPBrowser >> lessons [
 
 { #category : #accessing }
 LOOPBrowser >> newFreeLessonLabel [
-	^'New Free Lesson'
+	^'Nueva Leccion'
 ]
 
 { #category : #creation }
