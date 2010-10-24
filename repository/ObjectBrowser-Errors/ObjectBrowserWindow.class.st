@@ -8,7 +8,8 @@ Class {
 		'workspaceButton',
 		'garbageCollectionButton',
 		'objectBrowserTree',
-		'statusMorph'
+		'statusMorph',
+		'diagramWhiteboard'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -87,10 +88,12 @@ ObjectBrowserWindow >> createGroupTab [
 { #category : #view }
 ObjectBrowserWindow >> createObjectDiagramTab [
 	| hSepFrac panel |
+	diagramWhiteboard := DiagramWhiteboard new model: self lesson objectDiagram.
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
 		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new)";
+		layoutPolicy: (ProportionalLayout new);
+		addMorph: (diagramWhiteboard)";
 		addMorph: self buildObjectAttributeList 
 			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
 		addMorph: self buildMethodList
@@ -163,6 +166,11 @@ ObjectBrowserWindow >> createView [
 	^window.
 ]
 
+{ #category : #'user interface' }
+ObjectBrowserWindow >> lesson [
+	^self objectBrowser lesson
+]
+
 { #category : #view }
 ObjectBrowserWindow >> objectBrowser [
 	^objectBrowser 
@@ -183,6 +191,7 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 ObjectBrowserWindow >> refresh [
 	objectBrowserTree list: self objectBrowser lessonOrganization.
 	objectBrowserTree selection: self objectBrowser selectedItem.
+	diagramWhiteboard model: self lesson objectDiagram.
 ]
 
 { #category : #view }

@@ -260,6 +260,11 @@ ObjectBrowserObject >> objectPointedBy:  varName [
 
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> objectPointedByVariableNamed: varName [
+	^realObject instVarNamed: varName
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> posibleName [
 	^ self realClass name asLowercase.
@@ -371,6 +376,11 @@ ObjectBrowserObject >> variable: varName pointTo: anObject [
 { #category : #accessing }
 ObjectBrowserObject >> variableNamed: varName [
 	^self variables detect: [:v | v name = varName ].
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> variableNames [
+	^self variables collect:[:var | var name]
 ]
 
 { #category : #accessing }

@@ -243,6 +243,15 @@ LOOPLesson >> menuActions [
 		with: #('exportar' #fileOutSelectedLesson)
 ]
 
+{ #category : #diagram }
+LOOPLesson >> objectDiagram [
+	|diagram|
+	diagram := ObjectDiagram new.
+	(self objects collect:[:object | (ObjectBrowserObjectNode new object: object) ]) do:[:object | diagram addDiagramNode: object].
+	diagram diagramNodes do:[:node | node connectToReferencesWithin: diagram].
+	^diagram
+]
+
 { #category : #accessing }
 LOOPLesson >> objects [
 	^objects ifNil: [objects := OrderedCollection new].
