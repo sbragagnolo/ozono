@@ -44,13 +44,13 @@ ObjectBrowserConfiguration >> default: spec [
 		
 		spec repository: 'http://www.squeaksource.com/smallUML'.	
 		spec 
-			package: 'ObjectBrowser';
 			project: 'smallUML' with:[spec
 					className: 'ConfigurationOfSmallUML';
 					versionString: '0.9';
 					loads: #('default' );
 					file: 'ConfigurationOfSmallUML';
-					repository: 'http://www.squeaksource.com/smallUML'. ]
+					repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.  ]
 		]
 ]
 
