@@ -41,11 +41,17 @@ ObjectBrowserConfiguration >> default: spec [
 	
 	spec for: #common do: [
 		spec blessing: #beta.
-		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		
+		spec repository: 'http://www.squeaksource.com/smallUML'.	
 		spec 
-			package: 'ObjectBrowser'; 
-			package: 'Mondrian' with: [ spec repository: 'http://www.squeaksource.com/Mondrian' ]
-	]
+			package: 'ObjectBrowser';
+			project: 'smallUML' with:[spec
+					className: 'ConfigurationOfSmallUML';
+					versionString: '0.9';
+					loads: #('default' );
+					file: 'ConfigurationOfSmallUML';
+					repository: 'http://www.squeaksource.com/smallUML'. ]
+		]
 ]
 
 { #category : #'as yet unclassified' }
