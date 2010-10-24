@@ -63,7 +63,7 @@ OBVariable >> makeSelectionOn: anObjectBrowser [
 
 { #category : #menues }
 OBVariable >> menu: aMenuMorph [ 
-	aMenuMorph add: 'dereferenciar' action: #dereferenceSelectedVariable.
+	aMenuMorph add: 'Dereferenciar' action: #dereferenceSelectedVariable.
 	self pointsTo menu: aMenuMorph.
 	^aMenuMorph
 ]

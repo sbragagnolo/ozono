@@ -98,7 +98,7 @@ ObjectBrowser >> compileTest: aText [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> confirmDeletion [ 
-	^UIManager default confirm: 'Esta seguro de eliminar' trueChoice: 'Si' falseChoice: 'No' .
+	^UIManager default confirm: '¿Esta seguro de eliminar?' trueChoice: 'Si' falseChoice: 'No' .
 ]
 
 { #category : #'as yet unclassified' }
@@ -209,7 +209,7 @@ ObjectBrowser >> deleteObject [
 		evaluate: [
 			self selectedObject
 				ifNil: [self error: 'No hay ninguna referencia elegida'].
-			self selectedObject realObject isNil ifFalse: [self error: 'El objeto no esta desrefenciado'].
+			self selectedObject canDelete ifFalse: [self error: 'El objeto no puede ser borrado'].
 			self confirmDeletion ifTrue:[self doDeleteObject].
 			].
 	self changed
@@ -245,6 +245,11 @@ ObjectBrowser >> dereferenceSelectedVariable [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> deselectVariables [
 	self selectedObjectAttribute: NullOBVariable new.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> doDeleteObject [
+	self lesson removeVariable: self selectedObjectBrowserVariable .
 ]
 
 { #category : #'as yet unclassified' }

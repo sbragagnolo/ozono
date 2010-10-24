@@ -292,6 +292,11 @@ LOOPLesson >> removeObject: anObjectBrowserObject [
 	self objects remove: anObjectBrowserObject.
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> removeVariable: anOBVariable [ 
+	self variables remove: anOBVariable .
+]
+
 { #category : #accessing }
 LOOPLesson >> runGarbageCollector [ 
 	self dereferencedObjects do: [:o | 

@@ -23,6 +23,11 @@ NoObjectBrowserObject >> actionsForObjectVariableList [
 	^OrderedCollection new.
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> canDelete [
+	^ realObject isNil.
+]
+
 { #category : #compiling }
 NoObjectBrowserObject >> compileMethod: aText [ 
 	self error: 'No puede modificarse este objeto'
@@ -42,6 +47,7 @@ NoObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aSet [
 
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
+	aMenuMorph add: 'Borrar' action: #deleteObject.
 	^aMenuMorph
 ]
 
