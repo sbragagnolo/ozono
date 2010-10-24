@@ -192,7 +192,6 @@ ObjectBrowserWindow >> refresh [
 	objectBrowserTree list: self objectBrowser lessonOrganization.
 	objectBrowserTree selection: self objectBrowser selectedItem.
 	diagramWhiteboard model: self lesson objectDiagram.
-	diagramWhiteboard update.
 ]
 
 { #category : #view }

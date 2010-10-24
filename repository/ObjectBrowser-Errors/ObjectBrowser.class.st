@@ -189,11 +189,7 @@ ObjectBrowser >> createWorkspace [
 { #category : #showing }
 ObjectBrowser >> createWorkspace: workspaceLabel [
 	| workspace |
-	workspace := LOOPWorkspace new 
-		openLabel: workspaceLabel;
-		lesson: self lesson.
-	self workspaces add: workspace.
-	workspace containingWindow center: World center.
+	workspace := self lesson createWorkspace: workspaceLabel.
 	self selectedItem: workspace.
 	self changed.
 ]

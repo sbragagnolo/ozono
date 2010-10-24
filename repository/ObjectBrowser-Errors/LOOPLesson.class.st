@@ -122,6 +122,11 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> addWorkspace: aWorkspace [
+	self workspaces add: aWorkspace 
+]
+
 { #category : #accessing }
 LOOPLesson >> clean [
 	"hago una copia de la colección para no modificar la original.  Remuevo de la coleccion original cada objeto y le digo que remueva su clase."
@@ -152,6 +157,17 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 			classVariableNames: ''
 			poolDictionaries: ''
 			category: 'Useless'
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> createWorkspace: workspaceLabel [
+	| workspace |
+	workspace := LOOPWorkspace new 
+		openLabel: workspaceLabel;
+		lesson: self.
+	self addWorkspace: workspace.
+	workspace containingWindow center: World center.
+	^workspace
 ]
 
 { #category : #'as yet unclassified' }
@@ -397,6 +413,8 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	"despues la incorporacion a la lesson"
 	self writeAddScriptToLessonOn: stream .
 	
+	self writeWorkspacesOn: stream.
+	
 ]
 
 { #category : #accessing }
@@ -404,5 +422,19 @@ LOOPLesson >> writeLessonCreationOn: stream. [
 	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
 	stream cr.
 	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
+	stream cr.
+]
+
+{ #category : #accessing }
+LOOPLesson >> writeWorkspacesOn: stream [
+	
+	stream cr.
+	stream nextPutAll: '"Workspaces exported"'.
+	self workspaces do:[ :aWorkspace | 
+		stream cr.
+		stream nextPutAll: 
+			'(self createWorkspace: ', '''' , aWorkspace label , '''' , ') contents: '.
+		stream cr.
+		stream nextPutAll: '''' , aWorkspace contents , '''' , '.'] .
 	stream cr.
 ]

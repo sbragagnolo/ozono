@@ -40,7 +40,7 @@ LOOPSettingsWindow >> aPosibleColor [
 { #category : #morphs }
 LOOPSettingsWindow >> aPosibleName [
 	| posibles |
-	posibles := OrderedCollection with: 'Willy Lamas' with: 'Brangangolo' with: 'Gutierrez'.
+	posibles := OrderedCollection with: 'Claudio Crescenti' with: 'Gabriela Salem' with: 'Carlos Tomasino'.
 	^posibles at: self posiblePositionRandom.
 	
 ]
