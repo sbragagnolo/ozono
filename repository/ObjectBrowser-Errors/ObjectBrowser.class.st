@@ -390,6 +390,8 @@ ObjectBrowser >> runAllTests [
 	| results |
 	results := TestResult new.
 	self lesson tests do: [ :t | 
+		self lesson executionContext lesson: self lesson.
+		self lesson executionContext prepare.
 		self lesson executionContext setTestSelector: t selector.
 		self lesson executionContext run: results.
 		].
