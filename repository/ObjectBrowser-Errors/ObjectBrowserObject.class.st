@@ -13,7 +13,7 @@ Class {
 	#classVars : [
 		'NextObjectBrowserClassNumber'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'as yet unclassified' }

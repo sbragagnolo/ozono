@@ -1,7 +1,7 @@
 Class {
 	#name : #SimpleOrderedCollection,
 	#superclass : #SimpleCollection,
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #collection }

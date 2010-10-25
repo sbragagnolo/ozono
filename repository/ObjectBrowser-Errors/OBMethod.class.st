@@ -5,7 +5,7 @@ Class {
 		'object',
 		'selector'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #accessing }

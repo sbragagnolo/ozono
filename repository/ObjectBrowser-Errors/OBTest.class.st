@@ -5,7 +5,7 @@ Class {
 		'selector',
 		'lesson'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'as yet unclassified' }

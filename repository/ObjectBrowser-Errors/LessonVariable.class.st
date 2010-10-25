@@ -5,7 +5,7 @@ Class {
 		'reference',
 		'name'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #creation }

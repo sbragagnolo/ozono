@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'name'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'as yet unclassified' }

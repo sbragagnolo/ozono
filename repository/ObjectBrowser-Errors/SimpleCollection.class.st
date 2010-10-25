@@ -5,7 +5,7 @@ Class {
 		'colection',
 		'prototype'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #'as yet unclassified' }
@@ -62,6 +62,11 @@ SimpleCollection >> collect: aBlock [
 ]
 
 { #category : #collection }
+SimpleCollection >> displayString [
+	^prototype printString
+]
+
+{ #category : #collection }
 SimpleCollection >> do: aBlock [
 	^colection do: aBlock
 ]
@@ -102,13 +107,11 @@ SimpleCollection >> isEmpty [
 { #category : #collection }
 SimpleCollection >> printString [
 	| elementsStrings theCollection |
-	colection
-		ifEmpty: [^ prototype printString].
 	theCollection := colection asOrderedCollection.
 	elementsStrings := theCollection allButFirst
 				inject: theCollection first printString
 				into: [:acum :each | acum , ' ' , each printString].
-	^ '(' , elementsStrings , ')'
+	^ self displayString , '(' , elementsStrings , ')'
 ]
 
 { #category : #collection }

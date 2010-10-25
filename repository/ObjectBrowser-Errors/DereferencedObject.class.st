@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dereferencedObject'
 	],
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }

@@ -1,7 +1,7 @@
 Class {
 	#name : #NullOBMethod,
 	#superclass : #Object,
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'as yet unclassified' }

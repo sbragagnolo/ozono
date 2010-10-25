@@ -1,7 +1,7 @@
 Class {
 	#name : #OBBaseCollection,
 	#superclass : #Object,
-	#category : #'ObjectBrowser-Model'
+	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #'as yet unclassified' }
