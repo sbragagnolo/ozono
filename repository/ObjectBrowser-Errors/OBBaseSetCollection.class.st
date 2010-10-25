@@ -21,5 +21,5 @@ OBBaseSetCollection >> displayString [
 
 { #category : #'as yet unclassified' }
 OBBaseSetCollection >> printString [
-	^ 'a BaseSetCollection'
+	^ 'aSet'
 ]

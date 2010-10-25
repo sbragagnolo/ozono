@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+OBAttribute class >> newNamed: aNameString [
+	^self new name: aNameString; yourself
+]
+
+{ #category : #'as yet unclassified' }
 OBAttribute >> actionsForAttributeList [
 	^#(('Eliminar variable'		deleteVariable))
 ]

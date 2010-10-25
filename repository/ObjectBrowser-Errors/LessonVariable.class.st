@@ -8,6 +8,11 @@ Class {
 	#category : #'ObjectBrowser-Model'
 }
 
+{ #category : #creation }
+LessonVariable class >> newNamed: aNameString [
+	^self new name: aNameString; yourself
+]
+
 { #category : #'as yet unclassified' }
 LessonVariable >> asString [
 	^self name, ' - (' , self pointsTo displayString , ')'.

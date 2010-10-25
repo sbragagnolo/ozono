@@ -1,6 +1,6 @@
 Class {
 	#name : #OBBaseCollection,
-	#superclass : #ObjectBrowserObject,
+	#superclass : #Object,
 	#category : #'ObjectBrowser-Model'
 }
 

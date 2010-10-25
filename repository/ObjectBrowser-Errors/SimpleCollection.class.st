@@ -103,7 +103,7 @@ SimpleCollection >> isEmpty [
 SimpleCollection >> printString [
 	| elementsStrings theCollection |
 	colection
-		ifEmpty: [^ 'Empty collection'].
+		ifEmpty: [^ prototype printString].
 	theCollection := colection asOrderedCollection.
 	elementsStrings := theCollection allButFirst
 				inject: theCollection first printString

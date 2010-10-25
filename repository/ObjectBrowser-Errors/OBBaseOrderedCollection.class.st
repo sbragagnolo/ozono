@@ -16,5 +16,5 @@ OBBaseOrderedCollection >> collectionTypeName [
 
 { #category : #'as yet unclassified' }
 OBBaseOrderedCollection >> printString [
-	^ 'a BaseOrderedCollection'
+	^ 'anOrderedCollection'
 ]

@@ -16,5 +16,5 @@ OBBaseBagCollection >> collectionTypeName [
 
 { #category : #'as yet unclassified' }
 OBBaseBagCollection >> printString [
-	^ 'a BaseBagCollection'
+	^ 'aBag'
 ]
