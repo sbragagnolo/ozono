@@ -153,9 +153,10 @@ ObjectBrowserObject >> fileOut [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
+|pointed|
 	(aCollection includes: self) ifFalse: [
 		aCollection add: self.
-		self variables do: [ :v | (self objectPointedByVariableNamed: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aCollection ]].
+		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. pointed class = ObjectBrowserObject ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 
