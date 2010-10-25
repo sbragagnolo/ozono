@@ -193,7 +193,7 @@ ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesso
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> writeStateScriptOn: stream [
 		"saves the state, all the variables values and relationships"
-	self do:  [ :obj | 
+	self realObject do:  [ :obj | 
 			stream nextPutAll: self posibleName , ' add: ' , (self posibleNameForObject: obj) , '.'. 
 			stream cr].
 
