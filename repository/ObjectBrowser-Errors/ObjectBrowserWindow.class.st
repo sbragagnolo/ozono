@@ -93,14 +93,7 @@ ObjectBrowserWindow >> createObjectDiagramTab [
 	panel := OBGroupingMorph new
 		color: (Color gray);
 		layoutPolicy: (ProportionalLayout new);
-		addMorph: (diagramWhiteboard)";
-		addMorph: self buildObjectAttributeList 
-			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
-		addMorph: self buildMethodList
-			frame: (0.50001@ 0 corner: 1 @ hSepFrac -0.01);
-		addMorph: self buildMethodEditor
-			frame: (0@hSepFrac corner: 1 @ 1)".
-	"methodEditor color: Color white."
+		addMorph: (diagramWhiteboard).
 	^panel.
 ]
 

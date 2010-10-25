@@ -87,6 +87,11 @@ ObjectBrowserObject >> addInversePrototypeRelationship: references [
 	references add: self.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> addToGraph: aGraph [
+	aGraph addObjectBrowserObject: self.
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarName: variableName.

@@ -98,6 +98,15 @@ LOOPLesson class >> selectionInterval [
 ]
 
 { #category : #accessing }
+LOOPLesson >> addNewObject [
+	| newObject |
+	newObject := ObjectBrowserObject newOn: self.
+	self addObject: newObject.
+	^newObject
+	
+]
+
+{ #category : #accessing }
 LOOPLesson >> addObject: anObject [
 	self objects add: anObject.
 ]
@@ -125,6 +134,15 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 { #category : #'as yet unclassified' }
 LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> buildGraph [
+	| graph |
+	graph := LessonGraph lesson: self.
+	self objects do: [ :o | o addToGraph: graph ].
+	self variables do: [ :v | v addToGraph: graph ].
+	^graph
 ]
 
 { #category : #accessing }
@@ -214,6 +232,13 @@ LOOPLesson >> fileOut [
 ]
 
 { #category : #accessing }
+LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
+	^(aRealObject isKindOf: ObjectBrowserClass)
+		ifTrue: [ self objects detect: [ :o | o realObject == aRealObject ]] 
+		ifFalse: [ NoObjectBrowserObject new: aRealObject ].
+]
+
+{ #category : #accessing }
 LOOPLesson >> hasObject: anObject [
 	^objects includes: anObject.
 ]
@@ -257,6 +282,11 @@ LOOPLesson >> menuActions [
 		with: #('eliminar' #removeSelectedLesson)
 		with: #('renombrar' #renameSelectedLesson)
 		with: #('exportar' #fileOutSelectedLesson)
+]
+
+{ #category : #showing }
+LOOPLesson >> objectBrowserObjectForRealObject: realObject [
+	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ NoObjectBrowserObject new: realObject ].
 ]
 
 { #category : #diagram }

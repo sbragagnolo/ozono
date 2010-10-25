@@ -23,6 +23,11 @@ NoObjectBrowserObject >> actionsForObjectVariableList [
 	^OrderedCollection new.
 ]
 
+{ #category : #'graph model' }
+NoObjectBrowserObject >> addToGraph: aLessonGraph [ 
+	aLessonGraph addNoObjectBrowserObject: self object.
+]
+
 { #category : #'as yet unclassified' }
 NoObjectBrowserObject >> canDelete [
 	^ realObject isNil.
@@ -69,6 +74,11 @@ NoObjectBrowserObject >> posibleName [
 { #category : #accessing }
 NoObjectBrowserObject >> realClass [
 	^realObject class
+]
+
+{ #category : #accessing }
+NoObjectBrowserObject >> realObject [
+	^realObject
 ]
 
 { #category : #accessing }

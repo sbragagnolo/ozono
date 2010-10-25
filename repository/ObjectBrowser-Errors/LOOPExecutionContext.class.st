@@ -22,9 +22,7 @@ LOOPExecutionContext >> commitChanges [
 LOOPExecutionContext >> getValueFromContext: anOBVariable [
 	| value |
 	value := self instVarNamed: anOBVariable name.
-	(_lesson hasObject: value) 
-		ifTrue: [anOBVariable pointTo: value] 
-		ifFalse: [anOBVariable pointTo: (NoObjectBrowserObject new: value)].
+	anOBVariable pointTo: (_lesson getObjectBrowserObjectFromRealObject: value).
 	
 ]
 
@@ -40,6 +38,6 @@ LOOPExecutionContext >> prepare [
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> putInContext: anOBVariable [
-	self instVarNamed: anOBVariable name put: anOBVariable pointsTo object.
+	self instVarNamed: anOBVariable name put: anOBVariable pointsTo realObject.
 	
 ]
