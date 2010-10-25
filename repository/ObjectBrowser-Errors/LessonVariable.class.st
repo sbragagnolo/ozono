@@ -1,8 +1,9 @@
 Class {
 	#name : #LessonVariable,
-	#superclass : #OBVariable,
+	#superclass : #Object,
 	#instVars : [
-		'reference'
+		'reference',
+		'name'
 	],
 	#category : #'ObjectBrowser-Model'
 }
@@ -42,6 +43,16 @@ LessonVariable >> menu: aMenuMorph [
 	aMenuMorph add: 'Dereferenciar' action: #dereferenceSelectedVariable.
 	self pointsTo menu: aMenuMorph.
 	^aMenuMorph
+]
+
+{ #category : #menues }
+LessonVariable >> name [
+	 ^name
+]
+
+{ #category : #menues }
+LessonVariable >> name: aName [
+	 name := aName
 ]
 
 { #category : #messages }
