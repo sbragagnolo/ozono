@@ -141,7 +141,6 @@ LOOPLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph lesson: self.
 	self objects do: [ :o | o addToGraph: graph ].
-	self variables do: [ :v | v addToGraph: graph ].
 	^graph
 ]
 
