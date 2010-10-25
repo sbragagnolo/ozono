@@ -10,13 +10,13 @@ OBBaseSetCollection >> clone [
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseSetCollection >> cloneWithName: theName [
-	^ObjectBrowserCollection newSet: theName.
+OBBaseSetCollection >> collectionTypeName [
+	^'Set'
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseSetCollection >> collectionTypeName [
-	^'Set'
+OBBaseSetCollection >> displayString [
+	^ 'aSet'
 ]
 
 { #category : #'as yet unclassified' }

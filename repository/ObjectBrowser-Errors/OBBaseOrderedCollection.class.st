@@ -10,11 +10,6 @@ OBBaseOrderedCollection >> clone [
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseOrderedCollection >> cloneWithName: theName [
-	^ObjectBrowserCollection newOrdered: theName.
-]
-
-{ #category : #'as yet unclassified' }
 OBBaseOrderedCollection >> collectionTypeName [
 	^'OrderedCollection'
 ]

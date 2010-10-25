@@ -10,11 +10,6 @@ OBBaseBagCollection >> clone [
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseBagCollection >> cloneWithName: theName [
-	^ObjectBrowserCollection newBag: theName.
-]
-
-{ #category : #'as yet unclassified' }
 OBBaseBagCollection >> collectionTypeName [
 	^'Bag'
 ]

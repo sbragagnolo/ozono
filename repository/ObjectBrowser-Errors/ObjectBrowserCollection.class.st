@@ -40,31 +40,13 @@ ObjectBrowserCollection class >> newBag [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newBag: theName [
-	^self newSet objectName: theName;
-		realObject: SimpleCollection newBag.
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> newOrdered [
 	^self basicNew	realObject: SimpleOrderedCollection newOrdered; yourself .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newOrdered: thetName [
-	^self newSet objectName: thetName;
-		realObject: SimpleOrderedCollection newOrdered.
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> newSet [
 	^self basicNew	realObject: SimpleCollection newSet; yourself .
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newSet: thetName [
-	^self newSet objectName: thetName;
-		realObject: SimpleCollection newSet.
 ]
 
 { #category : #'as yet unclassified' }

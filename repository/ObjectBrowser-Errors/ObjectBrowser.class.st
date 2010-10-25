@@ -595,14 +595,6 @@ ObjectBrowser >> variables [
 	^self lesson variables
 ]
 
-{ #category : #menues }
-ObjectBrowser >> variablesListMenu: aMenu shifted: shifted [
-	aMenu addList: (self actionsForObjectVariableList).
-	aMenu addLine.
-	self addExtraItems: aMenu.
-	^ aMenu
-]
-
 { #category : #accessing }
 ObjectBrowser >> workspaceSelected: aWorkspace [
 	self selectedObjectBrowserVariable: NullOBVariable new.

@@ -10,18 +10,8 @@ OBBaseCollection class >> new [
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseCollection >> addVariable: variableName [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
 OBBaseCollection >> clone [
 	^self subclassResponsibility .
-]
-
-{ #category : #'as yet unclassified' }
-OBBaseCollection >> cloneWithName: theName [
-	self subclassResponsibility 
 ]
 
 { #category : #'as yet unclassified' }
@@ -53,21 +43,6 @@ OBBaseCollection >> references [
 OBBaseCollection >> removeClassFromSystem [
 	"(metodo implementado solo para que haya polimorfismo) Una baseCollection no la podemos sacar  del sistema... es algo que llego para quedarse...."
 	^self 
-]
-
-{ #category : #'as yet unclassified' }
-OBBaseCollection >> removeMethod: aSelector [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
-OBBaseCollection >> removeVariable: variableName [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
-OBBaseCollection >> sourceCodeAt: aSelector [
-	^'Usted no quiere ver esto realmente ;-)'
 ]
 
 { #category : #'as yet unclassified' }
