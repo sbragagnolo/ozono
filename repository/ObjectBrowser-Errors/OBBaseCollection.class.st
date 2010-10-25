@@ -15,11 +15,6 @@ OBBaseCollection >> clone [
 ]
 
 { #category : #'as yet unclassified' }
-OBBaseCollection >> compileMethod: aMethod  notifying: someone [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
 OBBaseCollection >> hasClones [
 	^true
 ]

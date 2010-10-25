@@ -121,9 +121,8 @@ LOOPLesson >> addVariable: aVariable [
 { #category : #accessing }
 LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 	|aVariable|
-	aVariable :=	 (OBVariable new)
+	aVariable :=	 (LessonVariable new)
 		name: theReferenceName ;
-		originalName: theReferenceName;
 		pointTo: anObject ;
 		yourself.
 	

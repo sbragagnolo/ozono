@@ -10,7 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 ObjectBrowserVariableTestCase >> setUp [
 	super setUp.
-	variable := OBVariable new name: 'pepita'.
+	variable := LessonVariable newNamed: 'pepita'.
 ]
 
 { #category : #'as yet unclassified' }

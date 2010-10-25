@@ -165,9 +165,7 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
-	newVariable := (OBVariable new)
-		name: aVariableNameString;
-		originalName: aVariableNameString;
+	newVariable := (LessonVariable newNamed: aVariableNameString)
 		pointTo: anObjectBrowserObject;
 		yourself.
 	self lesson addVariable: newVariable.
