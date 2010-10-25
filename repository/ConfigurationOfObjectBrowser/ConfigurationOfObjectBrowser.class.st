@@ -42,15 +42,16 @@ ConfigurationOfObjectBrowser >> default: spec [
 	spec for: #common do: [
 		spec blessing: #beta.
 		
-		spec repository: 'http://www.squeaksource.com/smallUML'.	
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
 		spec 
-			project: 'smallUML' with:[spec
-					className: 'ConfigurationOfSmallUML';
-					versionString: '0.9';
-					loads: #('default' );
-					file: 'ConfigurationOfSmallUML';
-					repository: 'http://www.squeaksource.com/smallUML'. ];
-			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.  ]
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											versionString: '0.9';
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+										
+			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
+											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ]
 		]
 ]
 
