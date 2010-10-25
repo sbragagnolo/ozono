@@ -36,7 +36,7 @@ DereferencedObject >> fullfillObjectBrowserObjectsCollection: aSet [
 "Codigo repetidoooooo"
 		(aSet  includes: self) ifFalse: [
 		aSet  add: self.
-		self variables do: [ :v | (self objectPointedBy: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aSet ]].
+		self variables do: [ :v | (self objectPointedByVariableNamed: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aSet ]].
 		]
 ]
 

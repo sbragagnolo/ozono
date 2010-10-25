@@ -77,7 +77,6 @@ ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 ObjectBrowserObject >> actionsForObjectVariableList [
 	^#(
 		#('clonar' #cloneObject) 
-"		#('renombrar objeto' #renameObject)"
 		).
 ]
 
@@ -101,11 +100,13 @@ ObjectBrowserObject >> addVariable: variableName [
 
 { #category : #accessing }
 ObjectBrowserObject >> at: index [
+	self deprecated: 'para mi esto no sirve.  Guille'.
 	^self realObject at: index .
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> at: index put: obj [
+	self deprecated: 'para mi esto no sirve.  Guille'.
 	^self realObject at: index put: obj.
 ]
 
@@ -126,7 +127,13 @@ ObjectBrowserObject >> compileMethod: aMethod [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> displayString [
+	^self realObject displayString
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> doesNotUnderstand: aMessage [ 
+	self deprecated: 'para mi esto ya no sirve.  Guille'.
 	(self realObject respondsTo: aMessage selector) not
 		ifTrue: [self error: self printString , ' no entiende el mensaje ' , aMessage selector].
 	^self realObject perform: aMessage selector withArguments: aMessage arguments
@@ -148,7 +155,7 @@ ObjectBrowserObject >> fileOut [
 ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 	(aCollection includes: self) ifFalse: [
 		aCollection add: self.
-		self variables do: [ :v | (self objectPointedBy: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aCollection ]].
+		self variables do: [ :v | (self objectPointedByVariableNamed: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 
@@ -190,6 +197,7 @@ ObjectBrowserObject >> inspect [
 
 { #category : #accessing }
 ObjectBrowserObject >> isNull [
+	self deprecated: 'para mi esto ya no sirve.  Guille'.
 	^false
 ]
 
@@ -210,11 +218,13 @@ ObjectBrowserObject >> menu: aMenuMorph [
 
 { #category : #accessing }
 ObjectBrowserObject >> methodCategory: aSelector [
+	self deprecated: 'para mi esto ya no sirve.  Guille'.
 	^ self realClass organization categoryOfElement: aSelector.
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> methodOfSelector: aSelector [
+	"Para testing"
 	^self myClassMethods detect: [:m | m selector = aSelector ].
 ]
 
@@ -246,23 +256,6 @@ ObjectBrowserObject >> myNewScriptOn: aLesson [
 { #category : #printing }
 ObjectBrowserObject >> object [
 	^self
-]
-
-{ #category : #accessing }
-ObjectBrowserObject >> objectBrowser [
-	^objectBrowser
-]
-
-{ #category : #accessing }
-ObjectBrowserObject >> objectBrowser: anOB [
-	objectBrowser := anOB 
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserObject >> objectPointedBy:  varName [
-	^self realObject instVarNamed: varName 
-	
-
 ]
 
 { #category : #accessing }
@@ -319,7 +312,7 @@ ObjectBrowserObject >> realObject: anObject [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> referencePosibleName: name [
 	|object|
-	object := self objectPointedBy: name.
+	object := self objectPointedByVariableNamed: name.
 
 	^ self posibleNameForObject: object 
 ]
@@ -327,7 +320,7 @@ ObjectBrowserObject >> referencePosibleName: name [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> references [
 	| refs |
-	refs := self variables collect: [:v | self objectPointedBy:  v asSymbol].
+	refs := self variables collect: [:v | self objectPointedByVariableNamed: v asSymbol].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	
@@ -337,16 +330,6 @@ ObjectBrowserObject >> references [
 { #category : #accessing }
 ObjectBrowserObject >> removeClassFromSystem [
 	self realClass removeFromSystem
-]
-
-{ #category : #accessing }
-ObjectBrowserObject >> removeFromSystem [
-	self hasClones
-		ifTrue: [self error: 'No se puede eliminar un objeto con clones'].
-	(self objectBrowser canDelete: self)
-		ifFalse: [self error: 'No se puede eliminar a un objeto que es referenciado por otro'].
-	self objectBrowser removeObject: self.
-	self removeClassFromSystem
 ]
 
 { #category : #accessing }

@@ -33,7 +33,7 @@ LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
 		ifFalse: [ self addObject: anObjectBrowserObject realObject.
 			  	 
 				anObjectBrowserObject variables do: [ :v |
-						objectReferenced := anObjectBrowserObject objectPointedBy: v name asSymbol.
+						objectReferenced := anObjectBrowserObject objectPointedByVariableNamed: v name asSymbol.
 						(lesson objectBrowserObjectForRealObject: objectReferenced) addToGraph: self.
 						self addReferenceFrom: anObjectBrowserObject realObject to: objectReferenced named: v name.
 					]
