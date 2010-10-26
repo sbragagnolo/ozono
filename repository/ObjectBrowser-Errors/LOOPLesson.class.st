@@ -291,8 +291,8 @@ LOOPLesson >> objectBrowserObjectForRealObject: realObject [
 LOOPLesson >> objectDiagram [
 	|diagram|
 	diagram := ObjectDiagram new.
-	(self objects collect:[:object | (ObjectBrowserObjectNode new object: object) ]) do:[:object | diagram addDiagramNode: object].
-	diagram diagramNodes do:[:node | node connectToReferencesWithin: diagram].
+	self buildGraph objects do:[:anOBObject | diagram addDiagramNode: (ObjectNode new object: anOBObject )].
+	diagram connectNodes.
 	^diagram
 ]
 

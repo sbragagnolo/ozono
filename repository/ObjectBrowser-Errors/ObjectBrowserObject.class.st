@@ -321,7 +321,7 @@ ObjectBrowserObject >> referencePosibleName: name [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> references [
 	| refs |
-	refs := self variables collect: [:v | self objectPointedByVariableNamed: v asSymbol].
+	refs := self variables collect: [:v | self objectPointedBy:  v name ].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	
