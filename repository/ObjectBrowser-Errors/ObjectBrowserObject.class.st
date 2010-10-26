@@ -156,7 +156,8 @@ ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 |pointed|
 	(aCollection includes: self) ifFalse: [
 		aCollection add: self.
-		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. pointed class = ObjectBrowserObject ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
+		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. (pointed notNil and: [
+				pointed class isKindOf: ObjectBrowserObject]) ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 

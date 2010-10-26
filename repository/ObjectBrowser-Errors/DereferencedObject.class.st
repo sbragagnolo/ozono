@@ -32,11 +32,13 @@ DereferencedObject >> dereferencedObject: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-DereferencedObject >> fullfillObjectBrowserObjectsCollection: aSet [ 
+DereferencedObject >> fullfillObjectBrowserObjectsCollection: aCollection [ 
 "Codigo repetidoooooo"
-		(aSet  includes: self) ifFalse: [
-		aSet  add: self.
-		self variables do: [ :v | (self objectPointedByVariableNamed: v name) ifNotNil: [ :o | o fullfillObjectBrowserObjectsCollection: aSet ]].
+|pointed|
+	(aCollection includes: self) ifFalse: [
+		aCollection add: self.
+		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. (pointed notNil and: [
+				pointed class isKindOf: ObjectBrowserObject]) ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 
