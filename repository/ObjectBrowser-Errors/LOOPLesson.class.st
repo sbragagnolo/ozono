@@ -10,7 +10,8 @@ Class {
 		'loopExecutionContextClass',
 		'lessonEnvironment',
 		'workspaces',
-		'tests'
+		'tests',
+		'objectDiagram'
 	],
 	#classInstVars : [
 		'lessons'
@@ -256,6 +257,7 @@ LOOPLesson >> initialize [
 	executionContext := self loopExecutionContextClass new
 							lesson: self;
 							yourself.
+	objectDiagram := ObjectDiagram new.
 ]
 
 { #category : #accessing }
@@ -289,11 +291,7 @@ LOOPLesson >> objectBrowserObjectForRealObject: realObject [
 
 { #category : #diagram }
 LOOPLesson >> objectDiagram [
-	|diagram|
-	diagram := ObjectDiagram new.
-	self buildGraph objects do:[:anOBObject | diagram addDiagramNode: (ObjectNode new object: anOBObject )].
-	diagram connectNodes.
-	^diagram
+	^objectDiagram 
 ]
 
 { #category : #accessing }
@@ -385,6 +383,15 @@ LOOPLesson >> title [
 { #category : #accessing }
 LOOPLesson >> title: anObject [
 	title := anObject
+]
+
+{ #category : #diagram }
+LOOPLesson >> updateObjectDiagram [
+	 
+	objectDiagram updateDiagramNodesFrom: self buildGraph objects. "Clears the unreferenced objects and adds the new ones"
+	objectDiagram resetConnections.
+	objectDiagram connectNodes.
+	^objectDiagram
 ]
 
 { #category : #'as yet unclassified' }

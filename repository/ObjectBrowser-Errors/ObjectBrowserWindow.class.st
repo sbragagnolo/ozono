@@ -89,6 +89,7 @@ ObjectBrowserWindow >> createGroupTab [
 ObjectBrowserWindow >> createObjectDiagramTab [
 	| hSepFrac panel |
 	diagramWhiteboard := DiagramWhiteboard new model: self lesson objectDiagram.
+	diagramWhiteboard update.
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
 		color: (Color gray);
@@ -184,7 +185,7 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 ObjectBrowserWindow >> refresh [
 	objectBrowserTree list: self objectBrowser lessonOrganization.
 	objectBrowserTree selection: self objectBrowser selectedItem.
-	diagramWhiteboard model: self lesson objectDiagram.
+	self lesson updateObjectDiagram.
 	diagramWhiteboard update.
 ]
 

@@ -197,6 +197,11 @@ ObjectBrowserObject >> inspect [
 	ToolSet inspect: self realObject 
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> isClone [
+	^prototype notNil
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> isNull [
 	self deprecated: 'para mi esto ya no sirve.  Guille'.
