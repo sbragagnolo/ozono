@@ -139,9 +139,9 @@ LOOPLesson >> addWorkspace: aWorkspace [
 { #category : #'as yet unclassified' }
 LOOPLesson >> buildGraph [
 	| graph |
-	graph := LessonGraph lesson: self.
+	graph := LessonGraph new.
+	graph addLesson: self.
 	self objects do: [ :o | o addToGraph: graph ].
-	self variables do: [ :v | graph addVariable: v ].
 	^graph
 ]
 
@@ -238,6 +238,11 @@ LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
 { #category : #accessing }
 LOOPLesson >> hasObject: anObject [
 	^objects includes: anObject.
+]
+
+{ #category : #accessing }
+LOOPLesson >> hasReferencesTo: anObjectBrowserObject [
+	^self variables anySatisfy: [ :v | v hasReferencesTo: anObjectBrowserObject ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -388,7 +393,7 @@ LOOPLesson >> title: anObject [
 LOOPLesson >> updateObjectDiagram [
 	| graph |
 	graph := self buildGraph.
-	objectDiagram updateDiagramNodesFrom: graph objects. "Clears the unreferenced objects and adds the new ones"
+	objectDiagram updateDiagramNodesFrom: graph referenceHolders. "Clears the unreferenced objects and adds the new ones"
 	objectDiagram resetConnections.
 	objectDiagram connectNodes: graph references.
 	^objectDiagram

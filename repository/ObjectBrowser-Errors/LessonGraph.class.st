@@ -11,13 +11,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-LessonGraph class >> lesson: aLesson [
-	^self new
-		lesson: aLesson; 
-		yourself 
-]
-
-{ #category : #'as yet unclassified' }
 LessonGraph >> addCollection: anObjectBrowserObject [
 	| objectReferenced referencedObjectBrowserObject |
 	(self includesObject: anObjectBrowserObject)
@@ -29,6 +22,16 @@ LessonGraph >> addCollection: anObjectBrowserObject [
 						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: 'elemento'.
 					]
 				]
+]
+
+{ #category : #'as yet unclassified' }
+LessonGraph >> addLesson: aLesson [
+	self lesson: aLesson.
+	aLesson variables do: [ :v | 
+			self addVariable: v.
+			v pointsTo addToGraph: self.
+			self addReferenceFrom: aLesson to: v pointsTo named: v name.
+		 ]
 ]
 
 { #category : #'graph model' }
@@ -44,6 +47,7 @@ LessonGraph >> addObject: aRealObject [
 { #category : #'as yet unclassified' }
 LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
 	| objectReferenced referencedObjectBrowserObject |
+	
 	(self includesObject: anObjectBrowserObject)
 		ifFalse: [ self addObject: anObjectBrowserObject.
 			  	 
@@ -69,9 +73,9 @@ LessonGraph >> addVariable: aVariable [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> dereferencedObjects [
-	^self objects reject: [ :o |
+	^OrderedCollection new"self objects reject: [ :o |
 			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
-		]
+		]"
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,7 +95,7 @@ LessonGraph >> objects [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> referenceHolders [
-	^self variables union: self objects
+	^ self objects union: (Set with: lesson)
 ]
 
 { #category : #'as yet unclassified' }
