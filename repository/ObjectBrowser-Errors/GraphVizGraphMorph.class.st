@@ -23,11 +23,15 @@ GraphVizGraphMorph >> initialize: alesson [
 
 { #category : #'as yet unclassified' }
 GraphVizGraphMorph >> update [
-	| graph morphGraph |
+	| graph morphGraph loopgraph |
+	loopgraph := lesson buildGraph.
 	graph := GraphViz new.
 	graph beDirected.
 	graph add: #node with: { #id->#asString }.
-	lesson buildGraph references do:[ :r |
+	loopgraph referenceHolders do:[ :h |
+			graph add: h with: #label->h displayString.
+		].
+	loopgraph references do:[ :r |
 			graph add: r from with: #label->r from displayString.
 			graph add: r to with: #label->r to displayString.			
 			graph add: r from -> r to with: {#label->r name}.
