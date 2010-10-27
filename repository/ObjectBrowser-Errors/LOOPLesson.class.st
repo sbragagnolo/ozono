@@ -131,12 +131,12 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #diagram }
 LOOPLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph new.

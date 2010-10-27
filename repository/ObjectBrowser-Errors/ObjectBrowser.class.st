@@ -233,12 +233,13 @@ ObjectBrowser >> dependants [
 { #category : #accessing }
 ObjectBrowser >> dereferenceSelectedVariable [
 	self selectedObjectBrowserVariable desreference.
+	self selectDereferencedObject: self selectedObjectBrowserVariable.
 	self changed .
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> deselectVariables [
-	self selectedObjectAttribute: NullOBVariable new.
+	self selectedObjectAttribute: NullLessonVariable new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -266,7 +267,7 @@ ObjectBrowser >> garbageCollectorButtonLabel [
 { #category : #'initialize-release' }
 ObjectBrowser >> initialize [
 	super initialize.
-	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
 	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
 	Smalltalk at:#ordered ifAbsentPut: (OBBaseSetCollection new).
@@ -321,7 +322,7 @@ ObjectBrowser >> objects [
 
 { #category : #accessing }
 ObjectBrowser >> objectsOrganizationSelected [
-	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]
 
 { #category : #accessing }
@@ -409,8 +410,8 @@ ObjectBrowser >> runGarbageCollector [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
-	selectedObjectBrowserVariable  := NullOBVariable new.
-	selectedObjectAttribute := NullOBVariable new.
+	selectedObjectBrowserVariable  := NullLessonVariable new.
+	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
 	self changed.
@@ -476,7 +477,7 @@ ObjectBrowser >> selectedObjectBrowserVariable [
 { #category : #accessing }
 ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
-	selectedObjectAttribute := NullOBVariable new.
+	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
 	anOBVariable notifySelectionTo: self objectSelectionInterested.
 	self changed.
@@ -569,7 +570,7 @@ ObjectBrowser >> tests [
 
 { #category : #menues }
 ObjectBrowser >> testsOrganizationSelected [
-	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]
 
 { #category : #showing }
@@ -595,7 +596,7 @@ ObjectBrowser >> variables [
 
 { #category : #accessing }
 ObjectBrowser >> workspaceSelected: aWorkspace [
-	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 	self selectedWorkspace: aWorkspace.
 ]
 
@@ -606,5 +607,5 @@ ObjectBrowser >> workspaces [
 
 { #category : #selection }
 ObjectBrowser >> workspacesOrganizationSelected [
-	self selectedObjectBrowserVariable: NullOBVariable new.
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]
