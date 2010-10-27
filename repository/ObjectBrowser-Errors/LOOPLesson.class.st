@@ -472,6 +472,6 @@ LOOPLesson >> writeWorkspacesOn: stream [
 		stream nextPutAll: 
 			'(self createWorkspace: ', '''' , aWorkspace label , '''' , ') contents: '.
 		stream cr.
-		stream nextPutAll: '''' , aWorkspace contents , '''' , '.'] .
+		stream nextPutAll: '''' , aWorkspace stringContents , '''' , '.'] .
 	stream cr.
 ]

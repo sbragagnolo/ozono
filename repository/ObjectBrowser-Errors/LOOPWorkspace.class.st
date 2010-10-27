@@ -24,11 +24,6 @@ LOOPWorkspace >> bindingOf: aString [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPWorkspace >> contents [
-	^(window findDeeplyA:TextMorph) text asString
-]
-
-{ #category : #'as yet unclassified' }
 LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
@@ -84,6 +79,11 @@ LOOPWorkspace >> menu: aMenuBuilder [
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> openInWorld [
 	window openInWorld
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> stringContents [
+	^(window findDeeplyA:TextMorph) text asString
 ]
 
 { #category : #'as yet unclassified' }
