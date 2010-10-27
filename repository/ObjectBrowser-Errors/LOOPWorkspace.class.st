@@ -24,6 +24,11 @@ LOOPWorkspace >> bindingOf: aString [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPWorkspace >> contents [
+	^(window findDeeplyA:TextMorph) text asString
+]
+
+{ #category : #'as yet unclassified' }
 LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
