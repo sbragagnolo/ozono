@@ -49,7 +49,8 @@ ConfigurationOfObjectBrowser >> default: spec [
 											loads: #('default' );
 											file: 'ConfigurationOfSmallUML';
 											repository: 'http://www.squeaksource.com/smallUML'. ];
-										
+			package: 'SUML-ObjectDiagramModel' with: [ spec requires: 'smallUML'.
+											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
 			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
 											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ]
 		]
