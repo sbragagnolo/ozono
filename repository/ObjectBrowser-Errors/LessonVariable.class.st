@@ -28,6 +28,11 @@ LessonVariable >> desreference [
 	self pointTo: (NoObjectBrowserObject new: nil).
 ]
 
+{ #category : #'as yet unclassified' }
+LessonVariable >> hasReferencesTo: anObject [
+	^(reference = anObject)
+]
+
 { #category : #showing }
 LessonVariable >> icon [
 	^ObjectBrowserIcons referenceIcon

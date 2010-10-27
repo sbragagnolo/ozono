@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'lesson',
 		'objects',
-		'references'
+		'references',
+		'variables'
 	],
 	#category : #'ObjectBrowser-Diagrams'
 }
@@ -62,6 +63,18 @@ LessonGraph >> addReferenceFrom: aRealObject to: objectReferenced named: referen
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> addVariable: aVariable [
+	self variables add: aVariable.
+]
+
+{ #category : #'as yet unclassified' }
+LessonGraph >> dereferencedObjects [
+	^self objects reject: [ :o |
+			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
+		]
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> includesObject: aRealObject [
 	^self objects includes: aRealObject 
 ]
@@ -77,6 +90,16 @@ LessonGraph >> objects [
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> referenceHolders [
+	^self variables union: self objects
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> references [
 	^references ifNil: [ references := Set new ]
+]
+
+{ #category : #'as yet unclassified' }
+LessonGraph >> variables [
+	^variables ifNil: [ variables := Set new ].
 ]

@@ -179,7 +179,7 @@ ObjectBrowserObject >> hasMethod: aSelector [
 { #category : #accessing }
 ObjectBrowserObject >> hasReferencesTo: anOBObject [
 
-	^self references anySatisfy: [ :aVariable | aVariable = anOBObject realObject]
+	^self knownObjects anySatisfy: [ :aVariable | aVariable = anOBObject realObject]
 ]
 
 { #category : #accessing }
@@ -211,6 +211,16 @@ ObjectBrowserObject >> isClone [
 ObjectBrowserObject >> isNull [
 	self deprecated: 'para mi esto ya no sirve.  Guille'.
 	^false
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> knownObjects [
+	| refs |
+	refs := self variables collect: [:v | self objectPointedBy:  v name ].
+	prototype addInversePrototypeRelationship: refs.
+	^refs.
+	
+
 ]
 
 { #category : #printing }

@@ -90,7 +90,7 @@ ObjectBrowserCollection >> hasClones [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> hasReferencesTo: anOBObject [
-	^self realObject includes: anOBObject
+	^self realObject includes: anOBObject realObject
 ]
 
 { #category : #'as yet unclassified' }

@@ -50,6 +50,11 @@ NoObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aSet [
 		]
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> hasReferencesTo: anObject [
+	^false
+]
+
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
 	aMenuMorph add: 'Borrar' action: #deleteObject.

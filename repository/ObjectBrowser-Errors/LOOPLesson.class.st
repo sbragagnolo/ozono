@@ -141,6 +141,7 @@ LOOPLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph lesson: self.
 	self objects do: [ :o | o addToGraph: graph ].
+	self variables do: [ :v | graph addVariable: v ].
 	^graph
 ]
 
@@ -194,10 +195,7 @@ LOOPLesson >> delete [
 
 { #category : #accessing }
 LOOPLesson >> dereferencedObjects [
-	| referencedObjects dereferenced |
-	referencedObjects := self referencedObjects.
-	dereferenced := self objects reject:[:o | referencedObjects includes: o].
-	^dereferenced asSet.
+	^self buildGraph dereferencedObjects.
 ]
 
 { #category : #accessing }
@@ -317,6 +315,7 @@ LOOPLesson >> printString [
 { #category : #accessing }
 LOOPLesson >> referencedObjects [
 	| referencedObjects |
+	self deprecated: 'use self buildGraph objects'.
 	referencedObjects := Set new.
 	self variables do:[ :v | v pointsTo fullfillObjectBrowserObjectsCollection: referencedObjects ].
 	^referencedObjects

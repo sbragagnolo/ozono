@@ -126,6 +126,11 @@ SimpleCollection >> remove: anObject [
 		ifAbsent: [self error: 'el objeto ' , anObject printString , ' no se encuentra en la coleccion ']
 ]
 
+{ #category : #debugging }
+SimpleCollection >> removeAll [
+	^colection removeAll.
+]
+
 { #category : #collection }
 SimpleCollection >> select: aBlock [
 	^self prototype clone addAll:  (colection select: aBlock)
