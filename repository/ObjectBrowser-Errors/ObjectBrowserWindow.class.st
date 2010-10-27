@@ -94,7 +94,8 @@ ObjectBrowserWindow >> createObjectDiagramTab [
 	panel := OBGroupingMorph new
 		color: (Color gray);
 		layoutPolicy: (ProportionalLayout new);
-		addMorph: (diagramWhiteboard).
+		addMorph: (diagramWhiteboard)
+			frame: (0@0 corner: 1@1).
 	^panel.
 ]
 
