@@ -73,9 +73,9 @@ LessonGraph >> addVariable: aVariable [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> dereferencedObjects [
-	^OrderedCollection new"self objects reject: [ :o |
+	^self objects reject: [ :o |
 			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
-		]"
+		]
 ]
 
 { #category : #'as yet unclassified' }

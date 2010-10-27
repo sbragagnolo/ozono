@@ -131,12 +131,12 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
 
-{ #category : #diagram }
+{ #category : #'as yet unclassified' }
 LOOPLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph new.
@@ -260,7 +260,7 @@ LOOPLesson >> initialize [
 	executionContext := self loopExecutionContextClass new
 							lesson: self;
 							yourself.
-	objectDiagram := ObjectDiagram new.
+	objectDiagram := LOOPObjectDiagramFactory buildDiagram lesson: self; yourself.
 ]
 
 { #category : #accessing }
@@ -333,6 +333,7 @@ LOOPLesson >> referencesObject: anObjectBrowserObject [
 
 { #category : #accessing }
 LOOPLesson >> removeDerrefencedObject: aDereferencedObject [ 
+	self deprecated: 'no se usa'.
 	self dereferencedObjects remove: aDereferencedObject .
 ]
 
@@ -361,6 +362,7 @@ LOOPLesson >> runGarbageCollector [
 
 { #category : #accessing }
 LOOPLesson >> selectFrom: start to: end [ 
+	"asco para poder hacer fileins"
 ]
 
 { #category : #accessing }
@@ -391,12 +393,7 @@ LOOPLesson >> title: anObject [
 
 { #category : #diagram }
 LOOPLesson >> updateObjectDiagram [
-	| graph |
-	graph := self buildGraph.
-	objectDiagram updateDiagramNodesFrom: graph referenceHolders. "Clears the unreferenced objects and adds the new ones"
-	objectDiagram resetConnections.
-	objectDiagram connectNodes: graph references.
-	^objectDiagram
+	objectDiagram update.
 ]
 
 { #category : #'as yet unclassified' }

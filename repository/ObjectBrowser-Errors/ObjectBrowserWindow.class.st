@@ -88,8 +88,7 @@ ObjectBrowserWindow >> createGroupTab [
 { #category : #view }
 ObjectBrowserWindow >> createObjectDiagramTab [
 	| hSepFrac panel |
-	diagramWhiteboard := DiagramWhiteboard new model: self lesson objectDiagram.
-	diagramWhiteboard update.
+	diagramWhiteboard := self lesson objectDiagram diagramMorph. 
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
 		color: (Color gray);

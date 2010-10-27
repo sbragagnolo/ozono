@@ -19,13 +19,16 @@ ObjectBrowserClass >> displayString [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserClass >> objectBrowserObjectForMe [
+	"el OBO que me representa"
 
-	^self deprecated: 'use the lesson to obtain the object'.
+	^self objectBrowserObjects detect: [:obo | obo realObject = self]
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserClass >> objectBrowserObjects [
-	^self deprecated: 'use the lesson'
+	"la bolsa de OBO donde me tengo que buscar"
+
+	^ObjectBrowser objects
 ]
 
 { #category : #'as yet unclassified' }

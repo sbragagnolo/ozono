@@ -3,6 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'realObject',
+		'objectName',
+		'objectBrowser',
 		'prototype',
 		'variables',
 		'methods',
@@ -86,7 +88,8 @@ ObjectBrowserObject >> addInversePrototypeRelationship: references [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aGraph [
-	aGraph addReferenceFrom: anObjectBrowserObject realObject to: self realObject named: 'prototype'.
+	self addToGraph: aGraph.
+	aGraph addReferenceFrom: anObjectBrowserObject to: self named: 'prototype'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -103,7 +106,7 @@ ObjectBrowserObject >> addVariable: variableName [
 
 { #category : #accessing }
 ObjectBrowserObject >> at: index [
-	self deprecated: 'No hay mas diccionarios, no usar!'.
+	self deprecated: 'para mi esto no sirve.  Guille'.
 	^self realObject at: index .
 ]
 
@@ -250,7 +253,7 @@ ObjectBrowserObject >> methodOfSelector: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> methods [
-	^self myClassMethods union: prototype methods
+	^(self myClassMethods union: prototype methods)
 ]
 
 { #category : #accessing }
