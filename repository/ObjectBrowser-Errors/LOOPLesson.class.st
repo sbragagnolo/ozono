@@ -448,7 +448,7 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self. stream cr] .
 	
 	"despues el estado"
-	self objects do:[ :anObject | anObject writeStateScriptOn: stream. stream cr] .
+	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self. stream cr] .
 	
 	"despues la incorporacion a la lesson"
 	self writeAddScriptToLessonOn: stream .

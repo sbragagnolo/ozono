@@ -293,10 +293,10 @@ ObjectBrowserObject >> posibleName [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> posibleNameForObject: object [ 
 	"me devuelve en posible name para los objetos FIXME! algo mas lindo...."
-	
-	( object isKindOf: ObjectBrowserObject ) 
-		ifTrue: [ ^object posibleName ] 
-		ifFalse: [^ object printString ].
+	| obo |
+	self deprecated: 'basta'.
+	obo := lesson objectBrowserObjectForRealObject: object.
+	^ obo posibleName
 ]
 
 { #category : #'as yet unclassified' }
@@ -440,10 +440,19 @@ ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeStateScriptOn: stream [
 	"saves the state, all the variables values and relationships"
+	self deprecated: 'use writeStateScriptOn: lesson:'.
 	self variables do:  [ :var | 
 			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (self referencePosibleName: var name) , '.'. 
 			stream cr].
 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
+	"saves the state, all the variables values and relationships"
+	self variables do:  [ :var | 
+			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self referencePosibleName: var name)) posibleName, '.'. 
+			stream cr].
 ]
 
 { #category : #'as yet unclassified' }
