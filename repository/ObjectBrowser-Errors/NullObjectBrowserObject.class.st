@@ -20,6 +20,11 @@ NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection
 	^self
 ]
 
+{ #category : #'graph model' }
+NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
+	"Nothing"
+]
+
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> addVariable: variableName [
 	self error: 'Debe seleccionar un objeto para crear una variable'.

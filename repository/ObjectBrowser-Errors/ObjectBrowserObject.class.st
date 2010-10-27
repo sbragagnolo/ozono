@@ -87,6 +87,11 @@ ObjectBrowserObject >> addInversePrototypeRelationship: references [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aGraph [
+	aGraph addReferenceFrom: anObjectBrowserObject realObject to: self realObject named: 'prototype'.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> addToGraph: aGraph [
 	aGraph addObjectBrowserObject: self.
 ]

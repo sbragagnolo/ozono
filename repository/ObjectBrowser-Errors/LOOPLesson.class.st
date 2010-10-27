@@ -387,10 +387,11 @@ LOOPLesson >> title: anObject [
 
 { #category : #diagram }
 LOOPLesson >> updateObjectDiagram [
-	 
-	objectDiagram updateDiagramNodesFrom: self buildGraph objects. "Clears the unreferenced objects and adds the new ones"
+	| graph |
+	graph := self buildGraph.
+	objectDiagram updateDiagramNodesFrom: graph objects. "Clears the unreferenced objects and adds the new ones"
 	objectDiagram resetConnections.
-	objectDiagram connectNodes.
+	objectDiagram connectNodes: graph references.
 	^objectDiagram
 ]
 

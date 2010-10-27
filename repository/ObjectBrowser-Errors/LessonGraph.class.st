@@ -16,6 +16,19 @@ LessonGraph class >> lesson: aLesson [
 		yourself 
 ]
 
+{ #category : #'as yet unclassified' }
+LessonGraph >> addCollection: anObjectBrowserObject [
+	| objectReferenced |
+	(self includesObject: anObjectBrowserObject realObject)
+		ifFalse: [ self addObject: anObjectBrowserObject realObject.
+			  	 
+				anObjectBrowserObject realObject do: [ :e |
+						(lesson objectBrowserObjectForRealObject: e) addToGraph: self.
+						self addReferenceFrom: anObjectBrowserObject realObject to: e named: 'elemento'.
+					]
+				]
+]
+
 { #category : #'graph model' }
 LessonGraph >> addNoObjectBrowserObject: aNoObjectBrowserObject [
 	self addObject: aNoObjectBrowserObject
@@ -36,7 +49,8 @@ LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
 						objectReferenced := anObjectBrowserObject objectPointedByVariableNamed: v name asSymbol.
 						(lesson objectBrowserObjectForRealObject: objectReferenced) addToGraph: self.
 						self addReferenceFrom: anObjectBrowserObject realObject to: objectReferenced named: v name.
-					]
+					].
+				anObjectBrowserObject prototype addPrototypeRelationshipTo: anObjectBrowserObject in: self.
 				]
 ]
 

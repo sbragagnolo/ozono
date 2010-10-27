@@ -65,7 +65,7 @@ ObjectBrowserCollection >> addRelationsToGraph: aGraph [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addToGraph: aGraph [
-	self addSelfToGraph: aGraph.
+	aGraph addCollection: self.
 ]
 
 { #category : #'as yet unclassified' }
