@@ -18,3 +18,8 @@ ObjectBrowserPluggableListMorph class >> on: aModel [
 		 autoDeselect: true;
 		yourself
 ]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserPluggableListMorph >> listMorphClass [
+	^LOOPLazyListMorph
+]
