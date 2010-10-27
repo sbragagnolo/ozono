@@ -33,6 +33,11 @@ NoObjectBrowserObject >> addToGraph: aLessonGraph [
 	aLessonGraph addNoObjectBrowserObject: self.
 ]
 
+{ #category : #printing }
+NoObjectBrowserObject >> asString [
+	^self posibleName
+]
+
 { #category : #'as yet unclassified' }
 NoObjectBrowserObject >> canDelete [
 	^ realObject isNil.

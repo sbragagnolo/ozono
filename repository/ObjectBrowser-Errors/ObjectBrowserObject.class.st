@@ -103,6 +103,11 @@ ObjectBrowserObject >> addVariable: variableName [
 ]
 
 { #category : #accessing }
+ObjectBrowserObject >> asString [
+	^self posibleName
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> at: index [
 	self deprecated: 'No hay mas diccionarios, no usar!'.
 	^self realObject at: index .

@@ -199,6 +199,11 @@ LOOPLesson >> dereferencedObjects [
 ]
 
 { #category : #accessing }
+LOOPLesson >> displayString [
+	^'lesson'
+]
+
+{ #category : #accessing }
 LOOPLesson >> executionContext [
 	^executionContext
 ]
