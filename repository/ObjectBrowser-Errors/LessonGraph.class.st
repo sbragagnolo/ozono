@@ -18,13 +18,14 @@ LessonGraph class >> lesson: aLesson [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> addCollection: anObjectBrowserObject [
-	| objectReferenced |
-	(self includesObject: anObjectBrowserObject realObject)
-		ifFalse: [ self addObject: anObjectBrowserObject realObject.
+	| objectReferenced referencedObjectBrowserObject |
+	(self includesObject: anObjectBrowserObject)
+		ifFalse: [ self addObject: anObjectBrowserObject.
 			  	 
 				anObjectBrowserObject realObject do: [ :e |
-						(lesson objectBrowserObjectForRealObject: e) addToGraph: self.
-						self addReferenceFrom: anObjectBrowserObject realObject to: e named: 'elemento'.
+						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: e).
+						referencedObjectBrowserObject addToGraph: self.
+						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: 'elemento'.
 					]
 				]
 ]
@@ -41,14 +42,15 @@ LessonGraph >> addObject: aRealObject [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
-	| objectReferenced |
-	(self includesObject: anObjectBrowserObject realObject)
-		ifFalse: [ self addObject: anObjectBrowserObject realObject.
+	| objectReferenced referencedObjectBrowserObject |
+	(self includesObject: anObjectBrowserObject)
+		ifFalse: [ self addObject: anObjectBrowserObject.
 			  	 
 				anObjectBrowserObject variables do: [ :v |
 						objectReferenced := anObjectBrowserObject objectPointedByVariableNamed: v name asSymbol.
-						(lesson objectBrowserObjectForRealObject: objectReferenced) addToGraph: self.
-						self addReferenceFrom: anObjectBrowserObject realObject to: objectReferenced named: v name.
+						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: objectReferenced).
+						referencedObjectBrowserObject addToGraph: self.
+						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: v name.
 					].
 				anObjectBrowserObject prototype addPrototypeRelationshipTo: anObjectBrowserObject in: self.
 				]

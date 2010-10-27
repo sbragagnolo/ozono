@@ -25,7 +25,7 @@ NoObjectBrowserObject >> actionsForObjectVariableList [
 
 { #category : #'graph model' }
 NoObjectBrowserObject >> addToGraph: aLessonGraph [ 
-	aLessonGraph addNoObjectBrowserObject: self object.
+	aLessonGraph addNoObjectBrowserObject: self.
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,6 +68,11 @@ NoObjectBrowserObject >> object [
 
 { #category : #accessing }
 NoObjectBrowserObject >> posibleName [
+	^self object printString
+]
+
+{ #category : #accessing }
+NoObjectBrowserObject >> printString [
 	^self object printString
 ]
 
