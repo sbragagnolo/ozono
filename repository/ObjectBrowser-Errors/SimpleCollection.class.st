@@ -108,8 +108,8 @@ SimpleCollection >> isEmpty [
 SimpleCollection >> printString [
 	| elementsStrings theCollection |
 	theCollection := colection asOrderedCollection.
-	elementsStrings := theCollection allButFirst
-				inject: theCollection first printString
+	elementsStrings := theCollection
+				inject: ''
 				into: [:acum :each | acum , ' ' , each printString].
 	^ self displayString , '(' , elementsStrings , ')'
 ]
