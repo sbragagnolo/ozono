@@ -62,6 +62,11 @@ ConfigurationOfObjectBrowser >> default: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> postLoadDoIt [
+	(Smalltalk globals at: #OSProcess) initialize
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> project [
 
 	^ project ifNil: [ | constructor |
