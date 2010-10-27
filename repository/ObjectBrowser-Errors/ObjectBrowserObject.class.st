@@ -451,7 +451,7 @@ ObjectBrowserObject >> writeStateScriptOn: stream [
 ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	"saves the state, all the variables values and relationships"
 	self variables do:  [ :var | 
-			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self referencePosibleName: var name)) posibleName, '.'. 
+			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
 ]
 
