@@ -3,9 +3,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'selector',
-		'lesson'
+		'lesson',
+		'result'
 	],
-	#category : #'ObjectBrowser-Objects'
+	#category : #'ObjectBrowser-TestFramework'
 }
 
 { #category : #'as yet unclassified' }
@@ -29,6 +30,21 @@ OBTest >> lesson: aLesson [
 { #category : #'as yet unclassified' }
 OBTest >> printString [
 	^selector 
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> runContext: aPreparedContext [
+	[[aPreparedContext runCase] on: TestFailure do: [ :signal | ^LOOPTestFailure new: signal ]] on: Error do: [ :signal | ^LOOPTestError new: signal ].
+	^LOOPTestSuccess new
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> runOn: aLesson [
+	| context |
+	context := aLesson executionContext.
+	context prepare.
+	context setTestSelector: self selector.
+	^result := self runContext: context.
 ]
 
 { #category : #'as yet unclassified' }

@@ -197,7 +197,7 @@ ObjectBrowserWindow >> selectedItemMenu: aMenu [
 { #category : #view }
 ObjectBrowserWindow >> setTestsResults: result [
 	statusMorph text: result printString.
-	statusMorph color: (self statusColorFor: result).
+	statusMorph color: (result color).
 ]
 
 { #category : #view }
@@ -212,15 +212,6 @@ ObjectBrowserWindow >> showWorkspace [
 		openLabel: objectBrowser title, ' - Workspace';
 		lesson: objectBrowser lesson; 
 		containingWindow) center: World center.
-]
-
-{ #category : #view }
-ObjectBrowserWindow >> statusColorFor: result [
-	result hasErrors 
-		ifTrue: [ ^ Color red ].
-	result hasFailures 
-		ifTrue: [ ^ Color yellow ].
-	^Color green
 ]
 
 { #category : #view }

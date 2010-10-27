@@ -205,7 +205,7 @@ LOOPLesson >> displayString [
 
 { #category : #accessing }
 LOOPLesson >> executionContext [
-	^executionContext
+	^executionContext lesson: self; yourself
 ]
 
 { #category : #'as yet unclassified' }
@@ -360,13 +360,10 @@ LOOPLesson >> removeVariable: anOBVariable [
 
 { #category : #accessing }
 LOOPLesson >> runAllTests [
-	| results |
-	results := TestResult new.
+	| results result |
+	results := LOOPTestCaseResult new.
 	self tests do: [ :t | 
-		self executionContext lesson: self lesson.
-		self executionContext prepare.
-		self executionContext setTestSelector: t selector.
-		self executionContext run: results.
+		results add:( t runOn: self).
 		].
 	^results
 
