@@ -44,13 +44,17 @@ ConfigurationOfObjectBrowser >> default: spec [
 		
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
 		spec 
-			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfOSProcess'; 
+											file: 'ConfigurationOfOSProcess';
+											repository: 'http://www.squeaksource.com/metacelloRepository'. ];
+			project: 'osProcess' with: [ spec className: 'ConfigurationOfSmallUML'; 
 											versionString: '0.9';
 											loads: #('default' );
 											file: 'ConfigurationOfSmallUML';
 											repository: 'http://www.squeaksource.com/smallUML'. ];
 			package: 'SUML-ObjectDiagramModel' with: [ spec requires: 'smallUML'.
 											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
+			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
 			package: 'GraphViz' with: [ spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
 			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
 											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ]
