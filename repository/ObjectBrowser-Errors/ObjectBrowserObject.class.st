@@ -3,8 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'realObject',
-		'objectName',
-		'objectBrowser',
 		'prototype',
 		'variables',
 		'methods',
@@ -105,7 +103,7 @@ ObjectBrowserObject >> addVariable: variableName [
 
 { #category : #accessing }
 ObjectBrowserObject >> at: index [
-	self deprecated: 'para mi esto no sirve.  Guille'.
+	self deprecated: 'No hay mas diccionarios, no usar!'.
 	^self realObject at: index .
 ]
 
@@ -252,7 +250,7 @@ ObjectBrowserObject >> methodOfSelector: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> methods [
-	^(self myClassMethods union: prototype methods)
+	^self myClassMethods union: prototype methods
 ]
 
 { #category : #accessing }
