@@ -233,6 +233,7 @@ ObjectBrowser >> dependants [
 { #category : #accessing }
 ObjectBrowser >> dereferenceSelectedVariable [
 	self selectedObjectBrowserVariable desreference.
+	self selectDereferencedObject: self selectedObjectBrowserVariable.
 	self changed .
 ]
 

@@ -14,6 +14,11 @@ NoObjectBrowserObject class >> new: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+NoObjectBrowserObject >> = anotherObject [
+	^(self class == anotherObject class) and:[(self realObject == anotherObject realObject) ]
+]
+
+{ #category : #'as yet unclassified' }
 NoObjectBrowserObject >> actionsForAttributeListWith: aNullOBVariable [ 
 	^#()
 ]
@@ -53,6 +58,11 @@ NoObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aSet [
 { #category : #'as yet unclassified' }
 NoObjectBrowserObject >> hasReferencesTo: anObject [
 	^false
+]
+
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> hash [
+	^self realObject hash
 ]
 
 { #category : #menu }
