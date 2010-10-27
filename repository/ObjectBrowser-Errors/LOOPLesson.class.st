@@ -409,7 +409,7 @@ LOOPLesson >> title: anObject [
 
 { #category : #diagram }
 LOOPLesson >> updateObjectDiagram [
-	objectDiagram update.
+	objectDiagram update
 ]
 
 { #category : #'as yet unclassified' }

@@ -24,7 +24,7 @@ TestsOrganization >> icon [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> makeSelectionOn: anObjectBrowser [ 
-	anObjectBrowser testsOrganizationSelected
+	anObjectBrowser testsOrganizationSelected.
 ]
 
 { #category : #'as yet unclassified' }

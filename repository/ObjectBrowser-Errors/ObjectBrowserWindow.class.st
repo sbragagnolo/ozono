@@ -9,7 +9,8 @@ Class {
 		'garbageCollectionButton',
 		'objectBrowserTree',
 		'statusMorph',
-		'diagramWhiteboard'
+		'diagramWhiteboard',
+		'groupTab'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -73,11 +74,12 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 		selected: #selectedItem
 		changeSelected: #selectedItem:
 		menu: #selectedItemMenu:)
+			
 ]
 
 { #category : #view }
 ObjectBrowserWindow >> createGroupTab [
-	^TabGroupMorph new
+	groupTab:= TabGroupMorph new
 		addPage: self createObjectEditionTab label: 'Objetos';
 		addPage: self createTestRunnerTab label: 'Tests';
 		addPage: self createObjectDiagramTab label: 'Diagrama';
@@ -149,11 +151,12 @@ ObjectBrowserWindow >> createTestRunnerTab [
 ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
+	self createGroupTab.
 	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
 			frame: (0@0 corner: 0.2@1);
-		addMorph: self createGroupTab
+		addMorph: groupTab
 			frame: (0.2@0 corner: 1@1);
 		center: World center.
 	
@@ -185,13 +188,21 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 ObjectBrowserWindow >> refresh [
 	objectBrowserTree list: self objectBrowser lessonOrganization.
 	objectBrowserTree selection: self objectBrowser selectedItem.
-	self lesson updateObjectDiagram.
-	diagramWhiteboard update.
+	groupTab selectedPageIndex: self objectBrowser selectedTabIndex.
+	self objectBrowser isDiagramSelected ifTrue:[
+		self lesson updateObjectDiagram.
+		diagramWhiteboard update.].
 ]
 
 { #category : #view }
 ObjectBrowserWindow >> selectedItemMenu: aMenu [
 	self selectedItem menu: aMenu.
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> setGroupTabIndex: anIndex [
+	self selectedTabIndex: anIndex.
+	groupTab selectedPageIndex: anIndex 
 ]
 
 { #category : #view }
@@ -204,14 +215,6 @@ ObjectBrowserWindow >> setTestsResults: result [
 ObjectBrowserWindow >> show: anObjectBrowser [ 
 	self objectBrowser: anObjectBrowser.
 	^self createView openInWorld.
-]
-
-{ #category : #view }
-ObjectBrowserWindow >> showWorkspace [
-	(LOOPWorkspace new 
-		openLabel: objectBrowser title, ' - Workspace';
-		lesson: objectBrowser lesson; 
-		containingWindow) center: World center.
 ]
 
 { #category : #view }

@@ -14,7 +14,8 @@ Class {
 		'dependants',
 		'objectSelectionInterested',
 		'selectedTest',
-		'selectedDerreferencedObject'
+		'selectedDerreferencedObject',
+		'selectedTabIndex'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -274,6 +275,12 @@ ObjectBrowser >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> isDiagramSelected [ 
+	"Está hardcodeado el índice 3 para el diagrama..."
+	^self selectedTabIndex = 3
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> lesson [
 	^lesson
 ]
@@ -290,6 +297,7 @@ ObjectBrowser >> lessonOrganization [
 		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
 		with: (OBListItemWrapper with: (TestsOrganization for: self))
 		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))
+		with: (OBListItemWrapper with: (DiagramOrganization for: self))
 		]
 ]
 
@@ -322,6 +330,7 @@ ObjectBrowser >> objects [
 
 { #category : #accessing }
 ObjectBrowser >> objectsOrganizationSelected [
+	self selectedTabIndex:  1.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]
 
@@ -424,7 +433,7 @@ ObjectBrowser >> selectedItem [
 { #category : #accessing }
 ObjectBrowser >> selectedItem: anItem [
 	selectedItem := anItem.
-	selectedItem ifNotNil: [ selectedItem makeSelectionOn: self. ]
+	selectedItem ifNotNil: [ selectedItem makeSelectionOn: self. ].
 ]
 
 { #category : #menues }
@@ -494,6 +503,16 @@ ObjectBrowser >> selectedObjectSelector: aMethod [
 ]
 
 { #category : #accessing }
+ObjectBrowser >> selectedTabIndex [
+	^ selectedTabIndex
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedTabIndex: anObject [
+	selectedTabIndex := anObject
+]
+
+{ #category : #accessing }
 ObjectBrowser >> selectedTest [
 	^selectedTest
 ]
@@ -531,11 +550,6 @@ ObjectBrowser >> selectorListEmpyText [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowser >> showObjectGraph [
-
-]
-
 { #category : #accessing }
 ObjectBrowser >> subMenuCollections [
 	| menuCrearColeccion |
@@ -552,11 +566,6 @@ ObjectBrowser >> subMenuCollectionsName [
 	^'Crear nuevo conjunto'
 ]
 
-{ #category : #'dependents access' }
-ObjectBrowser >> testSelectionInterested [
-	^testSelectionInterested ifNil: [ testSelectionInterested := Set new ]
-]
-
 { #category : #menues }
 ObjectBrowser >> tests [
 	^self lesson tests
@@ -564,7 +573,9 @@ ObjectBrowser >> tests [
 
 { #category : #menues }
 ObjectBrowser >> testsOrganizationSelected [
+	self selectedTabIndex: 2.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
+	
 ]
 
 { #category : #showing }

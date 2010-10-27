@@ -46,6 +46,7 @@ LessonVariable >> isPointingTo: anObject [
 { #category : #selection }
 LessonVariable >> makeSelectionOn: anObjectBrowser [ 
 	anObjectBrowser selectedObjectBrowserVariable: self.
+	
 ]
 
 { #category : #menues }

@@ -78,7 +78,7 @@ NoObjectBrowserObject >> menu: aMenuMorph [
 
 { #category : #accessing }
 NoObjectBrowserObject >> methods [
-	^methods
+	^methods 
 ]
 
 { #category : #accessing }
