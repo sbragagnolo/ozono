@@ -359,6 +359,20 @@ LOOPLesson >> removeVariable: anOBVariable [
 ]
 
 { #category : #accessing }
+LOOPLesson >> runAllTests [
+	| results |
+	results := TestResult new.
+	self tests do: [ :t | 
+		self executionContext lesson: self lesson.
+		self executionContext prepare.
+		self executionContext setTestSelector: t selector.
+		self executionContext run: results.
+		].
+	^results
+
+]
+
+{ #category : #accessing }
 LOOPLesson >> runGarbageCollector [ 
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
