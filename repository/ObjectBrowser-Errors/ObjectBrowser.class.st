@@ -15,7 +15,8 @@ Class {
 		'objectSelectionInterested',
 		'selectedTest',
 		'selectedDerreferencedObject',
-		'selectedTabIndex'
+		'selectedTabIndex',
+		'selectedPage'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -93,7 +94,7 @@ ObjectBrowser >> compileMethod: aText [
 { #category : #accessing }
 ObjectBrowser >> compileTest: aText [ 
 	self errorHandler
-		evaluate: [	self lesson compileTest: aText.
+		evaluate: [	self selectedTest: (self lesson compileTest: aText).
 					self changed]
 ]
 
@@ -268,6 +269,7 @@ ObjectBrowser >> garbageCollectorButtonLabel [
 { #category : #'initialize-release' }
 ObjectBrowser >> initialize [
 	super initialize.
+	self selectedTabIndex: 1.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
 	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
@@ -330,8 +332,10 @@ ObjectBrowser >> objects [
 
 { #category : #accessing }
 ObjectBrowser >> objectsOrganizationSelected [
-	self selectedTabIndex:  1.
+	"self selectedTabIndex:  1."
+	selectedPage := #objects.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -503,8 +507,18 @@ ObjectBrowser >> selectedObjectSelector: aMethod [
 ]
 
 { #category : #accessing }
+ObjectBrowser >> selectedPage [
+	^selectedPage ifNil: [ #objects ]
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedPage: aPageKey [
+	selectedPage := aPageKey
+]
+
+{ #category : #accessing }
 ObjectBrowser >> selectedTabIndex [
-	^ selectedTabIndex
+	^ selectedTabIndex ifNil: [1].
 ]
 
 { #category : #accessing }
@@ -514,6 +528,7 @@ ObjectBrowser >> selectedTabIndex: anObject [
 
 { #category : #accessing }
 ObjectBrowser >> selectedTest [
+	self lesson tests notEmpty & selectedTest ifNil: [ self selectedTest: self lesson tests asOrderedCollection first ].
 	^selectedTest
 ]
 
@@ -573,8 +588,10 @@ ObjectBrowser >> tests [
 
 { #category : #menues }
 ObjectBrowser >> testsOrganizationSelected [
-	self selectedTabIndex: 2.
+	"self selectedTabIndex: 2."
+	selectedPage := #tests.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self changed.
 	
 ]
 

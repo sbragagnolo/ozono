@@ -10,7 +10,8 @@ Class {
 		'objectBrowserTree',
 		'statusMorph',
 		'diagramWhiteboard',
-		'groupTab'
+		'groupTab',
+		'pages'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -79,12 +80,9 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 
 { #category : #view }
 ObjectBrowserWindow >> createGroupTab [
-	groupTab:= TabGroupMorph new
-		addPage: self createObjectEditionTab label: 'Objetos';
-		addPage: self createTestRunnerTab label: 'Tests';
-		addPage: self createObjectDiagramTab label: 'Diagrama';
-		selectedPageIndex: 1;
-		yourself
+	pages at: #objects put: self createObjectEditionTab.
+	pages at: #tests put: self createTestRunnerTab.
+	pages at: #diagram put: self createObjectDiagramTab.
 ]
 
 { #category : #view }
@@ -155,12 +153,19 @@ ObjectBrowserWindow >> createView [
 	window := (SystemWindow labelled: self objectBrowser title, ' - Loop Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
-			frame: (0@0 corner: 0.2@1);
-		addMorph: groupTab
-			frame: (0.2@0 corner: 1@1);
-		center: World center.
-	
+			frame: (0@0 corner: 0.2@1).
+	pages keysAndValuesDo: [ :k :m |
+			window addMorph: m frame: (0.2@0 corner: 1@1).
+			m visible: k == self objectBrowser selectedPage.
+		].
+	window center: World center.
+	self objectBrowser changed.
 	^window.
+]
+
+{ #category : #view }
+ObjectBrowserWindow >> initialize [
+	pages := Dictionary new.
 ]
 
 { #category : #'user interface' }
@@ -186,12 +191,16 @@ ObjectBrowserWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 ObjectBrowserWindow >> refresh [
-	objectBrowserTree list: self objectBrowser lessonOrganization.
-	objectBrowserTree selection: self objectBrowser selectedItem.
-	groupTab selectedPageIndex: self objectBrowser selectedTabIndex.
+	objectBrowserTree ifNotNil: [ objectBrowserTree list: self objectBrowser lessonOrganization ].
+	objectBrowserTree ifNotNil: [objectBrowserTree selection: self objectBrowser selectedItem].
+	
+	pages keysAndValuesDo: [:k :v |
+			v visible: (k == self objectBrowser selectedPage)
+		].
+	
 	self objectBrowser isDiagramSelected ifTrue:[
 		self lesson updateObjectDiagram.
-		diagramWhiteboard update.].
+		diagramWhiteboard ifNotNil: [ diagramWhiteboard update].]
 ]
 
 { #category : #view }
@@ -201,7 +210,7 @@ ObjectBrowserWindow >> selectedItemMenu: aMenu [
 
 { #category : #view }
 ObjectBrowserWindow >> setGroupTabIndex: anIndex [
-	self selectedTabIndex: anIndex.
+	self objectBrowser selectedTabIndex: anIndex.
 	groupTab selectedPageIndex: anIndex 
 ]
 

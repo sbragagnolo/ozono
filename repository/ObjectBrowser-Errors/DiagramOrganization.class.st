@@ -24,7 +24,7 @@ DiagramOrganization >> icon [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> makeSelectionOn: anObjectBrowser [ 
-	anObjectBrowser selectedTabIndex: 3.
+	anObjectBrowser selectedPage: #diagram.
 	anObjectBrowser changed.
 ]
 
