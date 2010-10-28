@@ -10,7 +10,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 ObjectBrowserListModel >> iconAt: anIndex [
-	^(self selectedItem respondsTo: #icon) ifTrue: [ self selectedItem icon] ifFalse: [nil]
+	^(self listModel at: anIndex) icon
 ]
 
 { #category : #'as yet unclassified' }

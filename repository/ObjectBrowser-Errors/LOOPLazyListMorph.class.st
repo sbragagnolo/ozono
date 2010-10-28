@@ -11,7 +11,6 @@ LOOPLazyListMorph >> display: item atRow: row on: canvas [
 	| drawBounds top |
 	drawBounds := self drawBoundsForRow: row.
 	drawBounds := drawBounds intersect: self bounds.
-	self haltOnce.
 	(listSource iconAt: row) ifNotNil: [ :icon | 
 		top := drawBounds top + ((drawBounds height - icon height) // 2).
 		canvas 
