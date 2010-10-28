@@ -256,7 +256,13 @@ ObjectBrowserObject >> methodOfSelector: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> methods [
-	^self myClassMethods union: prototype methods
+"	^self myClassMethods union: prototype methods"
+	| allMethods dictionaryMethods |
+	dictionaryMethods := Dictionary new.
+	allMethods:= prototype methods .
+	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
+	self myClassMethods do: [:method | dictionaryMethods at: method selector put: method ].
+	^ dictionaryMethods values.
 ]
 
 { #category : #accessing }
