@@ -45,7 +45,6 @@ ConfigurationOfObjectBrowser >> default: spec [
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
 		spec 
 			project: 'smallUML' with: [ spec className: 'ConfigurationOfOSProcess'; 
-											file: 'ConfigurationOfOSProcess';
 											repository: 'http://www.squeaksource.com/metacelloRepository'. ];
 			project: 'osProcess' with: [ spec className: 'ConfigurationOfSmallUML'; 
 											versionString: '0.9';
