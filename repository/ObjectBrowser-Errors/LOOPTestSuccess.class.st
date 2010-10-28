@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+LOOPTestSuccess >> icon [
+	^ObjectBrowserIcons okIcon
+]
+
+{ #category : #'as yet unclassified' }
 LOOPTestSuccess >> isError [
 	^false
 ]

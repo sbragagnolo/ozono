@@ -23,6 +23,16 @@ OBTest >> code [
 ]
 
 { #category : #'as yet unclassified' }
+OBTest >> icon [
+	^result icon.
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> initialize [
+	result := LOOPTestSuccess new.
+]
+
+{ #category : #'as yet unclassified' }
 OBTest >> lesson: aLesson [
 	lesson := aLesson
 ]
