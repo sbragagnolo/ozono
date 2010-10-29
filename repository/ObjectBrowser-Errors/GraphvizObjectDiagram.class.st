@@ -2,14 +2,15 @@ Class {
 	#name : #GraphvizObjectDiagram,
 	#superclass : #Object,
 	#instVars : [
-		'lesson'
+		'lesson',
+		'morph'
 	],
 	#category : #'ObjectBrowser-Diagrams'
 }
 
 { #category : #'as yet unclassified' }
 GraphvizObjectDiagram >> diagramMorph [
-	^GraphVizGraphMorph new initialize: lesson; yourself.
+	^morph ifNil:[morph := GraphVizGraphMorph new initialize: lesson; yourself.]
 ]
 
 { #category : #'as yet unclassified' }
@@ -19,5 +20,5 @@ GraphvizObjectDiagram >> lesson: aLesson [
 
 { #category : #'as yet unclassified' }
 GraphvizObjectDiagram >> update [
-	"Nada por ahora"
+	morph update
 ]
