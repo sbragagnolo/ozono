@@ -58,7 +58,9 @@ ConfigurationOfObjectBrowser >> default: spec [
 			package: 'SUML-ObjectDiagramModel' with: [ spec requires: 'smallUML'.
 											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
 			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
-			package: 'GraphViz' with: [ spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
+			package: 'GraphViz' with: [ 
+				spec requires: 'ffi'.
+				spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
 			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
 											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ]
 		]
