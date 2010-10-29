@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'diagram',
-		'lesson'
+		'lesson',
+		'board'
 	],
 	#category : #'ObjectBrowser-Diagrams'
 }
@@ -15,8 +16,7 @@ SmallUmlObjectDiagram >> diagram [
 
 { #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> diagramMorph [
-	| board |
-	board := DiagramWhiteboard new model: lesson objectDiagram.
+	board := DiagramWhiteboard new model: self.
 	board update.
 	^board.
 ]
@@ -43,4 +43,5 @@ SmallUmlObjectDiagram >> update [
 	self diagram updateDiagramNodesFrom: graph referenceHolders. "Clears the unreferenced objects and adds the new ones"
 	self diagram resetConnections.
 	self diagram connectNodes: graph references.
+	board update.
 ]

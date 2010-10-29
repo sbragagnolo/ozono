@@ -6,6 +6,6 @@ Class {
 
 { #category : #'as yet unclassified' }
 LOOPObjectDiagramFactory class >> buildDiagram [
-	^SmallUmlObjectDiagram new.
-	"GraphvizObjectDiagram new."
+	"^SmallUmlObjectDiagram new."
+	^GraphvizObjectDiagram new.
 ]

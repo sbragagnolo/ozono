@@ -9,9 +9,9 @@ Class {
 		'garbageCollectionButton',
 		'objectBrowserTree',
 		'statusMorph',
-		'diagramWhiteboard',
 		'groupTab',
-		'pages'
+		'pages',
+		'diagram'
 	],
 	#category : #'ObjectBrowser-UI'
 }
@@ -88,12 +88,12 @@ ObjectBrowserWindow >> createGroupTab [
 { #category : #view }
 ObjectBrowserWindow >> createObjectDiagramTab [
 	| hSepFrac panel |
-	diagramWhiteboard := self lesson objectDiagram diagramMorph. 
+	diagram := self lesson objectDiagram. 
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
 		color: (Color gray);
 		layoutPolicy: (ProportionalLayout new);
-		addMorph: (diagramWhiteboard)
+		addMorph: (diagram diagramMorph)
 			frame: (0@0 corner: 1@1).
 	^panel.
 ]
@@ -198,9 +198,7 @@ ObjectBrowserWindow >> refresh [
 			v visible: (k == self objectBrowser selectedPage)
 		].
 	
-	self objectBrowser isDiagramSelected ifTrue:[
-		self lesson updateObjectDiagram.
-		diagramWhiteboard ifNotNil: [ diagramWhiteboard update].]
+	diagram update
 ]
 
 { #category : #view }
