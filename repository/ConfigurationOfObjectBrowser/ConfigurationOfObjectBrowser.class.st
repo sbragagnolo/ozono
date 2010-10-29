@@ -44,12 +44,15 @@ ConfigurationOfObjectBrowser >> default: spec [
 		
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
 		spec 
-			project: 'osProcess' with: [ spec className: 'ConfigurationOfOSProcess'; 
-											file: 'ConfigurationOfOSProcess';
-											repository: 'http://www.squeaksource.com/metacelloRepository'. ];
-			project: 'ffi' with: [ spec className: 'ConfigurationOfFFI'; 
-											file: 'ConfigurationOfFFI';
-											repository: 'http://www.squeaksource.com/metacelloRepository'. ];
+			project: 'osProcess' with: [ 
+				spec className: 'ConfigurationOfOSProcess'; 
+						file: 'ConfigurationOfOSProcess';
+						repository: 'http://www.squeaksource.com/MetacelloRepository'. 
+			];
+			project: 'ffi' with: [ 
+				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
+				spec className: 'ConfigurationOfFFI'.
+			];
 			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
 											versionString: '0.9';
 											loads: #('default' );
