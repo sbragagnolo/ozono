@@ -105,6 +105,7 @@ ObjectBrowserCollection >> isNull [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
+	anObjectBrowser selectedPage: #objects.
 ]
 
 { #category : #'as yet unclassified' }
