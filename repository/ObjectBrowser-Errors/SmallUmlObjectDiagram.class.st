@@ -17,6 +17,7 @@ SmallUmlObjectDiagram >> diagram [
 { #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> diagramMorph [
 	board := DiagramWhiteboard new model: self.
+	board extent: 1300 @ 1500.
 	board update.
 	^board.
 ]
