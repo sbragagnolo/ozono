@@ -40,8 +40,6 @@ SmallUmlObjectDiagram >> lesson: aLesson [
 SmallUmlObjectDiagram >> update [
 	| graph |
 	graph := lesson buildGraph.
-	self diagram updateDiagramNodesFrom: graph referenceHolders. "Clears the unreferenced objects and adds the new ones"
-	self diagram resetConnections.
-	self diagram connectNodes: graph references.
+	self diagram updateFromGraph: graph.
 	board update.
 ]
