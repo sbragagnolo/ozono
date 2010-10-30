@@ -94,6 +94,11 @@ LessonGraph >> objects [
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> objectsWithLesson [
+	^self objects copyWith: lesson
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> referenceHolders [
 	^ self objects union: (Set with: lesson)
 ]
