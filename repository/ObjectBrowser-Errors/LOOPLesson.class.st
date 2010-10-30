@@ -197,7 +197,9 @@ LOOPLesson >> delete [
 
 { #category : #accessing }
 LOOPLesson >> dereferencedObjects [
-	^self buildGraph dereferencedObjects.
+	^self objects reject: [ :o |
+			self buildGraph referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
+		]
 ]
 
 { #category : #accessing }

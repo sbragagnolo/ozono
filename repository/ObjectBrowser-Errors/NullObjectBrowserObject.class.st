@@ -31,6 +31,11 @@ NullObjectBrowserObject >> addVariable: variableName [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> canDelete [
+	^true
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> compileMethod: aText [ 
 	^self error: 'Debe seleccionar un objeto para este metodo'.
 ]

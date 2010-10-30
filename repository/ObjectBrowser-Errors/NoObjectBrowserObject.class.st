@@ -113,6 +113,11 @@ NoObjectBrowserObject >> realObject: anObject [
 				collect:[:m | OBMethod new selector: (m selector); yourself ].
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> removeClassFromSystem [
+	"Shouldn't remove anything'"
+]
+
 { #category : #accessing }
 NoObjectBrowserObject >> sourceCodeAt: anOBMethod [ 
 	^(realObject class sourceCodeAt: anOBMethod selector)
