@@ -157,6 +157,7 @@ ObjectBrowserWindow >> createView [
 	pages keysAndValuesDo: [ :k :m |
 			window addMorph: m frame: (0.2@0 corner: 1@1).
 			m visible: k == self objectBrowser selectedPage.
+			m color: Color lightGray .
 		].
 	window center: World center.
 	self objectBrowser changed.
