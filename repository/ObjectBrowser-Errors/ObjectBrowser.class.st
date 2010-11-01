@@ -421,7 +421,6 @@ ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
-	self selectedPage: #objects.
 	self changed.
 ]
 
@@ -487,7 +486,6 @@ ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
-	self selectedPage: #objects.
 	anOBVariable notifySelectionTo: self objectSelectionInterested.
 	self changed.
 ]
