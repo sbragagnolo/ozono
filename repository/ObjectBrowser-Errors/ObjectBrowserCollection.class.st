@@ -50,6 +50,11 @@ ObjectBrowserCollection class >> newSet [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserCollection >> add: anObj [
+	self realObject add: anObj .
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addReferencesToGraphNodeCollection: aColl [
 	self realObject do:[:obj | obj addToGraphNodeCollection: aColl].
 ]

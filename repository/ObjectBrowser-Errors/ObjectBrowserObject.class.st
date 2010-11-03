@@ -119,6 +119,11 @@ ObjectBrowserObject >> at: index put: obj [
 	^self realObject at: index put: obj.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> bePrototypeOf: clone [
+	clone 
+]
+
 { #category : #printing }
 ObjectBrowserObject >> clone [
 	^self class newFrom: self on: self lesson.
@@ -409,6 +414,11 @@ ObjectBrowserObject >> variables [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
+	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
 	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
@@ -463,6 +473,7 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	self variables do:  [ :var | 
 			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
+	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
 ]
 
 { #category : #'as yet unclassified' }

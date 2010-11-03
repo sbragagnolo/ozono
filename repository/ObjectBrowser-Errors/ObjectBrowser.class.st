@@ -414,6 +414,7 @@ ObjectBrowser >> runAllTestsLabel [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> runGarbageCollector [
 	self lesson runGarbageCollector.
+	self changed .
 ]
 
 { #category : #'as yet unclassified' }

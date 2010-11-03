@@ -35,7 +35,7 @@ NoObjectBrowserObject >> addToGraph: aLessonGraph [
 
 { #category : #printing }
 NoObjectBrowserObject >> asString [
-	^self posibleName
+	^self displayString 
 ]
 
 { #category : #'as yet unclassified' }
@@ -88,7 +88,9 @@ NoObjectBrowserObject >> object [
 
 { #category : #accessing }
 NoObjectBrowserObject >> posibleName [
-	^self object printString
+	^'(NoObjectBrowserObject new: ', self realObject printString, ')'
+
+
 ]
 
 { #category : #accessing }

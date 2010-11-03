@@ -76,3 +76,8 @@ NullObjectBrowserObject >> sourceCodeAt: aSelector [
 NullObjectBrowserObject >> variables [
 	^OrderedCollection new
 ]
+
+{ #category : #'as yet unclassified' }
+NullObjectBrowserObject >> writeCloneScriptOn: aWriteStream for: anObjectBrowserObject lesson: aLOOPLesson [ 
+	"Un null ob onject no tiene prototipo"
+]
