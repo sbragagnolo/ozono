@@ -110,7 +110,7 @@ ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> methods [
-	^ (self methodsFor: #collection ) asOrderedCollection
+	^ methods.
 ]
 
 { #category : #'as yet unclassified' }
@@ -136,6 +136,12 @@ ObjectBrowserCollection >> posibleName: aPosibleName [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> printString [
 	^'a Collection'.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> realObject: obj [
+	super realObject: obj .
+	methods := ((self methodsFor: #collection) collect:[:m | OBMethod new selector: m ; yourself ]) asOrderedCollection .
 ]
 
 { #category : #'as yet unclassified' }

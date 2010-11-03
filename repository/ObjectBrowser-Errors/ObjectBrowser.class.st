@@ -403,6 +403,7 @@ ObjectBrowser >> runAllTests [
 	| results |
 	results := self lesson runAllTests.
 	(self dependants detect: [ :d | d isKindOf: ObjectBrowserWindow ]) setTestsResults: results.
+	self changed.
 ]
 
 { #category : #accessing }
