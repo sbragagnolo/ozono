@@ -28,8 +28,8 @@ TestsOrganization >> makeSelectionOn: anObjectBrowser [
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> menu: aMenuBuilder [
-	^aMenuBuilder addList: (OrderedCollection with: #('crear nuevo test' #createTest))
+TestsOrganization >> menu: aMenu [
+	^aMenu
 ]
 
 { #category : #'as yet unclassified' }

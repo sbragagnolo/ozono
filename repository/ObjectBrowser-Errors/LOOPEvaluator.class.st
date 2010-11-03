@@ -15,5 +15,5 @@ LOOPEvaluator >> evaluate: textOrStream in: aContext to: receiver notifying: aRe
 		notifying: aRequestor 
 		ifFail: failBlock 
 		logged: logFlag.]
-	ensure:[receiver commitChanges.]
+	ensure:[receiver commitChanges. ]
 ]

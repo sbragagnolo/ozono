@@ -145,6 +145,12 @@ LOOPLesson >> buildGraph [
 	^graph
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> changed [
+	super changed .
+	browser changed .
+]
+
 { #category : #accessing }
 LOOPLesson >> clean [
 	"hago una copia de la colección para no modificar la original.  Remuevo de la coleccion original cada objeto y le digo que remueva su clase."

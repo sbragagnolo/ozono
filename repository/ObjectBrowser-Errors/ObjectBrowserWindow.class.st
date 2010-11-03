@@ -198,8 +198,7 @@ ObjectBrowserWindow >> refresh [
 	pages keysAndValuesDo: [:k :v |
 			v visible: (k == self objectBrowser selectedPage)
 		].
-	
-	diagram update
+	self objectBrowser selectedPage = #diagram ifTrue: [diagram update]
 ]
 
 { #category : #view }
