@@ -78,7 +78,7 @@ LOOPWorkspace >> menu: aMenuBuilder [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> openInWorld [
-	window openInWorld
+	self open
 ]
 
 { #category : #'as yet unclassified' }

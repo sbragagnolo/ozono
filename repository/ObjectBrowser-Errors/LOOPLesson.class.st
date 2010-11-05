@@ -484,10 +484,10 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	"despues el estado"
 	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self. stream cr] .
 	
+	self writeWorkspacesOn: stream.
+	
 	"despues la incorporacion a la lesson"
 	self writeAddScriptToLessonOn: stream .
-	
-	self writeWorkspacesOn: stream.
 	
 ]
 
@@ -507,7 +507,7 @@ LOOPLesson >> writeWorkspacesOn: stream [
 	self workspaces do:[ :aWorkspace | 
 		stream cr.
 		stream nextPutAll: 
-			'(self createWorkspace: ', '''' , aWorkspace label , '''' , ') contents: '.
+			'(', self lessonIdentification, ' createWorkspace: ', '''' , aWorkspace label , '''' , ') contents: '.
 		stream cr.
 		stream nextPutAll: '''' , aWorkspace stringContents , '''' , '.'] .
 	stream cr.
