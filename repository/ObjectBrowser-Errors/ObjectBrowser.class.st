@@ -425,7 +425,6 @@ ObjectBrowser >> runGarbageCollector [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
-	selectedObjectBrowserVariable  := NullLessonVariable new.
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
