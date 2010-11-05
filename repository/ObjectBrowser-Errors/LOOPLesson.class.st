@@ -136,6 +136,11 @@ LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
 
+{ #category : #accessing }
+LOOPLesson >> asString [
+	^self displayString copyReplaceAll: ' ' with: ''
+]
+
 { #category : #diagram }
 LOOPLesson >> buildGraph [
 	| graph |
@@ -210,7 +215,7 @@ LOOPLesson >> dereferencedObjects [
 
 { #category : #accessing }
 LOOPLesson >> displayString [
-	^'lesson'
+	^self title
 ]
 
 { #category : #accessing }
