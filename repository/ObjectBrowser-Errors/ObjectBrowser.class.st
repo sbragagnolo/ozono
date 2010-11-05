@@ -199,6 +199,12 @@ ObjectBrowser >> delete [
 	window delete.
 ]
 
+{ #category : #deleting }
+ObjectBrowser >> deleteMethod [
+	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectSelector ].
+	self changed.
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> deleteObject [
 	self errorHandler
@@ -489,6 +495,7 @@ ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectSelector := NullOBMethod new.
 	anOBVariable notifySelectionTo: self objectSelectionInterested.
+	selectedPage := #objects.
 	self changed.
 ]
 
@@ -590,9 +597,8 @@ ObjectBrowser >> tests [
 
 { #category : #menues }
 ObjectBrowser >> testsOrganizationSelected [
-	"self selectedTabIndex: 2."
-	selectedPage := #tests.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
+	selectedPage := #tests.
 	self changed.
 	
 ]
