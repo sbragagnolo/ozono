@@ -9,20 +9,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-GraphVizGraphMorph >> initialize [
-	super initialize.
-	self color: Color white.
-]
-
-{ #category : #'as yet unclassified' }
-GraphVizGraphMorph >> initialize: alesson [
-	lesson := alesson.
-	self update.
-	^self
-]
-
-{ #category : #'as yet unclassified' }
-GraphVizGraphMorph >> update [
+GraphVizGraphMorph >> doUpdate [
 	| graph morphGraph loopgraph |
 	loopgraph := lesson buildGraph.
 	graph := GraphViz new.
@@ -40,4 +27,22 @@ GraphVizGraphMorph >> update [
 	morphGraph := graph asMorph.
 	morphGraph center: self center.
 	self addMorph: morphGraph.
+]
+
+{ #category : #'as yet unclassified' }
+GraphVizGraphMorph >> initialize [
+	super initialize.
+	self color: Color white.
+]
+
+{ #category : #'as yet unclassified' }
+GraphVizGraphMorph >> initialize: alesson [
+	lesson := alesson.
+	self update.
+	^self
+]
+
+{ #category : #'as yet unclassified' }
+GraphVizGraphMorph >> update [
+	Cursor wait showWhile:[ self doUpdate ]
 ]
