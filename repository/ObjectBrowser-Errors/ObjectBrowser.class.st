@@ -218,6 +218,13 @@ ObjectBrowser >> deleteObject [
 	self changed
 ]
 
+{ #category : #deleting }
+ObjectBrowser >> deleteTest [
+	self errorHandler evaluate: [self lesson removeTest: self selectedTest  ].
+	self selectedTest: nil.
+	self changed.
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowser >> deleteVariable [
 	self errorHandler
@@ -549,14 +556,6 @@ ObjectBrowser >> selectedTest: aTest [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedTestCode [
-	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
-
-	^self selectedTest ifNil: [ 'newwww testtt' ]
-						ifNotNil: [ 'existee' ]
-]
-
-{ #category : #accessing }
 ObjectBrowser >> selectedWorkspace: aWorkspace [
 	selectedWorkspace := aWorkspace
 ]
@@ -589,6 +588,13 @@ ObjectBrowser >> subMenuCollections [
 { #category : #accessing }
 ObjectBrowser >> subMenuCollectionsName [
 	^'Crear nuevo conjunto'
+]
+
+{ #category : #menues }
+ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [ 
+	aMenu addList: #(
+		('borrar test'			deleteTest)).
+	^ aMenu
 ]
 
 { #category : #menues }

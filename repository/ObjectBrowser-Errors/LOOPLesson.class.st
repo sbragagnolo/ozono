@@ -364,6 +364,11 @@ LOOPLesson >> removeObject: anObjectBrowserObject [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPLesson >> removeTest: aTest [
+	tests removeKey: aTest selector
+]
+
+{ #category : #'as yet unclassified' }
 LOOPLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
 	self executionContext class removeInstVarName: anOBVariable name.
