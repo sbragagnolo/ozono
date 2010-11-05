@@ -122,8 +122,8 @@ ObjectBrowserObject >> at: index put: obj [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> bePrototypeOf: clone [
 	clone prototype: self.
-	self realClass 
-		subclass: clone realClass 
+	self realClass
+		subclass: clone realClass name asSymbol
 		instanceVariableNames: clone realClass instVarNames 
 		classVariableNames: clone realClass classVarNames  
 		poolDictionaries: clone realClass poolDictionaryNames 
@@ -292,6 +292,11 @@ ObjectBrowserObject >> myClassMethods [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> myClassVariables [
+	^variables
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> myNewScriptOn: aLesson [
 	^ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification
 ]
@@ -446,7 +451,7 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeMethodsOn: stream [ .
 	
-	self methods do:[ :m |
+	self myClassMethods do:[ :m |
 		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
 		stream cr.
 		].
@@ -457,19 +462,10 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
+	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
 	self writeVarianblesOn: stream .
 	self writeMethodsOn: stream .
 	
-
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserObject >> writeStateScriptOn: stream [
-	"saves the state, all the variables values and relationships"
-	self deprecated: 'use writeStateScriptOn: lesson:'.
-	self variables do:  [ :var | 
-			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (self referencePosibleName: var name) , '.'. 
-			stream cr].
 
 ]
 
@@ -479,13 +475,12 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	self variables do:  [ :var | 
 			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
-	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> writeVarianblesOn: stream [ .
 
-	self variables do:[ :v | 
+	self myClassVariables do:[ :v | 
 		stream nextPutAll: self posibleName , ' addVariable: ''', v name, '''.'.
 		stream cr.
 		].
