@@ -121,7 +121,13 @@ ObjectBrowserObject >> at: index put: obj [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> bePrototypeOf: clone [
-	clone 
+	clone prototype: self.
+	self realClass 
+		subclass: clone realClass 
+		instanceVariableNames: clone realClass instVarNames 
+		classVariableNames: clone realClass classVarNames  
+		poolDictionaries: clone realClass poolDictionaryNames 
+		category: clone realClass category.
 ]
 
 { #category : #printing }
