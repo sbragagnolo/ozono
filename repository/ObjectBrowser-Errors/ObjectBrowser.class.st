@@ -214,6 +214,7 @@ ObjectBrowser >> deleteObject [
 			self selectedObject canDelete ifFalse: [self error: 'El objeto no puede ser borrado'].
 			self confirmDeletion ifTrue:[self doDeleteObject].
 			].
+	self selectedObjectBrowserVariable: NullLessonVariable new.
 	self changed
 ]
 
@@ -225,7 +226,8 @@ ObjectBrowser >> deleteVariable [
 				ifNil: [self error: 'No hay ninguna variable elegida'].
 			self confirmDeletion ifTrue:[self doDeleteVariable].
 			].
-	self changed
+	self changed.
+	
 ]
 
 { #category : #ObjectBrowser }
