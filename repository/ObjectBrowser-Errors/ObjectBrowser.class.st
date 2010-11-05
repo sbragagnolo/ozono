@@ -202,6 +202,7 @@ ObjectBrowser >> delete [
 { #category : #deleting }
 ObjectBrowser >> deleteMethod [
 	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectSelector ].
+	self selectedObjectSelector: NullOBMethod new.
 	self changed.
 ]
 

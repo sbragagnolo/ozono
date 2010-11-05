@@ -86,6 +86,11 @@ NoObjectBrowserObject >> methods [
 	^methods ifNil: [ methods := realObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
 ]
 
+{ #category : #'as yet unclassified' }
+NoObjectBrowserObject >> myClassHasMethod: aSelector [
+	^true
+]
+
 { #category : #accessing }
 NoObjectBrowserObject >> object [
 	^realObject

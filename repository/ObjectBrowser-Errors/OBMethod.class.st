@@ -10,17 +10,16 @@ Class {
 
 { #category : #accessing }
 OBMethod >> code [
-	^(object myClassHasMethod: self)
-		ifTrue: [(object realClass sourceCodeAt: self selector)
-				makeSelectorBoldIn: object realClass]
-		ifFalse: [object prototype sourceCodeAt: self]
+	^object realClass sourceCodeAt: self selector
 ]
 
 { #category : #'as yet unclassified' }
 OBMethod >> icon [
-	| redefines isRedefined |
+	| redefines isRedefined iHaveMethod |
 	redefines := object redefines: self selector.
 	isRedefined := object isRedefined: self selector.
+	iHaveMethod := object myClassHasMethod: self selector.
+	iHaveMethod not ifTrue: [ ^ObjectBrowserIcons prototype ].
 	redefines & isRedefined ifTrue: [ ^ObjectBrowserIcons arrowUpAndDown ].
 	redefines ifTrue: [ ^ObjectBrowserIcons arrowUp ].
 	isRedefined  ifTrue: [ ^ObjectBrowserIcons arrowDown ].
