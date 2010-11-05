@@ -229,6 +229,11 @@ ObjectBrowserObject >> isNull [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserObject >> isRedefined: aSelector [
+	^self realClass isOverridden: aSelector.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> knownObjects [
 	| refs |
 	refs := self variables asBag collect: [:v | self objectPointedByVariableNamed:  v name ].
@@ -355,6 +360,11 @@ ObjectBrowserObject >> realObject [
 { #category : #accessing }
 ObjectBrowserObject >> realObject: anObject [
 	realObject := anObject
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserObject >> redefines: aSelector [
+	^self realClass isOverride: aSelector.
 ]
 
 { #category : #'as yet unclassified' }

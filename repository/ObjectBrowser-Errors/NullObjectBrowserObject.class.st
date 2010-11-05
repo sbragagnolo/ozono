@@ -47,6 +47,11 @@ NullObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> hasMethod: aSelector [
+	^false
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> isNil [
 	^true
 ]

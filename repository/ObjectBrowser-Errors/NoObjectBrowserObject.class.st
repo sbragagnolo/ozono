@@ -70,6 +70,11 @@ NoObjectBrowserObject >> hash [
 	^self realObject hash
 ]
 
+{ #category : #printing }
+NoObjectBrowserObject >> isRedefined: aSelector [
+	^false
+]
+
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
 	aMenuMorph add: 'Borrar' action: #deleteObject.
@@ -78,7 +83,7 @@ NoObjectBrowserObject >> menu: aMenuMorph [
 
 { #category : #accessing }
 NoObjectBrowserObject >> methods [
-	^methods 
+	^methods ifNil: [ methods := realObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
 ]
 
 { #category : #accessing }
@@ -111,8 +116,11 @@ NoObjectBrowserObject >> realObject [
 { #category : #accessing }
 NoObjectBrowserObject >> realObject: anObject [ 
 	realObject := anObject.
-	methods := realObject class methods 
-				collect:[:m | OBMethod new selector: (m selector); yourself ].
+]
+
+{ #category : #printing }
+NoObjectBrowserObject >> redefines: aSelector [
+	^false
 ]
 
 { #category : #'as yet unclassified' }
