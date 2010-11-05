@@ -14,6 +14,11 @@ OBMethod >> code [
 ]
 
 { #category : #'as yet unclassified' }
+OBMethod >> icon [
+	^self iconFor: object
+]
+
+{ #category : #'as yet unclassified' }
 OBMethod >> iconFor: anObject [
 	| redefines isRedefined iHaveMethod |
 	redefines := anObject redefines: self selector.

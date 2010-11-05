@@ -510,7 +510,7 @@ ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 
 { #category : #accessing }
 ObjectBrowser >> selectedObjectMethods [
-	^self selectedObject methods collect: [ :m | ShowingMethod object: self selectedObject method: m ].
+	^self selectedObject methods" collect: [ :m | ShowingMethod object: self selectedObject method: m ]".
 ]
 
 { #category : #accessing }
