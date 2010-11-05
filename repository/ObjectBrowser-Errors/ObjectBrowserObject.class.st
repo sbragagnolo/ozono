@@ -414,6 +414,11 @@ ObjectBrowserObject >> sourceCodeAt: aMethod [
 	^ aMethod code.
 ]
 
+{ #category : #printing }
+ObjectBrowserObject >> understands: aSelector [
+	^self realObject respondsTo: aSelector
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> variable: varName pointTo: anObject [
 	self realObject instVarNamed: varName put: anObject.

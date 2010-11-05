@@ -14,12 +14,11 @@ OBMethod >> code [
 ]
 
 { #category : #'as yet unclassified' }
-OBMethod >> icon [
+OBMethod >> iconFor: anObject [
 	| redefines isRedefined iHaveMethod |
-	redefines := object redefines: self selector.
-	isRedefined := object isRedefined: self selector.
-	iHaveMethod := object myClassHasMethod: self selector.
-	iHaveMethod not ifTrue: [ ^ObjectBrowserIcons prototype ].
+	redefines := anObject redefines: self selector.
+	isRedefined := anObject isRedefined: self selector.
+	(anObject understands: self selector) & (anObject myClassHasMethod: self) ifTrue: [ ^ObjectBrowserIcons prototype ].
 	redefines & isRedefined ifTrue: [ ^ObjectBrowserIcons arrowUpAndDown ].
 	redefines ifTrue: [ ^ObjectBrowserIcons arrowUp ].
 	isRedefined  ifTrue: [ ^ObjectBrowserIcons arrowDown ].
