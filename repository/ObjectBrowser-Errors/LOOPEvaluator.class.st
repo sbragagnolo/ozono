@@ -8,12 +8,12 @@ Class {
 LOOPEvaluator >> evaluate: textOrStream in: aContext to: receiver notifying: aRequestor ifFail: failBlock logged: logFlag [
 
 	receiver prepare.
-	[^ super 
+	ErrorHandler evaluate:  [[^ super 
 		evaluate: textOrStream 
 		in: aContext 
 		to: receiver 
 		notifying: aRequestor 
 		ifFail: failBlock 
 		logged: logFlag.]
-	ensure:[receiver commitChanges. ]
+	ensure:[receiver commitChanges. ]]
 ]
