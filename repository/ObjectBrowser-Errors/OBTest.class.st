@@ -43,18 +43,18 @@ OBTest >> printString [
 ]
 
 { #category : #'as yet unclassified' }
-OBTest >> runContext: aPreparedContext [
-	[[aPreparedContext runCase] on: TestFailure do: [ :signal | ^LOOPTestFailure new: signal ]] on: Error do: [ :signal | ^LOOPTestError new: signal ].
-	^LOOPTestSuccess new
-]
-
-{ #category : #'as yet unclassified' }
-OBTest >> runOn: aLesson [
+OBTest >> run [
 	| context |
-	context := aLesson executionContext.
+	context := lesson executionContext.
 	context prepare.
 	context setTestSelector: self selector.
 	^result := self runContext: context.
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> runContext: aPreparedContext [
+	[[aPreparedContext runCase] on: TestFailure do: [ :signal | ^LOOPTestFailure new: signal ]] on: Error do: [ :signal | ^LOOPTestError new: signal ].
+	^LOOPTestSuccess new
 ]
 
 { #category : #'as yet unclassified' }
@@ -65,4 +65,9 @@ OBTest >> selector [
 { #category : #'as yet unclassified' }
 OBTest >> selector: aTestSelector [
 	selector := aTestSelector
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> writeExportScriptOn: stream  lesson: aLesson [
+	stream nextPutAll: aLesson lessonIdentification, ' compileTest: ', '''' , (aLesson executionContext class sourceCodeAt: self selector asSymbol), '''.'.
 ]

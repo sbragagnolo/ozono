@@ -384,7 +384,7 @@ LOOPLesson >> runAllTests [
 	| results result |
 	results := LOOPTestCaseResult new.
 	self tests do: [ :t | 
-		results add:( t runOn: self).
+		results add:( t run ).
 		].
 	^results
 
@@ -485,6 +485,9 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self. stream cr] .
 	
 	self writeWorkspacesOn: stream.
+	
+	self tests do: [ :aTest | aTest writeExportScriptOn: stream  lesson: self. 
+		stream cr ].
 	
 	"despues la incorporacion a la lesson"
 	self writeAddScriptToLessonOn: stream .
