@@ -188,10 +188,16 @@ ObjectBrowser >> createWorkspace [
 
 { #category : #showing }
 ObjectBrowser >> createWorkspace: workspaceLabel [
+	^self createWorkspace: workspaceLabel contents: ''.
+]
+
+{ #category : #showing }
+ObjectBrowser >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
-	workspace := self lesson createWorkspace: workspaceLabel.
+	workspace := self lesson createWorkspace: workspaceLabel contents: someContents.
 	self selectedItem: workspace.
 	self changed.
+	^workspace 
 ]
 
 { #category : #'as yet unclassified' }
@@ -275,6 +281,24 @@ ObjectBrowser >> doDeleteVariable [
 { #category : #accessing }
 ObjectBrowser >> errorHandler [
 	^ErrorHandler default
+]
+
+{ #category : #accessing }
+ObjectBrowser >> exportWorkspace [
+	selectedWorkspace export
+]
+
+{ #category : #accessing }
+ObjectBrowser >> fileInWorkspace [
+	| fileName inStream contents ws |
+	fileName := UIManager default chooseFileMatching: #('ws') label: 'Selecciona el workspace a importar'.
+	fileName ifNotNil:[
+		[	inStream := StandardFileStream fileNamed: fileName.
+			contents := inStream upToEnd.
+		] 
+		ensure: [inStream close.].
+		ws := self createWorkspace: (fileName subStrings: '.') first contents: contents
+	]
 ]
 
 { #category : #showing }

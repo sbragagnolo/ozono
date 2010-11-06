@@ -191,12 +191,14 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> createWorkspace: workspaceLabel [
+LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
-	workspace := LOOPWorkspace new 
-		openLabel: workspaceLabel;
+	workspace := LOOPWorkspace new
+		label: workspaceLabel;
+		contents: someContents;
 		lesson: self.
 	self addWorkspace: workspace.
+	workspace open.
 	workspace containingWindow center: World center.
 	^workspace
 ]
@@ -232,6 +234,23 @@ LOOPLesson >> fileIn: aFileName [
 			notifying: self
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
+]
+
+{ #category : #'as yet unclassified' }
+LOOPLesson >> fileInSomethingInFile: aFileName [
+	| lessonImported inStream |
+	
+	[ inStream := StandardFileStream fileNamed: aFileName.
+		lessonImported := Compiler new 
+			evaluate: inStream readStream
+			in: nil
+			to: self
+			notifying: self
+			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
+			logged: true.
+		] ensure: [inStream close.].
+		lessonImported isNil ifTrue: [self error: 'Falló la importación'].
+		^ lessonImported.
 ]
 
 { #category : #accessing }
@@ -509,9 +528,7 @@ LOOPLesson >> writeWorkspacesOn: stream [
 	stream nextPutAll: '"Workspaces exported"'.
 	self workspaces do:[ :aWorkspace | 
 		stream cr.
-		stream nextPutAll: 
-			'(', self lessonIdentification, ' createWorkspace: ', '''' , aWorkspace label , '''' , ') contents: '.
-		stream cr.
-		stream nextPutAll: '''' , aWorkspace stringContents , '''' , '.'] .
+		aWorkspace writeOn: stream withLessonIdentification: self lessonIdentification.
+		] .
 	stream cr.
 ]

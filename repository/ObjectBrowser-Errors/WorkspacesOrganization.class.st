@@ -29,7 +29,9 @@ WorkspacesOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> menu: aMenu [
-	^aMenu addList: (OrderedCollection with: #('crear nuevo workspace' #createWorkspace))
+	^aMenu addList: (OrderedCollection 
+		with: #('crear nuevo workspace' #createWorkspace)
+		with: #('importar workspace' #fileInWorkspace))
 ]
 
 { #category : #'as yet unclassified' }

@@ -23,7 +23,7 @@ OBMethod >> iconFor: anObject [
 	| redefines isRedefined iHaveMethod |
 	redefines := anObject redefines: self selector.
 	isRedefined := anObject isRedefined: self selector.
-	(anObject understands: self selector) & (anObject myClassHasMethod: self) ifTrue: [ ^ObjectBrowserIcons prototype ].
+	"(anObject myClassHasMethod: self) ifTrue: [ ^ObjectBrowserIcons prototype ]."
 	redefines & isRedefined ifTrue: [ ^ObjectBrowserIcons arrowUpAndDown ].
 	redefines ifTrue: [ ^ObjectBrowserIcons arrowUp ].
 	isRedefined  ifTrue: [ ^ObjectBrowserIcons arrowDown ].

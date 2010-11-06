@@ -40,6 +40,28 @@ LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPWorkspace >> export [
+	| internalStream converter f |
+	[	internalStream := (String new: 100) writeStream.
+	self writeOn: internalStream.
+	internalStream trailer.
+	converter := internalStream contents isAsciiString 
+		ifTrue: [MacRomanTextConverter new] 
+		ifFalse: [UTF8TextConverter new].
+	fileName := 	self label asFileName, '.ws'.
+	f := FileStream newFileNamed: fileName.
+	f ifNil: [^ self error: 'Cannot open file'].
+	(converter isMemberOf: UTF8TextConverter) ifTrue: [
+		f binary.
+		UTF8TextConverter writeBOMOn: f].
+	f text.
+	f converter: converter.
+	f nextPutAll: internalStream contents.
+	f close.
+	] ensure: [ internalStream close ]
+]
+
+{ #category : #'as yet unclassified' }
 LOOPWorkspace >> hasBindingOf: aString [ 
 	^lesson hasVariable: aString.
 ]
@@ -73,7 +95,8 @@ LOOPWorkspace >> makeSelectionOn: anObjectBrowser [
 LOOPWorkspace >> menu: aMenuBuilder [
 	^aMenuBuilder addList: (OrderedCollection
 		with: #('abrir' #openWorkspace)
-		with: #('eliminar' #removeWorkspace))
+		with: #('eliminar' #removeWorkspace)
+		with: #('exportar' #exportWorkspace))
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,4 +112,14 @@ LOOPWorkspace >> stringContents [
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> treeContents [
 	^OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> writeOn: stream [
+	self writeOn: stream  withLessonIdentification: 'self'
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
+	stream nextPutAll: self stringContents.
 ]

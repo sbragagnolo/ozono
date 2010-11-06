@@ -139,6 +139,11 @@ NoObjectBrowserObject >> sourceCodeAt: anOBMethod [
 				makeSelectorBoldIn: realObject class.
 ]
 
+{ #category : #menu }
+NoObjectBrowserObject >> understands: aSelector [
+	^self object respondsTo: aSelector asSymbol 
+]
+
 { #category : #accessing }
 NoObjectBrowserObject >> variables [
 	^OrderedCollection new.
