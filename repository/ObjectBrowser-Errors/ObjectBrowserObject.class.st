@@ -392,9 +392,15 @@ ObjectBrowserObject >> removeClassFromSystem [
 
 { #category : #accessing }
 ObjectBrowserObject >> removeMethod: aMethod [
-	self realClass removeSelector: aMethod selector.
-	methods removeKey: aMethod selector.
-	self changed.
+	(self myClassHasMethod: aMethod) 
+	ifTrue: [
+		self realClass removeSelector: aMethod selector.
+		methods removeKey: aMethod selector.
+		self changed.
+	]
+	ifFalse: [
+		self error: 'El método #', aMethod selector ,' pertenece a un prototipo, no puede eliminarse'.
+	]
 ]
 
 { #category : #accessing }

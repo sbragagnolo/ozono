@@ -10,6 +10,11 @@ NullOBMethod >> isNil [
 ]
 
 { #category : #'as yet unclassified' }
+NullOBMethod >> menuItems [
+	^#()
+]
+
+{ #category : #'as yet unclassified' }
 NullOBMethod >> method [
 	^nil
 ]

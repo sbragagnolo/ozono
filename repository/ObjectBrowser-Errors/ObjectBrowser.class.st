@@ -6,7 +6,6 @@ Class {
 		'selectedObjectBrowserVariable',
 		'selectedObjectBrowserSelector',
 		'selectedObjectAttribute',
-		'selectedObjectSelector',
 		'window',
 		'organization',
 		'selectedItem',
@@ -16,7 +15,8 @@ Class {
 		'selectedTest',
 		'selectedDerreferencedObject',
 		'selectedTabIndex',
-		'selectedPage'
+		'selectedPage',
+		'selectedObjectMethod'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -207,8 +207,8 @@ ObjectBrowser >> delete [
 
 { #category : #deleting }
 ObjectBrowser >> deleteMethod [
-	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectSelector ].
-	self selectedObjectSelector: NullOBMethod new.
+	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectMethod ].
+	self selectedObjectMethod: NullOBMethod new.
 	self changed.
 ]
 
@@ -345,8 +345,7 @@ ObjectBrowser >> lessonOrganization [
 
 { #category : #menues }
 ObjectBrowser >> methodListMenu: aMenu shifted: shifted [
-	aMenu addList: #(
-		('borrar metodo'			deleteMethod)).
+	aMenu addList: self selectedObjectMethod menuItems.
 	^ aMenu
 ]
 
@@ -460,7 +459,7 @@ ObjectBrowser >> runGarbageCollector [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
 	selectedObjectAttribute := NullLessonVariable new.
-	selectedObjectSelector := NullOBMethod new.
+	selectedObjectMethod := NullOBMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
 	self changed.
 ]
@@ -490,10 +489,10 @@ ObjectBrowser >> selectedItemMenu: aMenuMorph [
 ObjectBrowser >> selectedMethodCode [
 	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
 
-	^(self selectedObjectSelector isNil)
+	^(self selectedObjectMethod isNil)
 			ifTrue: [self selectorListEmpyText]
 			ifFalse: [
-				(self selectedObject sourceCodeAt: self selectedObjectSelector) ]
+				(self selectedObject sourceCodeAt: self selectedObjectMethod) ]
 ]
 
 { #category : #accessing }
@@ -526,26 +525,26 @@ ObjectBrowser >> selectedObjectBrowserVariable [
 ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := NullLessonVariable new.
-	selectedObjectSelector := NullOBMethod new.
+	selectedObjectMethod := NullOBMethod new.
 	anOBVariable notifySelectionTo: self objectSelectionInterested.
 	selectedPage := #objects.
 	self changed.
 ]
 
 { #category : #accessing }
+ObjectBrowser >> selectedObjectMethod [
+	^selectedObjectMethod
+]
+
+{ #category : #accessing }
+ObjectBrowser >> selectedObjectMethod: aMethod [
+	selectedObjectMethod := aMethod.
+	self changed.
+]
+
+{ #category : #accessing }
 ObjectBrowser >> selectedObjectMethods [
 	^self selectedObject methods" collect: [ :m | ShowingMethod object: self selectedObject method: m ]".
-]
-
-{ #category : #accessing }
-ObjectBrowser >> selectedObjectSelector [
-	^selectedObjectSelector
-]
-
-{ #category : #accessing }
-ObjectBrowser >> selectedObjectSelector: aMethod [
-	selectedObjectSelector := aMethod.
-	self changed.
 ]
 
 { #category : #accessing }

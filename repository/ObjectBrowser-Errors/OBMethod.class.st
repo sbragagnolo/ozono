@@ -31,6 +31,11 @@ OBMethod >> iconFor: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+OBMethod >> menuItems [
+	^#(('borrar metodo'			deleteMethod))
+]
+
+{ #category : #'as yet unclassified' }
 OBMethod >> object: anOBO [
 	^object := anOBO.
 ]

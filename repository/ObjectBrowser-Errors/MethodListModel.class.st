@@ -16,12 +16,12 @@ MethodListModel >> menuSelector [
 
 { #category : #'as yet unclassified' }
 MethodListModel >> selectedItem [
-	^self model selectedObjectSelector
+	^self model selectedObjectMethod
 ]
 
 { #category : #'as yet unclassified' }
 MethodListModel >> selectedItem: aMethod [
-	self model selectedObjectSelector: aMethod.
+	self model selectedObjectMethod: aMethod.
 	self changed.
 ]
 
