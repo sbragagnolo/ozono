@@ -30,6 +30,11 @@ ConfigurationOfObjectBrowser class >> loadDefault [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser class >> loadLast [
+	self project lastVersion load
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser class >> project [
 
 	^self new project
@@ -40,33 +45,34 @@ ConfigurationOfObjectBrowser >> default: spec [
 	<version: 'default'>
 	
 	spec for: #common do: [
-		spec blessing: #beta.
 		
-		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.	
-		spec 
-			project: 'osProcess' with: [ 
-				spec className: 'ConfigurationOfOSProcess'; 
-						file: 'ConfigurationOfOSProcess';
-						repository: 'http://www.squeaksource.com/MetacelloRepository'. 
-			];
-			project: 'ffi' with: [ 
-				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
-				spec className: 'ConfigurationOfFFI'.
-			];
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec
 			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
 											versionString: '0.9';
 											loads: #('default' );
 											file: 'ConfigurationOfSmallUML';
 											repository: 'http://www.squeaksource.com/smallUML'. ];
-"			package: 'SUML-ObjectDiagramModel' with: [ spec requires: 'smallUML'.
-											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];"
 			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
-			package: 'GraphViz' with: [ 
-				spec requires: 'ffi'.
-				spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ];
+			package: 'GraphViz';
 			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
-											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ]
+											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ].
+		].
+	spec for: #unix do: [
+		spec 
+			project: 'osProcess' with: [ 
+				spec className: 'ConfigurationOfOSProcess'; 
+						file: 'ConfigurationOfOSProcess';
+						repository: 'http://www.squeaksource.com/MetacelloRepository'. 
+			]
+		].
+	spec for: #win32 do: [
+		spec
+			project: 'ffi' with: [ 
+				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
+				spec className: 'ConfigurationOfFFI'.
 		]
+	].
 ]
 
 { #category : #'as yet unclassified' }
@@ -81,7 +87,8 @@ ConfigurationOfObjectBrowser >> project [
 		"Bootstrap Metacello if it is not already loaded"
 		self class ensureMetacello.
 		"Construct Metacello project"
-		constructor := (Smalltalk at: #MetacelloVersionConstructor) on: self.
-		project := constructor project.
-		project]
+		constructor := (Smalltalk at: #MetacelloVersionConstructor) new.
+		constructor project projectAttributes: (Array with: Smalltalk platformName asSymbol).
+		constructor on: self.
+		project := constructor project.]
 ]
