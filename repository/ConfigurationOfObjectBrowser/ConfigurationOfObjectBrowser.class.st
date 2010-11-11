@@ -63,8 +63,9 @@ ConfigurationOfObjectBrowser >> default: spec [
 			project: 'osProcess' with: [ 
 				spec className: 'ConfigurationOfOSProcess'; 
 						file: 'ConfigurationOfOSProcess';
-						repository: 'http://www.squeaksource.com/MetacelloRepository'. 
-			]
+						repository: 'http://www.squeaksource.com/MetacelloRepository'.
+			].
+			spec postLoadDo: #initializeOSProcess.
 		].
 	spec for: #win32 do: [
 		spec
@@ -76,8 +77,8 @@ ConfigurationOfObjectBrowser >> default: spec [
 ]
 
 { #category : #'as yet unclassified' }
-ConfigurationOfObjectBrowser >> postLoadDoIt [
-	(Smalltalk globals at: #OSProcess) initialize
+ConfigurationOfObjectBrowser >> initializeOSProcess. [
+	(Smalltalk globals at: #ThisOSProcess) initialize
 ]
 
 { #category : #'as yet unclassified' }
