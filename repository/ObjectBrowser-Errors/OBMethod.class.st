@@ -26,7 +26,7 @@ OBMethod >> iconFor: anObject [
 	"(anObject myClassHasMethod: self) ifTrue: [ ^ObjectBrowserIcons prototype ]."
 	redefines & isRedefined ifTrue: [ ^ObjectBrowserIcons arrowUpAndDown ].
 	redefines ifTrue: [ ^ObjectBrowserIcons arrowUp ].
-	isRedefined  ifTrue: [ ^ObjectBrowserIcons arrowDown ].
+	isRedefined ifTrue: [ ^ObjectBrowserIcons arrowDown ].
 	^nil
 ]
 

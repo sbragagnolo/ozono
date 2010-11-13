@@ -9,6 +9,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ObjectBrowserListModel >> colorAt: index [
+	^Color black
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserListModel >> fontAt: index withBasicFont: font [
+	^font
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserListModel >> iconAt: anIndex [
 	^(self listModel at: anIndex) icon
 ]

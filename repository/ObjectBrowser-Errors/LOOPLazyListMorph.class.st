@@ -17,17 +17,10 @@ LOOPLazyListMorph >> display: item atRow: row on: canvas [
 			translucentImage: icon
 			at: drawBounds left @ top.
 		drawBounds := drawBounds left: drawBounds left + icon width + 2 ].
-	item isText 
-		ifTrue: [ 
-			canvas 
-				drawString: item string
-				in: drawBounds
-				font: (font emphasized: (item emphasisAt: 1))
-				color: (item colorAt: 1) ]
-		ifFalse: [
-			canvas 
-				drawString: item
-				in: drawBounds
-				font: font
-				color: (self colorForRow: row) ]
+	
+	canvas 
+		drawString: item string
+		in: drawBounds
+		font: (listSource fontAt: row withBasicFont: font)
+		color: (listSource colorAt: row)
 ]

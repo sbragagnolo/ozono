@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+MethodListModel >> colorAt: index [
+	"delegar al metodo!"
+	^Color black.
+]
+
+{ #category : #'as yet unclassified' }
+MethodListModel >> iconAt: anIndex [
+	^(self listModel at: anIndex) iconFor: (model selectedObject)
+]
+
+{ #category : #'as yet unclassified' }
 MethodListModel >> listModel [
 	^self selectors asOrderedCollection 
 ]

@@ -20,6 +20,16 @@ ObjectBrowserPluggableListMorph class >> on: aModel [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserPluggableListMorph >> colorAt: index [
+	^model colorAt: index
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserPluggableListMorph >> fontAt: index withBasicFont: font [
+	^model fontAt: index withBasicFont: font
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserPluggableListMorph >> listMorphClass [
 	^LOOPLazyListMorph
 ]
