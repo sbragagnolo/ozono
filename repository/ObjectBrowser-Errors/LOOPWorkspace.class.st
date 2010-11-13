@@ -78,7 +78,7 @@ LOOPWorkspace >> label [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> label: aLabel [
-	label := aLabel
+	label := aLabel.
 ]
 
 { #category : #'as yet unclassified' }

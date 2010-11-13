@@ -198,7 +198,7 @@ LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
 		contents: someContents;
 		lesson: self.
 	self addWorkspace: workspace.
-	workspace open.
+	workspace openLabel: workspaceLabel.
 	workspace containingWindow center: World center.
 	^workspace
 ]
