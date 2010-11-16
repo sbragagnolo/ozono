@@ -225,6 +225,11 @@ LOOPLesson >> executionContext [
 	^executionContext lesson: self; yourself
 ]
 
+{ #category : #diagram }
+LOOPLesson >> exportDiagram [
+	self objectDiagram exportDiagram
+]
+
 { #category : #'as yet unclassified' }
 LOOPLesson >> fileIn: aFileName [
 	^Compiler new 

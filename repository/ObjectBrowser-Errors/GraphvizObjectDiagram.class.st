@@ -13,6 +13,11 @@ GraphvizObjectDiagram >> diagramMorph [
 	^morph ifNil:[morph := GraphVizGraphMorph new initialize: lesson; yourself.]
 ]
 
+{ #category : #exporting }
+GraphvizObjectDiagram >> exportDiagram [
+	self diagramMorph exportAsJPEG
+]
+
 { #category : #'as yet unclassified' }
 GraphvizObjectDiagram >> lesson: aLesson [
 	lesson := aLesson

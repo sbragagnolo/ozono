@@ -284,6 +284,11 @@ ObjectBrowser >> errorHandler [
 ]
 
 { #category : #accessing }
+ObjectBrowser >> exportDiagram [
+	self lesson exportDiagram
+]
+
+{ #category : #accessing }
 ObjectBrowser >> exportWorkspace [
 	selectedWorkspace export
 ]

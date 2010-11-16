@@ -30,7 +30,7 @@ DiagramOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> menu: aMenu [
-	^aMenu 
+	^aMenu add: 'exportar' action: #exportDiagram
 ]
 
 { #category : #'as yet unclassified' }
