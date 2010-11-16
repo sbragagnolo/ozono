@@ -14,9 +14,7 @@ ObjectBrowserCollectionTestCase >> agregarRepetidos: coleccion [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> setUp [
 	super setUp.
-	Smalltalk at:#set put: (OBBaseSetCollection new). "esto deberia de estar en el initialize de clase del object browser"	
-	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new). "esto deberia de estar en el initialize de clase del object browser"
-	Smalltalk at:#ordered put: OBBaseOrderedCollection new. "esto deberia de estar en el initialize de clase del object browser"
+	OBBaseCollection initialize.
 ]
 
 { #category : #'as yet unclassified' }

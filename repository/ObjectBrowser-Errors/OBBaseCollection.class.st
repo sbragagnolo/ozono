@@ -5,6 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+OBBaseCollection class >> initialize [
+	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
+	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
+	Smalltalk at:#ordered ifAbsentPut: (OBBaseSetCollection new).
+]
+
+{ #category : #'as yet unclassified' }
 OBBaseCollection class >> new [
 	^self basicNew.
 ]

@@ -22,9 +22,7 @@ ObjectBrowserSimpleCollectionTestCase >> collection: col [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleCollectionTestCase >> setUp [
-	Smalltalk at:#set put: (OBBaseSetCollection new). 
-	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
-	Smalltalk at:#ordered put: OBBaseOrderedCollection new. 
+	OBBaseCollection initialize.
 ]
 
 { #category : #'as yet unclassified' }

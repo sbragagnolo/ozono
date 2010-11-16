@@ -316,9 +316,6 @@ ObjectBrowser >> initialize [
 	super initialize.
 	self selectedTabIndex: 1.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
-	Smalltalk at:#bag ifAbsentPut: (OBBaseBagCollection new).
-	Smalltalk at:#set ifAbsentPut: (OBBaseSetCollection new).
-	Smalltalk at:#ordered ifAbsentPut: (OBBaseSetCollection new).
 ]
 
 { #category : #'as yet unclassified' }
