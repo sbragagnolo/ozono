@@ -22,7 +22,7 @@ ObjectBrowserSimpleCollectionTestCase >> collection: col [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleCollectionTestCase >> setUp [
-	OBBaseCollection initialize.
+	OBCollectionFactory initialize.
 ]
 
 { #category : #'as yet unclassified' }

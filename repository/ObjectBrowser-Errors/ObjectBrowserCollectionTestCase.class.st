@@ -14,7 +14,7 @@ ObjectBrowserCollectionTestCase >> agregarRepetidos: coleccion [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> setUp [
 	super setUp.
-	OBBaseCollection initialize.
+	OBCollectionFactory initialize.
 ]
 
 { #category : #'as yet unclassified' }
