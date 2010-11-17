@@ -101,7 +101,7 @@ LOOPWorkspace >> menu: aMenuBuilder [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> openInWorld [
-	self open
+	self openLabel: self label.
 ]
 
 { #category : #'as yet unclassified' }
