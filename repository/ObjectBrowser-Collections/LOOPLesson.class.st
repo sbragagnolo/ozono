@@ -512,23 +512,33 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	"primero la definicion de variables"
 	self writeAllTheVariablesOn: stream .
 	
+	stream cr.
+	
 	"ahora la definicion de la leccion"
 	self writeLessonCreationOn: stream.
 	
+	stream cr.
+	
 	"despues la descripcion del objeto: su creacion, variables y metodos"
-	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self. stream cr] .
+	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self].
+	
+	stream cr.
 	
 	"despues el estado"
-	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self. stream cr] .
+	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self.] .
+	
+	stream cr.
 	
 	self writeWorkspacesOn: stream.
 	
-	self tests do: [ :aTest | aTest writeExportScriptOn: stream  lesson: self. 
-		stream cr ].
+	stream cr.
+	
+	self tests do: [ :aTest | aTest writeExportScriptOn: stream  lesson: self. ].
+	
+	stream cr.
 	
 	"despues la incorporacion a la lesson"
 	self writeAddScriptToLessonOn: stream .
-	
 ]
 
 { #category : #accessing }

@@ -43,7 +43,7 @@ LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 LOOPWorkspace >> export [
 	| internalStream converter f |
 	[	internalStream := (String new: 100) writeStream.
-	self writeOn: internalStream.
+	self writeContentsOn: internalStream.
 	internalStream trailer.
 	converter := internalStream contents isAsciiString 
 		ifTrue: [MacRomanTextConverter new] 
@@ -115,11 +115,16 @@ LOOPWorkspace >> treeContents [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPWorkspace >> writeContentsOn: stream [
+	stream nextPutAll: self stringContents.
+]
+
+{ #category : #'as yet unclassified' }
 LOOPWorkspace >> writeOn: stream [
 	self writeOn: stream  withLessonIdentification: 'self'
 ]
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
-	stream nextPutAll: self stringContents.
+	stream nextPutAll: (lessonIdentification, 'createWorkspace: ', lessonIdentification  ,' contents: ''', self stringContents, '''.').
 ]

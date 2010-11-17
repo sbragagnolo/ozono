@@ -148,3 +148,18 @@ NoObjectBrowserObject >> understands: aSelector [
 NoObjectBrowserObject >> variables [
 	^OrderedCollection new.
 ]
+
+{ #category : #accessing }
+NoObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
+	"Un NoObjectBrowserObject no se escribe"
+]
+
+{ #category : #accessing }
+NoObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
+	"Un NoObjectBrowserObject no se escribe"
+]
+
+{ #category : #accessing }
+NoObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
+	"Un NoObjectBrowserObject no se escribe"
+]

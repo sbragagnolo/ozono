@@ -142,7 +142,7 @@ ObjectBrowserCollection >> methodsFor: aCategory [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> myNewScriptOn: aLesson [
-	^ObjectBrowserCollection name, ' new', self realObject prototype collectionTypeName.
+	^ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
 ]
 
 { #category : #'as yet unclassified' }

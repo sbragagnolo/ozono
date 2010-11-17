@@ -70,4 +70,5 @@ OBTest >> selector: aTestSelector [
 { #category : #'as yet unclassified' }
 OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 	stream nextPutAll: aLesson lessonIdentification, ' compileTest: ', '''' , (aLesson executionContext class sourceCodeAt: self selector asSymbol), '''.'.
+	stream cr.
 ]
