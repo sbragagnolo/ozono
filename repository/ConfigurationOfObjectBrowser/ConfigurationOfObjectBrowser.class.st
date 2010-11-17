@@ -65,7 +65,7 @@ ConfigurationOfObjectBrowser >> default: spec [
 						file: 'ConfigurationOfOSProcess';
 						repository: 'http://www.squeaksource.com/MetacelloRepository'.
 			].
-			spec postLoadDo: #initializeOSProcess.
+			spec postLoadDoIt: #initializeOSProcess.
 		].
 	spec for: #Win32 do: [
 		spec
