@@ -5,7 +5,8 @@ Class {
 		'lesson',
 		'objects',
 		'references',
-		'variables'
+		'variables',
+		'referenceHolders'
 	],
 	#category : #'ObjectBrowser-Diagrams'
 }
@@ -29,6 +30,7 @@ LessonGraph >> addLesson: aLesson [
 	self lesson: aLesson.
 	aLesson variables do: [ :v | 
 			self addVariable: v.
+			self addReferenceHolder: v pointsTo.
 			v pointsTo addToGraph: self.
 			self addReferenceFrom: aLesson to: v pointsTo named: v name.
 		 ]
@@ -67,6 +69,11 @@ LessonGraph >> addReferenceFrom: aRealObject to: objectReferenced named: referen
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> addReferenceHolder: referenceHolder [
+	self referenceHolders add: referenceHolder
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> addVariable: aVariable [
 	self variables add: aVariable.
 ]
@@ -85,7 +92,8 @@ LessonGraph >> includesObject: aRealObject [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> lesson: aLesson [
-	lesson := aLesson
+	lesson := aLesson.
+	self addReferenceHolder: aLesson.
 ]
 
 { #category : #'as yet unclassified' }
@@ -100,7 +108,7 @@ LessonGraph >> objectsWithLesson [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> referenceHolders [
-	^ self objects union: (Set with: lesson)
+	^ referenceHolders ifNil: [ referenceHolders := Set new ].
 ]
 
 { #category : #'as yet unclassified' }
