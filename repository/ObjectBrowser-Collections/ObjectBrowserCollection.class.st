@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollection,
-	#superclass : #ObjectBrowserObject,
+	#superclass : #NoObjectBrowserObject,
 	#instVars : [
 		'posibleName'
 	],
@@ -38,6 +38,13 @@ ObjectBrowserCollection class >> new: setName [
 ObjectBrowserCollection class >> newBag [
 	self deprecated: 'no se usa'.
 	^self basicNew	realObject: SimpleCollection newBag; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> newOn: aLesson withRealObject: realObject [
+	^super new
+		realObject: realObject;
+		yourself.
 ]
 
 { #category : #'as yet unclassified' }
@@ -137,7 +144,8 @@ ObjectBrowserCollection >> methods [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> methodsFor: aCategory [
-	^ self realObject class methodDictionary keys select:[:selector | (self realObject class organization categoryOfElement: selector) == aCategory ]
+	^ self realObject class methodDictionary keys "select:[:selector | (self realObject class organization categoryOfElement: selector) == aCategory ]"
+	"¿Por qué el select sobre la categoría?"
 ]
 
 { #category : #'as yet unclassified' }
