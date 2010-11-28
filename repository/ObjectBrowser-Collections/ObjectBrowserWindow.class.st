@@ -77,13 +77,15 @@ ObjectBrowserWindow >> createGroupTab [
 
 { #category : #view }
 ObjectBrowserWindow >> createObjectDiagramTab [
-	| hSepFrac panel |
+	| hSepFrac panel scrollPane |
+	scrollPane := ScrollPane new.
 	diagram := self lesson objectDiagram. 
+	scrollPane scroller addMorph: diagram diagramMorph.
 	hSepFrac := 0.45.
 	panel := OBGroupingMorph new
 		color: (Color gray);
 		layoutPolicy: (ProportionalLayout new);
-		addMorph: (diagram diagramMorph)
+		addMorph: (scrollPane )
 			frame: (0@0 corner: 1@1).
 	^panel.
 ]
