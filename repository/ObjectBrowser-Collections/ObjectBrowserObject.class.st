@@ -278,7 +278,7 @@ ObjectBrowserObject >> methods [
 	allMethods:= prototype methods .
 	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
 	self myClassMethods do: [:method | dictionaryMethods at: method selector put: method ].
-	^ dictionaryMethods values.
+	^ dictionaryMethods values asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector].
 ]
 
 { #category : #accessing }

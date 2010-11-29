@@ -25,7 +25,6 @@ GraphVizGraphMorph >> doUpdate [
 		].
 	self removeAllMorphs.
 	morphGraph := graph asMorph.
-	morphGraph center: self center.
 	self addMorph: morphGraph.
 ]
 

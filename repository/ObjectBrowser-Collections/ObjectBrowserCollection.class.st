@@ -139,13 +139,7 @@ ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> methods [
-	^ methods ifNil: [ methods := ((self methodsFor: #collection) collect:[:m | OBMethod new selector: m ; object: self; yourself ]) asOrderedCollection .].
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> methodsFor: aCategory [
-	^ self realObject class methodDictionary keys "select:[:selector | (self realObject class organization categoryOfElement: selector) == aCategory ]"
-	"¿Por qué el select sobre la categoría?"
+	^ (self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]) asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector ].
 ]
 
 { #category : #'as yet unclassified' }
