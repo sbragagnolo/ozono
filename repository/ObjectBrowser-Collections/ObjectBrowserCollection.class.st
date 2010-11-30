@@ -109,7 +109,7 @@ ObjectBrowserCollection >> displayString [
 	className first isVowel 
 		ifTrue: [ prefix := 'an'. ]
 		ifFalse: [ prefix:= 'a' ].
-	^prefix, self realObject class name
+	^(prefix, self realObject class name) asLegalSelector
 ]
 
 { #category : #'as yet unclassified' }

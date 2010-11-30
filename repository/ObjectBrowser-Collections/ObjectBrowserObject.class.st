@@ -322,15 +322,6 @@ ObjectBrowserObject >> posibleName [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserObject >> posibleNameForObject: object [ 
-	"me devuelve en posible name para los objetos FIXME! algo mas lindo...."
-	| obo |
-	self deprecated: 'basta'.
-	obo := lesson objectBrowserObjectForRealObject: object.
-	^ obo posibleName
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserObject >> printOn: aStream [
 	self realObject printOn: aStream.
 ]
@@ -365,14 +356,6 @@ ObjectBrowserObject >> realObject: anObject [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> redefines: aSelector [
 	^self realClass isOverride: aSelector.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserObject >> referencePosibleName: name [
-	|object|
-	object := self objectPointedByVariableNamed: name.
-
-	^ self posibleNameForObject: object 
 ]
 
 { #category : #'as yet unclassified' }

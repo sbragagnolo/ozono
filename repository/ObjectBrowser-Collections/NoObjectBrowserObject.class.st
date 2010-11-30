@@ -50,7 +50,7 @@ NoObjectBrowserObject >> compileMethod: aText [
 
 { #category : #printing }
 NoObjectBrowserObject >> displayString [
-	^self object printString
+	^self object printString reject: [:char | char isSeparator ].
 ]
 
 { #category : #'as yet unclassified' }
