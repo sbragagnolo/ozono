@@ -415,7 +415,7 @@ ObjectBrowserObject >> understands: aSelector [
 
 { #category : #accessing }
 ObjectBrowserObject >> variable: varName pointTo: anObject [
-	self realObject instVarNamed: varName put: anObject.
+	self realObject instVarNamed: varName put: anObject realObject.
 ]
 
 { #category : #accessing }
