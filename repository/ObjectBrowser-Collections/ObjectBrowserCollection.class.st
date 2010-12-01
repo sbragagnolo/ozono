@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollection,
-	#superclass : #NoObjectBrowserObject,
+	#superclass : #ObjectBrowserObject,
 	#instVars : [
 		'posibleName'
 	],
@@ -91,6 +91,11 @@ ObjectBrowserCollection >> addVariable: variableName [
 	self signalNotModificableCollection
 ]
 
+{ #category : #exportation }
+ObjectBrowserCollection >> allPosiblesNames [
+	^self posibleName , ' ', self realObjectPosibleName .
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> cloneWithName: aName [ 
 	self deprecated: 'no se usa'.
@@ -142,12 +147,12 @@ ObjectBrowserCollection >> methods [
 	^ (self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]) asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserCollection >> myNewScriptOn: aLesson [
-	^ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
+^ ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObjectPosibleName.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserCollection >> posibleName [ 
 	^ posibleName 
 ]
@@ -159,7 +164,13 @@ ObjectBrowserCollection >> posibleName: aPosibleName [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> printString [
-	^'a Collection'.
+	^'aCollection'.
+]
+
+{ #category : #exportation }
+ObjectBrowserCollection >> realObjectPosibleName [ 
+	^ self posibleName , '_conj'
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -203,12 +214,21 @@ ObjectBrowserCollection >> treeContents [
 	^OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserCollection >> variables [
 	^ OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
+ObjectBrowserCollection >> writeCreateObjectOn: stream lesson: aLesson [
+	stream nextPutAll: self realObjectPosibleName, ' := ' , self realObject class name asLowercase, ' clone.'.
+	stream cr.
+	stream nextPutAll:  self posibleName, ' := ' , ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObjectPosibleName,'.'.
+	stream cr.
+	
+]
+
+{ #category : #exportation }
 ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
@@ -216,20 +236,10 @@ ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesso
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> writeStateScriptOn: stream [
-		"saves the state, all the variables values and relationships"
-	self deprecated:'use writeStateScriptOn: lesson:'.
-	self realObject do:  [ :obj | 
-			stream nextPutAll: self posibleName , ' add: ' , (lesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
-			stream cr].
-
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> writeStateScriptOn: stream lesson: aLesson [
 		"saves the state, all the variables values and relationships"
 	self realObject do:  [ :obj | 
-			stream nextPutAll: self posibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
+			stream nextPutAll: self realObjectPosibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
 			stream cr].
 
 ]

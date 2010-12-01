@@ -126,5 +126,5 @@ LOOPWorkspace >> writeOn: stream [
 
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
-	stream nextPutAll: (lessonIdentification, 'createWorkspace: ', lessonIdentification  ,' contents: ''', self stringContents, '''.').
+	stream nextPutAll: (lessonIdentification, ' createWorkspace: ''', self label ,'''' ,' contents: ''', self stringContents, '''.').
 ]

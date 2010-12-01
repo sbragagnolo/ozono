@@ -230,7 +230,7 @@ LOOPLesson >> exportDiagram [
 	self objectDiagram exportDiagram
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 LOOPLesson >> fileIn: aFileName [
 	^Compiler new 
 			evaluate: aFileName readStream
@@ -241,7 +241,7 @@ LOOPLesson >> fileIn: aFileName [
 			logged: true.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 LOOPLesson >> fileInSomethingInFile: aFileName [
 	| lessonImported inStream |
 	
@@ -258,7 +258,7 @@ LOOPLesson >> fileInSomethingInFile: aFileName [
 		^ lessonImported.
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> fileOut [
 
 	| internalStream |
@@ -320,7 +320,7 @@ LOOPLesson >> lessonEnvironment [
 	^lessonEnvironment ifNil: [ lessonEnvironment := SystemDictionary new ].
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> lessonIdentification [
 	^self title asLegalSelector
 ]
@@ -490,23 +490,23 @@ LOOPLesson >> workspaces [
 	^ workspaces ifNil:[ workspaces := OrderedCollection new]
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> writeAddScriptToLessonOn: stream [
 	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
 	stream nextPutAll: '^ ', self lessonIdentification , '.'.
 	stream cr.
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
-	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName, ' ' ] .
+	self objects do:[ :anObject | stream nextPutAll:  anObject allPosiblesNames, ' ' ] .
 	stream nextPutAll: self lessonIdentification,' |'.
 	stream cr ; cr.
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> writeCreationScriptOver: stream [
 	
 	"primero la definicion de variables"
@@ -541,7 +541,7 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	self writeAddScriptToLessonOn: stream .
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> writeLessonCreationOn: stream. [
 	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
 	stream cr.
@@ -549,7 +549,7 @@ LOOPLesson >> writeLessonCreationOn: stream. [
 	stream cr.
 ]
 
-{ #category : #accessing }
+{ #category : #exportation }
 LOOPLesson >> writeWorkspacesOn: stream [
 	
 	stream cr.

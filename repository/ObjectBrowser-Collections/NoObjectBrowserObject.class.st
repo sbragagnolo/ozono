@@ -34,6 +34,11 @@ NoObjectBrowserObject >> addToGraph: aLessonGraph [
 ]
 
 { #category : #printing }
+NoObjectBrowserObject >> allPosiblesNames [
+	^self posibleName.
+]
+
+{ #category : #printing }
 NoObjectBrowserObject >> asString [
 	^self displayString 
 ]
@@ -50,7 +55,7 @@ NoObjectBrowserObject >> compileMethod: aText [
 
 { #category : #printing }
 NoObjectBrowserObject >> displayString [
-	^self object printString reject: [:char | char isSeparator ].
+	^self object printString "reject: [:char | char isSeparator ].".
 ]
 
 { #category : #'as yet unclassified' }

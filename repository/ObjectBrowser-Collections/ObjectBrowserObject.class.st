@@ -102,6 +102,11 @@ ObjectBrowserObject >> addVariable: variableName [
 	self changed.
 ]
 
+{ #category : #exportation }
+ObjectBrowserObject >> allPosiblesNames [
+	^self posibleName
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> asString [
 	^self posibleName
@@ -301,7 +306,7 @@ ObjectBrowserObject >> myClassVariables [
 	^variables
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> myNewScriptOn: aLesson [
 	^ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification
 ]
@@ -428,18 +433,18 @@ ObjectBrowserObject >> variables [
 	^ (variables union: prototype variables)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
 	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCreationScriptOver: stream [
 	| objectVariable |
 	objectVariable := self posibleName.
@@ -452,7 +457,7 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 	stream cr.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeMethodsOn: stream [ .
 	
 	self myClassMethods do:[ :m |
@@ -462,7 +467,7 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
@@ -473,7 +478,7 @@ ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	"saves the state, all the variables values and relationships"
 	self variables do:  [ :var | 
@@ -481,7 +486,7 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 			stream cr].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserObject >> writeVarianblesOn: stream [ .
 
 	self myClassVariables do:[ :v | 
