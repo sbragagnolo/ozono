@@ -61,8 +61,7 @@ ObjectBrowserCollection class >> newSet [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> add: anObj [
-	self deprecated: 'no se usa'.
-	self realObject add: anObj .
+	self realObject add: anObj realObject .
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,11 +88,6 @@ ObjectBrowserCollection >> addToGraph: aGraph [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addVariable: variableName [
 	self signalNotModificableCollection
-]
-
-{ #category : #exportation }
-ObjectBrowserCollection >> allPosiblesNames [
-	^self posibleName , ' ', self realObjectPosibleName .
 ]
 
 { #category : #'as yet unclassified' }
@@ -149,7 +143,7 @@ ObjectBrowserCollection >> methods [
 
 { #category : #exportation }
 ObjectBrowserCollection >> myNewScriptOn: aLesson [
-^ ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObjectPosibleName.
+^ ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
 ]
 
 { #category : #exportation }
@@ -220,26 +214,17 @@ ObjectBrowserCollection >> variables [
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> writeCreateObjectOn: stream lesson: aLesson [
-	stream nextPutAll: self realObjectPosibleName, ' := ' , self realObject class name asLowercase, ' clone.'.
-	stream cr.
-	stream nextPutAll:  self posibleName, ' := ' , ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObjectPosibleName,'.'.
-	stream cr.
-	
-]
-
-{ #category : #exportation }
 ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exportation }
 ObjectBrowserCollection >> writeStateScriptOn: stream lesson: aLesson [
 		"saves the state, all the variables values and relationships"
 	self realObject do:  [ :obj | 
-			stream nextPutAll: self realObjectPosibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
+			stream nextPutAll: self posibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
 			stream cr].
 
 ]

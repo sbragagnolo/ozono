@@ -102,11 +102,6 @@ ObjectBrowserObject >> addVariable: variableName [
 	self changed.
 ]
 
-{ #category : #exportation }
-ObjectBrowserObject >> allPosiblesNames [
-	^self posibleName
-]
-
 { #category : #accessing }
 ObjectBrowserObject >> asString [
 	^self posibleName

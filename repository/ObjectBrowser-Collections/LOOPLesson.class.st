@@ -501,7 +501,7 @@ LOOPLesson >> writeAddScriptToLessonOn: stream [
 LOOPLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
-	self objects do:[ :anObject | stream nextPutAll:  anObject allPosiblesNames, ' ' ] .
+	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName , ' ' ] .
 	stream nextPutAll: self lessonIdentification,' |'.
 	stream cr ; cr.
 ]

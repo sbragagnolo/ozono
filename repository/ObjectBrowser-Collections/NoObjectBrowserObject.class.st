@@ -34,11 +34,6 @@ NoObjectBrowserObject >> addToGraph: aLessonGraph [
 ]
 
 { #category : #printing }
-NoObjectBrowserObject >> allPosiblesNames [
-	^self posibleName.
-]
-
-{ #category : #printing }
 NoObjectBrowserObject >> asString [
 	^self displayString 
 ]
