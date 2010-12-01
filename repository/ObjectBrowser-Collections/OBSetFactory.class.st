@@ -5,13 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OBSetFactory >> clone [
-	^Set new.
+OBSetFactory >> collectionTypeName [
+	^'Set'
 ]
 
 { #category : #'as yet unclassified' }
-OBSetFactory >> collectionTypeName [
-	^'Set'
+OBSetFactory >> createCollection [
+	^Set new.
 ]
 
 { #category : #'as yet unclassified' }

@@ -81,7 +81,7 @@ ObjectBrowserObject >> actionsForObjectVariableList [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addInversePrototypeRelationship: references [
 
-	references add: self.
+	references add: self realObject.
 ]
 
 { #category : #'as yet unclassified' }
@@ -194,7 +194,7 @@ ObjectBrowserObject >> hasMethod: aSelector [
 { #category : #accessing }
 ObjectBrowserObject >> hasReferencesTo: anOBObject [
 
-	^self knownObjects anySatisfy: [ :myObject | myObject = anOBObject]
+	^self knownObjects includes: anOBObject realObject 
 ]
 
 { #category : #accessing }
@@ -236,7 +236,7 @@ ObjectBrowserObject >> isRedefined: aSelector [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> knownObjects [
 	| refs |
-	refs := self variables asBag collect: [:v | self objectPointedByVariableNamed:  v name ].
+	refs := self variables collect: [:v | self objectPointedByVariableNamed:  v name ].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	

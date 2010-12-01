@@ -5,13 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OBOrderedCollectionFactory >> clone [
-	^OrderedCollection new.
+OBOrderedCollectionFactory >> collectionTypeName [
+	^'OrderedCollection'
 ]
 
 { #category : #'as yet unclassified' }
-OBOrderedCollectionFactory >> collectionTypeName [
-	^'OrderedCollection'
+OBOrderedCollectionFactory >> createCollection [
+	^OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }

@@ -5,13 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OBBagFactory >> clone [
-	^Bag new.
+OBBagFactory >> collectionTypeName [
+	^'Bag'
 ]
 
 { #category : #'as yet unclassified' }
-OBBagFactory >> collectionTypeName [
-	^'Bag'
+OBBagFactory >> createCollection [
+	^Bag new.
 ]
 
 { #category : #'as yet unclassified' }

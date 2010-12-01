@@ -18,7 +18,10 @@ OBCollectionFactory class >> new [
 
 { #category : #'as yet unclassified' }
 OBCollectionFactory >> clone [
-	^self subclassResponsibility .
+	| col |
+	col := self createCollection.
+	ObjectBrowserCollection notifyCollectionCreated: col.
+	^col
 ]
 
 { #category : #'as yet unclassified' }

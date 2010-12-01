@@ -5,10 +5,16 @@ Class {
 		'posibleName'
 	],
 	#classVars : [
+		'CreationObservers',
 		'NextCollectionClassNumberAvailable'
 	],
 	#category : #'ObjectBrowser-Collections'
 }
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> addCreationObserver: observer [
+	self creationObservers add: observer 
+]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> basicNew [	
@@ -22,6 +28,11 @@ ObjectBrowserCollection class >> collectionClassNumber [
 	NextCollectionClassNumberAvailable :=  NextCollectionClassNumberAvailable + 1.
 	^ NextCollectionClassNumberAvailable - 1.
 
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> creationObservers [
+	^CreationObservers ifNil: [ CreationObservers := Set new ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -57,6 +68,16 @@ ObjectBrowserCollection class >> newOrdered [
 ObjectBrowserCollection class >> newSet [
 	self deprecated: 'no se usa'.
 	^self basicNew	realObject: SimpleCollection newSet; yourself .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> notifyCollectionCreated: collection [
+	self creationObservers do: [ :o | o addObject: (self newOn: o withRealObject: collection) ].
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection class >> removeCreationObserver: observer [
+	self creationObservers remove: observer 
 ]
 
 { #category : #'as yet unclassified' }
