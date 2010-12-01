@@ -493,6 +493,7 @@ LOOPLesson >> workspaces [
 { #category : #exportation }
 LOOPLesson >> writeAddScriptToLessonOn: stream [
 	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
+	self objects do: [ :object | stream nextPutAll: self lessonIdentification ,' addObject: ', object posibleName , '.'. stream cr].
 	stream nextPutAll: '^ ', self lessonIdentification , '.'.
 	stream cr.
 ]

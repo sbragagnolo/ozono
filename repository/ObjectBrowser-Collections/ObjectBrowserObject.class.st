@@ -236,7 +236,7 @@ ObjectBrowserObject >> isRedefined: aSelector [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> knownObjects [
 	| refs |
-	refs := self variables collect: [:v | self objectPointedByVariableNamed:  v name ].
+	refs := self variables asBag collect: [:v | self objectPointedByVariableNamed:  v name ].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	
