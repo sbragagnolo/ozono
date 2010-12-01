@@ -127,13 +127,13 @@ ObjectBrowserWindow >> createTestRunnerTab [
 		color: (Color gray);
 		layoutPolicy: (ProportionalLayout new).
 	panel addMorph: (ObjectBrowserPluggableListMorph on: (ObjectTestsListModel newOn: self objectBrowser))
-		frame: (0@0 corner: 0.499@0.499).
+		frame: (0@0 corner: 0.4999 @ hSepFrac -0.01).
 	panel addMorph: testEditor
-		frame: (0@0.499 corner: 1@1).
+		frame: (0@hSepFrac corner: 1 @ 1).
 	panel addMorph: (statusMorph := (NewTextMorph  new color: Color red; readOnly: true; yourself))	
-		frame: (0.499@0 corner: 1@0.09).
+		frame: (0.499@0 corner: 0.99@0.09).
 	panel addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
-		frame: (0.499@0.1 corner: 1@0.2).
+		frame: (0.499@0.1 corner: 0.99@0.2).
 	^panel.
 ]
 
@@ -149,7 +149,7 @@ ObjectBrowserWindow >> createView [
 	pages keysAndValuesDo: [ :k :m |
 			window addMorph: m frame: (0.2@0 corner: 1@1).
 			m visible: k == self objectBrowser selectedPage.
-			m color: Color lightGray .
+			m color: Color lightGray  .
 		].
 	window center: World center.
 	self objectBrowser changed.
