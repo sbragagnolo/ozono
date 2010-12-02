@@ -22,6 +22,11 @@ ObjectBrowserWindow class >> show: anObjectBrowser [
 ]
 
 { #category : #view }
+ObjectBrowserWindow >> backgroundColorFor: category [ 
+	^ category = #diagram ifTrue: [Color white ] ifFalse: [Color lightGray ].
+]
+
+{ #category : #view }
 ObjectBrowserWindow >> buildMethodEditor [
 	| model |
 	methodEditor := (PluggableShoutMorph
@@ -104,6 +109,7 @@ ObjectBrowserWindow >> createObjectEditionTab [
 		addMorph: self buildMethodEditor
 			frame: (0@hSepFrac corner: 1 @ 1).
 	methodEditor color: Color white.
+panel color: Color lightGray .
 	^panel.
 ]
 
@@ -149,7 +155,7 @@ ObjectBrowserWindow >> createView [
 	pages keysAndValuesDo: [ :k :m |
 			window addMorph: m frame: (0.2@0 corner: 1@1).
 			m visible: k == self objectBrowser selectedPage.
-			m color: Color lightGray  .
+			m color: (self backgroundColorFor: k).
 		].
 	window center: World center.
 	self objectBrowser changed.
