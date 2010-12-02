@@ -99,6 +99,12 @@ LessonGraph >> includesObject: aRealObject [
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> initialize [ 
+	super initialize .
+	 objects := Set new.
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> lesson: aLesson [
 	lesson := aLesson.
 	self addReferenceHolder: aLesson.
