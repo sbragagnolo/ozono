@@ -174,6 +174,18 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 	self selectedItem: newVariable.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> createVariable: aVariableNameString toRecover: anObjectBrowserObject [
+	| newVariable |
+	self validateVariableName: aVariableNameString.
+	
+	newVariable := (LessonVariable newNamed: aVariableNameString)
+		pointTo: anObjectBrowserObject;
+		yourself.
+	self lesson addVariableWithExistentObject: newVariable.
+	self selectedItem: newVariable.
+]
+
 { #category : #showing }
 ObjectBrowser >> createWorkspace [
 	| workspaceLabel |
@@ -415,7 +427,7 @@ ObjectBrowser >> recoverObject [
 		evaluate: [
 			variableName := self request: 'Nombre de la referencia' default: 'recuperadoDeLaPapelera'.
 			variableName ifNotNil: [ 
-				self createVariable: variableName referencingTo: self selectedDerreferencedObject realObject.
+				self createVariable: variableName toRecover: self selectedDerreferencedObject realObject.
 				]
 		]).
 	self changed

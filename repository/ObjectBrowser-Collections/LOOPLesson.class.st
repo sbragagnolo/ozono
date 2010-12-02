@@ -138,6 +138,12 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 ]
 
 { #category : #accessing }
+LOOPLesson >> addVariableWithExistentObject: aVariable [
+	self variables add: aVariable.
+	self executionContext class addInstVarName: aVariable name.
+]
+
+{ #category : #accessing }
 LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
