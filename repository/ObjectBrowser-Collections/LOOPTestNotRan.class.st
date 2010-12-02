@@ -1,30 +1,33 @@
 Class {
-	#name : #LOOPTestSuccess,
+	#name : #LOOPTestNotRan,
 	#superclass : #Object,
+	#instVars : [
+		'signal'
+	],
 	#category : #'ObjectBrowser-TestFramework'
 }
 
 { #category : #'as yet unclassified' }
-LOOPTestSuccess >> icon [
-	^ObjectBrowserIcons okIcon
+LOOPTestNotRan >> icon [
+	^ObjectBrowserIcons notRanIcon
 ]
 
 { #category : #'as yet unclassified' }
-LOOPTestSuccess >> isError [
+LOOPTestNotRan >> isError [
 	^false
 ]
 
 { #category : #'as yet unclassified' }
-LOOPTestSuccess >> isFailure [
+LOOPTestNotRan >> isFailure [
 	^false
 ]
 
 { #category : #'as yet unclassified' }
-LOOPTestSuccess >> isNotRan [
-	^false.
+LOOPTestNotRan >> isNotRan [
+	^true.
 ]
 
 { #category : #'as yet unclassified' }
-LOOPTestSuccess >> isSuccess [
+LOOPTestNotRan >> isSuccess [
 	^true
 ]

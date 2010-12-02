@@ -29,7 +29,7 @@ OBTest >> icon [
 
 { #category : #'as yet unclassified' }
 OBTest >> initialize [
-	result := LOOPTestSuccess new.
+	result := LOOPTestNotRan new.
 ]
 
 { #category : #'as yet unclassified' }

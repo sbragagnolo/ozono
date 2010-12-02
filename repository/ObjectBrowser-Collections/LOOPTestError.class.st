@@ -29,6 +29,11 @@ LOOPTestError >> isFailure [
 ]
 
 { #category : #'as yet unclassified' }
+LOOPTestError >> isNotRan [
+	^false
+]
+
+{ #category : #'as yet unclassified' }
 LOOPTestError >> isSuccess [
 	^false
 ]
