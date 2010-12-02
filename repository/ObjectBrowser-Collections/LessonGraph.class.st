@@ -82,6 +82,7 @@ LessonGraph >> addVariable: aVariable [
 { #category : #'as yet unclassified' }
 LessonGraph >> allTheObjects: allTheLessonObjects [
 	derreferencedObjects := allTheLessonObjects difference: objects .
+	allTheLessonObjects do: [ :o | o addToGraph: self ].
 ]
 
 { #category : #'as yet unclassified' }
