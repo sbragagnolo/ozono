@@ -15,8 +15,8 @@ GraphVizGraphMorph >> doUpdate [
 	graph := GraphViz new.
 	graph beDirected.
 	graph add: #node with: { #id->#asString }.
-	loopgraph referenceHolders do:[ :h |
-			graph add: h with: #label->(h displayString reject:[:c | c isSeparator]).
+	loopgraph objectBrowserObjects do:[ :h |
+			graph add: h with: #label->(h displayString copyReplaceAll: ' ' with: '').
 		].
 	loopgraph references do:[ :r |
 			graph add: r from with: #label->(r from displayString copyReplaceAll: ' ' with: '').

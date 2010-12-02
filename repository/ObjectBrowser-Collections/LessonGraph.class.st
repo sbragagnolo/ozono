@@ -80,7 +80,7 @@ LessonGraph >> addVariable: aVariable [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> dereferencedObjects [
-	^self objects reject: [ :o |
+	^self objectBrowserObjects reject: [ :o |
 			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
 		]
 ]
@@ -94,6 +94,11 @@ LessonGraph >> includesObject: aRealObject [
 LessonGraph >> lesson: aLesson [
 	lesson := aLesson.
 	self addReferenceHolder: aLesson.
+]
+
+{ #category : #'as yet unclassified' }
+LessonGraph >> objectBrowserObjects [
+	^self objects reject: [:o | o isKindOf: NoObjectBrowserObject ].
 ]
 
 { #category : #'as yet unclassified' }

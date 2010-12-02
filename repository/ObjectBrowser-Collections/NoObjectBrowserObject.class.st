@@ -50,7 +50,7 @@ NoObjectBrowserObject >> compileMethod: aText [
 
 { #category : #printing }
 NoObjectBrowserObject >> displayString [
-	^self object printString reject: [:char | char isSeparator ].
+	^self object printString difference: ' ,;-'''
 ]
 
 { #category : #'as yet unclassified' }
@@ -105,7 +105,7 @@ NoObjectBrowserObject >> posibleName [
 
 { #category : #accessing }
 NoObjectBrowserObject >> printString [
-	^self object printString
+	^self object printString difference: #($' $- $.)
 ]
 
 { #category : #accessing }

@@ -30,7 +30,8 @@ LessonVariable >> desreference [
 
 { #category : #'as yet unclassified' }
 LessonVariable >> hasReferencesTo: anObject [
-	^(reference = anObject)
+
+	^(reference realObject == anObject realObject )
 ]
 
 { #category : #showing }

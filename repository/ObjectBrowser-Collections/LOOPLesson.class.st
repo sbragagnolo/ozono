@@ -164,8 +164,6 @@ LOOPLesson >> changed [
 
 { #category : #accessing }
 LOOPLesson >> clean [
-	"hago una copia de la colección para no modificar la original.  Remuevo de la coleccion original cada objeto y le digo que remueva su clase."
-	"self objects copy do:[:o | o removeClassFromSystem.]."
 	self objects removeAll.
 	self variables do:[:v | executionContext class removeInstVarName: v name].
 	self variables removeAll.
@@ -216,9 +214,7 @@ LOOPLesson >> delete [
 
 { #category : #accessing }
 LOOPLesson >> dereferencedObjects [
-	^self objects reject: [ :o |
-			self buildGraph referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
-		]
+	^self buildGraph dereferencedObjects
 ]
 
 { #category : #accessing }
@@ -280,17 +276,9 @@ LOOPLesson >> fileOut [
 
 { #category : #accessing }
 LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
-	| obo |
-	
 	(self realObjects anySatisfy: [:realObject | realObject == aRealObject])
 		ifTrue:  [ ^self objects detect: [ :o | o realObject == aRealObject ] ]
-		ifFalse: [
-			obo := (aRealObject isKindOf: Collection )
-				ifTrue: [ ObjectBrowserCollection newOn: self withRealObject: aRealObject ] 
-				ifFalse: [ NoObjectBrowserObject new: aRealObject ].
-			self addObject: obo.
-			^obo
-			]
+		ifFalse: [ ^NoObjectBrowserObject new: aRealObject . ]
 ]
 
 { #category : #accessing }
