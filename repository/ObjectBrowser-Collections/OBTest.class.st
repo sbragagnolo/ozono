@@ -69,6 +69,6 @@ OBTest >> selector: aTestSelector [
 
 { #category : #'as yet unclassified' }
 OBTest >> writeExportScriptOn: stream  lesson: aLesson [
-	stream nextPutAll: aLesson lessonIdentification, ' compileTest: ', '''' , (aLesson executionContext class sourceCodeAt: self selector asSymbol), '''.'.
+	stream nextPutAll: aLesson lessonIdentification, ' compileTest: ', '''' , ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
 	stream cr.
 ]
