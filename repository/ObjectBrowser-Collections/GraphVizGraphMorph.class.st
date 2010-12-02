@@ -16,7 +16,7 @@ GraphVizGraphMorph >> doUpdate [
 	graph beDirected.
 	graph add: #node with: { #id->#asString }.
 	loopgraph referenceHolders do:[ :h |
-			graph add: h with: #label->(h displayString copyReplaceAll: ' ' with: '').
+			graph add: h with: #label->(h displayString reject:[:c | c isSeparator]).
 		].
 	loopgraph references do:[ :r |
 			graph add: r from with: #label->(r from displayString copyReplaceAll: ' ' with: '').

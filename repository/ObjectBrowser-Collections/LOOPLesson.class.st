@@ -59,15 +59,21 @@ LOOPLesson class >> deleteAllLessons [
 LOOPLesson class >> fileIn: aFileName [
 	| lessonImported inStream |
 	
-	[ inStream := StandardFileStream fileNamed: aFileName.
+	[ [
+		ClassBuilder beSilent: true.
+		inStream := StandardFileStream fileNamed: aFileName.
 		lessonImported := Compiler new 
 			evaluate: inStream readStream
 			in: nil
 			to: self
-			notifying: self
+			notifying: nil
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
-		] ensure: [inStream close.].
+		] valueSuppressingAllMessages
+	] ensure: [
+		ClassBuilder beSilent: false.
+		inStream close.
+	].
 		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
 		^ lessonImported.
 ]
@@ -187,7 +193,7 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 			instanceVariableNames: ''
 			classVariableNames: ''
 			poolDictionaries: ''
-			category: 'Useless'
+			category: 'Useless'.
 ]
 
 { #category : #'as yet unclassified' }

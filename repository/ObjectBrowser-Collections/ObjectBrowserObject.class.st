@@ -126,7 +126,7 @@ ObjectBrowserObject >> bePrototypeOf: clone [
 		subclass: clone realClass name asSymbol
 		instanceVariableNames: clone realClass instVarNames 
 		classVariableNames: clone realClass classVarNames  
-		poolDictionaries: clone realClass poolDictionaryNames 
+		poolDictionaries: clone realClass sharedPoolsString 
 		category: clone realClass category.
 ]
 
