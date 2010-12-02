@@ -121,8 +121,8 @@ LOOPLesson >> addObject: anObject [
 { #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
-	self addObject: aVariable pointsTo.
 	self executionContext class addInstVarName: aVariable name.
+	(aVariable pointsTo isKindOf: NoObjectBrowserObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
 { #category : #accessing }
@@ -171,7 +171,7 @@ LOOPLesson >> changed [
 { #category : #accessing }
 LOOPLesson >> clean [
 	self objects removeAll.
-	self variables do:[:v | executionContext class removeInstVarName: v name].
+	self variables do:[:v | executionContext class removeFromSystem ].
 	self variables removeAll.
 	self removeFromSystem.
 	self class instVarNames do: [ :vn | self instVarNamed: vn put: nil].
@@ -351,7 +351,7 @@ LOOPLesson >> objectDiagram [
 
 { #category : #accessing }
 LOOPLesson >> objects [
-	^objects ifNil: [objects := OrderedCollection new].
+	^objects ifNil: [objects := Set new].
 ]
 
 { #category : #accessing }
