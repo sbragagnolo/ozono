@@ -152,7 +152,7 @@ LOOPLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph new.
 	graph addLesson: self.
-	self objects do: [ :o | o addToGraph: graph ].
+	graph allTheObjects: self objects.
 	^graph
 ]
 

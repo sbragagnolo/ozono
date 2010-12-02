@@ -6,7 +6,8 @@ Class {
 		'objects',
 		'references',
 		'variables',
-		'referenceHolders'
+		'referenceHolders',
+		'derreferencedObjects'
 	],
 	#category : #'ObjectBrowser-Diagrams'
 }
@@ -79,10 +80,16 @@ LessonGraph >> addVariable: aVariable [
 ]
 
 { #category : #'as yet unclassified' }
+LessonGraph >> allTheObjects: allTheLessonObjects [
+	derreferencedObjects := allTheLessonObjects difference: objects .
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> dereferencedObjects [
-	^self objectBrowserObjects reject: [ :o |
+"	^self objectBrowserObjects reject: [ :o |
 			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
-		]
+		]"
+	^ derreferencedObjects .
 ]
 
 { #category : #'as yet unclassified' }
@@ -98,7 +105,7 @@ LessonGraph >> lesson: aLesson [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> objectBrowserObjects [
-	^self objects reject: [:o | o isKindOf: NoObjectBrowserObject ].
+	^(self objects union: derreferencedObjects ).
 ]
 
 { #category : #'as yet unclassified' }
