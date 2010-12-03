@@ -13,6 +13,15 @@ ObjectBrowserClass class >> new [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserClass >> clone [
+	LOOPLesson allInstancesDo: [ :aLesson |
+		aLesson objects do: [ :anObjectBrowserObject |
+			anObjectBrowserObject realObject == self ifTrue:
+				[ ^anObjectBrowserObject clone ]]].
+	self error: 'Se está intentando clonar un objeto que no tiene representación en ninguna lección'
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserClass >> displayString [
 	^'anObject'
 ]
