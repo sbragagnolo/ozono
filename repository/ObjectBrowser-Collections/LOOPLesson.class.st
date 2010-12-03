@@ -58,7 +58,6 @@ LOOPLesson class >> deleteAllLessons [
 { #category : #accessing }
 LOOPLesson class >> fileIn: aFileName [
 	| lessonImported inStream |
-	
 	[ [
 		ClassBuilder beSilent: true.
 		inStream := StandardFileStream fileNamed: aFileName.
@@ -70,7 +69,7 @@ LOOPLesson class >> fileIn: aFileName [
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
 		] valueSuppressingAllMessages
-	] ensure: [
+	] ensure: [ 
 		ClassBuilder beSilent: false.
 		inStream close.
 	].
