@@ -4,6 +4,9 @@ Class {
 	#instVars : [
 		'project'
 	],
+	#classVars : [
+		'LastVersionLoad'
+	],
 	#category : #ConfigurationOfObjectBrowser
 }
 
@@ -25,6 +28,14 @@ ConfigurationOfObjectBrowser class >> isMetacelloConfig [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser class >> lastMetacelloVersionLoad [
+	"Answer the last version loaded and the list of packages loaded for that version."
+
+	LastVersionLoad == nil ifTrue: [ LastVersionLoad := nil -> 'default' ].
+	^LastVersionLoad
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser class >> loadDefault [
 	(self project version: '0.1-version') load
 ]
@@ -43,9 +54,8 @@ ConfigurationOfObjectBrowser class >> project [
 { #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> baseline10: spec [ 
     <version: '1.0-baseline'>
-	spec blessing: #baseline.
 	spec for: #common do: [
-		
+		spec blessing: #baseline.
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
 		spec
 			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
@@ -54,11 +64,11 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 											repository: 'http://www.squeaksource.com/smallUML'. ];
 			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
 			package: 'GraphViz';
-			package: 'ObjectBrowser' with: [ spec requires: 'smallUML' ].
+			package: 'ObjectBrowser' with: [ spec requires: #('smallUML' 'GraphViz' 'CommandShell' 'externalCommands') ].
 		].
 	spec for: #unix do: [
 		spec 
-			project: 'osProcess' with: [ 
+			project: 'externalCommands' with: [ 
 				spec className: 'ConfigurationOfOSProcess'; 
 						file: 'ConfigurationOfOSProcess';
 						repository: 'http://www.squeaksource.com/MetacelloRepository'.
@@ -67,43 +77,7 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 		].
 	spec for: #Win32 do: [
 		spec
-			project: 'ffi' with: [ 
-				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
-				spec className: 'ConfigurationOfFFI'.
-		]
-	].
-]
-
-{ #category : #'as yet unclassified' }
-ConfigurationOfObjectBrowser >> default: spec [ 
-	<version: 'default'>
-	
-	spec for: #common do: [
-		
-		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
-		spec
-			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
-											versionString: '1.0';
-											loads: #('default' );
-											file: 'ConfigurationOfSmallUML';
-											repository: 'http://www.squeaksource.com/smallUML'. ];
-			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
-			package: 'GraphViz';
-			package: 'ObjectBrowser' with: [ spec requires: 'smallUML'.
-											spec repository: 'http://www.squeaksource.com/ObjectBrowser'. ].
-		].
-	spec for: #unix do: [
-		spec 
-			project: 'osProcess' with: [ 
-				spec className: 'ConfigurationOfOSProcess'; 
-						file: 'ConfigurationOfOSProcess';
-						repository: 'http://www.squeaksource.com/MetacelloRepository'.
-			].
-			spec postLoadDoIt: #initializeOSProcess.
-		].
-	spec for: #Win32 do: [
-		spec
-			project: 'ffi' with: [ 
+			project: 'externalCommands' with: [ 
 				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
 				spec className: 'ConfigurationOfFFI'.
 		]
@@ -123,19 +97,34 @@ ConfigurationOfObjectBrowser >> project [
 		self class ensureMetacello.
 		"Construct Metacello project"
 		constructor := (Smalltalk at: #MetacelloVersionConstructor) new.
-		constructor project projectAttributes: (Array with: Smalltalk platformName asSymbol).
+		constructor project projectAttributes: (Array with: Smalltalk os platformName asSymbol).
 		constructor on: self.
-		project := constructor project.]
+		project := constructor project.
+		project]
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> stable: spec [ 
+	<symbolicVersion: #stable>
+	
+	spec for: #'pharo1.1' version: '1.0'. 
+
 ]
 
 { #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> version10: spec [ 
-    <version: '1.0' imports:'1.0-baseline'>
-	spec blessing: #release.
-	spec project: 'smallUML' with: '1.0'.
-	spec package: 'CommandShell' with: 'CommandShell-dtl.49'.
-	spec package: 'GraphViz' with: 'GraphViz-GuillermoPolito.47'.
-	spec package: 'ObjectBrowser' with: 'ObjectBrowser-GermanLeiva.334'.
-	spec project: 'osProcess' with: '4.3.12'.
-	spec project: 'ffi' with: '1.4'.
+    <version: '1.0' imports: #('1.0-baseline')>
+	spec for: #common do:[
+		spec blessing: #release.
+		spec project: 'smallUML' with: '1.0'.
+		spec package: 'CommandShell' with: 'CommandShell-dtl.49'.
+		spec package: 'GraphViz' with: 'GraphViz-GuillermoPolito.47'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GermanLeiva.334'.
+	].
+	spec for: #unix do: [
+		spec project: 'externalCommands' with: '4.3.12'.
+	].
+	spec for: #Win32 do: [
+		spec project: 'externalCommands' with: '1.4'.
+	]
 ]
