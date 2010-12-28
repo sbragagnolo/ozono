@@ -120,7 +120,7 @@ LOOPLesson >> addObject: anObject [
 { #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
 	self variables add: aVariable.
-	self executionContext class addInstVarName: aVariable name.
+	self executionContext class addInstVarNamed: aVariable name.
 	(aVariable pointsTo isKindOf: NoObjectBrowserObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
@@ -316,7 +316,11 @@ LOOPLesson >> initialize [
 
 { #category : #accessing }
 LOOPLesson >> lessonEnvironment [
-	^lessonEnvironment ifNil: [ lessonEnvironment := SystemDictionary new ].
+	^lessonEnvironment ifNil: [ 
+		lessonEnvironment := SystemDictionary new.
+		lessonEnvironment organization: SystemOrganizer new.
+		lessonEnvironment
+		 ].
 ]
 
 { #category : #exportation }
