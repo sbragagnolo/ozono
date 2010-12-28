@@ -41,6 +41,40 @@ ConfigurationOfObjectBrowser class >> project [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline10: spec [ 
+    <version: '1.0-baseline'>
+	spec blessing: #baseline.
+	spec for: #common do: [
+		
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
+			package: 'GraphViz';
+			package: 'ObjectBrowser' with: [ spec requires: 'smallUML' ].
+		].
+	spec for: #unix do: [
+		spec 
+			project: 'osProcess' with: [ 
+				spec className: 'ConfigurationOfOSProcess'; 
+						file: 'ConfigurationOfOSProcess';
+						repository: 'http://www.squeaksource.com/MetacelloRepository'.
+			].
+			spec postLoadDoIt: #initializeOSProcess.
+		].
+	spec for: #Win32 do: [
+		spec
+			project: 'ffi' with: [ 
+				spec repository: 'http://www.squeaksource.com/MetacelloRepository'. 
+				spec className: 'ConfigurationOfFFI'.
+		]
+	].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> default: spec [ 
 	<version: 'default'>
 	
@@ -92,4 +126,16 @@ ConfigurationOfObjectBrowser >> project [
 		constructor project projectAttributes: (Array with: Smalltalk platformName asSymbol).
 		constructor on: self.
 		project := constructor project.]
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version10: spec [ 
+    <version: '1.0' imports:'1.0-baseline'>
+	spec blessing: #release.
+	spec project: 'smallUML' with: '1.0'.
+	spec package: 'CommandShell' with: 'CommandShell-dtl.49'.
+	spec package: 'GraphViz' with: 'GraphViz-GuillermoPolito.47'.
+	spec package: 'ObjectBrowser' with: 'ObjectBrowser-GermanLeiva.334'.
+	spec project: 'osProcess' with: '4.3.12'.
+	spec project: 'ffi' with: '1.4'.
 ]
