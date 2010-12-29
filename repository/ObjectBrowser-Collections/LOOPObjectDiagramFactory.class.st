@@ -14,7 +14,7 @@ LOOPObjectDiagramFactory class >> buildDiagram [
 
 { #category : #'as yet unclassified' }
 LOOPObjectDiagramFactory class >> diagramClass [
-	DiagramClass ifNil: [ DiagramClass := GraphvizObjectDiagram ].
+	DiagramClass ifNil: [ DiagramClass := SmallUmlObjectDiagram ].
 	^ DiagramClass.
 ]
 
