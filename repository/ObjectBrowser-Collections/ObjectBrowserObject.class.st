@@ -318,7 +318,7 @@ ObjectBrowserObject >> objectPointedByVariableNamed: varName [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> posibleName [
-	^ self realClass name asLowercase.
+	^ (self realClass name, self realObject hash asString) asLowercase.
 ]
 
 { #category : #'as yet unclassified' }

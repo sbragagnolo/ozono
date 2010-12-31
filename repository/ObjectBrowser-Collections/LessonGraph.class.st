@@ -66,7 +66,7 @@ LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
 
 { #category : #'as yet unclassified' }
 LessonGraph >> addReferenceFrom: aRealObject to: objectReferenced named: referenceName [
-	self references add: (LessonGraphReference from: aRealObject to: objectReferenced named: referenceName).
+	^self references add: (LessonGraphReference from: aRealObject to: objectReferenced named: referenceName).
 ]
 
 { #category : #'as yet unclassified' }
@@ -102,6 +102,11 @@ LessonGraph >> includesObject: aRealObject [
 LessonGraph >> initialize [ 
 	super initialize .
 	 objects := Set new.
+]
+
+{ #category : #accessing }
+LessonGraph >> lesson [
+	^lesson
 ]
 
 { #category : #'as yet unclassified' }

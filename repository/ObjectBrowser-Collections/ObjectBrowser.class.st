@@ -39,13 +39,6 @@ ObjectBrowser >> actionsForObjectVariableList [
 		asArray.
 ]
 
-{ #category : #accessing }
-ObjectBrowser >> addExtraItems: aMenu [
-	"Aca nos pasan el menu y le agregamos los submenus que querramos, en mi caso le agrego todo lo de las colecciones :)"
-
-	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections. 
-]
-
 { #category : #'dependents access' }
 ObjectBrowser >> addObjectSelectionInterested: anInterested [
 	self objectSelectionInterested add: anInterested
@@ -79,7 +72,7 @@ ObjectBrowser >> cloneObject [
 	(self errorHandler
 		evaluate: [
 			objectName := self obtainObjectName.
-			objectName ifNotNil: [self createVariable: objectName referencingTo: self selectedObjectBrowserVariable pointsTo clone].
+			objectName ifNotNil: [self createVariable: objectName referencingTo: (self selectedObjectBrowserVariable pointsTo clone)].
 			]).
 	self changed
 ]
@@ -126,6 +119,21 @@ ObjectBrowser >> createCollection: type [
 			collectionName := self obtainObjectName.
 			collectionName 
 				ifNotNil: [ self createVariable: collectionName referencingTo: (ObjectBrowserCollection newOn: self withRealObject: type clone) ].
+		]).
+	self changed.
+	
+
+]
+
+{ #category : #showing }
+ObjectBrowser >> createMorph: aMorph [
+	|morphName|
+
+	(self errorHandler
+		evaluate: [
+			morphName := self obtainObjectName.
+			morphName 
+				ifNotNil: [ self createVariable: morphName referencingTo: aMorph ].
 		]).
 	self changed.
 	
@@ -615,6 +623,7 @@ ObjectBrowser >> selectorListEmpyText [
 { #category : #accessing }
 ObjectBrowser >> subMenuCollections [
 	| menuCrearColeccion |
+	self deprecated: 'esta en ObjectsOrganization'.
 	menuCrearColeccion := MenuMorph new target: self; yourself .
 	menuCrearColeccion add:'set' action: #createSet.
 	menuCrearColeccion add:'bag' action: #createBag.
@@ -625,6 +634,7 @@ ObjectBrowser >> subMenuCollections [
 
 { #category : #accessing }
 ObjectBrowser >> subMenuCollectionsName [
+self deprecated: 'esta en ObjectsOrganization'.
 	^'Crear nuevo conjunto'
 ]
 

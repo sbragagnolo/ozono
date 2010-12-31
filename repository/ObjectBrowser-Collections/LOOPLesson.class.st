@@ -114,7 +114,7 @@ LOOPLesson >> addNewObject [
 
 { #category : #accessing }
 LOOPLesson >> addObject: anObject [
-	self objects add: anObject.
+	^self objects add: anObject.
 ]
 
 { #category : #accessing }
