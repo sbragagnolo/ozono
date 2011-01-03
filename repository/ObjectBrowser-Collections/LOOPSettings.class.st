@@ -35,8 +35,8 @@ Gb8DeEs6z/3CU5IAAAAASUVORK5CYII='
 { #category : #'as yet unclassified' }
 LOOPSettings class >> menuCommandOn: aBuilder [ 
 	<worldMenu>
-	(aBuilder item: #'Loop Controls')
-		parent: #MostUsedTools;  
+	(aBuilder item: #'Settings')
+		parent: #'Object Browser';  
 		action: [LOOPSettings configureLoop];
 		icon: self icon.
 ]

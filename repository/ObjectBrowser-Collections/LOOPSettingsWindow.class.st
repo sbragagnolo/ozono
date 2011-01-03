@@ -47,41 +47,20 @@ LOOPSettingsWindow >> aPosibleName [
 
 { #category : #tabs }
 LOOPSettingsWindow >> addDefaultSettingsText: panel [
-	|stream idioma idiomaSeleccionado lessonsTitles lessonsProgrammingLanguages dialecto |
+	|stream lessonsTitles |
 	
 "fixme: refactor me please"
-	idioma := self textMorphWithText: ' Idioma: '.
-	idiomaSeleccionado := self whiteTextMorphWithText: '  Español'.
-	dialecto := self textMorphWithText: ' Dialecto: '.
-
 	stream := (String new: 100) writeStream.
 	LOOPLesson lessons do:[:lesson | stream nextPutAll: '  ',lesson title; cr ].
 	lessonsTitles := self whiteTextMorphWithText: stream contents .
 
-	stream := (String new: 100) writeStream.
-	LOOPLesson lessons do:[:lesson | stream nextPutAll: '  Smalltalk'; cr ].
-	lessonsProgrammingLanguages := self whiteTextMorphWithText: stream contents .	
-	
-	panel addMorph: idioma frame: (0.0@0.0 corner: 0.4@ 0.05).
-	panel addMorph: idiomaSeleccionado  frame: (0.4@0.0 corner: 1@ 0.05).
-	panel addMorph: self ligthLightGreyBox frame: (0.0@0.05 corner: 1@ 0.1).
-	
-	panel addMorph: dialecto frame: (0.0@0.1 corner: 0.4@ 0.65).
-	panel addMorph: (self textMorphWithText: ' Lección') frame: (0.4@0.1 corner: 0.7@ 0.15).
-	panel addMorph: (self textMorphWithText: ' Dialecto Seleccionado') frame: (0.7@0.1 corner: 1@ 0.15).
-	panel addMorph: lessonsTitles  frame: (0.4@0.15 corner: 0.7@ 0.65).
-	panel addMorph: lessonsProgrammingLanguages  frame: (0.7@0.15 corner: 1@ 0.65).
-	panel addMorph: self ligthLightGreyBox frame: (0.0@0.65 corner: 1.0@ 0.7).
+	panel addMorph: (self textMorphWithText: 'Lección') frame: (0.0@0.15 corner: 0.7@ 0.15).
+	panel addMorph: lessonsTitles  frame: (0.0@0.2 corner: 0.7@ 0.65).
 
-	panel addMorph: (self textMorphWithText: ' Chequeo de Tipos') frame: (0.0@0.7 corner: 0.4@ 0.75).
-	panel addMorph: (self whiteTextMorphWithText: '  Desactivado')   frame: (0.4@0.7 corner: 1@ 0.75).
-	panel addMorph: self ligthLightGreyBox frame: (0.0@0.75 corner: 1.0@ 0.8).
+	panel addMorph: (self textMorphWithText: ' Diagrama de objetos') frame: (0.0@0.0 corner: 0.4@ 0.1).
+	panel addMorph: (self whiteTextMorphWithText: LOOPObjectDiagramFactory diagramClass asString )   frame: (0.5@0.0 corner: 1@ 0.1).
 	
-	panel addMorph: (self textMorphWithText: ' Diagrama de objetos') frame: (0.0@0.8 corner: 0.4@ 0.85).
-	panel addMorph: (self whiteTextMorphWithText: LOOPObjectDiagramFactory diagramClass asString )   frame: (0.4@0.8 corner: 1@ 0.85).
-	panel addMorph: self ligthLightGreyBox frame: (0.0@0.85 corner: 1.0@ 0.9).
-	
-	panel addMorph: self buildOpenSettingsBrowserButton frame: (0.0@0.9 corner: 1@1).
+	panel addMorph: self buildViewConfigurationButton frame: (0.0@0.9 corner: 1@1).
 	^panel.
 ]
 
@@ -184,9 +163,9 @@ LOOPSettingsWindow >> combinaciones: coordenadaX conjunto: posiblesY [
 { #category : #tabs }
 LOOPSettingsWindow >> createGroupTab [
 	^TabGroupMorph new
-		addPage: (self addNotImplementedWarningText:  self createNewTab) label: 'Importante';
+"		addPage: (self addNotImplementedWarningText:  self createNewTab) label: 'Importante';"
 		addPage: (self addDefaultSettingsText: self createNewTab) label: 'Configuraciones';
-		addPage: (self addDefaultStatsText:  self createNewTab) label: 'Estadisticas';
+"		addPage: (self addDefaultStatsText:  self createNewTab) label: 'Estadisticas';"
 		selectedPageIndex: 2;
 		yourself
 ]
@@ -201,9 +180,17 @@ LOOPSettingsWindow >> createNewTab [
 	^panel.
 ]
 
+{ #category : #tabs }
+LOOPSettingsWindow >> createSettingsMorph [
+	^OBGroupingMorph 
+
+]
+
 { #category : #'as yet unclassified' }
 LOOPSettingsWindow >> createView [
-	window := (SystemWindow labelled: 'LOOP Controls') 
+	window := (SystemWindow labelled: 'Configuraciones') 
+"		addMorph: self createSettingsMorph frame: (0@0 corner: 1@1);"
+
 		addMorph: self createGroupTab frame: (0@0 corner: 1@1);
 		center: World center.
 	^window.
@@ -294,7 +281,7 @@ LOOPSettingsWindow >> puntoSuperior: punto incrementoX: incX incrementoY: incY [
 LOOPSettingsWindow >> show [
 	self createView.
 	window openInWorld.
-	window extent: 700@500.
+	window extent: 500@300.
 	window center: World center.
 	^window.
 ]
