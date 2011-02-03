@@ -64,7 +64,9 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 											repository: 'http://www.squeaksource.com/smallUML'. ];
 			package: 'CommandShell' with: [ spec repository: 'http://www.squeaksource.com/CommandShell'. ];
 			package: 'GraphViz';
-			package: 'ObjectBrowser' with: [ spec requires: #('smallUML' 'GraphViz' 'CommandShell' 'externalCommands') ].
+			package: 'ObjectBrowser' with: [ spec requires: #('smallUML') ].
+			spec group: 'default' with: #( 'ObjectBrowser' ).
+			spec group: 'graphViz' with: #( 'GraphViz' 'CommandShell' 'externalCommands' ).
 		].
 	spec for: #unix do: [
 		spec 
@@ -72,9 +74,10 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 				spec className: 'ConfigurationOfOSProcess'; 
 						file: 'ConfigurationOfOSProcess';
 						repository: 'http://www.squeaksource.com/MetacelloRepository'.
+				spec postLoadDoIt: #initializeOSProcess.
 			].
-			spec postLoadDoIt: #initializeOSProcess.
 		].
+
 	spec for: #Win32 do: [
 		spec
 			project: 'externalCommands' with: [ 
@@ -134,10 +137,10 @@ ConfigurationOfObjectBrowser >> version11: spec [
     <version: '1.1' imports: #('1.0-baseline')>
 	spec for: #common do:[
 		spec blessing: #release.
-		spec project: 'smallUML' with: '1.0'.
+		spec project: 'smallUML' with: '1.1.3'.
 		spec package: 'CommandShell' with: 'CommandShell-dtl.49'.
 		spec package: 'GraphViz' with: 'GraphViz-GuillermoPolito.48'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.336'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-Gise.339'.
 	].
 	spec for: #unix do: [
 		spec project: 'externalCommands' with: '4.3.12'.
