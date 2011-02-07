@@ -29,7 +29,7 @@ ObjectBrowserWindow >> backgroundColorFor: category [
 { #category : #view }
 ObjectBrowserWindow >> buildMethodEditor [
 	| model |
-	methodEditor := (PluggableShoutMorph
+	methodEditor := (PluggableTextMorph
 		on: (model := MethodEditorModel newOn: self objectBrowser )
 		text: #selectedMethodCode
 		accept: #acceptCode:notifying:
@@ -118,7 +118,7 @@ ObjectBrowserWindow >> createTestRunnerTab [
 	| hSepFrac panel testRunner aBuilder window testEditor testEditorModel |
 	hSepFrac := 0.45.
 
-	testEditor := (PluggableShoutMorph
+	testEditor := (PluggableTextMorph 
 		on: (testEditorModel := TestEditorModel newOn: self objectBrowser )
 		text: #selectedTestCode
 		accept: #acceptCode:notifying:

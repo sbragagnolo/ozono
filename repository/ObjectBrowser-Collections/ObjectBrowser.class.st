@@ -46,7 +46,7 @@ ObjectBrowser >> addObjectSelectionInterested: anInterested [
 
 { #category : #'dependents access' }
 ObjectBrowser >> addTestSelectionInterested: anInterested [
-	anInterested classOrMetaClass: self lesson loopExecutionContextClass
+"	anInterested classOrMetaClass:  self lesson loopExecutionContextClass"
 ]
 
 { #category : #menues }
