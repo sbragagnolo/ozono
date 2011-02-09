@@ -8,7 +8,7 @@ Class {
 ObjectMenuCategory class >> menuCommandOn: aBuilder [  
 	<worldMenu>
 	(aBuilder item: #'PdeP Software')
-		order: 5.5;
+		order: 0.0;
 		target: self;
 		icon: UITheme current homeIcon.
 ]
