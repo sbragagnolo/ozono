@@ -36,8 +36,8 @@ DOAO3NFQbH//2Q=='
 { #category : #'as yet unclassified' }
 LOOPBrowser class >> menuCommandOn: aBuilder [ 
 	<worldMenu>
-	(aBuilder item: #'Browser')
-		parent: #'Object Browser';  
+	(aBuilder item: #'Object Browser')
+		parent: #'PdeP Software';  
 		action: [LOOPLesson browseLessons];
 		icon: self icon.
 ]

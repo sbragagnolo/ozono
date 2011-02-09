@@ -1,14 +1,14 @@
 Class {
 	#name : #ObjectMenuCategory,
 	#superclass : #Object,
-	#category : #'ObjectBrowser-ControlPanel'
+	#category : #'ObjectBrowser-UI'
 }
 
 { #category : #'as yet unclassified' }
 ObjectMenuCategory class >> menuCommandOn: aBuilder [  
 	<worldMenu>
-	(aBuilder item: #'Object Browser')
+	(aBuilder item: #'PdeP Software')
 		order: 5.5;
 		target: self;
-		icon: UITheme current homeIcon
+		icon: UITheme current homeIcon.
 ]
