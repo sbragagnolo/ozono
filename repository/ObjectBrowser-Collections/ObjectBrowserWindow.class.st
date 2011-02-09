@@ -35,6 +35,7 @@ ObjectBrowserWindow >> buildMethodEditor [
 		accept: #acceptCode:notifying:
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.
+	methodEditor beStyled.
 	self objectBrowser addObjectSelectionInterested: methodEditor.
 	model methodEditorMorph: methodEditor.
 	
@@ -126,6 +127,7 @@ ObjectBrowserWindow >> createTestRunnerTab [
 		menu: #menu:) setNameTo: #textoTest;
 		color: Color white;
 		yourself.
+	testEditor beStyled.
 	self objectBrowser addTestSelectionInterested: testEditor.
 	testEditorModel testEditorMorph: methodEditor.
 

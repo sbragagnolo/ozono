@@ -69,7 +69,7 @@ LessonVariable >> name: aName [
 
 { #category : #messages }
 LessonVariable >> notifySelectionTo: anObserverCollection [
-	anObserverCollection do: [ :o | o classOrMetaClass: self pointsTo realClass ]
+	anObserverCollection do: [ :o | o styler classOrMetaClass: self pointsTo realClass ]
 ]
 
 { #category : #'as yet unclassified' }
