@@ -50,7 +50,7 @@ LOOPBrowser class >> on: aLOOPLessonContainer [
 
 { #category : #creation }
 LOOPBrowser >> chooseTheFile. [
-	^ UIManager default chooseFileMatching: #('st') label: 'Selecciona la leccion a importar'.
+	^ UIManager default chooseFileMatching: #('*.st') label: 'Selecciona la leccion a importar'.
 ]
 
 { #category : #creation }
