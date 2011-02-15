@@ -431,6 +431,7 @@ ObjectBrowserObject >> variables [
 { #category : #exportation }
 ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
+	stream cr.
 ]
 
 { #category : #exportation }
@@ -465,7 +466,6 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 { #category : #exportation }
 ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
-	self writeCreateObjectOn: stream lesson: aLesson.
 	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
 	self writeVarianblesOn: stream .
 	self writeMethodsOn: stream .

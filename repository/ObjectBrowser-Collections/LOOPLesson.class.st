@@ -523,7 +523,10 @@ LOOPLesson >> writeCreationScriptOver: stream [
 	
 	stream cr.
 	
-	"despues la descripcion del objeto: su creacion, variables y metodos"
+	"la creacion del objeto"
+	self objects do:[ :anObject | anObject writeCreateObjectOn: stream lesson: self].
+	
+	"despues la descripcion del objeto: variables, metodos y prototipo"
 	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self].
 	
 	stream cr.
