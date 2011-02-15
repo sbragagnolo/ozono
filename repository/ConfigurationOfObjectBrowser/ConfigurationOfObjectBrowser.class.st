@@ -111,6 +111,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	spec for: #'pharo1.1' version: '1.0'. 
+	spec for: #'pharo1.2' version: '1.1'. 
 
 ]
 
