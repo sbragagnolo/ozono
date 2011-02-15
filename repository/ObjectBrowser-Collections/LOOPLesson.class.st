@@ -399,7 +399,6 @@ LOOPLesson >> removeDerrefencedObject: aDereferencedObject [
 
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeFromSystem [
-	self lessonEnvironment valuesDo: [ :c | c removeFromSystem ].
 	self lessonEnvironment removeAll.
 ]
 
