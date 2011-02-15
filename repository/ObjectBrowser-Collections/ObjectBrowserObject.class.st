@@ -124,8 +124,8 @@ ObjectBrowserObject >> bePrototypeOf: clone [
 	clone prototype: self.
 	self realClass
 		subclass: clone realClass name asSymbol
-		instanceVariableNames: clone realClass instVarNames 
-		classVariableNames: clone realClass classVarNames  
+		instanceVariableNames: (clone realClass instVarNames inject: '' into:[:v :tot| tot,' ',v])
+		classVariableNames: (clone realClass classVarNames inject: '' into:[:v :tot| tot,' ',v])
 		poolDictionaries: clone realClass sharedPoolsString 
 		category: clone realClass category.
 ]
