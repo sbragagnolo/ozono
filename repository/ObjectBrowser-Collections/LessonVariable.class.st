@@ -52,7 +52,6 @@ LessonVariable >> makeSelectionOn: anObjectBrowser [
 
 { #category : #menues }
 LessonVariable >> menu: aMenuMorph [ 
-	aMenuMorph add: 'Dereferenciar' action: #dereferenceSelectedVariable.
 	self pointsTo menu: aMenuMorph.
 	^aMenuMorph
 ]

@@ -74,7 +74,8 @@ ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 { #category : #accessing }
 ObjectBrowserObject >> actionsForObjectVariableList [
 	^#(
-		#('clonar' #cloneObject) 
+		#('clonar' #cloneObject)
+		#('Dereferenciar' #dereferenceSelectedVariable)
 		).
 ]
 
