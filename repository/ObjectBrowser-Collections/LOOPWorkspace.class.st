@@ -1,6 +1,6 @@
 Class {
 	#name : #LOOPWorkspace,
-	#superclass : #SHWorkspace,
+	#superclass : #Workspace,
 	#instVars : [
 		'lesson',
 		'pane',
