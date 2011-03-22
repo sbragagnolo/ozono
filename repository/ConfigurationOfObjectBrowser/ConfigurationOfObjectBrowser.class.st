@@ -141,7 +141,7 @@ ConfigurationOfObjectBrowser >> version11: spec [
 		spec project: 'smallUML' with: '1.1.3'.
 		spec package: 'CommandShell' with: 'CommandShell-dtl.49'.
 		spec package: 'GraphViz' with: 'GraphViz-GuillermoPolito.48'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.352'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.353'.
 	].
 	spec for: #unix do: [
 		spec project: 'externalCommands' with: '4.3.12'.
