@@ -60,7 +60,7 @@ LOOPLesson class >> fileIn: aFileName [
 	| lessonImported inStream |
 	[ [
 		ClassBuilder beSilent: true.
-		inStream := StandardFileStream fileNamed: aFileName.
+		inStream := MultiByteFileStream fileNamed: aFileName.
 		lessonImported := Compiler new 
 			evaluate: inStream readStream
 			in: nil
