@@ -415,7 +415,7 @@ LOOPLesson >> removeTest: aTest [
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
-	self executionContext class removeInstVarName: anOBVariable name.
+	self executionContext class removeInstVarNamed: anOBVariable name.
 ]
 
 { #category : #accessing }

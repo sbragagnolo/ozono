@@ -34,5 +34,5 @@ OBAttribute >> printString [
 
 { #category : #'as yet unclassified' }
 OBAttribute >> removeFrom: aRealClass [
-	aRealClass removeInstVarName: name.
+	aRealClass removeInstVarNamed: name.
 ]
