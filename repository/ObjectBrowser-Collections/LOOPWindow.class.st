@@ -55,7 +55,7 @@ LOOPWindow >> buildNewFreeLessonButton [
 
 { #category : #showing }
 LOOPWindow >> createView [
-	window := SystemWindow labelled: 'LOOP'.
+	window := SystemWindow labelled: 'Lessons'.
 	window model: loopBrowser.
 	window addMorph: self buildNewFreeLessonButton frame: (0@0.8 corner: 1@1 ).
 	window addMorph: self buildImportLessonButton frame: (0@0.6 corner: 1@0.8 ).
