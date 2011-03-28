@@ -136,8 +136,7 @@ NoObjectBrowserObject >> removeClassFromSystem [
 
 { #category : #accessing }
 NoObjectBrowserObject >> sourceCodeAt: anOBMethod [ 
-	^(realObject class sourceCodeAt: anOBMethod selector)
-				makeSelectorBoldIn: realObject class.
+	^anOBMethod code
 ]
 
 { #category : #menu }
