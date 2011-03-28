@@ -88,6 +88,22 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline11: spec [ 
+    <version: '1.1-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #('smallUML') ].
+			spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> initializeOSProcess. [
 	(Smalltalk globals at: #ThisOSProcess) initialize
 ]
@@ -111,7 +127,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	spec for: #'pharo1.1.x' version: '1.0'. 
-	spec for: #'pharo1.2.x' version: '1.1'. 
+	spec for: #'pharo1.2.x' version: '1.2'. 
 
 ]
 
@@ -149,4 +165,14 @@ ConfigurationOfObjectBrowser >> version11: spec [
 	spec for: #Win32 do: [
 		spec project: 'externalCommands' with: '1.4'.
 	]
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version12: spec [ 
+    <version: '1.2' imports: #('1.1-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec project: 'smallUML' with: '1.1.3'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.355'.
+	].
 ]
