@@ -126,21 +126,6 @@ ObjectBrowser >> createCollection: type [
 ]
 
 { #category : #showing }
-ObjectBrowser >> createMorph: aMorph [
-	|morphName|
-
-	(self errorHandler
-		evaluate: [
-			morphName := self obtainObjectName.
-			morphName 
-				ifNotNil: [ self createVariable: morphName referencingTo: aMorph ].
-		]).
-	self changed.
-	
-
-]
-
-{ #category : #showing }
 ObjectBrowser >> createObject [
 	| objectName |
 
