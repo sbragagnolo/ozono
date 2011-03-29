@@ -14,6 +14,11 @@ DereferencedObject class >> newOn: anObject [
 		yourself
 ]
 
+{ #category : #comparing }
+DereferencedObject >> = anObject [
+	^(anObject isKindOf: DereferencedObject) and: [ anObject realObject = self realObject  ]
+]
+
 { #category : #'as yet unclassified' }
 DereferencedObject >> actions [
 		^#(
@@ -21,12 +26,12 @@ DereferencedObject >> actions [
 		#- ).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
 DereferencedObject >> asString [
 	^dereferencedObject displayString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DereferencedObject >> dereferencedObject: anObject [
 	dereferencedObject := anObject
 ]
@@ -42,17 +47,22 @@ DereferencedObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 		]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
+DereferencedObject >> hash [
+	^self realObject hash
+]
+
+{ #category : #accessing }
 DereferencedObject >> icon [
 	^nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 DereferencedObject >> makeSelectionOn: aBrowser [
 	^aBrowser selectDereferencedObject: self .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DereferencedObject >> menu: aMenuBuilder [
 	^aMenuBuilder addList: self actions
 ]
@@ -62,7 +72,7 @@ DereferencedObject >> realObject [
 	^dereferencedObject.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DereferencedObject >> treeContents [
 	^OrderedCollection new
 ]
