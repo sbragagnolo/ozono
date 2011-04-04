@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ObjectTestsListModel >> clickIconAt: position [ 
+	self selectedItem clickIcon.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectTestsListModel >> listModel [
 	^self model tests asOrderedCollection
 ]

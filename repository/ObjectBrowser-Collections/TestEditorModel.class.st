@@ -24,6 +24,12 @@ TestEditorModel >> errorHandler [
 ]
 
 { #category : #'as yet unclassified' }
+TestEditorModel >> menu: aMenu [
+	^ aMenu
+	
+]
+
+{ #category : #'as yet unclassified' }
 TestEditorModel >> methodCode [
 	^self model selectedTest code
 ]
