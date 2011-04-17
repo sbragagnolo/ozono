@@ -139,7 +139,7 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 { #category : #accessing }
 LOOPLesson >> addVariableWithExistentObject: aVariable [
 	self variables add: aVariable.
-	self executionContext class addInstVarName: aVariable name.
+	self executionContext class addInstVarNamed: aVariable name.
 ]
 
 { #category : #accessing }
