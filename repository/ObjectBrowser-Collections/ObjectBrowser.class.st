@@ -126,6 +126,11 @@ ObjectBrowser >> createCollection: type [
 ]
 
 { #category : #showing }
+ObjectBrowser >> createDictionary [  
+	self createCollection: dictionary.
+]
+
+{ #category : #showing }
 ObjectBrowser >> createObject [
 	| objectName |
 
@@ -144,6 +149,11 @@ ObjectBrowser >> createOrdered [
 { #category : #showing }
 ObjectBrowser >> createSet [
 	self createCollection: set.
+]
+
+{ #category : #showing }
+ObjectBrowser >> createSorted [ 
+	self createCollection: sorted.
 ]
 
 { #category : #menues }

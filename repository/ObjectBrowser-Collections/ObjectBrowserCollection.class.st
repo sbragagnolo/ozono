@@ -46,28 +46,10 @@ ObjectBrowserCollection class >> new: setName [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newBag [
-	self deprecated: 'no se usa'.
-	^self basicNew	realObject: SimpleCollection newBag; yourself .
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> newOn: aLesson withRealObject: realObject [
 	^super new
 		realObject: realObject;
 		yourself.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newOrdered [
-	self deprecated: 'no se usa'.
-	^self basicNew	realObject: SimpleOrderedCollection newOrdered; yourself .
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newSet [
-	self deprecated: 'no se usa'.
-	^self basicNew	realObject: SimpleCollection newSet; yourself .
 ]
 
 { #category : #'as yet unclassified' }
@@ -109,12 +91,6 @@ ObjectBrowserCollection >> addToGraph: aGraph [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addVariable: variableName [
 	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> cloneWithName: aName [ 
-	self deprecated: 'no se usa'.
-	self error:'una coleccion no puede clonarse'
 ]
 
 { #category : #'as yet unclassified' }

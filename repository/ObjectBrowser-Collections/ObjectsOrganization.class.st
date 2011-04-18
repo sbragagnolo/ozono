@@ -23,6 +23,11 @@ ObjectsOrganization >> createBag [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectsOrganization >> createDictionary [
+	objectBrowser createDictionary.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectsOrganization >> createOrdered [
 	objectBrowser createOrdered.
 ]
@@ -30,6 +35,11 @@ ObjectsOrganization >> createOrdered [
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> createSet [
 	objectBrowser createSet.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectsOrganization >> createSorted [
+	objectBrowser createSorted.
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,6 +72,8 @@ ObjectsOrganization >> subMenuCollections [
 	menuCrearColeccion add:'set' action: #createSet.
 	menuCrearColeccion add:'bag' action: #createBag.
 	menuCrearColeccion add:'ordered' action: #createOrdered.
+	menuCrearColeccion add:'sorted' action: #createSorted.
+	menuCrearColeccion add:'dictionary' action: #createDictionary.
 	^menuCrearColeccion.
 ]
 
