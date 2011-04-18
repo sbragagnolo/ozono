@@ -173,6 +173,6 @@ ConfigurationOfObjectBrowser >> version12: spec [
 	spec for: #common do:[
 		spec blessing: #development.
 		spec project: 'smallUML' with: '1.1.3'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.360'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.361'.
 	].
 ]
