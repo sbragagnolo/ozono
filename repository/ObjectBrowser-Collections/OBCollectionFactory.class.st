@@ -9,7 +9,9 @@ OBCollectionFactory class >> initialize [
 	Smalltalk at:#bag put: (OBBagFactory new).
 	Smalltalk at:#set put: (OBSetFactory new).
 	Smalltalk at:#ordered put: (OBOrderedCollectionFactory new).
+	Smalltalk at:#orderedcollection put: (OBOrderedCollectionFactory new).
 	Smalltalk at:#sorted put: (OBSortedFactory new).
+	Smalltalk at:#sortedcollection put: (OBSortedFactory new).
 	Smalltalk at:#dictionary put: (OBDictionaryFactory new).
 ]
 

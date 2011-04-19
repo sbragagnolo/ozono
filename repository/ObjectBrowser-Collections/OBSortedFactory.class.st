@@ -6,7 +6,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 OBSortedFactory >> collectionTypeName [
-	^'SortedCollection'
+	^'Sorted'
 ]
 
 { #category : #'as yet unclassified' }
