@@ -660,6 +660,12 @@ ObjectBrowser >> title [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> validateVariableName: aVariableNameString [
+	aVariableNameString isEmpty 
+		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío' ].
+	(aVariableNameString includesAnyOf:  ' ,¡!¿?|%&()$#"''')
+		ifTrue:[ self error: 'El nombre de la variable no puede contener espacios ni carácteres extraños.' ].
+	aVariableNameString first isUppercase
+		ifTrue:[ self error: 'El nombre de la variable no debe empezar con mayúscula' ].
 	(self variables anySatisfy: [:v | v name = aVariableNameString ])
 		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ', aVariableNameString  ]
 ]
