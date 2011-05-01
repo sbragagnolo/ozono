@@ -37,6 +37,7 @@ ObjectBrowserWindow >> buildMethodEditor [
 		menu: #menu:) setNameTo: #textoMetodo.
 	methodEditor beStyled.
 	self objectBrowser addObjectSelectionInterested: methodEditor.
+	self objectBrowser addObjectSelectionInterested: model.
 	model methodEditorMorph: methodEditor.
 	
 	^methodEditor

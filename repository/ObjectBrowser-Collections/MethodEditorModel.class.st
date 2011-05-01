@@ -3,7 +3,9 @@ Class {
 	#superclass : #ObjectModel,
 	#instVars : [
 		'methodCode',
-		'methodEditorMorph'
+		'methodEditorMorph',
+		'controller',
+		'selectedClassOrMetaClass'
 	],
 	#category : #'ObjectBrowser-UI-Model'
 }
@@ -27,6 +29,15 @@ MethodEditorModel >> acceptCode: unText notifying: someone [
 ]
 
 { #category : #'as yet unclassified' }
+MethodEditorModel >> completionController [
+	^controller ifNil: [
+		controller := (ECPreferences useECompletionInsteadOfOCompletion
+			ifFalse: [ OController ]
+			ifTrue: [ ECController ]) model: self
+		]
+]
+
+{ #category : #'as yet unclassified' }
 MethodEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
@@ -45,6 +56,16 @@ MethodEditorModel >> methodCode [
 { #category : #'as yet unclassified' }
 MethodEditorModel >> methodEditorMorph: aMorph [
 	methodEditorMorph := aMorph.
+]
+
+{ #category : #accessing }
+MethodEditorModel >> selectedClassOrMetaClass [
+	^selectedClassOrMetaClass
+]
+
+{ #category : #accessing }
+MethodEditorModel >> selectedClassOrMetaClass: aClassOrMetaClass [
+	^selectedClassOrMetaClass := aClassOrMetaClass
 ]
 
 { #category : #'as yet unclassified' }
