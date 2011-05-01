@@ -58,6 +58,8 @@ LOOPLesson class >> deleteAllLessons [
 { #category : #accessing }
 LOOPLesson class >> fileIn: aFileName [
 	| lessonImported inStream |
+	
+	Author fullName ifNil: [Author requestFullName].	
 	[ [
 		ClassBuilder beSilent: true.
 		inStream := MultiByteFileStream fileNamed: aFileName.
