@@ -101,7 +101,7 @@ ObjectBrowser >> createAttribute [
 	| variableName |
 	(self errorHandler
 		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
-			variableName ifNotNil: [self selectedObject addVariable: variableName]]).
+			variableName ifNotNil: [self validateVariableName: variableName .self selectedObject addVariable: variableName]]).
 	self changed
 ]
 
