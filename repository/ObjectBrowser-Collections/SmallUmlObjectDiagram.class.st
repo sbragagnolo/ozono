@@ -11,7 +11,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> borrarPosicionesDeLosNodos [
-	board borrarPosicionesDeLosNodos
+	board diagramNodes do: [ :node | node position: nil] 
 ]
 
 { #category : #'as yet unclassified' }
