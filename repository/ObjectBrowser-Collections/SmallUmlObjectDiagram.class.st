@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+SmallUmlObjectDiagram >> borrarPosicionesDeLosNodos [
+	board borrarPosicionesDeLosNodos
+]
+
+{ #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> diagram [
 	^diagram
 ]

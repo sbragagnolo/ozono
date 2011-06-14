@@ -154,6 +154,11 @@ LOOPLesson >> asString [
 	^self displayString copyReplaceAll: ' ' with: ''
 ]
 
+{ #category : #testing }
+LOOPLesson >> borrarPosicionesDeLosNodos [
+	self objectDiagram borrarPosicionesDeLosNodos
+]
+
 { #category : #diagram }
 LOOPLesson >> buildGraph [
 	| graph |
