@@ -41,8 +41,8 @@ LessonNodeMorph >> mouseUp: evt [
 ]
 
 { #category : #'as yet unclassified' }
-LessonNodeMorph >> noteNewOwner: aMorph [
-	self position: aMorph position - (0 @ 10).
+LessonNodeMorph >> noteNewOwner: newParentMorph [
+	self position: newParentMorph position - self position.
 ]
 
 { #category : #'as yet unclassified' }
