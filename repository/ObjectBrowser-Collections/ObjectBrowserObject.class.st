@@ -99,7 +99,7 @@ ObjectBrowserObject >> addToGraph: aGraph [
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarNamed: variableName.
-	variables add: (OBAttribute newNamed: variableName).
+	variables add: (OBAttribute newNamed: variableName owner: self).
 	self changed.
 ]
 
