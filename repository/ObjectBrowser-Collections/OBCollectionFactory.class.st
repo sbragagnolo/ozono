@@ -24,7 +24,7 @@ OBCollectionFactory class >> new [
 OBCollectionFactory >> clone [
 	| col |
 	col := self createCollection.
-	ObjectBrowserCollection notifyCollectionCreated: col.
+	self notifyCreationOf: col to: ObjectBrowserCollection.
 	^col
 ]
 
@@ -38,6 +38,16 @@ OBCollectionFactory >> hasClones [
 OBCollectionFactory >> hasReferencesTo: anOBObject [
 	self deprecated: 'no se usa'.
 	^false
+]
+
+{ #category : #'as yet unclassified' }
+OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
+	^ObjectBrowserCollection newWithRealObject: aRealCollection.
+]
+
+{ #category : #'as yet unclassified' }
+OBCollectionFactory >> notifyCreationOf: aCollection to: anObserver [
+	^anObserver notifyCollectionCreated: aCollection from: self
 ]
 
 { #category : #'as yet unclassified' }

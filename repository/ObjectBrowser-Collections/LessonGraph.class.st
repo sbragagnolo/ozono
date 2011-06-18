@@ -13,6 +13,27 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+LessonGraph >> addAssociation: anAssociation from: anOBCollection [
+	| objectReferenced keyObject valueObject |
+	(self includesObject: anAssociation)
+		ifFalse: [ self addNoObjectBrowserObject: anAssociation.
+				self addReferenceFrom: anOBCollection to: anAssociation named: 'asociacion'.
+				(self includesObject: anAssociation key) 
+					ifFalse: [
+						keyObject := (lesson objectBrowserObjectForRealObject: anAssociation key).
+						keyObject addToGraph: self.
+						].
+				(self includesObject: anAssociation value) 
+					ifFalse: [
+						valueObject := (lesson objectBrowserObjectForRealObject: anAssociation value).
+						valueObject addToGraph: self.
+						].
+					self addReferenceFrom: anAssociation to: keyObject named: 'clave'.
+					self addReferenceFrom: anAssociation to: valueObject named: 'valor'.
+				]
+]
+
+{ #category : #'as yet unclassified' }
 LessonGraph >> addCollection: anObjectBrowserObject [
 	| objectReferenced referencedObjectBrowserObject |
 	(self includesObject: anObjectBrowserObject)
@@ -22,6 +43,18 @@ LessonGraph >> addCollection: anObjectBrowserObject [
 						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: e).
 						referencedObjectBrowserObject addToGraph: self.
 						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: 'elemento'.
+					]
+				]
+]
+
+{ #category : #'as yet unclassified' }
+LessonGraph >> addDictionary: anObjectBrowserObject [
+	| objectReferenced keyObject valueObject |
+	(self includesObject: anObjectBrowserObject)
+		ifFalse: [ self addObject: anObjectBrowserObject.
+			  	 
+				anObjectBrowserObject realObject associations do: [ :association |
+						self addAssociation: association from: anObjectBrowserObject.
 					]
 				]
 ]

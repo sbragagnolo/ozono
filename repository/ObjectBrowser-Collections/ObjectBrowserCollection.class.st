@@ -53,8 +53,9 @@ ObjectBrowserCollection class >> newWithRealObject: realObject [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> notifyCollectionCreated: collection [
-	self creationObservers do: [ :o | o addObject: (self newWithRealObject: collection) ].
+ObjectBrowserCollection class >> notifyCollectionCreated: collection from: aFactory [
+	self creationObservers do: [ :o | o addObject: 
+		(aFactory newObjectBrowserObjectWithRealObject: collection) ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -65,22 +66,6 @@ ObjectBrowserCollection class >> removeCreationObserver: observer [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> add: anObj [
 	self realObject add: anObj realObject .
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addReferencesToGraphNodeCollection: aColl [
-	self deprecated: 'no se usa'.
-	self realObject do:[:obj | obj addToGraphNodeCollection: aColl].
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addRelationsToGraph: aGraph [
-	"self addSelfToGraph: aGraph.
-	self realObject do:[:o | aGraph add: self ->o]"
-	self deprecated: 'no se usa'.
-	self realObject do: [ :anElement |
-		self addRelationToGraph: aGraph between: self and: anElement label: 'each'
-	].
 ]
 
 { #category : #'as yet unclassified' }

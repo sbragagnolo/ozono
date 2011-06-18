@@ -18,3 +18,8 @@ OBDictionaryFactory >> createCollection [
 OBDictionaryFactory >> displayString [
 	^ 'aDictionary'
 ]
+
+{ #category : #'as yet unclassified' }
+OBDictionaryFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
+	^ObjectBrowserDictionary newWithRealObject: aRealCollection.
+]
