@@ -8,16 +8,17 @@ Class {
 SimpleErrorHandler >> value [
 	"evaluo mi bloque o manejo el error"
 
-	[[block
+	^[[block
 	on: MessageNotUnderstood
 	do: [:dnu | | nombreObjeto |
 			(dnu receiver isKindOf: ObjectBrowserClass) 
 				ifTrue: [ nombreObjeto := dnu receiver displayString ] 
 				ifFalse: [ nombreObjeto := dnu receiver printString ].
 			UIManager default inform:
-				 (nombreObjeto  ,' no entiende el mensaje ', dnu message printString) ].
+				 (nombreObjeto  ,' no entiende el mensaje ', dnu message printString).
+				nil ].
 	] on: SyntaxErrorNotification do:
-		[ :error | UIManager default inform: 'Ha ocurrido un error de sintaxis:  ', error errorCode ] 
+		[ :error | UIManager default inform: 'Ha ocurrido un error de sintaxis:  ', error errorCode. nil ] 
 	] on: Error do: 
-		[:error | UIManager default inform: error messageText ]
+		[:error | UIManager default inform: error messageText. nil ]
 ]

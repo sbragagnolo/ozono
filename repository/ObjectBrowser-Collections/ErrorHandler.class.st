@@ -17,7 +17,7 @@ ErrorHandler class >> default [
 
 { #category : #'as yet unclassified' }
 ErrorHandler class >> evaluate: aBlock [ 
-	self default new block: aBlock;
+	^self default new block: aBlock;
 		 value
 ]
 

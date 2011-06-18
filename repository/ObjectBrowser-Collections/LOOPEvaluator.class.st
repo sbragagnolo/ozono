@@ -8,7 +8,7 @@ Class {
 LOOPEvaluator >> evaluate: textOrStream in: aContext to: receiver notifying: aRequestor ifFail: failBlock logged: logFlag [
 
 	receiver prepare.
-	ErrorHandler evaluate:  [[^ super 
+	^ErrorHandler evaluate:  [[super 
 		evaluate: textOrStream 
 		in: aContext 
 		to: receiver 
