@@ -18,7 +18,12 @@ OBAttribute class >> newNamed: aNameString owner: obObjectOwnerWhereTheVariableB
 
 { #category : #'as yet unclassified' }
 OBAttribute >> actionsForAttributeList [
-	^#(('Eliminar variable'		deleteVariable))
+	^#(('Eliminar referencia'		deleteVariable))
+]
+
+{ #category : #'as yet unclassified' }
+OBAttribute >> icon [
+	^ObjectBrowserIcons referenceIcon
 ]
 
 { #category : #'as yet unclassified' }
