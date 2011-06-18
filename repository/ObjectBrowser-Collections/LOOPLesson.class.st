@@ -290,7 +290,7 @@ LOOPLesson >> fileOut [
 LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
 	(self realObjects anySatisfy: [:realObject | realObject == aRealObject])
 		ifTrue:  [ ^self objects detect: [ :o | o realObject == aRealObject ] ]
-		ifFalse: [ ^NoObjectBrowserObject new: aRealObject . ]
+		ifFalse: [ ^NoObjectBrowserObject for: aRealObject . ]
 ]
 
 { #category : #accessing }
@@ -351,7 +351,7 @@ LOOPLesson >> menuActions [
 
 { #category : #showing }
 LOOPLesson >> objectBrowserObjectForRealObject: realObject [
-	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ NoObjectBrowserObject new: realObject ].
+	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ NoObjectBrowserObject for: realObject ].
 ]
 
 { #category : #diagram }

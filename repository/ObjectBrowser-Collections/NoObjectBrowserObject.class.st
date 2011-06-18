@@ -9,6 +9,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+NoObjectBrowserObject class >> for: anObject [
+	^(anObject isKindOf: Collection)
+		ifTrue: [ ObjectBrowserCollection newWithRealObject: anObject ]
+		ifFalse: [ self new: anObject ].
+]
+
+{ #category : #'as yet unclassified' }
 NoObjectBrowserObject class >> new: anObject [
 	^self new realObject: anObject; yourself.
 ]

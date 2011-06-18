@@ -123,7 +123,7 @@ ObjectBrowser >> createCollection: type [
 		evaluate: [
 			collectionName := self obtainObjectName.
 			collectionName 
-				ifNotNil: [ self createVariable: collectionName referencingTo: (ObjectBrowserCollection newOn: self withRealObject: type clone) ].
+				ifNotNil: [ self createVariable: collectionName referencingTo: (ObjectBrowserCollection newWithRealObject: type clone) ].
 		]).
 	self changed.
 	

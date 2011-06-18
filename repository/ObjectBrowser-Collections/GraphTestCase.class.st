@@ -9,8 +9,8 @@ GraphTestCase >> testComplicatedGraph [
 	| obj graph obj2 noObo1 noObo2 |
 	obj := currentLesson addNewObject.
 	obj2 := currentLesson addNewObject.
-	currentLesson addObject: (noObo1 := NoObjectBrowserObject new: 2).
-	currentLesson addObject: (noObo2 := NoObjectBrowserObject new: nil).
+	currentLesson addObject: (noObo1 := NoObjectBrowserObject for: 2).
+	currentLesson addObject: (noObo2 := NoObjectBrowserObject for: nil).
 	
 	obj addVariable: 'var1'.
 	obj variable: 'var1' pointTo: obj2 realObject.

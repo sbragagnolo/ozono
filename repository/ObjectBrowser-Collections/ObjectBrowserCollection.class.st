@@ -46,7 +46,7 @@ ObjectBrowserCollection class >> new: setName [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newOn: aLesson withRealObject: realObject [
+ObjectBrowserCollection class >> newWithRealObject: realObject [
 	^super new
 		realObject: realObject;
 		yourself.
@@ -54,7 +54,7 @@ ObjectBrowserCollection class >> newOn: aLesson withRealObject: realObject [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> notifyCollectionCreated: collection [
-	self creationObservers do: [ :o | o addObject: (self newOn: o withRealObject: collection) ].
+	self creationObservers do: [ :o | o addObject: (self newWithRealObject: collection) ].
 ]
 
 { #category : #'as yet unclassified' }
