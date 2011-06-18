@@ -105,7 +105,7 @@ ObjectBrowser >> confirmDeletion [
 ObjectBrowser >> createAttribute [
 	| variableName |
 	(self errorHandler
-		evaluate: [variableName := self request: 'Nombre de la variable' default: ''.
+		evaluate: [variableName := self request: 'Nombre de la referencia' default: ''.
 			variableName ifNotNil: [self validateVariableName: variableName .self selectedObject addVariable: variableName]]).
 	self changed
 ]

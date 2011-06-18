@@ -66,7 +66,7 @@ ObjectBrowserObject class >> newOn: aLesson withRealObject: realObject [
 { #category : #accessing }
 ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	| actions |
-	actions := OrderedCollection with: #('crear nueva variable'		createAttribute).
+	actions := OrderedCollection with: #('crear nueva referencia'		createAttribute).
 	actions addAll: (selectedAttribute actionsForAttributeList).
 	^actions asArray
 ]
