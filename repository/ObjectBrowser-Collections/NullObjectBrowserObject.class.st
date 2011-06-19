@@ -36,14 +36,8 @@ NullObjectBrowserObject >> canDelete [
 ]
 
 { #category : #'as yet unclassified' }
-NullObjectBrowserObject >> compileMethod: aText [ 
+NullObjectBrowserObject >> compileMethod: aText notifying: someone [
 	^self error: 'Debe seleccionar un objeto para este metodo'.
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> compileMethod: aMethod  notifying: someone [
-
-	self error: 'No se puede agregar el método. Ningún objeto está seleccionado'.
 ]
 
 { #category : #'as yet unclassified' }

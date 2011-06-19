@@ -51,7 +51,7 @@ NoObjectBrowserObject >> canDelete [
 ]
 
 { #category : #compiling }
-NoObjectBrowserObject >> compileMethod: aText [ 
+NoObjectBrowserObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
 ]
 

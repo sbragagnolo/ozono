@@ -11,17 +11,10 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MethodEditorModel >> acceptCode: unText [
-	self error: 'No deberia estar aca.'.
-	self model compileMethod: unText.
-
-]
-
-{ #category : #'as yet unclassified' }
 MethodEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
-		[self model compileMethod: unText] 
+		[self model compileMethod: unText notifying: someone] 
 			on: SyntaxErrorNotification 
 			do:[ :notification | methodEditorMorph editString: notification errorCode ]
 	]

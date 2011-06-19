@@ -137,9 +137,9 @@ ObjectBrowserObject >> clone [
 ]
 
 { #category : #printing }
-ObjectBrowserObject >> compileMethod: aMethod [
+ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result |
-	result := self realClass compile: aMethod classified: #'object browser'  notifying: nil.
+	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
 	methods at: result put: (OBMethod new 
 		selector: result;
 		object: self;
@@ -150,14 +150,6 @@ ObjectBrowserObject >> compileMethod: aMethod [
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> displayString [
 	^self realObject displayString
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserObject >> doesNotUnderstand: aMessage [ 
-	self deprecated: 'para mi esto ya no sirve.  Guille'.
-	(self realObject respondsTo: aMessage selector) not
-		ifTrue: [self error: self printString , ' no entiende el mensaje ' , aMessage selector].
-	^self realObject perform: aMessage selector withArguments: aMessage arguments
 ]
 
 { #category : #'as yet unclassified' }
