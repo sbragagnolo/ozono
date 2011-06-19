@@ -145,6 +145,7 @@ ObjectBrowserObject >> collectRealVariables [
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result |
 	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
+	result ifNil: [ ^self ].
 	methods at: result put: (OBMethod new 
 		selector: result;
 		object: self;

@@ -15,7 +15,7 @@ MethodEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
 		[self model compileMethod: unText notifying: someone] 
-			on: SyntaxErrorNotification 
+			on: Error 
 			do:[ :notification | methodEditorMorph editString: notification errorCode ]
 	]
 
