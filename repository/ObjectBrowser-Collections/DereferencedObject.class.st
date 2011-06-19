@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dereferencedObject'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'as yet unclassified' }
@@ -21,9 +21,7 @@ DereferencedObject >> = anObject [
 
 { #category : #'as yet unclassified' }
 DereferencedObject >> actions [
-		^#(
-		#('recuperar' #recoverObject) 
-		#- ).
+		^#(#('Recuperar objeto' #recoverObject)).
 ]
 
 { #category : #converting }

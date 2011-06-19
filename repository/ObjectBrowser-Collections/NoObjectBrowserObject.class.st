@@ -45,11 +45,6 @@ NoObjectBrowserObject >> asString [
 	^self displayString 
 ]
 
-{ #category : #'as yet unclassified' }
-NoObjectBrowserObject >> canDelete [
-	^ realObject isNil.
-]
-
 { #category : #compiling }
 NoObjectBrowserObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
@@ -84,8 +79,6 @@ NoObjectBrowserObject >> isRedefined: aSelector [
 
 { #category : #menu }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
-	aMenuMorph add: 'Borrar' action: #deleteObject.
-	aMenuMorph add: 'Dereferenciar' action: #dereferenceSelectedVariable.
 	^aMenuMorph
 ]
 

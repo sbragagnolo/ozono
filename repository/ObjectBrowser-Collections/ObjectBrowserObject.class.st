@@ -73,10 +73,7 @@ ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 
 { #category : #accessing }
 ObjectBrowserObject >> actionsForObjectVariableList [
-	^#(
-		#('clonar' #cloneObject)
-		#('Dereferenciar' #dereferenceSelectedVariable)
-		).
+	^#(#('Clonar objeto referenciado' #cloneObject)).
 ]
 
 { #category : #'as yet unclassified' }
@@ -260,6 +257,7 @@ ObjectBrowserObject >> lesson: aLesson [
 
 { #category : #accessing }
 ObjectBrowserObject >> menu: aMenuMorph [
+	aMenuMorph addLine.
 	^aMenuMorph addList: (self actionsForObjectVariableList).
 ]
 

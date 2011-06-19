@@ -11,7 +11,7 @@ NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> actionsForObjectVariableList [
-	^#(#('eliminar' #deleteObject))
+	^#(#('eliminar' #deleteLessonVariable))
 ]
 
 { #category : #'as yet unclassified' }
@@ -28,11 +28,6 @@ NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in:
 { #category : #'as yet unclassified' }
 NullObjectBrowserObject >> addVariable: variableName [
 	self error: 'Debe seleccionar un objeto para crear una variable'.
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> canDelete [
-	^true
 ]
 
 { #category : #'as yet unclassified' }

@@ -224,24 +224,23 @@ ObjectBrowser >> delete [
 	window delete.
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> deleteLessonVariable [
+	self errorHandler
+		evaluate: [
+			self selectedObject
+				ifNil: [self error: 'No hay ninguna referencia elegida'].
+			self confirmDeletion ifTrue:[self doDeleteLessonVariable].
+			].
+	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self changed
+]
+
 { #category : #deleting }
 ObjectBrowser >> deleteMethod [
 	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectMethod ].
 	self selectedObjectMethod: NullOBMethod new.
 	self changed.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowser >> deleteObject [
-	self errorHandler
-		evaluate: [
-			self selectedObject
-				ifNil: [self error: 'No hay ninguna referencia elegida'].
-			self selectedObject canDelete ifFalse: [self error: 'El objeto no puede ser borrado'].
-			self confirmDeletion ifTrue:[self doDeleteObject].
-			].
-	self selectedObjectBrowserVariable: NullLessonVariable new.
-	self changed
 ]
 
 { #category : #deleting }
@@ -286,7 +285,7 @@ ObjectBrowser >> deselectVariables [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> doDeleteObject [
+ObjectBrowser >> doDeleteLessonVariable [
 	self lesson removeVariable: self selectedObjectBrowserVariable .
 ]
 
