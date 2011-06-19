@@ -99,7 +99,7 @@ ObjectBrowserObject >> addToGraph: aGraph [
 { #category : #accessing }
 ObjectBrowserObject >> addVariable: variableName [
 	self realClass addInstVarNamed: variableName.
-	variables add: (OBAttribute newNamed: variableName owner: self).
+	self flushVariablesCache.
 	self changed.
 ]
 
@@ -136,6 +136,11 @@ ObjectBrowserObject >> clone [
 	^self class newFrom: self on: self lesson.
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> collectRealVariables [
+	^self realClass instVarNames collect: [ :var | OBAttribute newNamed: var owner: self ]
+]
+
 { #category : #printing }
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result |
@@ -144,6 +149,7 @@ ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 		selector: result;
 		object: self;
 		yourself).
+	self flushVariablesCache.
 	self changed.
 ]
 
@@ -162,6 +168,11 @@ ObjectBrowserObject >> fileOut [
 
 	internalStream trailer.
 	FileStream writeSourceCodeFrom: internalStream baseName: 'fileOut' isSt: true.
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> flushVariablesCache [
+	variables := nil
 ]
 
 { #category : #'as yet unclassified' }
@@ -418,6 +429,7 @@ ObjectBrowserObject >> variableNames [
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
+	variables ifNil: [ variables := self collectRealVariables ].
 	^ (variables union: prototype variables)
 ]
 
