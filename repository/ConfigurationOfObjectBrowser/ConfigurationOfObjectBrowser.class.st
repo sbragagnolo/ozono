@@ -109,8 +109,15 @@ ConfigurationOfObjectBrowser >> baseline12: spec [
 	spec for: #common do: [
 		spec blessing: #baseline.
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
-		spec package: 'ObjectBrowser' with: [spec requires: #('Graphics-Primitives MinimalConnectors-Connections' 'SUML-DiagramDrawing' 'SUML-ObjectDiagramModel')].   
+		spec package: 'ObjectBrowser' with: [spec requires: #('Graphics-Primitives' 'MinimalConnectors-Connections' 'SUML-ClassDiagramModel' 'SUML-ObjectDiagramModel')].   
 	].
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> development: spec [ 
+	<symbolicVersion: #development>
+	spec for: #'pharo1.2.x' version: '1.2.1'. 
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -133,8 +140,8 @@ ConfigurationOfObjectBrowser >> project [
 ]
 
 { #category : #'as yet unclassified' }
-ConfigurationOfObjectBrowser >> stable: spec [ 
-	<symbolicVersion: #stable>
+ConfigurationOfObjectBrowser >> stable: spec [  
+<symbolicVersion: #stable>
 	
 	spec for: #'pharo1.1.x' version: '1.0'. 
 	spec for: #'pharo1.2.x' version: '1.2'. 
@@ -175,6 +182,19 @@ ConfigurationOfObjectBrowser >> version11: spec [
 	spec for: #Win32 do: [
 		spec project: 'externalCommands' with: '1.4'.
 	]
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version121: spec [ 
+    <version: '1.2.1' imports: #('1.2-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-DeboraFortini.387'.
+		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
+		spec package: 'MinimalConnectors-Connections' with: 'MinimalConnectors-Connections-DeboraFortini.9'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
+	].
 ]
 
 { #category : #'as yet unclassified' }
