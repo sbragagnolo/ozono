@@ -104,6 +104,16 @@ ConfigurationOfObjectBrowser >> baseline11: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline12: spec [ 
+    <version: '1.2-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec package: 'ObjectBrowser' with: [spec requires: #('Graphics-Primitives MinimalConnectors-Connections' 'SUML-DiagramDrawing' 'SUML-ObjectDiagramModel')].   
+	].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> initializeOSProcess. [
 	(Smalltalk globals at: #ThisOSProcess) initialize
 ]
