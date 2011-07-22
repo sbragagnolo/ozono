@@ -139,6 +139,11 @@ ObjectBrowserObject >> collectRealVariables [
 ]
 
 { #category : #printing }
+ObjectBrowserObject >> compileMethod: aMethod [
+	self compileMethod: aMethod notifying: nil
+]
+
+{ #category : #printing }
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result |
 	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
