@@ -140,7 +140,7 @@ ObjectBrowserObject >> collectRealVariables [
 
 { #category : #printing }
 ObjectBrowserObject >> compileMethod: aMethod [
-	self compileMethod: aMethod notifying: nil
+	self compileMethod: aMethod notifying: nil 
 ]
 
 { #category : #printing }

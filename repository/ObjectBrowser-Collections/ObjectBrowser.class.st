@@ -84,8 +84,9 @@ ObjectBrowser >> cloneObject [
 
 { #category : #accessing }
 ObjectBrowser >> compileMethod: aText notifying: someone [
+
 	self errorHandler
-		evaluate: [	self selectedObject compileMethod: aText notifying: someone. ]
+		evaluate: [self selectedObject compileMethod: aText notifying: someone.  self changed .]
 ]
 
 { #category : #accessing }
