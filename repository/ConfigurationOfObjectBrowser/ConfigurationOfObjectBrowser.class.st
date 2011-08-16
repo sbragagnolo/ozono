@@ -189,7 +189,7 @@ ConfigurationOfObjectBrowser >> version121: spec [
     <version: '1.2.1' imports: #('1.2-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-DeboraFortini.387'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.389'.
 		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
 		spec package: 'MinimalConnectors-Connections' with: 'MinimalConnectors-Connections-DeboraFortini.9'.
 		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
