@@ -106,7 +106,7 @@ ObjectBrowser >> createAttribute [
 	| variableName |
 	(self errorHandler
 		evaluate: [variableName := self request: 'Nombre de la referencia' default: ''.
-			variableName ifNotNil: [self validateVariableName: variableName .self selectedObject addVariable: variableName]]).
+			variableName ifNotNil: [self validateVariableName: variableName usingExistingVariables: self selectedObject variables  .self selectedObject addVariable: variableName]]).
 	self changed
 ]
 
@@ -664,11 +664,16 @@ ObjectBrowser >> title [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> validateVariableName: aVariableNameString [
+	self validateVariableName: aVariableNameString  usingExistingVariables: self variables .
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> validateVariableName: aVariableNameString usingExistingVariables: variables [
 	aVariableNameString isEmpty 
 		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío' ].
 	(aVariableNameString matchesRegex: '[a-z]*([a-z]|[A-Z]|[0-9])*')
 		ifFalse:[ self error: 'El nombre de la variable no puede contener espacios ni carácteres extraños, y debe empezar con minúscula' ].
-	(self variables anySatisfy: [:v | v name = aVariableNameString ])
+	(variables anySatisfy: [:v | v name = aVariableNameString ])
 		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ', aVariableNameString  ]
 ]
 
