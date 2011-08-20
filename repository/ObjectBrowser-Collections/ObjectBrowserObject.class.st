@@ -396,8 +396,8 @@ ObjectBrowserObject >> removeMethod: aMethod [
 
 { #category : #accessing }
 ObjectBrowserObject >> removeVariable: anAttribute [
-	anAttribute removeFrom: self realClass.
 	variables remove: anAttribute.
+	anAttribute removeFrom: self realClass.
 	self changed.
 ]
 
@@ -433,8 +433,8 @@ ObjectBrowserObject >> variableNames [
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
-	variables ifNil: [ variables := self collectRealVariables ].
-	^ (variables union: prototype variables)
+	variables ifNil: [ variables := self collectRealVariables asSet  ].
+	^ (variables union: prototype variables).  
 ]
 
 { #category : #exportation }
