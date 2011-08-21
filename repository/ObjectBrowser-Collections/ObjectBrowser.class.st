@@ -669,7 +669,7 @@ ObjectBrowser >> validateVariableName: aVariableNameString [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> validateVariableName: aVariableNameString usingExistingVariables: variables [
-	aVariableNameString isEmpty 
+	(aVariableNameString isNil or: [aVariableNameString isEmpty])
 		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío' ].
 	(aVariableNameString matchesRegex: '[a-z]*([a-z]|[A-Z]|[0-9])*')
 		ifFalse:[ self error: 'El nombre de la variable no puede contener espacios ni carácteres extraños, y debe empezar con minúscula' ].
