@@ -7,12 +7,20 @@ Class {
 	#instVars : [
 		'block'
 	],
+	#classVars : [
+		'DefaultErrorHandler'
+	],
 	#category : #'ObjectBrowser-Errors'
 }
 
 { #category : #'as yet unclassified' }
 ErrorHandler class >> default [
-	^DebugErrorHandler 
+	^DefaultErrorHandler ifNil: [DefaultErrorHandler := SimpleErrorHandler]
+]
+
+{ #category : #'as yet unclassified' }
+ErrorHandler class >> default: aDefaultErrorHandler [
+	^DefaultErrorHandler := aDefaultErrorHandler
 ]
 
 { #category : #'as yet unclassified' }
