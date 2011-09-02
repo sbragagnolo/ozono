@@ -40,6 +40,11 @@ MethodEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
+{ #category : #associating }
+MethodEditorModel >> guessTypeForName: aByteString [ 
+	^ (model selectedObject realClassForVariableNamed: aByteString )
+]
+
 { #category : #'as yet unclassified' }
 MethodEditorModel >> menu: unMenu [ 
 	unMenu addList: #(#('aceptar(s)' #accept) ).

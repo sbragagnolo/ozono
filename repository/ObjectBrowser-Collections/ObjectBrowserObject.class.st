@@ -350,6 +350,11 @@ ObjectBrowserObject >> realClass [
 	^self realObject class
 ]
 
+{ #category : #associating }
+ObjectBrowserObject >> realClassForVariableNamed: aByteString [ 
+	^ (self realObject instVarNamed: aByteString) class .
+]
+
 { #category : #accessing }
 ObjectBrowserObject >> realObject [
 	"el objeto al que le digo cosas desde el workspace"
