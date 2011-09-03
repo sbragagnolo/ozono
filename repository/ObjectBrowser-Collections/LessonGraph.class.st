@@ -43,7 +43,8 @@ LessonGraph >> addCollection: anObjectBrowserObject [
 						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: e).
 						referencedObjectBrowserObject addToGraph: self.
 						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: 'elemento'.
-					]
+					].
+				anObjectBrowserObject prototype addPrototypeRelationshipTo: anObjectBrowserObject in: self.
 				]
 ]
 

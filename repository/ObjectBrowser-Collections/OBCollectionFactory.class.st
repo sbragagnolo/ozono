@@ -29,18 +29,6 @@ OBCollectionFactory >> clone [
 ]
 
 { #category : #'as yet unclassified' }
-OBCollectionFactory >> hasClones [
-	self deprecated: 'no se usa'.
-	^true
-]
-
-{ #category : #'as yet unclassified' }
-OBCollectionFactory >> hasReferencesTo: anOBObject [
-	self deprecated: 'no se usa'.
-	^false
-]
-
-{ #category : #'as yet unclassified' }
 OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
 	^ObjectBrowserCollection newWithRealObject: aRealCollection.
 ]
@@ -53,23 +41,4 @@ OBCollectionFactory >> notifyCreationOf: aCollection to: anObserver [
 { #category : #'as yet unclassified' }
 OBCollectionFactory >> printString [
 	^self displayString 
-]
-
-{ #category : #'as yet unclassified' }
-OBCollectionFactory >> references [
-	self deprecated: 'no se usa'.
-	^Set new.
-]
-
-{ #category : #'as yet unclassified' }
-OBCollectionFactory >> removeClassFromSystem [
-	"(metodo implementado solo para que haya polimorfismo) Una baseCollection no la podemos sacar  del sistema... es algo que llego para quedarse...."
-	self deprecated: 'no se usa'.
-	^self 
-]
-
-{ #category : #'as yet unclassified' }
-OBCollectionFactory >> variables [
-	self deprecated: 'no se usa'.
-	^ OrderedCollection new
 ]
