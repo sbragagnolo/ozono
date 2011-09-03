@@ -42,7 +42,9 @@ MethodEditorModel >> errorHandler [
 
 { #category : #associating }
 MethodEditorModel >> guessTypeForName: aByteString [ 
-	^ (model selectedObject realClassForVariableNamed: aByteString )
+	| klass |
+	klass := (model selectedObject realClassForVariableNamed: aByteString ).
+	klass = UndefinedObject ifTrue: [ nil ] ifFalse: [ klass ]
 ]
 
 { #category : #'as yet unclassified' }

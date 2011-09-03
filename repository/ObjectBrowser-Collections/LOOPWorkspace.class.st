@@ -35,6 +35,7 @@ LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 			readSelection: nil menu: #codePaneMenu:shifted:.
 	pane  font: StandardFonts codeFont.
 	pane beStyled.
+	pane styler workspace: self.
 	window addMorph: pane frame: (0@0 corner: 1@1).
 	self label: labelString.
 	^ window
@@ -103,6 +104,11 @@ LOOPWorkspace >> menu: aMenuBuilder [
 { #category : #'as yet unclassified' }
 LOOPWorkspace >> openInWorld [
 	self openLabel: self label.
+]
+
+{ #category : #'as yet unclassified' }
+LOOPWorkspace >> selectedClassOrMetaClass [  
+	^lesson executionContext class
 ]
 
 { #category : #'as yet unclassified' }
