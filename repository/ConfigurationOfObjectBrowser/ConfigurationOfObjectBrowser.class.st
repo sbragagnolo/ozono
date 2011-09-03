@@ -109,8 +109,18 @@ ConfigurationOfObjectBrowser >> baseline12: spec [
 	spec for: #common do: [
 		spec blessing: #baseline.
 		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
-		spec package: 'ObjectBrowser' with: [spec requires: #('Graphics-Primitives' 'MinimalConnectors-Connections' 'SUML-ClassDiagramModel' 'SUML-ObjectDiagramModel')].   
-	].
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel' 'SUML-ClassDiagramModel') ].
+			
+		spec package: 'Graphics-Primitives'.
+		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec package: 'SUML-ClassDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
 ]
 
 { #category : #'as yet unclassified' }
@@ -144,7 +154,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 <symbolicVersion: #stable>
 	
 	spec for: #'pharo1.1.x' version: '1.0'. 
-	spec for: #'pharo1.2.x' version: '1.2'. 
+	spec for: #'pharo1.2.x' version: '1.2.1'. 
 
 ]
 
@@ -189,11 +199,11 @@ ConfigurationOfObjectBrowser >> version121: spec [
     <version: '1.2.1' imports: #('1.2-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.389'.
+		spec project: 'smallUML' with: '1.1.3'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.396'.
 		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
-		spec package: 'MinimalConnectors-Connections' with: 'MinimalConnectors-Connections-DeboraFortini.9'.
-		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
 		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
 	].
 ]
 
