@@ -132,14 +132,8 @@ ObjectBrowser >> createObject [
 
 { #category : #showing }
 ObjectBrowser >> createObject: creationBlock [
-	| objectName |
-
-	(self errorHandler
-		evaluate: [
-			[objectName := self obtainObjectName.
-			objectName ifNotNil: [creationBlock value: objectName] ] on: OperationCancelled do: []
-			]).
-	self changed
+	self errorHandler evaluate: [creationBlock value: self obtainObjectName].
+	self changed.
 ]
 
 { #category : #showing }
