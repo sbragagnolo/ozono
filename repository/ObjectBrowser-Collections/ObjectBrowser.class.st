@@ -73,13 +73,9 @@ ObjectBrowser >> changed [
 
 { #category : #showing }
 ObjectBrowser >> cloneObject [
-	| objectName |
-	(self errorHandler
-		evaluate: [
-			objectName := self obtainObjectName.
-			objectName ifNotNil: [self createVariable: objectName referencingTo: (self selectedObjectBrowserVariable pointsTo clone)].
-			]).
-	self changed
+		self createObject: [:objectName | 
+			self createVariable: objectName referencingTo: (self selectedObjectBrowserVariable pointsTo clone)
+			].
 ]
 
 { #category : #accessing }
@@ -117,15 +113,9 @@ ObjectBrowser >> createBag [
 
 { #category : #showing }
 ObjectBrowser >> createCollection: type [
-	|collectionName|
-
-	(self errorHandler
-		evaluate: [
-			collectionName := self obtainObjectName.
-			collectionName 
-				ifNotNil: [ self createVariable: collectionName referencingTo: (ObjectBrowserCollection newWithRealObject: type clone) ].
-		]).
-	self changed.
+		self createObject: [:collectionName |  
+			self createVariable: collectionName referencingTo: (ObjectBrowserCollection newWithRealObject: type clone) 
+			].
 	
 
 ]
@@ -137,12 +127,18 @@ ObjectBrowser >> createDictionary [
 
 { #category : #showing }
 ObjectBrowser >> createObject [
+	self createObject: [:objectName | self createVariable: objectName].
+]
+
+{ #category : #showing }
+ObjectBrowser >> createObject: creationBlock [
 	| objectName |
 
 	(self errorHandler
 		evaluate: [
-			objectName := self obtainObjectName.
-			objectName ifNotNil: [self createVariable: objectName]]).
+			[objectName := self obtainObjectName.
+			objectName ifNotNil: [creationBlock value: objectName] ] on: OperationCancelled do: []
+			]).
 	self changed
 ]
 
@@ -402,6 +398,7 @@ ObjectBrowser >> objectsOrganizationSelected [
 ObjectBrowser >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
+	objectName ifNil: [OperationCancelled new signal].
 	self validateVariableName: objectName .
 	^ objectName
 ]
