@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserPluggableListMorph,
-	#superclass : #OBPluggableListMorph,
+	#superclass : #PluggableListMorph,
 	#category : #'ObjectBrowser-UI'
 }
 
@@ -27,6 +27,11 @@ ObjectBrowserPluggableListMorph >> colorAt: index [
 { #category : #'as yet unclassified' }
 ObjectBrowserPluggableListMorph >> fontAt: index withBasicFont: font [
 	^model fontAt: index withBasicFont: font
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserPluggableListMorph >> iconAt: index [
+	^ model iconAt: index
 ]
 
 { #category : #'as yet unclassified' }
