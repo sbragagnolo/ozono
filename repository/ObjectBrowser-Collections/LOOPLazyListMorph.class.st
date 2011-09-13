@@ -1,6 +1,6 @@
 Class {
 	#name : #LOOPLazyListMorph,
-	#superclass : #OBLazyListMorph,
+	#superclass : #LazyListMorph,
 	#category : #'ObjectBrowser-UI'
 }
 
