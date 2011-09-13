@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserTextMorphEditor,
-	#superclass : #TextMorphEditor,
+	#superclass : #TextEditor,
 	#category : #'ObjectBrowser-UI'
 }
 
