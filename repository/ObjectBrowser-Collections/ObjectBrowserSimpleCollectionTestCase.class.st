@@ -24,8 +24,3 @@ ObjectBrowserSimpleCollectionTestCase >> collection: col [
 ObjectBrowserSimpleCollectionTestCase >> setUp [
 	OBCollectionFactory initialize.
 ]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserSimpleCollectionTestCase >> tearDown [ 
-	(ObjectBrowserClass subclasses select:[:c | c name beginsWith: 'ObjectBrowserObject']) do:[:c | c removeFromSystem ].
-]

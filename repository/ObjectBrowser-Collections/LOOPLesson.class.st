@@ -194,7 +194,6 @@ LOOPLesson >> compileTest: aTestText [
 
 { #category : #accessing }
 LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
-
 		^ClassBuilder new
 			name: aClassName
 			inEnvironment: self lessonEnvironment
@@ -324,9 +323,7 @@ LOOPLesson >> initialize [
 { #category : #accessing }
 LOOPLesson >> lessonEnvironment [
 	^lessonEnvironment ifNil: [ 
-		lessonEnvironment := SystemDictionary new.
-		lessonEnvironment organization: SystemOrganizer new.
-		lessonEnvironment
+		lessonEnvironment := SystemDictionary withOrganizer: SystemOrganizer new.
 		 ].
 ]
 
@@ -337,7 +334,10 @@ LOOPLesson >> lessonIdentification [
 
 { #category : #accessing }
 LOOPLesson >> loopExecutionContextClass [
-	^loopExecutionContextClass ifNil: [ loopExecutionContextClass :=  self createClass: #LessonExecutionContext subclassOf: LOOPExecutionContext. ]
+	^loopExecutionContextClass ifNil: [ 
+		loopExecutionContextClass :=  
+			self createClass: #LessonExecutionContext 
+				subclassOf: LOOPExecutionContext. ]
 ]
 
 { #category : #showing }
@@ -406,6 +406,7 @@ LOOPLesson >> removeDerrefencedObject: aDereferencedObject [
 
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeFromSystem [
+	self lessonEnvironment do: [ :c | c isBehavior ifTrue: [ c removeFromSystem ] ].
 	self lessonEnvironment removeAll.
 ]
 

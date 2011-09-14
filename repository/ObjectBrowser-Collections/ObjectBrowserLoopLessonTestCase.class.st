@@ -104,7 +104,9 @@ ObjectBrowserLoopLessonTestCase >> prepareLesson [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
-	| lesson pepita rosario|
+	| lesson pepita rosario fileEntry |
+	fileEntry := FileDirectory directoryEntryFor: self lessonWithStateTitle asLegalSelector asFileName,'.st'.
+	fileEntry ifNotNil: [ :f | f delete ].
 	lesson := LOOPLesson new title: self lessonWithStateTitle.
 	pepita := self createPepitaObObject: lesson .
 	rosario := self createRosarioObObject: lesson .
@@ -112,7 +114,7 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	lesson addVariableNamed: 'rosario' pointingTo: rosario .
 	
 	pepita variable: 'dondeEstas' pointTo: rosario.
-	pepita variable: 'energia' pointTo: nil.
+	pepita variable: 'energia' pointTo: (NoObjectBrowserObject for: nil).
 	
 	^lesson.
 ]

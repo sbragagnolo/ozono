@@ -50,7 +50,7 @@ ObjectBrowserObject class >> newOn: aLesson [
 	| klass |
 	klass := self createNewObjectBrowserObjectClassIn: aLesson.
 	^super new
-		realObject: klass new;
+		realObject: (klass new);
 		lesson: aLesson;
 		yourself.
 ]
@@ -498,7 +498,7 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 { #category : #exportation }
 ObjectBrowserObject >> writeVarianblesOn: stream [ .
 
-	self myClassVariables do:[ :v | 
+	self variables do:[ :v | 
 		stream nextPutAll: self posibleName , ' addVariable: ''', v name, '''.'.
 		stream cr.
 		].
