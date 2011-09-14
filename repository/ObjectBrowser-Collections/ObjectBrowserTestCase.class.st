@@ -23,19 +23,16 @@ ObjectBrowserTestCase >> testCreateNonLowecaseVariable [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserTestCase >> testCreateNonValidVariableNamed: variableName [
-	| lesson |
-	lesson := LOOPLesson new.
-	ob := ObjectBrowser onLesson: lesson.
+	ob := ObjectBrowser onLesson: currentLesson.
 	self should: [ob createVariable: variableName ] raise: Error.
-	self assert: (lesson hasVariableNamed: variableName) not
+	self assert: (currentLesson hasVariableNamed: variableName) not
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserTestCase >> testCreateVariable [
-	| variableName lesson |
+	| variableName |
 	variableName :='pepita'.
-	lesson := LOOPLesson new.
-	ob := ObjectBrowser onLesson: lesson.
+	ob := ObjectBrowser onLesson: currentLesson.
 	ob createVariable: variableName .
 	self assert: (ob variableNamed: variableName) pointsTo class = ObjectBrowserObject.
 ]

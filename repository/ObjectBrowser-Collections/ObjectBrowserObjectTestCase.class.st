@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'ob',
 		'obo',
-		'otroObo',
-		'lesson'
+		'otroObo'
 	],
 	#category : #'ObjectBrowser-Tests'
 }
@@ -13,17 +12,7 @@ Class {
 { #category : #running }
 ObjectBrowserObjectTestCase >> setUp [
 	super setUp.
-	lesson := LOOPLesson new.
-	obo := ObjectBrowserObject newOn: lesson.
-]
-
-{ #category : #running }
-ObjectBrowserObjectTestCase >> tearDown [
-	super tearDown.
-	obo removeClassFromSystem.
-	obo := nil.
-	otroObo ifNotNil: [otroObo removeClassFromSystem].
-	otroObo := nil.
+	obo := ObjectBrowserObject newOn: currentLesson.
 ]
 
 { #category : #'attribute-tests' }
