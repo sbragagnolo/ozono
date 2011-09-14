@@ -127,33 +127,48 @@ ObjectBrowserLoopLessonTestCase >> tearDownLesson: lessonTitle [
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> testExportImportEmptyLessonSuccess [
 	| lesson lessonImported |
-	lesson := self prepareEmptyLesson.
-	lesson fileOut .
-	lessonImported := self importEmptyLesson.
-	self assert: lesson title equals:  lessonImported title.
-	self assert: 0 equals:  lessonImported objects size.
-	self tearDownLesson: self lessonEmptyTitle.
+	[
+		lesson := self prepareEmptyLesson.
+		lesson fileOut .
+		lessonImported := self importEmptyLesson.
+		self assert: lesson title equals:  lessonImported title.
+		self assert: 0 equals:  lessonImported objects size.
+		self tearDownLesson: self lessonEmptyTitle.
+	] ensure: [ 
+		lesson clean.
+		lessonImported clean.
+	]
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsNoStateSuccess [
 	| lesson lessonImported |
-	lesson := self prepareLesson.
-	lesson fileOut .
-	lessonImported := self importLessonWithObjects.
-	self assert: lesson title equals:  lessonImported title.
-	self assert: lesson objects size equals:  lessonImported objects size.
-	self tearDownLesson: self lessonWithObjectsTitle .
+	[
+		lesson := self prepareLesson.
+		lesson fileOut .
+		lessonImported := self importLessonWithObjects.
+		self assert: lesson title equals:  lessonImported title.
+		self assert: lesson objects size equals:  lessonImported objects size.
+		self tearDownLesson: self lessonWithObjectsTitle.
+	] ensure: [ 
+		lesson clean.
+		lessonImported clean.
+	]
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess [
 	| lesson lessonImported |
-	lesson := self prepareLessonWithState.
-	lesson fileOut .
-	lessonImported := self importLessonWithState.
-	self assert: lesson title equals:  lessonImported title.
-	self assert: lesson objects size equals:  lessonImported objects size.
-	self assert: nil equals:  (self contentPOintedTo: (lessonImported objects at: 1) byAtribute: 'energia'). 
-	self tearDownLesson: self lessonWithStateTitle.
+	[
+		lesson := self prepareLessonWithState.
+		lesson fileOut .
+		lessonImported := self importLessonWithState.
+		self assert: lesson title equals:  lessonImported title.
+		self assert: lesson objects size equals:  lessonImported objects size.
+		self assert: nil equals:  (self contentPOintedTo: (lessonImported objects at: 1) byAtribute: 'energia'). 
+		self tearDownLesson: self lessonWithStateTitle.
+	] ensure: [ 
+		lesson clean.
+		lessonImported clean.
+	]
 ]
