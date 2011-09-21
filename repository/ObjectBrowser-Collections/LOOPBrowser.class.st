@@ -180,7 +180,13 @@ LOOPBrowser >> selectedLesson: aLOOPLesson [
 
 { #category : #creation }
 LOOPBrowser >> updateLOOP [
-	[ (ConfigurationOfObjectBrowser project version: #stable) load ] on: Warning do: [ :w | w resume ]
+	[
+		Gofer it
+			squeaksource: 'ObjectBrowser';
+			package: 'ConfigurationOfObjectBrowser';
+			load.
+		(ConfigurationOfObjectBrowser project version: #stable) load 
+	] on: Warning do: [ :w | w resume ]
 ]
 
 { #category : #creation }
