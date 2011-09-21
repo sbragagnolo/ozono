@@ -171,3 +171,13 @@ LOOPBrowser >> selectedLesson [
 LOOPBrowser >> selectedLesson: aLOOPLesson [ 
 	selectedLesson := aLOOPLesson.
 ]
+
+{ #category : #creation }
+LOOPBrowser >> updateLOOP [
+	[ (ConfigurationOfObjectBrowser project version: #stable) load ] on: Warning do: [ :w | w resume ]
+]
+
+{ #category : #creation }
+LOOPBrowser >> updateLOOPLabel [
+	^'Actualizar Software!'
+]
