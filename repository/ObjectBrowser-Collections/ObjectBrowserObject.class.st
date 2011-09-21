@@ -135,7 +135,7 @@ ObjectBrowserObject >> clone [
 
 { #category : #accessing }
 ObjectBrowserObject >> collectRealVariables [
-	^self realClass instVarNames collect: [ :var | OBAttribute newNamed: var owner: self ]
+	^self realClass instVarNames
 ]
 
 { #category : #printing }
@@ -368,6 +368,12 @@ ObjectBrowserObject >> realObject: anObject [
 	realObject := anObject
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> realObjectVariables [
+	variables ifNil: [ variables := self collectRealVariables asSet  ].
+	^ (variables union: prototype realObjectVariables).  
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> redefines: aSelector [
 	^self realClass isOverride: aSelector.
@@ -440,8 +446,7 @@ ObjectBrowserObject >> variableNames [
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
-	variables ifNil: [ variables := self collectRealVariables asSet  ].
-	^ (variables union: prototype variables).  
+	^self realObjectVariables collect: [ :var | OBAttribute newNamed: var owner: self ]
 ]
 
 { #category : #exportation }

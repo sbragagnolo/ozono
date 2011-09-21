@@ -56,6 +56,11 @@ NullObjectBrowserObject >> methods [
 ]
 
 { #category : #'as yet unclassified' }
+NullObjectBrowserObject >> realObjectVariables [
+	^OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
 NullObjectBrowserObject >> removeFromSystem [
 	"do nothing"
 	^self
