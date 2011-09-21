@@ -38,7 +38,7 @@ LOOPWindow >> buildAboutMorph [
 { #category : #showing }
 LOOPWindow >> buildImportLessonButton [
 	^PluggableButtonMorph 
-		on: loopBrowser 
+		on: self
 		getState: nil
 		action: #importLesson
 		label: #importLessonLabel
@@ -80,6 +80,16 @@ LOOPWindow >> buildUpdateButton [
 		
 ]
 
+{ #category : #showing }
+LOOPWindow >> chooseLessonFile. [
+	^ UITheme current
+		chooseFileIn: window
+		title: 'Selecciona la leccion a importar'
+		extensions: #('st') 
+		path: nil
+		preview: nil.
+]
+
 { #category : #prototypeCompatibility }
 LOOPWindow >> cornerStyle [
 	^#corner
@@ -104,6 +114,17 @@ LOOPWindow >> createView [
 { #category : #creation }
 LOOPWindow >> delete [
 	window delete.
+]
+
+{ #category : #showing }
+LOOPWindow >> importLesson [
+	self chooseLessonFile ifNotNil: [ :fileEntry | ^loopBrowser importLesson: fileEntry ]
+]
+
+{ #category : #showing }
+LOOPWindow >> importLessonLabel [
+	^loopBrowser importLessonLabel
+		
 ]
 
 { #category : #accessing }

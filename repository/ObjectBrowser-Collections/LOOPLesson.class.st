@@ -56,24 +56,24 @@ LOOPLesson class >> deleteAllLessons [
 ]
 
 { #category : #accessing }
-LOOPLesson class >> fileIn: aFileName [
+LOOPLesson class >> fileIn: aFileEntry [
 	| lessonImported inStream |
 	
 	Author fullName ifNil: [Author requestFullName].	
 	[ [
 		ClassBuilder beSilent: true.
-		inStream := MultiByteFileStream fileNamed: aFileName.
+		inStream := aFileEntry readStream.
 		lessonImported := Compiler new 
-			evaluate: inStream readStream
+			evaluate: inStream
 			in: nil
 			to: self
 			notifying: nil
 			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
 			logged: true.
-		] valueSuppressingAllMessages
+		] valueSuppressingAllMessages.
 	] ensure: [ 
 		ClassBuilder beSilent: false.
-		inStream close.
+		inStream ifNotNilDo: [ :s | s close ]
 	].
 		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
 		^ lessonImported.
