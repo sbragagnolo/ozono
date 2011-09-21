@@ -198,9 +198,9 @@ ConfigurationOfObjectBrowser >> version11: spec [
 ConfigurationOfObjectBrowser >> version121: spec [ 
     <version: '1.2.1' imports: #('1.2-baseline')>
 	spec for: #common do:[
-		spec blessing: #development.
+		spec blessing: #release.
 		spec project: 'smallUML' with: '1.1.3'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.396'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.409'.
 		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
 		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
 		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
@@ -214,5 +214,18 @@ ConfigurationOfObjectBrowser >> version12: spec [
 		spec blessing: #development.
 		spec project: 'smallUML' with: '1.1.3'.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.367'.
+	].
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version13: spec [ 
+    <version: '1.3' imports: #('1.2-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec project: 'smallUML' with: '1.1.3'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.408'.
+		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
 	].
 ]
