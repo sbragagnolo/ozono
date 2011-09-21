@@ -145,15 +145,17 @@ ObjectBrowserObject >> compileMethod: aMethod [
 
 { #category : #printing }
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
-	| result |
+	| result obMethod |
 	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
 	result ifNil: [ ^self ].
-	methods at: result put: (OBMethod new 
+	obMethod := OBMethod new 
 		selector: result;
 		object: self;
-		yourself).
+		yourself.
+	methods at: result put: obMethod.
 	self flushVariablesCache.
 	self changed.
+	^obMethod
 ]
 
 { #category : #'as yet unclassified' }
