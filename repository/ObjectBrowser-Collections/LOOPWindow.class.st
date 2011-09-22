@@ -22,7 +22,7 @@ LOOPWindow class >> show: aLOOPBrowser [
 
 { #category : #showing }
 LOOPWindow >> aboutText [
-	^'LOOP version: ', ConfigurationOfObjectBrowser project currentVersion versionString
+	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
 ]
 
 { #category : #showing }
