@@ -151,11 +151,11 @@ ConfigurationOfObjectBrowser >> project [
 
 { #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> stable: spec [  
-<symbolicVersion: #stable>
+	<symbolicVersion: #stable>
 	
-	spec for: #'pharo1.1.x' version: '1.0'. 
-	spec for: #'pharo1.2.x' version: '1.2.1'. 
-
+	spec for: #'pharo1.1.x' version: '1.0'.
+	spec for: #'pharo1.2.x' version: '1.2.1'.
+	spec for: #'pharo1.3.x' version: '1.2.1'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -200,7 +200,7 @@ ConfigurationOfObjectBrowser >> version121: spec [
 	spec for: #common do:[
 		spec blessing: #release.
 		spec project: 'smallUML' with: '1.1.3'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.409'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.412'.
 		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
 		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
 		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
