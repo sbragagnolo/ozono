@@ -352,7 +352,7 @@ ObjectBrowser >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
 		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
 		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
-		with: (OBListItemWrapper with: (TestsOrganization for: self))
+		"with: (OBListItemWrapper with: (TestsOrganization for: self))"
 		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))
 		with: (OBListItemWrapper with: (DiagramOrganization for: self))
 		]
