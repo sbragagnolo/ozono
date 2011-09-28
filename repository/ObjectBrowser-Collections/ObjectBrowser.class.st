@@ -98,7 +98,7 @@ ObjectBrowser >> compileTest: aText [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> confirmDeletion [ 
-	^UIManager default confirm: '¿Esta seguro de eliminar?' trueChoice: 'Si' falseChoice: 'No' .
+	^UIManager default confirm: '¿Esta seguro de eliminar la referencia a este objeto?  El objeto aparecerá en la papelera si no tiene referencias' trueChoice: 'Si' falseChoice: 'No' .
 ]
 
 { #category : #'as yet unclassified' }
@@ -225,9 +225,11 @@ ObjectBrowser >> deleteLessonVariable [
 		evaluate: [
 			self selectedObject
 				ifNil: [self error: 'No hay ninguna referencia elegida'].
-			self confirmDeletion ifTrue:[self doDeleteLessonVariable].
+			self confirmDeletion ifTrue: [
+				self doDeleteLessonVariable.
+				self selectedObjectBrowserVariable: NullLessonVariable new.
+				].
 			].
-	self selectedObjectBrowserVariable: NullLessonVariable new.
 	self changed
 ]
 

@@ -52,7 +52,7 @@ LessonVariable >> makeSelectionOn: anObjectBrowser [
 
 { #category : #menues }
 LessonVariable >> menu: aMenuMorph [ 
-	aMenuMorph addList: #(#('Eliminar variable' #deleteLessonVariable)).
+	aMenuMorph addList: #( #('Eliminar referencia a este objeto' #deleteLessonVariable) ).
 	self pointsTo menu: aMenuMorph.
 	^aMenuMorph
 ]
