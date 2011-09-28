@@ -124,6 +124,26 @@ ConfigurationOfObjectBrowser >> baseline12: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline13: spec [ 
+    <version: '1.3-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel' 'SUML-ClassDiagramModel') ].
+			
+		spec package: 'Graphics-Primitives' with: [ spec repository: 'http://www.squeaksource.com/Pharo' ].
+		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec package: 'SUML-ClassDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> development: spec [ 
 	<symbolicVersion: #development>
 	spec for: #'pharo1.2.x' version: '1.2.1'. 
@@ -154,8 +174,8 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	spec for: #'pharo1.1.x' version: '1.0'.
-	spec for: #'pharo1.2.x' version: '1.2.1'.
-	spec for: #'pharo1.3.x' version: '1.2.1'.
+	spec for: #'pharo1.2.x' version: '1.3'.
+	spec for: #'pharo1.3.x' version: '1.3'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -219,13 +239,13 @@ ConfigurationOfObjectBrowser >> version12: spec [
 
 { #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> version13: spec [ 
-    <version: '1.3' imports: #('1.2-baseline')>
+    <version: '1.3' imports: #('1.3-baseline')>
 	spec for: #common do:[
-		spec blessing: #development.
+		spec blessing: #release.
 		spec project: 'smallUML' with: '1.1.3'.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.408'.
-		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-DeboraFortini.49'.
-		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-DeboraFortini.19'.
-		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-DeboraFortini.21'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.417'.
+		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-StephaneDucasse.48'.
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-carlaGriggio.15'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-GuillermoPolito.22'.
 	].
 ]
