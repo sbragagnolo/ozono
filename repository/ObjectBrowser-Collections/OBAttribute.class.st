@@ -17,8 +17,20 @@ OBAttribute class >> newNamed: aNameString owner: obObjectOwnerWhereTheVariableB
 ]
 
 { #category : #'as yet unclassified' }
+OBAttribute >> = anOBAttribute [
+	^(anOBAttribute isKindOf: self class)  
+		and: [ self name = anOBAttribute name 
+			and: [ self objectPointed = anOBAttribute objectPointed ] ]
+]
+
+{ #category : #'as yet unclassified' }
 OBAttribute >> actionsForAttributeList [
 	^#(('Eliminar referencia'		deleteVariable))
+]
+
+{ #category : #'as yet unclassified' }
+OBAttribute >> hash [
+	^self name hash raisedTo: self objectPointed hash \\ 100
 ]
 
 { #category : #'as yet unclassified' }
