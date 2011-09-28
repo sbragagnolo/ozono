@@ -10,7 +10,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 NoObjectBrowserObject class >> for: anObject [
-	^(anObject isKindOf: Collection)
+	^((anObject isKindOf: Collection) and: [ (anObject isKindOf: String) not ])
 		ifTrue: [ ObjectBrowserCollection newWithRealObject: anObject ]
 		ifFalse: [ self new: anObject ].
 ]

@@ -505,9 +505,8 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 
 { #category : #exportation }
 ObjectBrowserObject >> writeVarianblesOn: stream [ .
-
-	self variables do:[ :v | 
-		stream nextPutAll: self posibleName , ' addVariable: ''', v name, '''.'.
+	self collectRealVariables asSet do:[ :v | 
+		stream nextPutAll: self posibleName , ' addVariable: ''', v, '''.'.
 		stream cr.
 		].
 ]
