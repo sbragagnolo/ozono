@@ -446,7 +446,8 @@ ObjectBrowserObject >> variableNames [
 
 { #category : #accessing }
 ObjectBrowserObject >> variables [
-	^self realObjectVariables collect: [ :var | OBAttribute newNamed: var owner: self ]
+	^(self realObjectVariables collect: [ :var | OBAttribute newNamed: var owner: self ]) 
+		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
 { #category : #exportation }
