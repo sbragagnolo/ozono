@@ -409,7 +409,7 @@ ObjectBrowserObject >> removeMethod: aMethod [
 
 { #category : #accessing }
 ObjectBrowserObject >> removeVariable: anAttribute [
-	variables remove: anAttribute.
+	variables remove: anAttribute name.
 	anAttribute removeFrom: self realClass.
 	self changed.
 ]
