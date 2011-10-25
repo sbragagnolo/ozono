@@ -14,7 +14,7 @@ ObjectBrowserSimpleSetCollectionTestCase >> expectedOnAdd [
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleSetCollectionTestCase >> expectedOnCollect [ 
 	|expected|
-	expected := set clone.
+	expected := (Smalltalk at:#set) clone.
 	^expected add: 7; add: 8;add: 10;yourself. 
 	
 ]
@@ -22,5 +22,5 @@ ObjectBrowserSimpleSetCollectionTestCase >> expectedOnCollect [
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleSetCollectionTestCase >> setUp [ 
 	super setUp .
-	self collection:  set clone.
+	self collection:  (Smalltalk at:#set) clone.
 ]

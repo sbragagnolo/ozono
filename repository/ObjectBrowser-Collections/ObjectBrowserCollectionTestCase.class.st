@@ -20,7 +20,7 @@ ObjectBrowserCollectionTestCase >> setUp [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 	|miBolsa|
-	miBolsa := bag clone.
+	miBolsa := (Smalltalk at:#bag) clone.
 	self assert: 0 equals: miBolsa size.
 	self agregarRepetidos: miBolsa .
 	self assert: 2 equals: miBolsa size.
@@ -30,7 +30,7 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	|sinRepetidos|	
-	sinRepetidos := set clone .
+	sinRepetidos := (Smalltalk at:#set) clone.
 	self agregarRepetidos: sinRepetidos .
 	self assert: 1 equals: sinRepetidos size.
 	
@@ -39,28 +39,28 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateBagCollection [
 	|miConjunto |
-	miConjunto:= bag clone.
+	miConjunto:= (Smalltalk at:#bag) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateOrderedCollection [
 	|miConjunto |
-	miConjunto:= ordered clone.
+	miConjunto:= (Smalltalk at:#ordered) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testCreateSetCollection [
 	|miConjunto |
-	miConjunto:= set clone.
+	miConjunto:= (Smalltalk at:#set) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollectionTestCase >> testObtainFirst [
 	|miConjunto |
-	miConjunto:= ordered clone.
+	miConjunto:= (Smalltalk at:#ordered) clone.
 	miConjunto add: 1.
 	miConjunto add: 2.
 	self assert: 1 equals: miConjunto first .

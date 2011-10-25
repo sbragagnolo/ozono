@@ -14,7 +14,7 @@ ObjectBrowserSimpleBagCollectionTestCase >> expectedOnAdd [
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleBagCollectionTestCase >> expectedOnCollect [ 
 	|expected|
-	expected := bag clone.
+	expected := (Smalltalk at:#bag) clone.
 	^expected add: 7; add: 8;add: 10;yourself. 
 	
 ]
@@ -22,5 +22,5 @@ ObjectBrowserSimpleBagCollectionTestCase >> expectedOnCollect [
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleBagCollectionTestCase >> setUp [ 
 	super setUp .
-	self collection:  bag clone.
+	self collection:  (Smalltalk at:#bag) clone.
 ]

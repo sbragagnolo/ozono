@@ -112,7 +112,7 @@ ObjectBrowser >> createAttribute [
 
 { #category : #showing }
 ObjectBrowser >> createBag [
-	self createCollection: bag.
+	self createCollection: (Smalltalk at:#bag).
 ]
 
 { #category : #showing }
@@ -126,7 +126,7 @@ ObjectBrowser >> createCollection: type [
 
 { #category : #showing }
 ObjectBrowser >> createDictionary [  
-	self createCollection: dictionary.
+	self createCollection: (Smalltalk at:#dictionary).
 ]
 
 { #category : #showing }
@@ -142,17 +142,17 @@ ObjectBrowser >> createObject: creationBlock [
 
 { #category : #showing }
 ObjectBrowser >> createOrdered [
-	self createCollection: ordered.
+	self createCollection: (Smalltalk at:#ordered).
 ]
 
 { #category : #showing }
 ObjectBrowser >> createSet [
-	self createCollection: set.
+	self createCollection: (Smalltalk at:#set).
 ]
 
 { #category : #showing }
 ObjectBrowser >> createSorted [ 
-	self createCollection: sorted.
+	self createCollection: (Smalltalk at:#sorted).
 ]
 
 { #category : #menues }
