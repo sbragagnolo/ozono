@@ -124,6 +124,25 @@ ConfigurationOfObjectBrowser >> baseline12: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline131: spec [ 
+    <version: '1.3.1-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://www.squeaksource.com/smallUML'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel' 'SUML-ClassDiagramModel') ].
+			
+		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec package: 'SUML-ClassDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> baseline13: spec [ 
     <version: '1.3-baseline'>
 	spec for: #common do: [
@@ -234,6 +253,18 @@ ConfigurationOfObjectBrowser >> version12: spec [
 		spec blessing: #development.
 		spec project: 'smallUML' with: '1.1.3'.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.367'.
+	].
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version131: spec [ 
+    <version: '1.3.1' imports: #('1.3.1-baseline')>
+	spec for: #common do:[
+		spec blessing: #release.
+		spec project: 'smallUML' with: '1.1.3'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.420'.
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.20'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-GuillermoPolito.22'.
 	].
 ]
 
