@@ -30,9 +30,7 @@ DiagramOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> menu: aMenu [
-	aMenu add: 'exportar' action: #exportDiagram.
-	aMenu add: 'borrar posiciones' action: #borrarPosicionesDeLosNodos.
-	
+	aMenu add: 'exportar' action: #exportDiagram.	
 ^aMenu.
 ]
 

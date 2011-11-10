@@ -54,11 +54,6 @@ ObjectBrowser >> attributeListMenu: aMenu shifted: shifted [
 	^aMenu addList: (self actionsForAttributeListWith: self selectedObjectAttribute)
 ]
 
-{ #category : #accessing }
-ObjectBrowser >> borrarPosicionesDeLosNodos [
-	self lesson borrarPosicionesDeLosNodos
-]
-
 { #category : #ObjectBrowser }
 ObjectBrowser >> canDelete: anObjectBrowserObject [
 
