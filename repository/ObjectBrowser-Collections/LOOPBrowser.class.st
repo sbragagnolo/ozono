@@ -77,16 +77,13 @@ LOOPBrowser >> createNewFreeLesson [
 	]
 ]
 
-{ #category : #accessing }
+{ #category : #export }
 LOOPBrowser >> fileOutSelectedLesson [
-	[
-		self selectedLesson fileOut.
-		UIManager inform: 'La lección se exportó correctamente!'.
-	] on: Error do: [ :error | error signal ]
-	
+	self selectedLesson fileOut.
+	UIManager inform: 'La lección se exportó correctamente!'.
 ]
 
-{ #category : #creation }
+{ #category : #export }
 LOOPBrowser >> importLesson: aFileEntry [
 	"LOOPImportFileList open. - > esto abre el browser con el boton importar que esta ahora"
 	| lesson lessonName |
