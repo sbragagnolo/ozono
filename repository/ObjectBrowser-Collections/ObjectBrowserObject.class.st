@@ -239,7 +239,7 @@ ObjectBrowserObject >> isNull [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> isRedefined: aSelector [
-	^self realClass isOverridden: aSelector.
+	^self realClass allSubclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -376,7 +376,7 @@ ObjectBrowserObject >> realObjectVariables [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> redefines: aSelector [
-	^self realClass isOverride: aSelector.
+	^self realClass allSuperclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
 ]
 
 { #category : #'as yet unclassified' }

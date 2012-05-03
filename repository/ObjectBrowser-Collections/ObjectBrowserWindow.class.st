@@ -35,7 +35,7 @@ ObjectBrowserWindow >> buildMethodEditor [
 		accept: #acceptCode:notifying:
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.
-	methodEditor beStyled.
+	methodEditor styled: true.
 	self objectBrowser addObjectSelectionInterested: methodEditor.
 	self objectBrowser addObjectSelectionInterested: model.
 	model methodEditorMorph: methodEditor.
@@ -79,11 +79,11 @@ ObjectBrowserWindow >> createObjectDiagramTab [
 	diagram := self lesson objectDiagram. 
 	scrollPane scroller addMorph: diagram diagramMorph.
 	hSepFrac := 0.45.
-	panel := OBGroupingMorph new
+	panel := PanelMorph new
 		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new);
+		changeProportionalLayout;
 		addMorph: (scrollPane )
-			frame: (0@0 corner: 1@1).
+		fullFrame: (LayoutFrame fractions: (0@0 corner: 1@1)).
 	^panel.
 ]
 
@@ -91,17 +91,17 @@ ObjectBrowserWindow >> createObjectDiagramTab [
 ObjectBrowserWindow >> createObjectEditionTab [
 	| hSepFrac panel |
 	hSepFrac := 0.45.
-	panel := OBGroupingMorph new
+	panel := PanelMorph new
 		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new);
+		changeProportionalLayout;
 		addMorph: self buildObjectAttributeList 
-			frame: (0@0 corner: 0.4999 @ hSepFrac -0.01);
+		fullFrame: (LayoutFrame fractions: (0@0 corner: 0.4999 @ hSepFrac -0.01));
 		addMorph: self buildMethodList
-			frame: (0.50001@ 0 corner: 1.01 @ hSepFrac -0.01);
+		fullFrame: (LayoutFrame fractions: (0.50001@ 0 corner: 1.01 @ hSepFrac -0.01));
 		addMorph: self buildMethodEditor
-			frame: (0@hSepFrac corner: 1 @ 1).
+		fullFrame: (LayoutFrame fractions: (0@hSepFrac corner: 1 @ 1)).
 	methodEditor color: Color white.
-panel color: Color lightGray .
+	panel color: Color lightGray.
 	^panel.
 ]
 
@@ -118,21 +118,21 @@ ObjectBrowserWindow >> createTestRunnerTab [
 		menu: #menu:) setNameTo: #textoTest;
 		color: Color white;
 		yourself.
-	testEditor beStyled.
+	testEditor styled: true.
 	self objectBrowser addTestSelectionInterested: testEditor.
 	testEditorModel testEditorMorph: methodEditor.
 
-	panel := OBGroupingMorph new
+	panel := PanelMorph new
 		color: (Color gray);
-		layoutPolicy: (ProportionalLayout new).
+		changeProportionalLayout.
 	panel addMorph: (ObjectBrowserPluggableListMorph on: (ObjectTestsListModel newOn: self objectBrowser))
-		frame: (0@0 corner: 0.4999 @ hSepFrac -0.01).
+	fullFrame: (LayoutFrame fractions: (0@0 corner: 0.4999 @ hSepFrac -0.01)).
 	panel addMorph: testEditor
-		frame: (0@hSepFrac corner: 1 @ 1).
-	panel addMorph: (statusMorph := (NewTextMorph  new color: Color red; readOnly: true; yourself))	
-		frame: (0.499@0 corner: 0.99@0.09).
+	fullFrame: (LayoutFrame fractions: (0@hSepFrac corner: 1 @ 1)).
+	panel addMorph: (statusMorph := (LabelMorph new color: Color red; yourself))	
+	fullFrame: (LayoutFrame fractions: (0.499@0 corner: 0.99@0.09)).
 	panel addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
-		frame: (0.499@0.1 corner: 0.99@0.2).
+	fullFrame: (LayoutFrame fractions: (0.499@0.1 corner: 0.99@0.2)).
 	^panel.
 ]
 

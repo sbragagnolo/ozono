@@ -1,8 +1,6 @@
 Class {
 	#name : #LOOPWindow,
 	#superclass : #Object,
-	#traits : 'TEasilyThemed',
-	#classTraits : 'TEasilyThemed classTrait',
 	#instVars : [
 		'loopBrowser',
 		'window'
@@ -27,7 +25,7 @@ LOOPWindow >> aboutText [
 
 { #category : #showing }
 LOOPWindow >> buildAboutMorph [
-	^(self 
+	^(window
 		newTextEditorFor: self 
 		getText: #aboutText
 		setText: nil)
@@ -90,15 +88,10 @@ LOOPWindow >> chooseLessonFile. [
 		preview: nil.
 ]
 
-{ #category : #prototypeCompatibility }
-LOOPWindow >> cornerStyle [
-	^#corner
-]
-
 { #category : #showing }
 LOOPWindow >> createView [
 	| top left bottom right middle |
-	window := SystemWindow labelled: 'Lessons'.
+	window := StandardWindow labelled: 'Lessons'.
 	window model: loopBrowser.
 	
 	top := left := 0.
@@ -130,11 +123,6 @@ LOOPWindow >> importLessonLabel [
 { #category : #accessing }
 LOOPWindow >> loopBrowser: aLOOPBrowser [ 
 	loopBrowser := aLOOPBrowser
-]
-
-{ #category : #polymorphCompatibility }
-LOOPWindow >> preferredCornerStyle [
-	^self theme windowPreferredCornerStyleFor: self.
 ]
 
 { #category : #creation }
