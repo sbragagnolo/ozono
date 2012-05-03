@@ -163,6 +163,31 @@ ConfigurationOfObjectBrowser >> baseline13: spec [
 ]
 
 { #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> baseline14: spec [ 
+    <version: '1.4-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://www.squeaksource.com/ObjectBrowser'.
+		spec package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' ) ].
+			
+		spec package: 'SUML-Tools' with: [ spec requires: 'MinimalConnectors'.  ].
+		spec package: 'SUML-DiagramDrawing' with: [ spec requires: 'MinimalConnectors'.  ].
+		spec package: 'SUML-ObjectDiagramModel'.
+		spec package: 'SUML-ClassDiagramModel'.
+		
+		spec 
+			package: 'MinimalConnectors-ConnectableShapes';
+			package: 'MinimalConnectors-CurvesAndArrows';
+			package: 'MinimalConnectors-Connections' with: [spec requires: 'MinimalConnectors-ConnectableShapes' ].
+
+		
+		spec group: 'MinimalConnectors' with: #( 'MinimalConnectors-Connections' 'MinimalConnectors-CurvesAndArrows' 'MinimalConnectors-ConnectableShapes' ).
+		spec group: 'smallUML' with: #( 'SUML-Tools' 'SUML-DiagramDrawing' 'SUML-ObjectDiagramModel' 'SUML-ClassDiagramModel' ).
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+	].
+]
+
+{ #category : #'as yet unclassified' }
 ConfigurationOfObjectBrowser >> development: spec [ 
 	<symbolicVersion: #development>
 	spec for: #'pharo1.2.x' version: '1.2.1'. 
@@ -195,6 +220,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	spec for: #'pharo1.1.x' version: '1.0'.
 	spec for: #'pharo1.2.x' version: '1.3'.
 	spec for: #'pharo1.3.x' version: '1.3.1'.
+	spec for: #'pharo1.4.x' version: '1.3.1'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -278,5 +304,24 @@ ConfigurationOfObjectBrowser >> version13: spec [
 		spec package: 'Graphics-Primitives' with: 'Graphics-Primitives-StephaneDucasse.48'.
 		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.20'.
 		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-GuillermoPolito.22'.
+	].
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version14: spec [ 
+    <version: '1.4' imports: #('1.4-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.424'.
+
+		spec package: 'MinimalConnectors-ConnectableShapes' with:'MinimalConnectors-ConnectableShapes-GuillermoPolito.19'.
+		spec package: 'MinimalConnectors-CurvesAndArrows' with: 'MinimalConnectors-CurvesAndArrows-carlaGriggio.8'.
+		spec package: 'MinimalConnectors-Connections' with: 'MinimalConnectors-Connections-GuillermoPolito.9'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.20'.
+		spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-GuillermoPolito.22'.
+		spec package: 'SUML-DiagramDrawing' with:'SUML-DiagramDrawing-GuillermoPolito.29'.
+		spec package: 'SUML-SequenceDiagramModel' with:'SUML-SequenceDiagramModel-carlaGriggio.1'.
+		spec package: 'SUML-Tools' with:'SUML-Tools-carlaGriggio.36'.
 	].
 ]
