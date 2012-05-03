@@ -29,9 +29,17 @@ Gb8DeEs6z/3CU5IAAAAASUVORK5CYII='
 
 { #category : #'as yet unclassified' }
 PdepDiagrams class >> menuCommandOn: aBuilder [ 
-	<worldMenu>
+	self flag: #fixME.
+"	<worldMenu>
 	(aBuilder item: #'Diagrama de Clases')
 		parent: #'PdeP Software';  
 		action: [PdepDiagrams openDiagramBrowser];
-		icon: self icon.
+		icon: self icon."
+]
+
+{ #category : #diagrams }
+PdepDiagrams >> d [
+	| d |
+	d := ClassDiagram new name: 'd1'.
+	^ d
 ]
