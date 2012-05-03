@@ -220,7 +220,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	spec for: #'pharo1.1.x' version: '1.0'.
 	spec for: #'pharo1.2.x' version: '1.3'.
 	spec for: #'pharo1.3.x' version: '1.3.1'.
-	spec for: #'pharo1.4.x' version: '1.3.1'.
+	spec for: #'pharo1.4.x' version: '1.4'.
 ]
 
 { #category : #'as yet unclassified' }
