@@ -52,6 +52,11 @@ LOOPBrowser class >> on: aLOOPLessonContainer [
 		yourself.
 ]
 
+{ #category : #accessing }
+LOOPBrowser >> aboutText [
+	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
+]
+
 { #category : #creation }
 LOOPBrowser >> chooseTheFile. [
 	^ UITheme current
@@ -186,7 +191,8 @@ LOOPBrowser >> updateLOOP [
 			squeaksource: 'ObjectBrowser';
 			package: 'ConfigurationOfObjectBrowser';
 			load.
-		(ConfigurationOfObjectBrowser project version: #stable) load 
+		(ConfigurationOfObjectBrowser project version: #stable) load.
+		self changed: #aboutText.
 	] on: Warning do: [ :w | w resume ]
 ]
 

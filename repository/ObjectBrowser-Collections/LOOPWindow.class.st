@@ -19,14 +19,9 @@ LOOPWindow class >> show: aLOOPBrowser [
 ]
 
 { #category : #showing }
-LOOPWindow >> aboutText [
-	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
-]
-
-{ #category : #showing }
 LOOPWindow >> buildAboutMorph [
 	^(window
-		newTextEditorFor: self 
+		newTextEditorFor: loopBrowser
 		getText: #aboutText
 		setText: nil)
 		disable;
