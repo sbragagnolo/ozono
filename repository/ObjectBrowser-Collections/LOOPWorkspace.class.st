@@ -10,12 +10,12 @@ Class {
 	#category : #'ObjectBrowser-UI'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> asString [
 	^self label
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #bindings }
 LOOPWorkspace >> bindingOf: aString [ 
 	(self hasBindingOf: aString)
 		ifTrue:[^ aString -> (lesson variableNamed: aString)]
@@ -23,12 +23,12 @@ LOOPWorkspace >> bindingOf: aString [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'showing/creation' }
 LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 	window := (SystemWindow labelled: labelString) model: self.
 	pane := PluggableTextMorph on: self text: #contents accept: #acceptContents:
@@ -41,7 +41,7 @@ LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
 	^ window
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #fileout }
 LOOPWorkspace >> export [
 	| internalStream converter f |
 	[	internalStream := (String new: 100) writeStream.
@@ -63,27 +63,27 @@ LOOPWorkspace >> export [
 	] ensure: [ internalStream close ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #bindings }
 LOOPWorkspace >> hasBindingOf: aString [ 
 	^lesson hasVariable: aString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> icon [
 	^ObjectBrowserIcons workspaceIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> label [
 	^label
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> label: aLabel [
 	label := aLabel.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> lesson: aLesson [
 	lesson := aLesson.
 ]
@@ -93,7 +93,7 @@ LOOPWorkspace >> makeSelectionOn: anObjectBrowser [
 	anObjectBrowser workspaceSelected: self.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 LOOPWorkspace >> menu: aMenuBuilder [
 	^aMenuBuilder addList: (OrderedCollection
 		with: #('abrir' #openWorkspace)
@@ -101,37 +101,37 @@ LOOPWorkspace >> menu: aMenuBuilder [
 		with: #('exportar' #exportWorkspace))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'showing/creation' }
 LOOPWorkspace >> openInWorld [
 	self openLabel: self label.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> selectedClassOrMetaClass [  
 	^lesson executionContext class
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #fileout }
 LOOPWorkspace >> stringContents [
 	^(window findDeeplyA:TextMorph) text asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LOOPWorkspace >> treeContents [
 	^OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #fileout }
 LOOPWorkspace >> writeContentsOn: stream [
 	stream nextPutAll: self stringContents.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #fileout }
 LOOPWorkspace >> writeOn: stream [
 	self writeOn: stream  withLessonIdentification: 'self'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #fileout }
 LOOPWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
 	stream nextPutAll: (lessonIdentification, ' createWorkspace: ''', self label ,'''' ,' contents: ''', 
 		(self stringContents copyReplaceAll: $' asString with: $' asString,$' asString ), '''.').
