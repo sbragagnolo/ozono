@@ -9,6 +9,7 @@ Class {
 		'garbageCollectionButton',
 		'objectBrowserTree',
 		'statusMorph',
+		'statusTextMorph',
 		'groupTab',
 		'pages',
 		'diagram'
@@ -105,7 +106,7 @@ ObjectBrowserWindow >> createObjectEditionTab [
 	^panel.
 ]
 
-{ #category : #view }
+{ #category : #'test-runner' }
 ObjectBrowserWindow >> createTestRunnerTab [
 	| hSepFrac panel testRunner aBuilder window testEditor testEditorModel |
 	hSepFrac := 0.45.
@@ -125,14 +126,27 @@ ObjectBrowserWindow >> createTestRunnerTab [
 	panel := PanelMorph new
 		color: (Color gray);
 		changeProportionalLayout.
-	panel addMorph: (ObjectBrowserPluggableListMorph on: (ObjectTestsListModel newOn: self objectBrowser))
-	fullFrame: (LayoutFrame fractions: (0@0 corner: 0.4999 @ hSepFrac -0.01)).
-	panel addMorph: testEditor
-	fullFrame: (LayoutFrame fractions: (0@hSepFrac corner: 1 @ 1)).
-	panel addMorph: (statusMorph := (LabelMorph new color: Color red; yourself))	
-	fullFrame: (LayoutFrame fractions: (0.499@0 corner: 0.99@0.09)).
-	panel addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
-	fullFrame: (LayoutFrame fractions: (0.499@0.1 corner: 0.99@0.2)).
+		
+	panel
+		addMorph: (ObjectBrowserPluggableListMorph on: (ObjectTestsListModel newOn: self objectBrowser))
+		fullFrame: (LayoutFrame fractions: (0@0 corner: 0.4999 @ hSepFrac -0.01)).
+	panel
+		addMorph: testEditor
+		fullFrame: (LayoutFrame fractions: (0@hSepFrac corner: 1 @ 1)).
+	
+	panel
+		addMorph: (statusMorph := (PanelMorph new changeProportionalLayout; yourself))	
+		fullFrame: (LayoutFrame fractions: (0.499@0 corner: 0.99@0.09)).
+	
+	statusMorph color: Color green.
+	statusMorph
+		addMorph: (statusTextMorph := (LabelMorph new color: Color black; contents: ''; yourself))
+		fullFrame: (LayoutFrame fractions: (0.1@0.1 corner: 0.9@0.9)).
+	
+	panel
+		addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
+		fullFrame: (LayoutFrame fractions: (0.499@0.1 corner: 0.99@0.2)).
+		
 	^panel.
 ]
 
@@ -155,28 +169,28 @@ ObjectBrowserWindow >> createView [
 	^window.
 ]
 
-{ #category : #view }
+{ #category : #'initialize-release' }
 ObjectBrowserWindow >> initialize [
 	pages := Dictionary new.
 ]
 
-{ #category : #'user interface' }
+{ #category : #accessing }
 ObjectBrowserWindow >> lesson [
 	^self objectBrowser lesson
 ]
 
-{ #category : #view }
+{ #category : #accessing }
 ObjectBrowserWindow >> objectBrowser [
 	^objectBrowser 
 ]
 
-{ #category : #view }
+{ #category : #accessing }
 ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
 	objectBrowser := anObjectBrowser.
 	objectBrowser dependant: self.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #view }
 ObjectBrowserWindow >> objectGraphButtonLabel [
 	^'Diagrama de objetos'
 ]
@@ -192,20 +206,20 @@ ObjectBrowserWindow >> refresh [
 	self objectBrowser selectedPage = #diagram ifTrue: [diagram update]
 ]
 
-{ #category : #view }
+{ #category : #accessing }
 ObjectBrowserWindow >> selectedItemMenu: aMenu [
 	self selectedItem menu: aMenu.
 ]
 
-{ #category : #view }
+{ #category : #accessing }
 ObjectBrowserWindow >> setGroupTabIndex: anIndex [
 	self objectBrowser selectedTabIndex: anIndex.
 	groupTab selectedPageIndex: anIndex 
 ]
 
-{ #category : #view }
+{ #category : #accessing }
 ObjectBrowserWindow >> setTestsResults: result [
-	statusMorph text: result printString.
+	statusTextMorph contents: result printString.
 	statusMorph color: (result color).
 ]
 

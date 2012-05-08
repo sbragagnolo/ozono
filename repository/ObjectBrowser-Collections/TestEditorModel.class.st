@@ -24,9 +24,9 @@ TestEditorModel >> errorHandler [
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> menu: aMenu [
-	^ aMenu
-	
+TestEditorModel >> menu: unMenu [ 
+	unMenu addList: #(#('aceptar(s)' #accept) ).
+	^ unMenu
 ]
 
 { #category : #'as yet unclassified' }
@@ -39,6 +39,12 @@ TestEditorModel >> selectedTestCode [
 	| c |
 	c := self model selectedTest ifNotNil: [ :t | t code ].
 	^c
+]
+
+{ #category : #styling }
+TestEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
+	aPluggableShoutMorphOrView classOrMetaClass: self model lesson executionContext class.
+	^ true
 ]
 
 { #category : #'as yet unclassified' }
