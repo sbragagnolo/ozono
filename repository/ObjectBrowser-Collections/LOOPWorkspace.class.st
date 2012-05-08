@@ -32,19 +32,6 @@ LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
 
-{ #category : #'showing/creation' }
-LOOPWorkspace >> embeddedInMorphicWindowLabeled: labelString [
-	window := (SystemWindow labelled: labelString) model: self.
-	pane := PluggableTextMorph on: self text: #contents accept: #acceptContents:
-			readSelection: nil menu: #codePaneMenu:shifted:.
-	pane  font: StandardFonts codeFont.
-	pane beStyled.
-	pane styler workspace: self.
-	window addMorph: pane frame: (0@0 corner: 1@1).
-	self label: labelString.
-	^ window
-]
-
 { #category : #fileout }
 LOOPWorkspace >> export [
 	| internalStream converter f |
@@ -113,7 +100,7 @@ LOOPWorkspace >> menu: aMenuBuilder [
 
 { #category : #'showing/creation' }
 LOOPWorkspace >> openInWorld [
-	self openLabel: self label.
+	window := self openLabel: self label.
 ]
 
 { #category : #accessing }
