@@ -331,15 +331,11 @@ ConfigurationOfObjectBrowser >> version141: spec [
     <version: '1.4.1' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.425'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.428'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
 		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.20'.
-		"spec package: 'SUML-ClassDiagramModel' with: 'SUML-ClassDiagramModel-GuillermoPolito.22'.
-		spec package: 'SUML-DiagramDrawing' with:'SUML-DiagramDrawing-GuillermoPolito.29'.
-		spec package: 'SUML-SequenceDiagramModel' with:'SUML-SequenceDiagramModel-carlaGriggio.1'.
-		spec package: 'SUML-Tools' with:'SUML-Tools-carlaGriggio.36'."
 	].
 ]
 
