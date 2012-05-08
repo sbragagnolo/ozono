@@ -31,6 +31,15 @@ MethodEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
+{ #category : #'code completion' }
+MethodEditorModel >> guessTypeForName: aString [
+	| object |
+	object := self model selectedObject.
+	^(object hasVariable: aString)
+		ifTrue: [ (object variableNamed: aString) objectPointed class ]
+		ifFalse: [ nil ]
+]
+
 { #category : #actions }
 MethodEditorModel >> menu: unMenu [ 
 	unMenu addList: #(#('aceptar(s)' #accept) ).
