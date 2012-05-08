@@ -10,7 +10,7 @@ Class {
 	#category : #'ObjectBrowser-UI-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 MethodEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
@@ -26,39 +26,23 @@ MethodEditorModel >> acceptCode: unText notifying: someone [
 
 ]
 
-{ #category : #'as yet unclassified' }
-MethodEditorModel >> completionController [
-	^controller ifNil: [
-		controller := (ECPreferences useECompletionInsteadOfOCompletion
-			ifFalse: [ OController ]
-			ifTrue: [ ECController ]) model: self
-		]
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 MethodEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
-{ #category : #associating }
-MethodEditorModel >> guessTypeForName: aByteString [ 
-	| klass |
-	klass := (model selectedObject realClassForVariableNamed: aByteString ).
-	klass = UndefinedObject ifTrue: [ nil ] ifFalse: [ klass ]
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 MethodEditorModel >> menu: unMenu [ 
 	unMenu addList: #(#('aceptar(s)' #accept) ).
 	^ unMenu
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MethodEditorModel >> methodCode [
 	^self model selectedMethod
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MethodEditorModel >> methodEditorMorph: aMorph [
 	methodEditorMorph := aMorph.
 ]
@@ -73,7 +57,13 @@ MethodEditorModel >> selectedClassOrMetaClass: aClassOrMetaClass [
 	^selectedClassOrMetaClass := aClassOrMetaClass
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #styling }
+MethodEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
+	aPluggableShoutMorphOrView classOrMetaClass: self selectedClassOrMetaClass.
+	^ true
+]
+
+{ #category : #updating }
 MethodEditorModel >> update: anObject [ 
 	super update: anObject.
 	self changed: #selectedMethodCode.
