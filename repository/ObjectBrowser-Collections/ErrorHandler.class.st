@@ -29,6 +29,11 @@ ErrorHandler class >> evaluate: aBlock [
 		 value
 ]
 
+{ #category : #installing }
+ErrorHandler class >> install [
+	self default: self.
+]
+
 { #category : #'as yet unclassified' }
 ErrorHandler >> block: aBlock [
 	"me pasan el bloque que voy a intentar evaluar"

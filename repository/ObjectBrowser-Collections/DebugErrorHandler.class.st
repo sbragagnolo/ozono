@@ -6,5 +6,5 @@ Class {
 
 { #category : #'as yet unclassified' }
 DebugErrorHandler >> value [
-	block value
+	^block value
 ]

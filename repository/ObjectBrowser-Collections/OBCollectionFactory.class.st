@@ -28,6 +28,11 @@ OBCollectionFactory >> clone [
 	^col
 ]
 
+{ #category : #testing }
+OBCollectionFactory >> isObjectBrowserLiteral [
+	^true
+]
+
 { #category : #'as yet unclassified' }
 OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
 	^ObjectBrowserCollection newWithRealObject: aRealCollection.

@@ -18,7 +18,11 @@ LOOPWorkspace >> asString [
 { #category : #bindings }
 LOOPWorkspace >> bindingOf: aString [ 
 	(self hasBindingOf: aString)
-		ifTrue:[^ aString -> (lesson variableNamed: aString)]
+		ifTrue:[
+			(self isLiteral: aString)
+				ifTrue:  [ ^aString-> (Smalltalk globals at: aString asSymbol) ]
+				ifFalse: [ ^aString -> (lesson variableNamed: aString) ]
+			]
 		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido'].
 	
 ]
@@ -65,12 +69,18 @@ LOOPWorkspace >> export [
 
 { #category : #bindings }
 LOOPWorkspace >> hasBindingOf: aString [ 
-	^lesson hasVariable: aString.
+	^(lesson hasVariable: aString) or: [ self isLiteral: aString ].
 ]
 
 { #category : #accessing }
 LOOPWorkspace >> icon [
 	^ObjectBrowserIcons workspaceIcon
+]
+
+{ #category : #bindings }
+LOOPWorkspace >> isLiteral: aString [
+	^(Smalltalk globals includesKey: aString asSymbol)
+		and: [ (Smalltalk globals at: aString asSymbol) isObjectBrowserLiteral ]
 ]
 
 { #category : #accessing }
