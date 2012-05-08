@@ -34,6 +34,11 @@ TestEditorModel >> methodCode [
 	^self model selectedTest code
 ]
 
+{ #category : #accessing }
+TestEditorModel >> selectedClassOrMetaClass [
+	^self model lesson executionContext class
+]
+
 { #category : #'as yet unclassified' }
 TestEditorModel >> selectedTestCode [
 	| c |
@@ -43,7 +48,7 @@ TestEditorModel >> selectedTestCode [
 
 { #category : #styling }
 TestEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
-	aPluggableShoutMorphOrView classOrMetaClass: self model lesson executionContext class.
+	aPluggableShoutMorphOrView classOrMetaClass: self selectedClassOrMetaClass.
 	^ true
 ]
 

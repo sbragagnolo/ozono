@@ -13,6 +13,11 @@ ObjectModel class >> newOn: realModel [
 		 yourself
 ]
 
+{ #category : #'code completion' }
+ObjectModel >> isCodeCompletionAllowed [
+	^true
+]
+
 { #category : #'as yet unclassified' }
 ObjectModel >> model [
 	^model
