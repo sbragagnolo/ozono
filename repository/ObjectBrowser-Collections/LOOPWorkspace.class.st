@@ -27,6 +27,11 @@ LOOPWorkspace >> bindingOf: aString [
 	
 ]
 
+{ #category : #bindings }
+LOOPWorkspace >> bindings [
+	^lesson variables collect: #name
+]
+
 { #category : #actions }
 LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
@@ -105,7 +110,7 @@ LOOPWorkspace >> openInWorld [
 
 { #category : #accessing }
 LOOPWorkspace >> selectedClassOrMetaClass [  
-	^lesson executionContext class
+	^nil
 ]
 
 { #category : #fileout }
