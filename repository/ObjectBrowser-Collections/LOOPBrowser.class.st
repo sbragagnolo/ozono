@@ -36,6 +36,10 @@ DOAO3NFQbH//2Q=='
 { #category : #'as yet unclassified' }
 LOOPBrowser class >> menuCommandOn: aBuilder [ 
 	<worldMenu>
+	(aBuilder item: #'PdeP Software')
+		order: 0.1;
+		target: self;
+		icon: UITheme current homeIcon.
 	(aBuilder item: #'Lesson Browser')
 		parent: #'PdeP Software';  
 		action: [LOOPLesson browseLessons];
