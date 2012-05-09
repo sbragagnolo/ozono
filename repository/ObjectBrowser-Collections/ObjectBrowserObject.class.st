@@ -146,7 +146,7 @@ ObjectBrowserObject >> compileMethod: aMethod [
 { #category : #printing }
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result obMethod |
-	result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
+	result := self realClass compileSilently: aMethod classified: #'object browser'  notifying: someone.
 	result ifNil: [ ^self ].
 	obMethod := OBMethod new 
 		selector: result;

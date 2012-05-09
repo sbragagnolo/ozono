@@ -121,8 +121,7 @@ LOOPLesson >> addObject: anObject [
 
 { #category : #accessing }
 LOOPLesson >> addVariable: aVariable [
-	self variables add: aVariable.
-	self executionContext class addInstVarNamed: aVariable name.
+	self addVariableWithExistentObject: aVariable.
 	(aVariable pointsTo isKindOf: NoObjectBrowserObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
@@ -141,7 +140,9 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 { #category : #accessing }
 LOOPLesson >> addVariableWithExistentObject: aVariable [
 	self variables add: aVariable.
-	self executionContext class addInstVarNamed: aVariable name.
+	SystemChangeNotifier doSilently: [
+		self executionContext class addInstVarNamed: aVariable name.
+	].
 ]
 
 { #category : #accessing }
@@ -181,7 +182,7 @@ LOOPLesson >> clean [
 { #category : #accessing }
 LOOPLesson >> compileTest: aTestText [
 	| result newTest |
-	result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
+	result := self executionContext class compileSilently: aTestText classified: #'tests'  notifying: nil.
 	newTest := (OBTest newText: result onLesson: self).
 	self testDictionary at: result put: newTest.
 	^newTest
@@ -189,6 +190,7 @@ LOOPLesson >> compileTest: aTestText [
 
 { #category : #accessing }
 LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
+	SystemChangeNotifier doSilently: [
 		^ClassBuilder new
 			name: aClassName
 			inEnvironment: self lessonEnvironment
@@ -198,6 +200,7 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 			classVariableNames: ''
 			poolDictionaries: ''
 			category: 'Useless'.
+	]
 ]
 
 { #category : #'as yet unclassified' }
@@ -418,7 +421,9 @@ LOOPLesson >> removeTest: aTest [
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
-	self executionContext class removeInstVarNamed: anOBVariable name.
+	SystemChangeNotifier doSilently: [
+		self executionContext class removeInstVarNamed: anOBVariable name.
+	]
 ]
 
 { #category : #accessing }
