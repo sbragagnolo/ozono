@@ -331,7 +331,7 @@ ConfigurationOfObjectBrowser >> version141: spec [
     <version: '1.4.1' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.431'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.437'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
