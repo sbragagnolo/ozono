@@ -140,7 +140,7 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 { #category : #accessing }
 LOOPLesson >> addVariableWithExistentObject: aVariable [
 	self variables add: aVariable.
-	SystemChangeNotifier doSilently: [
+	SystemChangeNotifier uniqueInstance doSilently: [
 		self executionContext class addInstVarNamed: aVariable name.
 	].
 ]
@@ -190,7 +190,7 @@ LOOPLesson >> compileTest: aTestText [
 
 { #category : #accessing }
 LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
-	SystemChangeNotifier doSilently: [
+	SystemChangeNotifier uniqueInstance doSilently: [
 		^ClassBuilder new
 			name: aClassName
 			inEnvironment: self lessonEnvironment
@@ -421,7 +421,7 @@ LOOPLesson >> removeTest: aTest [
 { #category : #'as yet unclassified' }
 LOOPLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
-	SystemChangeNotifier doSilently: [
+	SystemChangeNotifier uniqueInstance doSilently: [
 		self executionContext class removeInstVarNamed: anOBVariable name.
 	]
 ]
