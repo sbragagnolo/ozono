@@ -16,7 +16,7 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> contentPOintedTo: anObjectBrowserObject byAtribute: atributeName [
-	^(anObjectBrowserObject variableNamed: atributeName ) pointsTo.
+	^(anObjectBrowserObject variableNamed: atributeName ) objectPointed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -56,17 +56,17 @@ ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importEmptyLesson [
-	^ LOOPLesson fileIn: (self fileName: self lessonEmptyTitle).
+	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonEmptyTitle)).
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importLessonWithObjects [
-	^ LOOPLesson fileIn: (self fileName: self lessonWithObjectsTitle ).
+	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithObjectsTitle )).
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importLessonWithState [
-	^ LOOPLesson fileIn: (self fileName: self lessonWithStateTitle).
+	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithStateTitle)).
 ]
 
 { #category : #'as yet unclassified' }
@@ -120,6 +120,13 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> tearDown [
+	FileDirectory default deleteFileNamed: self lessonEmptyTitle ifAbsent: [].
+	FileDirectory default deleteFileNamed: self lessonWithObjectsTitle ifAbsent: [].
+	FileDirectory default deleteFileNamed: self lessonWithStateTitle ifAbsent: [].
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> tearDownLesson: lessonTitle [
 	FileDirectory default deleteFileNamed: (self fileName: lessonTitle)
 ]
@@ -165,7 +172,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess
 		lessonImported := self importLessonWithState.
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: nil equals:  (self contentPOintedTo: (lessonImported objects at: 1) byAtribute: 'energia'). 
+		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasVariable: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
 		self tearDownLesson: self lessonWithStateTitle.
 	] ensure: [ 
 		lesson clean.

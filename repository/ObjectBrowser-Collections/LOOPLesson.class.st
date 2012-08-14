@@ -60,23 +60,25 @@ LOOPLesson class >> fileIn: aFileEntry [
 	| lessonImported inStream |
 	
 	Author fullName ifNil: [Author requestFullName].	
-	[ [
-		ClassBuilder beSilent: true.
-		inStream := aFileEntry readStream.
-		lessonImported := Compiler new 
-			evaluate: inStream
-			in: nil
-			to: self
-			notifying: nil
-			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
-			logged: true.
-		] valueSuppressingAllMessages.
-	] ensure: [ 
-		ClassBuilder beSilent: false.
-		inStream ifNotNilDo: [ :s | s close ]
-	].
+	SystemChangeNotifier uniqueInstance doSilently: [
+		[ [
+			ClassBuilder beSilent: true.
+			inStream := aFileEntry readStream.
+			lessonImported := Compiler new 
+				evaluate: inStream
+				in: nil
+				to: self
+				notifying: nil
+				ifFail: [ ^nil ]
+				logged: true.
+			] valueSuppressingAllMessages.
+		] ensure: [ 
+			ClassBuilder beSilent: false.
+			inStream ifNotNilDo: [ :s | s close ]
+		].
 		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
 		^ lessonImported.
+	]
 ]
 
 { #category : #accessing }
@@ -182,10 +184,12 @@ LOOPLesson >> clean [
 { #category : #accessing }
 LOOPLesson >> compileTest: aTestText [
 	| result newTest |
-	result := self executionContext class compileSilently: aTestText classified: #'tests'  notifying: nil.
-	newTest := (OBTest newText: result onLesson: self).
-	self testDictionary at: result put: newTest.
-	^newTest
+	SystemChangeNotifier uniqueInstance doSilently: [
+		result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
+		newTest := (OBTest newText: result onLesson: self).
+		self testDictionary at: result put: newTest.
+		^newTest
+	]
 ]
 
 { #category : #accessing }
@@ -211,7 +215,7 @@ LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
 		contents: someContents;
 		lesson: self.
 	self addWorkspace: workspace.
-	workspace openLabel: workspaceLabel.
+	workspace openInWorld.
 	workspace containingWindow center: World center.
 	^workspace
 ]
@@ -248,7 +252,7 @@ LOOPLesson >> fileIn: aFileName [
 			in: nil
 			to: self
 			notifying: self
-			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
+			ifFail: [^nil ]
 			logged: true.
 ]
 

@@ -27,7 +27,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	pepita addVariable: 'alguien'.
 	pepita compileMethod: 'a: a alguien := a'.
 	
-	pepita realObject a: popote.
+	pepita realObject a: popote realObject.
 	anotherVariable desreference.
 	
 	ob runGarbageCollector.

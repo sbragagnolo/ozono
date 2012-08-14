@@ -23,6 +23,16 @@ TestEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
+{ #category : #'code completion' }
+TestEditorModel >> guessTypeForName: aString [
+	| binding |
+	(model lesson hasVariableNamed: aString) ifTrue: [
+		^(model lesson variableNamed: aString) pointsTo realClass.
+	] ifFalse: [
+		^nil.
+	].
+]
+
 { #category : #'as yet unclassified' }
 TestEditorModel >> menu: unMenu [ 
 	unMenu addList: #(#('aceptar(s)' #accept) ).

@@ -188,7 +188,7 @@ LOOPBrowser >> selectedLesson: aLOOPLesson [
 LOOPBrowser >> updateLOOP [
 	[
 		Gofer it
-			squeaksource: 'ObjectBrowser';
+			url: 'http://www.smalltalkhub.com/mc/LOOP/main';
 			package: 'ConfigurationOfObjectBrowser';
 			load.
 		(ConfigurationOfObjectBrowser project version: #stable) load.

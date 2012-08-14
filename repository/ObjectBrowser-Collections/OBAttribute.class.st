@@ -64,6 +64,11 @@ OBAttribute >> objectPointed [
 ]
 
 { #category : #'as yet unclassified' }
+OBAttribute >> pointsTo [
+	^self objectPointed
+]
+
+{ #category : #'as yet unclassified' }
 OBAttribute >> printString [
 	^self name , ' - (' , self objectPointed printString , ')'
 ]
