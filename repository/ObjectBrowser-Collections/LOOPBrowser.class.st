@@ -188,7 +188,7 @@ LOOPBrowser >> selectedLesson: aLOOPLesson [
 LOOPBrowser >> updateLOOP [
 	[
 		Gofer it
-			url: 'http://www.smalltalkhub.com/mc/LOOP/main';
+			url: 'http://www.smalltalkhub.com/mc/Guille/LOOP/main';
 			package: 'ConfigurationOfObjectBrowser';
 			load.
 		(ConfigurationOfObjectBrowser project version: #stable) load.
