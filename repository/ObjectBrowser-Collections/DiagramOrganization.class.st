@@ -14,7 +14,7 @@ DiagramOrganization class >> for: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> asString [
-	^'Diagrama'
+	^'Diagrama' translated 
 ]
 
 { #category : #'as yet unclassified' }
@@ -30,7 +30,7 @@ DiagramOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> menu: aMenu [
-	aMenu add: 'exportar' action: #exportDiagram.	
+	aMenu add: 'exportar' translated action: #exportDiagram.	
 ^aMenu.
 ]
 

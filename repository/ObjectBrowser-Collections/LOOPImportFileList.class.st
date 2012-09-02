@@ -14,10 +14,10 @@ LOOPImportFileList class >> initialize [
 LOOPImportFileList >> importLoopLessonService [
 	^ (SimpleServiceEntry 
 		provider: LOOPLesson 
-		label: 'file in a lesson'
+		label: 'file in a lesson' translated 
 		selector: #fileIn:
-		description: 'importa una loop lesson'
-		buttonLabel: 'importar')
+		description: 'importa una loop lesson' translated 
+		buttonLabel: 'importar' translated )
 	
 ]
 

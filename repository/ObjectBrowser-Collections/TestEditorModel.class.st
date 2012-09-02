@@ -35,7 +35,7 @@ TestEditorModel >> guessTypeForName: aString [
 
 { #category : #'as yet unclassified' }
 TestEditorModel >> menu: unMenu [ 
-	unMenu addList: #(#('aceptar(s)' #accept) ).
+	unMenu addList: (OrderedCollection with: (Array braceWith: 'aceptar(s)' translated with: #accept)).
 	^ unMenu
 ]
 

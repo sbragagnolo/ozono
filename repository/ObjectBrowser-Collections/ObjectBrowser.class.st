@@ -631,8 +631,7 @@ self deprecated: 'esta en ObjectsOrganization'.
 
 { #category : #menues }
 ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [ 
-	aMenu addList: #(
-		('borrar test'			deleteTest)).
+	aMenu addList: (OrderedCollection  with: (Array braceWith: 'borrar test' translated with: #deleteTest)).
 	^ aMenu
 ]
 
@@ -662,11 +661,11 @@ ObjectBrowser >> validateVariableName: aVariableNameString [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> validateVariableName: aVariableNameString usingExistingVariables: variables [
 	(aVariableNameString isNil or: [aVariableNameString isEmpty])
-		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío' ].
+		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío'  translated ].
 	(aVariableNameString matchesRegex: '[a-z]+([a-z]|[A-Z]|[0-9])*')
-		ifFalse:[ self error: 'El nombre de la variable no puede contener espacios ni carácteres extraños, y debe empezar con minúscula' ].
+		ifFalse:[ self error: 'El nombre de la variable no puede contener espacios ni carácteres extraños, y debe empezar con minúscula' translated].
 	(variables anySatisfy: [:v | v name = aVariableNameString ])
-		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ', aVariableNameString  ]
+		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ' translated, aVariableNameString  ]
 ]
 
 { #category : #'as yet unclassified' }

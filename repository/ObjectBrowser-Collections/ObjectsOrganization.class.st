@@ -14,7 +14,7 @@ ObjectsOrganization class >> for: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> asString [
-	^'Referencias'
+	^'Referencias' translated 
 ]
 
 { #category : #'as yet unclassified' }
@@ -54,7 +54,7 @@ ObjectsOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> menu: aMenu [
-	aMenu addList: (OrderedCollection with: #('crear nuevo objeto' #createObject)).
+	aMenu addList: (OrderedCollection with: (Array braceWith: 'crear nuevo objeto' translated with: #createObject)).
 	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections.
 	^aMenu
 	
@@ -79,7 +79,7 @@ ObjectsOrganization >> subMenuCollections [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> subMenuCollectionsName [
-	^'Crear nuevo conjunto'
+	^'Crear nuevo conjunto' translated 
 ]
 
 { #category : #'as yet unclassified' }

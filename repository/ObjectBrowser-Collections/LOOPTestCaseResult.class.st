@@ -43,11 +43,11 @@ LOOPTestCaseResult >> hasFailures [
 
 { #category : #accessing }
 LOOPTestCaseResult >> printString [
-	^'Errores: ', 
+	^'Errores: ' translated , 
 		self errors size printString, 
-		' Fallas: ', 
+		' Fallas: ' translated , 
 		self failures size printString, 
-		' Exitos: ', 
+		' Exitos: ' translated , 
 		self succeededTests size printString
 ]
 

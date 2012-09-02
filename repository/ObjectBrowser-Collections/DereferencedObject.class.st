@@ -21,7 +21,7 @@ DereferencedObject >> = anObject [
 
 { #category : #'as yet unclassified' }
 DereferencedObject >> actions [
-		^#(#('Recuperar objeto' #recoverObject)).
+		^OrderedCollection  with: (Array braceWith: 'Recuperar objeto' translated with: #recoverObject).
 ]
 
 { #category : #converting }

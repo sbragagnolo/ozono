@@ -14,7 +14,7 @@ TestsOrganization class >> for: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> asString [
-	^'Tests'
+	^'Tests' translated 
 ]
 
 { #category : #'as yet unclassified' }

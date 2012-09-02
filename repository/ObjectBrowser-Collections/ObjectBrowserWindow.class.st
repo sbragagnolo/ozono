@@ -192,7 +192,7 @@ ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
 
 { #category : #view }
 ObjectBrowserWindow >> objectGraphButtonLabel [
-	^'Diagrama de objetos'
+	^'Diagrama de objetos' translated 
 ]
 
 { #category : #view }
@@ -231,5 +231,5 @@ ObjectBrowserWindow >> show: anObjectBrowser [
 
 { #category : #view }
 ObjectBrowserWindow >> workspaceButtonLabel [
-	^'Abrir Workspace'
+	^'Abrir Workspace' translated 
 ]

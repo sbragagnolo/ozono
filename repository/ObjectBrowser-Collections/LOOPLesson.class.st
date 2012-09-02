@@ -344,11 +344,11 @@ LOOPLesson >> loopExecutionContextClass [
 
 { #category : #showing }
 LOOPLesson >> menuActions [
-	^OrderedCollection
-		with: #('abrir' #openSelectedLesson)
-		with: #('eliminar' #removeSelectedLesson)
-		with: #('renombrar' #renameSelectedLesson)
-		with: #('exportar' #fileOutSelectedLesson)
+^OrderedCollection
+		with: (Array braceWith: 'abrir' translated with: #openSelectedLesson)
+		with: (Array braceWith: 'eliminar' translated with: #removeSelectedLesson)
+		with: (Array braceWith: 'renombrar' translated with: #renameSelectedLesson)
+		with: (Array braceWith: 'exportar' translated with: #fileOutSelectedLesson)
 ]
 
 { #category : #showing }

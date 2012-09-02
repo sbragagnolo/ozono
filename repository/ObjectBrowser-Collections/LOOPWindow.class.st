@@ -77,7 +77,7 @@ LOOPWindow >> buildUpdateButton [
 LOOPWindow >> chooseLessonFile. [
 	^ UITheme current
 		chooseFileIn: window
-		title: 'Selecciona la leccion a importar'
+		title: 'Selecciona la leccion a importar' translated
 		extensions: #('st') 
 		path: nil
 		preview: nil.
@@ -86,7 +86,7 @@ LOOPWindow >> chooseLessonFile. [
 { #category : #showing }
 LOOPWindow >> createView [
 	| top left bottom right middle |
-	window := StandardWindow labelled: 'Lessons'.
+	window := StandardWindow labelled: 'Lessons' translated.
 	window model: loopBrowser.
 	
 	top := left := 0.

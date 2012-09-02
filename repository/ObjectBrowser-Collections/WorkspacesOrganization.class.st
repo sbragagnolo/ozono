@@ -14,7 +14,7 @@ WorkspacesOrganization class >> for: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> asString [
-	^'Workspaces'
+	^'Workspaces' translated 
 ]
 
 { #category : #'as yet unclassified' }
@@ -30,8 +30,8 @@ WorkspacesOrganization >> makeSelectionOn: anObjectBrowser [
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> menu: aMenu [
 	^aMenu addList: (OrderedCollection 
-		with: #('crear nuevo workspace' #createWorkspace)
-		with: #('importar workspace' #fileInWorkspace))
+		with: (Array braceWith: 'crear nuevo workspace' translated with: #createWorkspace )
+		with: (Array braceWith: 'importar workspace' translated with: #fileInWorkspace))
 ]
 
 { #category : #'as yet unclassified' }

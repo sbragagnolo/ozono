@@ -23,7 +23,7 @@ LOOPWorkspace >> bindingOf: aString [
 				ifTrue:  [ ^aString-> (Smalltalk globals at: aString asSymbol) ]
 				ifFalse: [ ^aString -> (lesson variableNamed: aString) ]
 			]
-		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido'].
+		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido' translated ].
 	
 ]
 
@@ -48,7 +48,7 @@ LOOPWorkspace >> export [
 		ifFalse: [UTF8TextConverter new].
 	fileName := 	self label asFileName, '.ws'.
 	f := FileStream newFileNamed: fileName.
-	f ifNil: [^ self error: 'Cannot open file'].
+	f ifNil: [^ self error: 'No se puede abrir el archivo' translated ].
 	(converter isMemberOf: UTF8TextConverter) ifTrue: [
 		f binary.
 		UTF8TextConverter writeBOMOn: f].
@@ -97,10 +97,11 @@ LOOPWorkspace >> makeSelectionOn: anObjectBrowser [
 
 { #category : #actions }
 LOOPWorkspace >> menu: aMenuBuilder [
+
 	^aMenuBuilder addList: (OrderedCollection
-		with: #('abrir' #openWorkspace)
-		with: #('eliminar' #removeWorkspace)
-		with: #('exportar' #exportWorkspace))
+		with: (Array braceWith: 'abrir' translated with: #openWorkspace)
+		with: (Array braceWith: 'eliminar' translated with: #removeWorkspace) 
+		with: (Array braceWith: 'exportar' translated with: #exportWorkspace)).
 ]
 
 { #category : #'showing/creation' }

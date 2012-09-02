@@ -128,13 +128,13 @@ LOOPBrowser >> lessons [
 
 { #category : #accessing }
 LOOPBrowser >> newFreeLessonLabel [
-	^'Nueva Leccion'
+	^'Nueva Leccion' translated 
 ]
 
 { #category : #creation }
 LOOPBrowser >> obtainLessonName [
 	| lessonName |
-	lessonName := self request: 'Nombre de la leccion' default: 'Free Lesson'.
+	lessonName := self request: 'Nombre de la leccion' translated  default: 'Free Lesson'.
 	^ lessonName
 ]
 
@@ -198,5 +198,5 @@ LOOPBrowser >> updateLOOP [
 
 { #category : #creation }
 LOOPBrowser >> updateLOOPLabel [
-	^'Actualizar Software!'
+	^'Actualizar Software!' translated 
 ]
