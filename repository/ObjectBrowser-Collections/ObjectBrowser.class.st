@@ -73,6 +73,11 @@ ObjectBrowser >> cloneObject [
 			].
 ]
 
+{ #category : #'as yet unclassified' }
+ObjectBrowser >> closeWorkspaces [
+ 	self workspaces do:[:wk | wk closeYourself].
+]
+
 { #category : #accessing }
 ObjectBrowser >> compileMethod: aText notifying: someone [
 

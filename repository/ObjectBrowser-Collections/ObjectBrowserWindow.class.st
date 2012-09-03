@@ -155,7 +155,7 @@ ObjectBrowserWindow >> createView [
 	| hSepFrac window |
 	hSepFrac := 0.45.
 	self createGroupTab.
-	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') 
+	window := (ObjectBrowserSystemWindow labelled: self objectBrowser title, ' - Object Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
 			frame: (0@0 corner: 0.2@1).
