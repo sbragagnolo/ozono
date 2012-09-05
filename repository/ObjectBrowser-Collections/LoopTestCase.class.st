@@ -16,4 +16,5 @@ LoopTestCase >> setUp [
 { #category : #'as yet unclassified' }
 LoopTestCase >> tearDown [ 
 	currentLesson clean.
+	LOOPLesson lessons removeAll.
 ]
