@@ -87,6 +87,6 @@ OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 OBTest >> writeYourOwnCodeOn: stream  lesson: aLesson [
 	stream
 		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
-		nextPutAll: '''.';
+		nextPutAll: '.';
 		cr.
 ]
