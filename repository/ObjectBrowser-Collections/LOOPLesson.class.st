@@ -245,6 +245,17 @@ LOOPLesson >> exportDiagram [
 	self objectDiagram exportDiagram
 ]
 
+{ #category : #'as yet unclassified' }
+LOOPLesson >> exportTest: anOBTest [
+
+	|internalStream|
+
+	internalStream := (String new: 50) writeStream.
+	anOBTest writeYourOwnCodeOn:  internalStream lesson: self.
+	FileStream writeSourceCodeFrom: internalStream baseName: self lessonIdentification asFileName isSt: true.
+	
+]
+
 { #category : #exportation }
 LOOPLesson >> fileIn: aFileName [
 	^Compiler new 
@@ -374,6 +385,11 @@ LOOPLesson >> objects: anObject [
 { #category : #showing }
 LOOPLesson >> openInWorld [
 	browser := (ObjectBrowser onLesson: self) openInWorld
+]
+
+{ #category : #accessing }
+LOOPLesson >> parseTestCodeFrom: stream [
+
 ]
 
 { #category : #accessing }

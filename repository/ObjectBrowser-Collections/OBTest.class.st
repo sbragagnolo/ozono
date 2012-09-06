@@ -82,3 +82,11 @@ OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 		nextPutAll: '''.';
 		cr.
 ]
+
+{ #category : #'as yet unclassified' }
+OBTest >> writeYourOwnCodeOn: stream  lesson: aLesson [
+	stream
+		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
+		nextPutAll: '''.';
+		cr.
+]

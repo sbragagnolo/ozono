@@ -102,7 +102,6 @@ LOOPWorkspace >> makeSelectionOn: anObjectBrowser [
 
 { #category : #actions }
 LOOPWorkspace >> menu: aMenuBuilder [
-
 	^aMenuBuilder addList: (OrderedCollection
 		with: (Array braceWith: 'abrir' translated with: #openWorkspace)
 		with: (Array braceWith: 'eliminar' translated with: #removeWorkspace) 

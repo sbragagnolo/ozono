@@ -303,6 +303,11 @@ ObjectBrowser >> exportDiagram [
 	self lesson exportDiagram
 ]
 
+{ #category : #export }
+ObjectBrowser >> exportTest [
+	self lesson exportTest: self selectedTest.
+]
+
 { #category : #accessing }
 ObjectBrowser >> exportWorkspace [
 	selectedWorkspace export
@@ -636,7 +641,9 @@ self deprecated: 'esta en ObjectsOrganization'.
 
 { #category : #menues }
 ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [ 
-	aMenu addList: (OrderedCollection  with: (Array braceWith: 'borrar test' translated with: #deleteTest)).
+	aMenu addList: (OrderedCollection  with: (Array braceWith: 'borrar test' translated with: #deleteTest)
+										 with: (Array braceWith: 'exportar' translated with: #exportTest)).
+
 	^ aMenu
 ]
 

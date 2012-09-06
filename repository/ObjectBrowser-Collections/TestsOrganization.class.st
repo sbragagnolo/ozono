@@ -29,7 +29,7 @@ TestsOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> menu: aMenu [
-	^aMenu
+	^aMenu 
 ]
 
 { #category : #'as yet unclassified' }
