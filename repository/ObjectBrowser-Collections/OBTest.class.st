@@ -43,6 +43,11 @@ OBTest >> lesson: aLesson [
 ]
 
 { #category : #'as yet unclassified' }
+OBTest >> makeSelectionOn: anObjectBrowser [
+	anObjectBrowser testCaseSelected: self.
+]
+
+{ #category : #'as yet unclassified' }
 OBTest >> printString [
 	^selector 
 ]

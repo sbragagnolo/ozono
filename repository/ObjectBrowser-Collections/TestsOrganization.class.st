@@ -29,7 +29,7 @@ TestsOrganization >> makeSelectionOn: anObjectBrowser [
 
 { #category : #'as yet unclassified' }
 TestsOrganization >> menu: aMenu [
-	^aMenu 
+	^aMenu addList: (OrderedCollection with: (Array braceWith: 'importar' translated with: #fileInTests)).
 ]
 
 { #category : #'as yet unclassified' }

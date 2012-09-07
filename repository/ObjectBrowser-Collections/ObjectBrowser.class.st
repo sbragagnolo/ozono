@@ -156,7 +156,12 @@ ObjectBrowser >> createSorted [
 ]
 
 { #category : #menues }
-ObjectBrowser >> createTest [
+ObjectBrowser >> createTest: testLabel contents: someContents [
+	| testCase |
+	testCase := self lesson compileTest: someContents.
+	self selectedItem: testCase.
+	self changed.
+	^testCase
 ]
 
 { #category : #'as yet unclassified' }
@@ -311,6 +316,19 @@ ObjectBrowser >> exportTest [
 { #category : #accessing }
 ObjectBrowser >> exportWorkspace [
 	selectedWorkspace export
+]
+
+{ #category : #accessing }
+ObjectBrowser >> fileInTests [
+	| fileName inStream contents st |
+	fileName := UIManager default chooseFileMatching: #('*.st') label: 'Selecciona el test a importar'.
+	fileName ifNotNil:[
+		[	inStream := StandardFileStream fileNamed: fileName.
+			contents := inStream upToEnd.
+		] 
+		ensure: [inStream close.].
+		st := self createTest: (fileName subStrings: '.') first contents: contents
+	]
 ]
 
 { #category : #accessing }
@@ -637,6 +655,12 @@ ObjectBrowser >> subMenuCollections [
 ObjectBrowser >> subMenuCollectionsName [
 self deprecated: 'esta en ObjectsOrganization'.
 	^'Crear nuevo conjunto'
+]
+
+{ #category : #accessing }
+ObjectBrowser >> testCaseSelected: aTestCase [
+	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedTest: aTestCase.
 ]
 
 { #category : #menues }
