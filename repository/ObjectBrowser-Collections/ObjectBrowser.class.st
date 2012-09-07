@@ -498,6 +498,12 @@ ObjectBrowser >> runGarbageCollector [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowser >> runTest [
+	self selectedTest run.
+	self changed.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectMethod := NullOBMethod new.
@@ -666,7 +672,8 @@ ObjectBrowser >> testCaseSelected: aTestCase [
 { #category : #menues }
 ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [ 
 	aMenu addList: (OrderedCollection  with: (Array braceWith: 'borrar test' translated with: #deleteTest)
-										 with: (Array braceWith: 'exportar' translated with: #exportTest)).
+										 with: (Array braceWith: 'exportar' translated with: #exportTest)
+										with: (Array braceWith: 'correr test' translated with: #runTest)) .
 
 	^ aMenu
 ]
