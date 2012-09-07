@@ -28,6 +28,11 @@ SmallUmlObjectDiagram >> diagramNodes [
 ]
 
 { #category : #'as yet unclassified' }
+SmallUmlObjectDiagram >> exportDiagram [ 
+	self diagramMorph exportAsJPEG
+]
+
+{ #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> initialize [
 	diagram := ObjectDiagram new.
 ]
