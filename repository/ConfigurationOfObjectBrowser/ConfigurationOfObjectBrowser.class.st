@@ -238,7 +238,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	spec for: #'pharo1.1.x' version: '1.0'.
 	spec for: #'pharo1.2.x' version: '1.3'.
 	spec for: #'pharo1.3.x' version: '1.3.1'.
-	spec for: #'pharo1.4.x' version: '1.4.4'.
+	spec for: #'pharo1.4.x' version: '1.4.5'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -370,6 +370,19 @@ ConfigurationOfObjectBrowser >> version144: spec [
 	spec for: #common do:[
 		spec blessing: #development.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.439'.
+
+		spec project: 'smallUML' with: '1.1.4'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
+	].
+]
+
+{ #category : #'as yet unclassified' }
+ConfigurationOfObjectBrowser >> version145: spec [ 
+    <version: '1.4.5' imports: #('1.4.1-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-Aivan.451'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
