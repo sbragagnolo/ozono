@@ -19,7 +19,7 @@ DereferencedObject >> = anObject [
 	^(anObject isKindOf: DereferencedObject) and: [ anObject realObject = self realObject  ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 DereferencedObject >> actions [
 		^OrderedCollection  with: (Array braceWith: 'Recuperar objeto' translated with: #recoverObject).
 ]
@@ -34,33 +34,22 @@ DereferencedObject >> dereferencedObject: anObject [
 	dereferencedObject := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-DereferencedObject >> fullfillObjectBrowserObjectsCollection: aCollection [ 
-"Codigo repetidoooooo"
-|pointed|
-	(aCollection includes: self) ifFalse: [
-		aCollection add: self.
-		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. (pointed notNil and: [
-				pointed class isKindOf: ObjectBrowserObject]) ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
-		]
-]
-
 { #category : #comparing }
 DereferencedObject >> hash [
 	^self realObject hash
 ]
 
-{ #category : #accessing }
+{ #category : #'ui-actions' }
 DereferencedObject >> icon [
 	^nil
 ]
 
-{ #category : #selection }
+{ #category : #'ui-actions' }
 DereferencedObject >> makeSelectionOn: aBrowser [
 	^aBrowser selectDereferencedObject: self .
 ]
 
-{ #category : #accessing }
+{ #category : #'ui-actions' }
 DereferencedObject >> menu: aMenuBuilder [
 	^aMenuBuilder addList: self actions
 ]
@@ -70,7 +59,7 @@ DereferencedObject >> realObject [
 	^dereferencedObject.
 ]
 
-{ #category : #accessing }
+{ #category : #'ui-actions' }
 DereferencedObject >> treeContents [
 	^OrderedCollection new
 ]

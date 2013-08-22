@@ -16,59 +16,59 @@ OBAttribute class >> newNamed: aNameString owner: obObjectOwnerWhereTheVariableB
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 OBAttribute >> = anOBAttribute [
 	^(anOBAttribute isKindOf: self class)  
 		and: [ self name = anOBAttribute name 
 			and: [ self objectPointed = anOBAttribute objectPointed ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 OBAttribute >> actionsForAttributeList [
 	^#(('Eliminar referencia'		deleteVariable))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 OBAttribute >> hash [
 	^self name hash raisedTo: self objectPointed hash \\ 100
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 OBAttribute >> icon [
 	^ObjectBrowserIcons referenceIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBAttribute >> name [
 	^name
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBAttribute >> name: aName [
 	name := aName
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBAttribute >> obObject [
 	^obObject 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBAttribute >> obObject: owner [
 	obObject := owner.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reference }
 OBAttribute >> objectPointed [
-	^self obObject objectPointedByVariableNamed: self name.
+	^self obObject basicObjectAtAttributeNamed: self name.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #reference }
 OBAttribute >> pointsTo [
 	^self objectPointed
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBAttribute >> printOn: aStream [
 	aStream
 		nextPutAll: self name;
@@ -77,7 +77,7 @@ OBAttribute >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #removing }
 OBAttribute >> removeFrom: aRealClass [
 	aRealClass removeInstVarNamed: name.
 ]

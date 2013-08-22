@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollection,
-	#superclass : #ObjectBrowserObject,
+	#superclass : #OBNormalMetaObject,
 	#instVars : [
 		'posibleName'
 	],
@@ -68,14 +68,14 @@ ObjectBrowserCollection >> add: anObj [
 	self realObject add: anObj realObject .
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addToGraph: aGraph [
-	aGraph addCollection: self.
+{ #category : #'attribute-handling' }
+ObjectBrowserCollection >> addAttributeNamed: anAttributeName [
+	self signalNotModificableCollection
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addVariable: variableName [
-	self signalNotModificableCollection
+ObjectBrowserCollection >> addToGraph: aGraph [
+	aGraph addCollection: self.
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,11 +91,6 @@ ObjectBrowserCollection >> displayString [
 		ifTrue: [ prefix := 'an'. ]
 		ifFalse: [ prefix:= 'a' ].
 	^(prefix, self realObject class name) asLegalSelector
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> hasClones [
-	^false
 ]
 
 { #category : #'as yet unclassified' }
@@ -150,13 +145,8 @@ ObjectBrowserCollection >> realObjectPosibleName [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> references [
-	| col |
-	col := OrderedCollection new.
-	self realObject do: [ :anElement |
-		col add: anElement .
-	].
-	^col.
+ObjectBrowserCollection >> removeAttribute: variableName [
+	self signalNotModificableCollection
 ]
 
 { #category : #'as yet unclassified' }
@@ -167,11 +157,6 @@ ObjectBrowserCollection >> removeClassFromSystem [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> removeMethod: aSelector [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> removeVariable: variableName [
 	self signalNotModificableCollection
 ]
 

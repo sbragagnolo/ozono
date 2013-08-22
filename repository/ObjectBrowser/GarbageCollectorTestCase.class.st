@@ -24,7 +24,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	anotherVariable := ob variableNamed: anotherVariableName.
 	popote := anotherVariable pointsTo.
 	
-	pepita addVariable: 'alguien'.
+	pepita addAttributeNamed: 'alguien'.
 	pepita compileMethod: 'a: a alguien := a'.
 	
 	pepita realObject a: popote realObject.

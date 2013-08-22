@@ -9,9 +9,14 @@ NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	^#()
 ]
 
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> actionsForObjectVariableList [
+{ #category : #'ui-actions' }
+NullObjectBrowserObject >> actionsForObjectBrowserReferencesList [
 	^#(#('eliminar' #deleteLessonVariable))
+]
+
+{ #category : #attributes }
+NullObjectBrowserObject >> addAttributeNamed: anAttributeName [
+	self error: 'Debes seleccionar un objeto para crearle un atributo'.
 ]
 
 { #category : #references }
@@ -20,14 +25,20 @@ NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection
 	^self
 ]
 
-{ #category : #'graph model' }
+{ #category : #graph }
 NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
 	"Nothing"
 ]
 
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> addVariable: variableName [
-	self error: 'Debe seleccionar un objeto para crear una variable'.
+{ #category : #attributes }
+NullObjectBrowserObject >> allAttributeNames [
+	^OrderedCollection new
+]
+
+{ #category : #attributes }
+NullObjectBrowserObject >> attributes [
+	
+	^ #()
 ]
 
 { #category : #methods }
@@ -36,7 +47,7 @@ NullObjectBrowserObject >> compileMethod: aText notifying: someone [
 ]
 
 { #category : #methods }
-NullObjectBrowserObject >> hasMethod: aSelector [
+NullObjectBrowserObject >> includesSelector: aSelector [
 	^false
 ]
 
@@ -45,7 +56,7 @@ NullObjectBrowserObject >> isNil [
 	^true
 ]
 
-{ #category : #menu }
+{ #category : #'ui-actions' }
 NullObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
@@ -53,11 +64,6 @@ NullObjectBrowserObject >> menu: aMenuMorph [
 { #category : #methods }
 NullObjectBrowserObject >> methods [
 	^ OrderedCollection new
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> realObjectVariables [
-	^OrderedCollection new
 ]
 
 { #category : #'pharo-interaction' }
@@ -69,11 +75,6 @@ NullObjectBrowserObject >> removeFromSystem [
 { #category : #methods }
 NullObjectBrowserObject >> sourceCodeAt: aSelector [ 
 	^''
-]
-
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> variables [
-	^OrderedCollection new
 ]
 
 { #category : #exporting }

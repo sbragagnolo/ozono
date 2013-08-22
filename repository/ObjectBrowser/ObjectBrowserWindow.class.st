@@ -46,13 +46,36 @@ ObjectBrowserWindow >> buildMethodEditor [
 
 { #category : #view }
 ObjectBrowserWindow >> buildMethodList [
-	^ ObjectBrowserPluggableListMorph on: (MethodListModel newOn: self objectBrowser)
+
+	^ (PluggableIconListMorph
+		on: (MethodListModel newOn: self objectBrowser)
+		list: #listModel
+		selected: #listIndex
+		changeSelected: #listIndex:
+		menu: #listMenu:shifted:
+		keystroke: #listKey:from:)
+		borderWidth: 0;
+		enableDragNDrop: false;
+		autoDeselect: true;
+		getIconSelector: #iconAt:;
+		yourself
 ]
 
 { #category : #view }
 ObjectBrowserWindow >> buildObjectAttributeList [
-	^ ObjectBrowserPluggableListMorph on: (ObjectAttributeListModel newOn: self objectBrowser).
 
+	^ (PluggableIconListMorph
+		on: (ObjectAttributeListModel newOn: self objectBrowser)
+		list: #listModel
+		selected: #listIndex
+		changeSelected: #listIndex:
+		menu: #listMenu:shifted:
+		keystroke: #listKey:from:)
+		borderWidth: 0;
+		enableDragNDrop: false;
+		autoDeselect: true;
+		getIconSelector: #iconAt:;
+		yourself
 ]
 
 { #category : #view }
@@ -108,57 +131,75 @@ ObjectBrowserWindow >> createObjectEditionTab [
 
 { #category : #'test-runner' }
 ObjectBrowserWindow >> createTestRunnerTab [
-	| hSepFrac panel testRunner aBuilder window testEditor testEditorModel |
+	| hSepFrac panel testEditor testEditorModel |
 	hSepFrac := 0.45.
-
-	testEditor := (PluggableTextMorph 
-		on: (testEditorModel := TestEditorModel newOn: self objectBrowser )
+	testEditor := (PluggableTextMorph
+		on: (testEditorModel := TestEditorModel newOn: self objectBrowser)
 		text: #selectedTestCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
-		menu: #menu:) setNameTo: #textoTest;
+		menu: #menu:)
+		setNameTo: #textoTest;
 		color: Color white;
 		yourself.
 	testEditor styled: true.
 	self objectBrowser addTestSelectionInterested: testEditor.
 	testEditorModel testEditorMorph: methodEditor.
-
 	panel := PanelMorph new
-		color: (Color gray);
+		color: Color gray;
 		changeProportionalLayout.
-		
 	panel
-		addMorph: (ObjectBrowserPluggableListMorph on: (ObjectTestsListModel newOn: self objectBrowser))
-		fullFrame: (LayoutFrame fractions: (0@0 corner: 0.4999 @ hSepFrac -0.01)).
+		addMorph:
+				((PluggableIconListMorph
+						on: (ObjectTestsListModel newOn: self objectBrowser)
+						list: #listModel
+						selected: #listIndex
+						changeSelected: #listIndex:
+						menu: #listMenu:shifted:
+						keystroke: #listKey:from:)
+						borderWidth: 0;
+						enableDragNDrop: false;
+						autoDeselect: true;
+						getIconSelector: #iconAt:;
+						yourself)
+		fullFrame: (LayoutFrame fractions: (0 @ 0 corner: 0.4999 @ hSepFrac - 0.01)).
+	panel addMorph: testEditor fullFrame: (LayoutFrame fractions: (0 @ hSepFrac corner: 1 @ 1)).
 	panel
-		addMorph: testEditor
-		fullFrame: (LayoutFrame fractions: (0@hSepFrac corner: 1 @ 1)).
-	
-	panel
-		addMorph: (statusMorph := (PanelMorph new changeProportionalLayout; yourself))	
-		fullFrame: (LayoutFrame fractions: (0.499@0 corner: 0.99@0.09)).
-	
+		addMorph:
+			(statusMorph := PanelMorph new
+				changeProportionalLayout;
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.499 @ 0 corner: 0.99 @ 0.09)).
 	statusMorph color: Color green.
 	statusMorph
-		addMorph: (statusTextMorph := (LabelMorph new color: Color black; contents: ''; yourself))
-		fullFrame: (LayoutFrame fractions: (0.1@0.1 corner: 0.9@0.9)).
-	
+		addMorph:
+			(statusTextMorph := LabelMorph new
+				color: Color black;
+				contents: '';
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.1 @ 0.1 corner: 0.9 @ 0.9)).
 	panel
-		addMorph: (PluggableButtonMorph on: self objectBrowser getState: nil action: #runAllTests label: #runAllTestsLabel)
-		fullFrame: (LayoutFrame fractions: (0.499@0.1 corner: 0.99@0.2)).
-		
-	^panel.
+		addMorph:
+			(PluggableButtonMorph
+				on: self objectBrowser
+				getState: nil
+				action: #runAllTests
+				label: #runAllTestsLabel)
+		fullFrame: (LayoutFrame fractions: (0.499 @ 0.1 corner: 0.99 @ 0.2)).
+	^ panel
 ]
 
 { #category : #view }
 ObjectBrowserWindow >> createView [
-	| hSepFrac window |
-	hSepFrac := 0.45.
+	| window |
 	self createGroupTab.
-	window := (ObjectBrowserSystemWindow labelled: self objectBrowser title, ' - Object Browser') 
+	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
 			frame: (0@0 corner: 0.2@1).
+	
+	window onAnnouncement: MorphDeleted send: #closeWorkspaces to: self objectBrowser.
+	
 	pages keysAndValuesDo: [ :k :m |
 			window addMorph: m frame: (0.2@0 corner: 1@1).
 			m visible: k == self objectBrowser selectedPage.

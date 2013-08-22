@@ -4,7 +4,7 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 NullLessonVariable >> actionsForAttributeList [
 	^#()
 ]
@@ -14,7 +14,7 @@ NullLessonVariable >> notifySelectionTo: anObjectBrowser [
 	"Nothing"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 NullLessonVariable >> pointsTo [
 	^NullObjectBrowserObject new.
 ]

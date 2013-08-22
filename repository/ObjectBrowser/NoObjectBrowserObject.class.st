@@ -20,22 +20,22 @@ NoObjectBrowserObject class >> new: anObject [
 	^self new realObject: anObject; yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 NoObjectBrowserObject >> = anotherObject [
 	^(self class == anotherObject class) and:[(self realObject == anotherObject realObject) ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 NoObjectBrowserObject >> actionsForAttributeListWith: aNullOBVariable [ 
 	^#()
 ]
 
-{ #category : #accessing }
-NoObjectBrowserObject >> actionsForObjectVariableList [
+{ #category : #'ui-actions' }
+NoObjectBrowserObject >> actionsForObjectBrowserReferencesList [
 	^OrderedCollection new.
 ]
 
-{ #category : #'graph model' }
+{ #category : #graph }
 NoObjectBrowserObject >> addToGraph: aLessonGraph [ 
 	aLessonGraph addNoObjectBrowserObject: self.
 ]
@@ -45,7 +45,13 @@ NoObjectBrowserObject >> asString [
 	^self displayString 
 ]
 
-{ #category : #compiling }
+{ #category : #attributes }
+NoObjectBrowserObject >> attributes [
+
+	^#()
+]
+
+{ #category : #methods }
 NoObjectBrowserObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
 ]
@@ -55,46 +61,35 @@ NoObjectBrowserObject >> displayString [
 	^self object printString
 ]
 
-{ #category : #'as yet unclassified' }
-NoObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aSet [ 
-	(aSet includes: self) ifFalse:[
-		aSet add: self 
-		]
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 NoObjectBrowserObject >> hasReferencesTo: anObject [
 	^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 NoObjectBrowserObject >> hash [
 	^self realObject hash
 ]
 
-{ #category : #printing }
+{ #category : #methods }
 NoObjectBrowserObject >> isRedefined: aSelector [
 	^false
 ]
 
-{ #category : #menu }
+{ #category : #'ui-actions' }
 NoObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
 
-{ #category : #accessing }
+{ #category : #methods }
 NoObjectBrowserObject >> methods [
 	^methods ifNil: [ methods := realObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 NoObjectBrowserObject >> myClassHasMethod: aSelector [
-	^true
-]
 
-{ #category : #accessing }
-NoObjectBrowserObject >> object [
-	^realObject
+	^true
 ]
 
 { #category : #accessing }
@@ -104,12 +99,12 @@ NoObjectBrowserObject >> posibleName [
 
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 NoObjectBrowserObject >> printString [
 	^self object printString
 ]
 
-{ #category : #accessing }
+{ #category : #'pharo-interaction' }
 NoObjectBrowserObject >> realClass [
 	^realObject class
 ]
@@ -124,42 +119,42 @@ NoObjectBrowserObject >> realObject: anObject [
 	realObject := anObject.
 ]
 
-{ #category : #printing }
+{ #category : #methods }
 NoObjectBrowserObject >> redefines: aSelector [
 	^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'pharo-interaction' }
 NoObjectBrowserObject >> removeClassFromSystem [
 	"Shouldn't remove anything'"
 ]
 
-{ #category : #accessing }
+{ #category : #methods }
 NoObjectBrowserObject >> sourceCodeAt: anOBMethod [ 
 	^anOBMethod code
 ]
 
-{ #category : #menu }
+{ #category : #methods }
 NoObjectBrowserObject >> understands: aSelector [
 	^self object respondsTo: aSelector asSymbol 
 ]
 
-{ #category : #accessing }
+{ #category : #attributes }
 NoObjectBrowserObject >> variables [
 	^OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #exporting }
 NoObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]
 
-{ #category : #accessing }
+{ #category : #exporting }
 NoObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]
 
-{ #category : #accessing }
+{ #category : #exporting }
 NoObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]

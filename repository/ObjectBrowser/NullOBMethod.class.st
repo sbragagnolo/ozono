@@ -4,17 +4,20 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 NullOBMethod >> isNil [
+
 	^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 NullOBMethod >> menuItems [
+
 	^#()
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 NullOBMethod >> method [
+
 	^nil
 ]

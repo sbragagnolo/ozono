@@ -35,8 +35,8 @@ MethodEditorModel >> errorHandler [
 MethodEditorModel >> guessTypeForName: aString [
 	| object |
 	object := self model selectedObject.
-	^(object hasVariable: aString)
-		ifTrue: [ (object variableNamed: aString) objectPointed class ]
+	^(object hasAttributeNamed: aString)
+		ifTrue: [ (object attributeNamed: aString) objectPointed class ]
 		ifFalse: [ nil ]
 ]
 

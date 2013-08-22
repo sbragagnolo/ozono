@@ -16,16 +16,16 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> contentPOintedTo: anObjectBrowserObject byAtribute: atributeName [
-	^(anObjectBrowserObject variableNamed: atributeName ) objectPointed.
+	^(anObjectBrowserObject attributeNamed: atributeName ) objectPointed.
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> createPepitaObObject: lesson [
 	|pepita|
 	
-	pepita := ObjectBrowserObject newOn: lesson.
-	pepita addVariable: 'dondeEstas'.
-	pepita addVariable: 'energia'.
+	pepita := lesson createObject.
+	pepita addAttributeNamed: 'dondeEstas'.
+	pepita addAttributeNamed: 'energia'.
 	pepita compileMethod: 'energia
 	^30.'.
 	pepita compileMethod: 'lugar
@@ -42,7 +42,7 @@ ObjectBrowserLoopLessonTestCase >> createPepitaObObject: lesson [
 ObjectBrowserLoopLessonTestCase >> createRosarioObObject: lesson [
 	|rosario|
 	
-	rosario := ObjectBrowserObject newOn: lesson.
+	rosario := lesson createObject.
 	rosario compileMethod: 'ciudad
 	^''Rosario'''.
 	
@@ -113,8 +113,8 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	lesson addVariableNamed: 'pepita' pointingTo: pepita.
 	lesson addVariableNamed: 'rosario' pointingTo: rosario .
 	
-	pepita variable: 'dondeEstas' pointTo: rosario.
-	pepita variable: 'energia' pointTo: (NoObjectBrowserObject for: nil).
+	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
+	pepita attributeNamed: 'energia' pointTo: (NoObjectBrowserObject for: nil).
 	
 	^lesson.
 ]
@@ -172,7 +172,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess
 		lessonImported := self importLessonWithState.
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasVariable: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
+		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
 		self tearDownLesson: self lessonWithStateTitle.
 	] ensure: [ 
 		lesson clean.

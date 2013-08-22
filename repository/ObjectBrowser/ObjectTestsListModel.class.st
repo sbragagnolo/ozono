@@ -5,8 +5,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> clickIconAt: position [ 
-	self selectedItem clickIcon.
+ObjectTestsListModel >> iconAt: aTest [
+
+	^IconicButton new 
+		target: self model;
+		actionSelector: #runTest ;
+		labelGraphic: aTest icon;
+		color: Color transparent;
+		helpText: 'probar el test';
+		borderWidth: 0
 ]
 
 { #category : #'as yet unclassified' }

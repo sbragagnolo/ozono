@@ -1,5 +1,5 @@
 Class {
-	#name : #ObjectBrowserClass,
+	#name : #OBRealObject,
 	#superclass : #Object,
 	#classVars : [
 		'ObjectBrowserObjects'
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserClass class >> new [
+OBRealObject class >> new [
 	^self basicNew
 ]
 
 { #category : #cloning }
-ObjectBrowserClass >> clone [
+OBRealObject >> clone [
 	LOOPLesson allInstancesDo: [ :aLesson |
 		aLesson objects do: [ :anObjectBrowserObject |
 			anObjectBrowserObject realObject == self ifTrue:
@@ -22,24 +22,19 @@ ObjectBrowserClass >> clone [
 ]
 
 { #category : #printing }
-ObjectBrowserClass >> displayString [
+OBRealObject >> displayString [
+
 	^'anObject'
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserClass >> objectBrowserObjectForMe [
+{ #category : #printing }
+OBRealObject >> printOn: aStream [
 
-	^self deprecated: 'use the lesson to obtain the object'.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserClass >> objectBrowserObjects [
-	^self deprecated: 'use the lesson'
+	aStream nextPutAll: self displayString
 ]
 
 { #category : #printing }
-ObjectBrowserClass >> printOn: aStream [
-	"eso"
+OBRealObject >> printString [
 
-	aStream nextPutAll: self displayString
+	^self displayString
 ]
