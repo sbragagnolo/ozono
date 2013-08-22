@@ -172,7 +172,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess
 		lessonImported := self importLessonWithState.
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasVariable: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
+		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
 		self tearDownLesson: self lessonWithStateTitle.
 	] ensure: [ 
 		lesson clean.

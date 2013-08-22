@@ -33,9 +33,9 @@ ObjectBrowser >> actionsForAttributeListWith: selectedAttribute [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> actionsForObjectVariableList [
+ObjectBrowser >> actionsForObjectBrowserReferencesList [
 	^(OrderedCollection with: #('crear nuevo objeto' #createObject))
-		addAll: self selectedObject actionsForObjectVariableList;
+		addAll: self selectedObject actionsForObjectBrowserReferencesList;
 		asArray.
 ]
 
@@ -109,7 +109,7 @@ ObjectBrowser >> createAttribute [
 			variableName := self request: '¿Qué nombre deseas ponerle a este nuevo atributo?' default: ''.
 			variableName
 				ifNotNil: [ 
-					self validateVariableName: variableName usingExistingVariables: self selectedObject variables.
+					self validateVariableName: variableName usingExistingVariables: self selectedObject attributes.
 					self selectedObject addAttributeNamed: variableName ] ].
 	self changed
 ]
@@ -564,7 +564,7 @@ ObjectBrowser >> selectedObjectAttribute: anAttribute [
 
 { #category : #accessing }
 ObjectBrowser >> selectedObjectAttributes [
-	^self selectedObject variables
+	^self selectedObject attributes
 ]
 
 { #category : #accessing }

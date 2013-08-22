@@ -4,79 +4,80 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	^#()
 ]
 
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> actionsForObjectVariableList [
+{ #category : #'ui-actions' }
+NullObjectBrowserObject >> actionsForObjectBrowserReferencesList [
 	^#(#('eliminar' #deleteLessonVariable))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #attributes }
+NullObjectBrowserObject >> addAttributeNamed: anAttributeName [
+	self error: 'Debes seleccionar un objeto para crearle un atributo'.
+]
+
+{ #category : #references }
 NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection [
 	"El NullObjectBrowserObject no debe agregarse a la coleccion de objetos"
 	^self
 ]
 
-{ #category : #'graph model' }
+{ #category : #graph }
 NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
 	"Nothing"
 ]
 
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> addVariable: variableName [
-	self error: 'Debe seleccionar un objeto para crear una variable'.
+{ #category : #attributes }
+NullObjectBrowserObject >> attributes [
+	
+	^ #()
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 NullObjectBrowserObject >> compileMethod: aText notifying: someone [
 	^self error: 'Debe seleccionar un objeto para este metodo'.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 NullObjectBrowserObject >> hasMethod: aSelector [
 	^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 NullObjectBrowserObject >> isNil [
 	^true
 ]
 
-{ #category : #menu }
+{ #category : #'ui-actions' }
 NullObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 NullObjectBrowserObject >> methods [
 	^ OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #attributes }
 NullObjectBrowserObject >> realObjectVariables [
 	^OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'pharo-interaction' }
 NullObjectBrowserObject >> removeFromSystem [
 	"do nothing"
 	^self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 NullObjectBrowserObject >> sourceCodeAt: aSelector [ 
 	^''
 ]
 
-{ #category : #'as yet unclassified' }
-NullObjectBrowserObject >> variables [
-	^OrderedCollection new
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #exporting }
 NullObjectBrowserObject >> writeCloneScriptOn: aWriteStream for: anObjectBrowserObject lesson: aLOOPLesson [ 
 	"Un null ob onject no tiene prototipo"
 ]
