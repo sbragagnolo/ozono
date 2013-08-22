@@ -191,13 +191,15 @@ ObjectBrowserWindow >> createTestRunnerTab [
 
 { #category : #view }
 ObjectBrowserWindow >> createView [
-	| hSepFrac window |
-	hSepFrac := 0.45.
+	| window |
 	self createGroupTab.
-	window := (ObjectBrowserSystemWindow labelled: self objectBrowser title, ' - Object Browser') 
+	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
 			frame: (0@0 corner: 0.2@1).
+	
+	window onAnnouncement: MorphDeleted send: #closeWorkspaces to: self objectBrowser.
+	
 	pages keysAndValuesDo: [ :k :m |
 			window addMorph: m frame: (0.2@0 corner: 1@1).
 			m visible: k == self objectBrowser selectedPage.
