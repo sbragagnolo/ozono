@@ -4,6 +4,11 @@ Class {
 	#category : #'ObjectBrowser-UI-Model'
 }
 
+{ #category : #actions }
+ObjectAttributeListModel >> clickIconAt: anIndex [
+	"Do nothing if they click in the icon"
+]
+
 { #category : #'as yet unclassified' }
 ObjectAttributeListModel >> listModel [
 	^self selectedObjectAttributes asOrderedCollection 

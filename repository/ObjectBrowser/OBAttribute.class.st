@@ -69,8 +69,12 @@ OBAttribute >> pointsTo [
 ]
 
 { #category : #'as yet unclassified' }
-OBAttribute >> printString [
-	^self name , ' - (' , self objectPointed printString , ')'
+OBAttribute >> printOn: aStream [
+	aStream
+		nextPutAll: self name;
+		nextPutAll: '(';
+		nextPutAll: self objectPointed printString;
+		nextPutAll: ')'
 ]
 
 { #category : #'as yet unclassified' }

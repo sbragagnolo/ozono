@@ -11,12 +11,15 @@ LOOPLazyListMorph >> display: item atRow: row on: canvas [
 	| drawBounds top |
 	drawBounds := self drawBoundsForRow: row.
 	drawBounds := drawBounds intersect: self bounds.
-	(listSource iconAt: row) ifNotNil: [ :icon | 
+	(listSource iconAt: row) ifNotNil: [ :icon | | shiftForIcon |
 		top := drawBounds top + ((drawBounds height - icon height) // 2).
 		canvas 
 			translucentImage: icon
 			at: drawBounds left @ top.
-		drawBounds := drawBounds left: drawBounds left + icon width + 2 ].
+		shiftForIcon := icon width + 2.
+		drawBounds := (drawBounds 
+							left: drawBounds left + shiftForIcon)
+							right: drawBounds right + shiftForIcon ].
 	
 	canvas 
 		drawString: item string
