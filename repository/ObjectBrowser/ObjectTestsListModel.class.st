@@ -5,17 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> clickIconAt: position [ 
-	self selectedItem clickIcon.
-]
-
-{ #category : #'as yet unclassified' }
 ObjectTestsListModel >> iconAt: aTest [
 
 	^IconicButton new 
-		target: self;
-		actionSelector: #clickIconAt: ;
-		arguments: { self };
+		target: self model;
+		actionSelector: #runTest ;
 		labelGraphic: aTest icon;
 		color: Color transparent;
 		helpText: 'probar el test';
