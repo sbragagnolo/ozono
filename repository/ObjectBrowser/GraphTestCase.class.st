@@ -13,12 +13,12 @@ GraphTestCase >> testComplicatedGraph [
 	currentLesson addObject: (noObo2 := NoObjectBrowserObject for: nil).
 	
 	obj addAttributeNamed: 'var1'.
-	obj variable: 'var1' pointTo: obj2.
+	obj attributeNamed: 'var1' pointTo: obj2.
 	obj addAttributeNamed: 'var2'.
-	obj variable: 'var2' pointTo: (NoObjectBrowserObject for: 2).
+	obj attributeNamed: 'var2' pointTo: (NoObjectBrowserObject for: 2).
 	
 	obj2 addAttributeNamed: 'var1'.
-	obj2 variable: 'var1' pointTo: obj.
+	obj2 attributeNamed: 'var1' pointTo: obj.
 	obj2 addAttributeNamed: 'var2'.
 
 	graph := currentLesson buildGraph.
@@ -43,10 +43,10 @@ GraphTestCase >> testLoopGraph [
 	obj2 := currentLesson createObject.
 	
 	obj addAttributeNamed: 'var1'.
-	obj variable: 'var1' pointTo: obj2.
+	obj attributeNamed: 'var1' pointTo: obj2.
 	
 	obj2 addAttributeNamed: 'var1'.
-	obj2 variable: 'var1' pointTo: obj.
+	obj2 attributeNamed: 'var1' pointTo: obj.
 
 	graph := currentLesson buildGraph.
 	
@@ -62,7 +62,7 @@ GraphTestCase >> testObjectWithVariables [
 	| obj graph |
 	obj := currentLesson createObject.
 	obj addAttributeNamed: 'var1'.
-	obj variable: 'var1' pointTo: (NoObjectBrowserObject for: 2).
+	obj attributeNamed: 'var1' pointTo: (NoObjectBrowserObject for: 2).
 	
 	obj addAttributeNamed: 'var2'.
 	

@@ -31,6 +31,11 @@ NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in:
 ]
 
 { #category : #attributes }
+NullObjectBrowserObject >> allAttributeNames [
+	^OrderedCollection new
+]
+
+{ #category : #attributes }
 NullObjectBrowserObject >> attributes [
 	
 	^ #()
@@ -59,11 +64,6 @@ NullObjectBrowserObject >> menu: aMenuMorph [
 { #category : #methods }
 NullObjectBrowserObject >> methods [
 	^ OrderedCollection new
-]
-
-{ #category : #attributes }
-NullObjectBrowserObject >> realObjectVariables [
-	^OrderedCollection new
 ]
 
 { #category : #'pharo-interaction' }

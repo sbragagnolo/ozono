@@ -20,7 +20,6 @@ ObjectBrowserObject class >> createNewObjectBrowserObjectClassFrom: aClass in: a
 	objectBrowserClassNumber := NextObjectBrowserClassNumber.
 	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
 	^aLesson createClass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol subclassOf: aClass			
-	
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,6 +77,7 @@ ObjectBrowserObject >> actionsForObjectBrowserReferencesList [
 
 { #category : #attributes }
 ObjectBrowserObject >> addAttributeNamed: attributeName [
+
 	self realClass addInstVarNamed: attributeName.
 	self flushAttributesCache.
 	self changed.
@@ -100,19 +100,45 @@ ObjectBrowserObject >> addToGraph: aGraph [
 	aGraph addObjectBrowserObject: self.
 ]
 
+{ #category : #attributes }
+ObjectBrowserObject >> allAttributeNames [
+
+	^prototype allAttributeNames, self attributeNames.
+]
+
 { #category : #printing }
 ObjectBrowserObject >> asString [
 	^self posibleName
 ]
 
 { #category : #attributes }
+ObjectBrowserObject >> attributeNamed: varName [
+
+	^self attributes detect: [:v | v name = varName ].
+]
+
+{ #category : #attributes }
+ObjectBrowserObject >> attributeNamed: attributeNamed pointTo: anObject [
+
+	self realObject instVarNamed: attributeNamed put: anObject realObject.
+]
+
+{ #category : #attributes }
+ObjectBrowserObject >> attributeNames [
+
+	^attributes ifNil: [ attributes := self realClass instVarNames ].
+]
+
+{ #category : #attributes }
 ObjectBrowserObject >> attributes [
-	^(self realObjectVariables collect: [ :var | OBAttribute newNamed: var owner: self ]) 
+
+	^(self allAttributeNames collect: [ :var | OBAttribute newNamed: var owner: self ]) 
 		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
 { #category : #cloning }
 ObjectBrowserObject >> bePrototypeOf: clone [
+
 	clone prototype: self.
 	self realClass
 		subclass: clone realClass name asSymbol
@@ -124,12 +150,8 @@ ObjectBrowserObject >> bePrototypeOf: clone [
 
 { #category : #cloning }
 ObjectBrowserObject >> clone [
-	^self class newFrom: self on: self lesson.
-]
 
-{ #category : #attributes }
-ObjectBrowserObject >> collectRealVariables [
-	^self realClass instVarNames
+	^self class newFrom: self on: self lesson.
 ]
 
 { #category : #methods }
@@ -173,6 +195,7 @@ ObjectBrowserObject >> fileOut [
 
 { #category : #attributes }
 ObjectBrowserObject >> flushAttributesCache [
+
 	"We flush the cached attributed.
 	We keep a cache because we are not the only ones that can add attributes into an object, which can happen also e.g., in method compilation."
 	attributes := nil
@@ -190,12 +213,8 @@ ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 
 { #category : #attributes }
 ObjectBrowserObject >> hasAttributeNamed: anAttributeName [
-	^self attributes anySatisfy: [:attr | attr name = anAttributeName ]
-]
 
-{ #category : #cloning }
-ObjectBrowserObject >> hasClones [
-	^self realClass subclasses notEmpty
+	^self allAttributeNames includes: anAttributeName
 ]
 
 { #category : #methods }
@@ -225,11 +244,6 @@ ObjectBrowserObject >> inspect [
 	self realObject inspect
 ]
 
-{ #category : #cloning }
-ObjectBrowserObject >> isClone [
-	^prototype notNil
-]
-
 { #category : #methods }
 ObjectBrowserObject >> isRedefined: aSelector [
 	^self realClass allSubclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
@@ -247,11 +261,13 @@ ObjectBrowserObject >> knownObjects [
 
 { #category : #accessing }
 ObjectBrowserObject >> lesson [
+
 	^lesson
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> lesson: aLesson [
+
 	lesson := aLesson
 ]
 
@@ -293,18 +309,15 @@ ObjectBrowserObject >> myClassMethods [
 	^methods values
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> myClassVariables [
-	^attributes
-]
-
 { #category : #exporting }
 ObjectBrowserObject >> myNewScriptOn: aLesson [
+
 	^ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> object [
+
 	self deprecated.
 	^self
 ]
@@ -316,6 +329,7 @@ ObjectBrowserObject >> objectPointedByVariableNamed: varName [
 
 { #category : #accessing }
 ObjectBrowserObject >> posibleName [
+
 	^ (self realClass name, self realObject hash asString) asLowercase.
 ]
 
@@ -326,11 +340,13 @@ ObjectBrowserObject >> printOn: aStream [
 
 { #category : #cloning }
 ObjectBrowserObject >> prototype [
+
 	^prototype
 ]
 
 { #category : #cloning }
 ObjectBrowserObject >> prototype: anObject [
+
 	prototype := anObject
 ]
 
@@ -357,12 +373,6 @@ ObjectBrowserObject >> realObject: anObject [
 	realObject := anObject
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> realObjectVariables [
-	attributes ifNil: [ attributes := self collectRealVariables asSet  ].
-	^ (attributes union: prototype realObjectVariables).  
-]
-
 { #category : #methods }
 ObjectBrowserObject >> redefines: aSelector [
 	^self realClass allSuperclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
@@ -376,6 +386,14 @@ ObjectBrowserObject >> references [
 	^refs.
 	
 
+]
+
+{ #category : #attributes }
+ObjectBrowserObject >> removeAttribute: anAttribute [
+
+	anAttribute removeFrom: self realClass.
+	self flushAttributesCache.
+	self changed.
 ]
 
 { #category : #'pharo-interaction' }
@@ -396,15 +414,9 @@ ObjectBrowserObject >> removeMethod: aMethod [
 	]
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> removeVariable: anAttribute [
-	attributes remove: anAttribute name.
-	anAttribute removeFrom: self realClass.
-	self changed.
-]
-
 { #category : #accessing }
 ObjectBrowserObject >> size [
+
 	^self realObject size
 ]
 
@@ -424,23 +436,15 @@ ObjectBrowserObject >> understands: aSelector [
 ]
 
 { #category : #attributes }
-ObjectBrowserObject >> variable: varName pointTo: anObject [
-	self realObject instVarNamed: varName put: anObject realObject.
-]
-
-{ #category : #attributes }
-ObjectBrowserObject >> variableNamed: varName [
-	^self attributes detect: [:v | v name = varName ].
-]
-
-{ #category : #attributes }
 ObjectBrowserObject >> variableNames [
-	^self attributes collect:[:var | var name]
+
+	^self attributes collect: [:var | var name]
 ]
 
 { #category : #exporting }
-ObjectBrowserObject >> writeAttributesOn: stream [ .
-	self collectRealVariables asSet do:[ :v | 
+ObjectBrowserObject >> writeAttributesOn: stream [
+
+	self attributeNames asSet do:[ :v | 
 		stream
 			nextPutAll: self posibleName;
 			space;
@@ -455,18 +459,21 @@ ObjectBrowserObject >> writeAttributesOn: stream [ .
 
 { #category : #exporting }
 ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
+
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
 	stream cr.
 ]
 
 { #category : #exporting }
 ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
+
 	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
 ]
 
 { #category : #exporting }
 ObjectBrowserObject >> writeCreationScriptOver: stream [
+
 	| objectVariable |
 	objectVariable := self posibleName.
 	
@@ -479,7 +486,7 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 ]
 
 { #category : #exporting }
-ObjectBrowserObject >> writeMethodsOn: stream [ .
+ObjectBrowserObject >> writeMethodsOn: stream [
 	
 	self myClassMethods do:[ :m |
 		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
@@ -500,8 +507,9 @@ ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 { #category : #exporting }
 ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
+
 	"saves the state, all the variables values and relationships"
 	self attributes do:  [ :var | 
-			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
+			stream nextPutAll: self posibleName , ' attributeNamed: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
 ]

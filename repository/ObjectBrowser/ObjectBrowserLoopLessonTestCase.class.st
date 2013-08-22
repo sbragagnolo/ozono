@@ -16,7 +16,7 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> contentPOintedTo: anObjectBrowserObject byAtribute: atributeName [
-	^(anObjectBrowserObject variableNamed: atributeName ) objectPointed.
+	^(anObjectBrowserObject attributeNamed: atributeName ) objectPointed.
 ]
 
 { #category : #'as yet unclassified' }
@@ -113,8 +113,8 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	lesson addVariableNamed: 'pepita' pointingTo: pepita.
 	lesson addVariableNamed: 'rosario' pointingTo: rosario .
 	
-	pepita variable: 'dondeEstas' pointTo: rosario.
-	pepita variable: 'energia' pointTo: (NoObjectBrowserObject for: nil).
+	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
+	pepita attributeNamed: 'energia' pointTo: (NoObjectBrowserObject for: nil).
 	
 	^lesson.
 ]

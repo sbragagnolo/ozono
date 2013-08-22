@@ -36,7 +36,7 @@ MethodEditorModel >> guessTypeForName: aString [
 	| object |
 	object := self model selectedObject.
 	^(object hasAttributeNamed: aString)
-		ifTrue: [ (object variableNamed: aString) objectPointed class ]
+		ifTrue: [ (object attributeNamed: aString) objectPointed class ]
 		ifFalse: [ nil ]
 ]
 

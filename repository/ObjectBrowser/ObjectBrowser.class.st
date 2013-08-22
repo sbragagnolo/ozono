@@ -297,7 +297,7 @@ ObjectBrowser >> doDeleteLessonVariable [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> doDeleteVariable [
-	self selectedObject removeVariable: self selectedObjectAttribute.
+	self selectedObject removeAttribute: self selectedObjectAttribute.
 	self deselectVariables 
 	
 ]

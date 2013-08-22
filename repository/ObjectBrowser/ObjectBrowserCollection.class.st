@@ -94,11 +94,6 @@ ObjectBrowserCollection >> displayString [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> hasClones [
-	^false
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> hasReferencesTo: anOBObject [
 	^self realObject anySatisfy: [:elem | elem == anOBObject realObject ].
 ]
@@ -160,6 +155,11 @@ ObjectBrowserCollection >> references [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserCollection >> removeAttribute: variableName [
+	self signalNotModificableCollection
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> removeClassFromSystem [
 	"No hace nada, Sino eliminaria nuestra coleccion"
 	^ self
@@ -167,11 +167,6 @@ ObjectBrowserCollection >> removeClassFromSystem [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> removeMethod: aSelector [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> removeVariable: variableName [
 	self signalNotModificableCollection
 ]
 
