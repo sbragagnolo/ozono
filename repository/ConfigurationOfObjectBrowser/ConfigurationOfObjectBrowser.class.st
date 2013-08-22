@@ -51,7 +51,7 @@ ConfigurationOfObjectBrowser class >> project [
 	^self new project
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline10: spec [ 
     <version: '1.0-baseline'>
 	spec for: #common do: [
@@ -87,7 +87,7 @@ ConfigurationOfObjectBrowser >> baseline10: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline11: spec [ 
     <version: '1.1-baseline'>
 	spec for: #common do: [
@@ -103,7 +103,7 @@ ConfigurationOfObjectBrowser >> baseline11: spec [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline12: spec [ 
     <version: '1.2-baseline'>
 	spec for: #common do: [
@@ -123,7 +123,7 @@ ConfigurationOfObjectBrowser >> baseline12: spec [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline131: spec [ 
     <version: '1.3.1-baseline'>
 	spec for: #common do: [
@@ -142,7 +142,7 @@ ConfigurationOfObjectBrowser >> baseline131: spec [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline13: spec [ 
     <version: '1.3-baseline'>
 	spec for: #common do: [
@@ -162,7 +162,7 @@ ConfigurationOfObjectBrowser >> baseline13: spec [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline141: spec [ 
     <version: '1.4.1-baseline'>
 	spec for: #common do: [
@@ -180,7 +180,7 @@ ConfigurationOfObjectBrowser >> baseline141: spec [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
 ConfigurationOfObjectBrowser >> baseline14: spec [ 
     <version: '1.4-baseline'>
 	spec for: #common do: [
@@ -205,19 +205,37 @@ ConfigurationOfObjectBrowser >> baseline14: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #baselines }
+ConfigurationOfObjectBrowser >> baseline20: spec [ 
+    <version: '2.0-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://smalltalkhub.com/mc/Guille/LOOP/main'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											repository: 'http://smalltalkhub.com/mc/Guille/SmallUml/main'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel') ].
+			
+		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
+]
+
+{ #category : #symbolic }
 ConfigurationOfObjectBrowser >> development: spec [ 
 	<symbolicVersion: #development>
 	spec for: #'pharo1.2.x' version: '1.2.1'. 
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 ConfigurationOfObjectBrowser >> initializeOSProcess. [
 	(Smalltalk globals at: #ThisOSProcess) initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ConfigurationOfObjectBrowser >> project [
 
 	^ project ifNil: [ | constructor |
@@ -231,17 +249,24 @@ ConfigurationOfObjectBrowser >> project [
 		project]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #symbolic }
 ConfigurationOfObjectBrowser >> stable: spec [  
 	<symbolicVersion: #stable>
+	
+	| latest |
+	latest := '2.0'.
+	
+	"Default"
+	spec for: #'common' version: latest.
 	
 	spec for: #'pharo1.1.x' version: '1.0'.
 	spec for: #'pharo1.2.x' version: '1.3'.
 	spec for: #'pharo1.3.x' version: '1.3.1'.
 	spec for: #'pharo1.4.x' version: '1.4.5'.
+	spec for: #'pharo2.0.x' version: latest.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version10: spec [ 
     <version: '1.0' imports: #('1.0-baseline')>
 	spec for: #common do:[
@@ -259,7 +284,7 @@ ConfigurationOfObjectBrowser >> version10: spec [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version11: spec [ 
     <version: '1.1' imports: #('1.0-baseline')>
 	spec for: #common do:[
@@ -277,7 +302,7 @@ ConfigurationOfObjectBrowser >> version11: spec [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version121: spec [ 
     <version: '1.2.1' imports: #('1.2-baseline')>
 	spec for: #common do:[
@@ -290,7 +315,7 @@ ConfigurationOfObjectBrowser >> version121: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version12: spec [ 
     <version: '1.2' imports: #('1.1-baseline')>
 	spec for: #common do:[
@@ -300,7 +325,7 @@ ConfigurationOfObjectBrowser >> version12: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version131: spec [ 
     <version: '1.3.1' imports: #('1.3.1-baseline')>
 	spec for: #common do:[
@@ -312,7 +337,7 @@ ConfigurationOfObjectBrowser >> version131: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version13: spec [ 
     <version: '1.3' imports: #('1.3-baseline')>
 	spec for: #common do:[
@@ -325,7 +350,7 @@ ConfigurationOfObjectBrowser >> version13: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version141: spec [ 
     <version: '1.4.1' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
@@ -338,7 +363,7 @@ ConfigurationOfObjectBrowser >> version141: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version142: spec [ 
     <version: '1.4.2' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
@@ -351,7 +376,7 @@ ConfigurationOfObjectBrowser >> version142: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version143: spec [ 
     <version: '1.4.3' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
@@ -364,7 +389,7 @@ ConfigurationOfObjectBrowser >> version143: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version144: spec [ 
     <version: '1.4.4' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
@@ -377,7 +402,7 @@ ConfigurationOfObjectBrowser >> version144: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version145: spec [ 
     <version: '1.4.5' imports: #('1.4.1-baseline')>
 	spec for: #common do:[
@@ -390,7 +415,7 @@ ConfigurationOfObjectBrowser >> version145: spec [
 	].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version14: spec [ 
     <version: '1.4' imports: #('1.4-baseline')>
 	spec for: #common do:[
@@ -406,5 +431,18 @@ ConfigurationOfObjectBrowser >> version14: spec [
 		spec package: 'SUML-DiagramDrawing' with:'SUML-DiagramDrawing-GuillermoPolito.29'.
 		spec package: 'SUML-SequenceDiagramModel' with:'SUML-SequenceDiagramModel-carlaGriggio.1'.
 		spec package: 'SUML-Tools' with:'SUML-Tools-carlaGriggio.36'.
+	].
+]
+
+{ #category : #versions }
+ConfigurationOfObjectBrowser >> version20: spec [ 
+    <version: '2.0' imports: #('2.0-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.454'.
+
+		spec project: 'smallUML' with: '1.1.4'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
 	].
 ]
