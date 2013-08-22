@@ -32,12 +32,17 @@ LOOPWorkspace >> bindings [
 	^lesson variables collect: #name
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 LOOPWorkspace >> closeYourself [
 	window delete.
 ]
 
-{ #category : #actions }
+{ #category : #evaluation }
+LOOPWorkspace >> doItContext [
+	^nil
+]
+
+{ #category : #evaluation }
 LOOPWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
