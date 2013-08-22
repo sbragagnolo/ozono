@@ -24,8 +24,8 @@ ObjectBrowserLoopLessonTestCase >> createPepitaObObject: lesson [
 	|pepita|
 	
 	pepita := ObjectBrowserObject newOn: lesson.
-	pepita addVariable: 'dondeEstas'.
-	pepita addVariable: 'energia'.
+	pepita addAttributeNamed: 'dondeEstas'.
+	pepita addAttributeNamed: 'energia'.
 	pepita compileMethod: 'energia
 	^30.'.
 	pepita compileMethod: 'lugar

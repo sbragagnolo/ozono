@@ -113,27 +113,18 @@ LOOPLesson class >> suspendAllWhile: aBlock [
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
-{ #category : #accessing }
-LOOPLesson >> addNewObject [
-	| newObject |
-	newObject := ObjectBrowserObject newOn: self.
-	self addObject: newObject.
-	^newObject
-	
-]
-
-{ #category : #accessing }
+{ #category : #'object-handling' }
 LOOPLesson >> addObject: anObject [
 	^self objects add: anObject.
 ]
 
-{ #category : #accessing }
+{ #category : #'reference-handling' }
 LOOPLesson >> addVariable: aVariable [
-	self addVariableWithExistentObject: aVariable.
+	self basicAddVariable: aVariable.
 	(aVariable pointsTo isKindOf: NoObjectBrowserObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
-{ #category : #accessing }
+{ #category : #'reference-handling' }
 LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 	|aVariable|
 	aVariable :=	 (LessonVariable new)
@@ -146,14 +137,6 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 ]
 
 { #category : #accessing }
-LOOPLesson >> addVariableWithExistentObject: aVariable [
-	self variables add: aVariable.
-	self suspendAllWhile: [
-		self executionContext class addInstVarNamed: aVariable name.
-	].
-]
-
-{ #category : #accessing }
 LOOPLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
@@ -161,6 +144,14 @@ LOOPLesson >> addWorkspace: aWorkspace [
 { #category : #accessing }
 LOOPLesson >> asString [
 	^self displayString copyReplaceAll: ' ' with: ''
+]
+
+{ #category : #'reference-handling' }
+LOOPLesson >> basicAddVariable: aVariable [
+	self variables add: aVariable.
+	self suspendAllWhile: [
+		self executionContext class addInstVarNamed: aVariable name.
+	].
 ]
 
 { #category : #diagram }
@@ -211,6 +202,15 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 			poolDictionaries: ''
 			category: 'Useless'.
 	]
+]
+
+{ #category : #'object-handling' }
+LOOPLesson >> createObject [
+	| newObject |
+	newObject := ObjectBrowserObject newOn: self.
+	self addObject: newObject.
+	^newObject
+	
 ]
 
 { #category : #'as yet unclassified' }

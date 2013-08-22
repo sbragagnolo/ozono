@@ -19,7 +19,7 @@ ObjectBrowserObjectTestCase >> setUp [
 ObjectBrowserObjectTestCase >> testAddDuplicatedVariable [
 	| varName |
 	varName := 'energia'.
-	obo addVariable: varName .
+	obo addAttributeNamed: varName .
 	self should: [obo addVariable: varName] raise:Error.
 	self assert: obo variables size = 1.
 ]
@@ -44,7 +44,7 @@ ObjectBrowserObjectTestCase >> testAddSintacticBadMethod [
 ObjectBrowserObjectTestCase >> testAddVariable [
 	| varName |
 	varName := 'energia'.
-	obo addVariable: varName .
+	obo addAttributeNamed: varName .
 	self assert: obo variables size = 1.
 	self assert: (obo hasVariable: varName).
 ]

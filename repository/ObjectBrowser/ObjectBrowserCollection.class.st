@@ -68,14 +68,14 @@ ObjectBrowserCollection >> add: anObj [
 	self realObject add: anObj realObject .
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addToGraph: aGraph [
-	aGraph addCollection: self.
+{ #category : #'attribute-handling' }
+ObjectBrowserCollection >> addAttributeNamed: anAttributeName [
+	self signalNotModificableCollection
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addVariable: variableName [
-	self signalNotModificableCollection
+ObjectBrowserCollection >> addToGraph: aGraph [
+	aGraph addCollection: self.
 ]
 
 { #category : #'as yet unclassified' }

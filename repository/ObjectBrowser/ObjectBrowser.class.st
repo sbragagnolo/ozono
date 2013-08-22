@@ -104,9 +104,13 @@ ObjectBrowser >> confirmDeletion [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> createAttribute [
 	| variableName |
-	(self errorHandler
-		evaluate: [variableName := self request: 'Nombre de la referencia' default: ''.
-			variableName ifNotNil: [self validateVariableName: variableName usingExistingVariables: self selectedObject variables  .self selectedObject addVariable: variableName]]).
+	self errorHandler
+		evaluate: [ 
+			variableName := self request: '¿Qué nombre deseas ponerle a este nuevo atributo?' default: ''.
+			variableName
+				ifNotNil: [ 
+					self validateVariableName: variableName usingExistingVariables: self selectedObject variables.
+					self selectedObject addAttributeNamed: variableName ] ].
 	self changed
 ]
 
@@ -189,7 +193,7 @@ ObjectBrowser >> createVariable: aVariableNameString toRecover: anObjectBrowserO
 	newVariable := (LessonVariable newNamed: aVariableNameString)
 		pointTo: anObjectBrowserObject;
 		yourself.
-	self lesson addVariableWithExistentObject: newVariable.
+	self lesson basicAddVariable: newVariable.
 	self selectedItem: newVariable.
 ]
 

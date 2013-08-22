@@ -76,6 +76,13 @@ ObjectBrowserObject >> actionsForObjectVariableList [
 	^#(#('Clonar objeto referenciado' #cloneObject)).
 ]
 
+{ #category : #'attribute-handling' }
+ObjectBrowserObject >> addAttributeNamed: attributeName [
+	self realClass addInstVarNamed: attributeName.
+	self flushVariablesCache.
+	self changed.
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addInversePrototypeRelationship: references [
 
@@ -91,13 +98,6 @@ ObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aGr
 { #category : #'as yet unclassified' }
 ObjectBrowserObject >> addToGraph: aGraph [
 	aGraph addObjectBrowserObject: self.
-]
-
-{ #category : #accessing }
-ObjectBrowserObject >> addVariable: variableName [
-	self realClass addInstVarNamed: variableName.
-	self flushVariablesCache.
-	self changed.
 ]
 
 { #category : #accessing }
@@ -458,6 +458,21 @@ ObjectBrowserObject >> variables [
 ]
 
 { #category : #exportation }
+ObjectBrowserObject >> writeAttributesOn: stream [ .
+	self collectRealVariables asSet do:[ :v | 
+		stream
+			nextPutAll: self posibleName;
+			space;
+			nextPutAll: (self class>>#addAttributeNamed:) selector;
+			space;
+			nextPutAll: '''';
+			nextPutAll: v asString;
+			nextPutAll: '''.';
+			cr.
+		].
+]
+
+{ #category : #exportation }
 ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
 	stream cr.
@@ -496,7 +511,7 @@ ObjectBrowserObject >> writeMethodsOn: stream [ .
 ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
-	self writeVarianblesOn: stream .
+	self writeAttributesOn: stream .
 	self writeMethodsOn: stream .
 	
 
@@ -508,12 +523,4 @@ ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
 	self variables do:  [ :var | 
 			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
-]
-
-{ #category : #exportation }
-ObjectBrowserObject >> writeVarianblesOn: stream [ .
-	self collectRealVariables asSet do:[ :v | 
-		stream nextPutAll: self posibleName , ' addVariable: ''', v, '''.'.
-		stream cr.
-		].
 ]
