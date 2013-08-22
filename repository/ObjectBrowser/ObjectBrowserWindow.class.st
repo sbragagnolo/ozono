@@ -46,7 +46,19 @@ ObjectBrowserWindow >> buildMethodEditor [
 
 { #category : #view }
 ObjectBrowserWindow >> buildMethodList [
-	^ ObjectBrowserPluggableListMorph on: (MethodListModel newOn: self objectBrowser)
+
+	^ (PluggableIconListMorph
+		on: (MethodListModel newOn: self objectBrowser)
+		list: #listModel
+		selected: #listIndex
+		changeSelected: #listIndex:
+		menu: #listMenu:shifted:
+		keystroke: #listKey:from:)
+		borderWidth: 0;
+		enableDragNDrop: false;
+		autoDeselect: true;
+		getIconSelector: #iconAt:;
+		yourself
 ]
 
 { #category : #view }
