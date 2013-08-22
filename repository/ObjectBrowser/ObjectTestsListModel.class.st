@@ -10,6 +10,19 @@ ObjectTestsListModel >> clickIconAt: position [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectTestsListModel >> iconAt: aTest [
+
+	^IconicButton new 
+		target: self;
+		actionSelector: #clickIconAt: ;
+		arguments: { self };
+		labelGraphic: aTest icon;
+		color: Color transparent;
+		helpText: 'probar el test';
+		borderWidth: 0
+]
+
+{ #category : #'as yet unclassified' }
 ObjectTestsListModel >> listModel [
 	^self model tests asOrderedCollection
 ]
