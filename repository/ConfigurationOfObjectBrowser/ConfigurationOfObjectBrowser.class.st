@@ -254,7 +254,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	| latest |
-	latest := '2.0'.
+	latest := '2.0.1'.
 	
 	"Default"
 	spec for: #'common' version: latest.
@@ -435,11 +435,11 @@ ConfigurationOfObjectBrowser >> version14: spec [
 ]
 
 { #category : #versions }
-ConfigurationOfObjectBrowser >> version20: spec [ 
-    <version: '2.0' imports: #('2.0-baseline')>
+ConfigurationOfObjectBrowser >> version201: spec [ 
+    <version: '2.0.1' imports: #('2.0-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.454'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.462'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
@@ -448,11 +448,11 @@ ConfigurationOfObjectBrowser >> version20: spec [
 ]
 
 { #category : #versions }
-ConfigurationOfObjectBrowser >> version21: spec [ 
-    <version: '2.1' imports: #('2.0-baseline')>
+ConfigurationOfObjectBrowser >> version20: spec [ 
+    <version: '2.0' imports: #('2.0-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.462'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.454'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
