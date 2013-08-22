@@ -88,7 +88,7 @@ LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
 	(self includesObject: anObjectBrowserObject)
 		ifFalse: [ self addObject: anObjectBrowserObject.
 			  	 
-				anObjectBrowserObject attributes do: [ :v |
+				anObjectBrowserObject variables do: [ :v |
 						objectReferenced := anObjectBrowserObject objectPointedByVariableNamed: v name asSymbol.
 						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: objectReferenced).
 						referencedObjectBrowserObject addToGraph: self.

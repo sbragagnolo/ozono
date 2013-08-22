@@ -19,9 +19,9 @@ ObjectBrowserObjectTestCase >> setUp [
 ObjectBrowserObjectTestCase >> testAddDuplicatedVariable [
 	| varName |
 	varName := 'energia'.
-	obo addAttributeNamed: varName .
+	obo addVariable: varName .
 	self should: [obo addVariable: varName] raise:Error.
-	self assert: obo attributes size = 1.
+	self assert: obo variables size = 1.
 ]
 
 { #category : #'method-tests' }
@@ -44,9 +44,9 @@ ObjectBrowserObjectTestCase >> testAddSintacticBadMethod [
 ObjectBrowserObjectTestCase >> testAddVariable [
 	| varName |
 	varName := 'energia'.
-	obo addAttributeNamed: varName .
-	self assert: obo attributes size = 1.
-	self assert: (obo hasAttributeNamed: varName).
+	obo addVariable: varName .
+	self assert: obo variables size = 1.
+	self assert: (obo hasVariable: varName).
 ]
 
 { #category : #'clone-tests' }
@@ -79,7 +79,7 @@ ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectMethods [
 
 { #category : #'attribute-tests' }
 ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectVariables [
-	self assert: (obo attributes isEmpty).
+	self assert: (obo variables isEmpty).
 ]
 
 { #category : #'method-tests' }

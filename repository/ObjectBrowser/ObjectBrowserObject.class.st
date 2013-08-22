@@ -4,9 +4,9 @@ Class {
 	#instVars : [
 		'realObject',
 		'prototype',
+		'variables',
 		'methods',
-		'lesson',
-		'attributes'
+		'lesson'
 	],
 	#classVars : [
 		'NextObjectBrowserClassNumber'
@@ -20,6 +20,7 @@ ObjectBrowserObject class >> createNewObjectBrowserObjectClassFrom: aClass in: a
 	objectBrowserClassNumber := NextObjectBrowserClassNumber.
 	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
 	^aLesson createClass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol subclassOf: aClass			
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,25 +63,17 @@ ObjectBrowserObject class >> newOn: aLesson withRealObject: realObject [
 		yourself.
 ]
 
-{ #category : #'ui-actions' }
+{ #category : #accessing }
 ObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	| actions |
-	actions := OrderedCollection with: #('Crear nueva referencia' createAttribute).
+	actions := OrderedCollection with: #('crear nueva referencia'		createAttribute).
 	actions addAll: (selectedAttribute actionsForAttributeList).
 	^actions asArray
 ]
 
-{ #category : #'ui-actions' }
-ObjectBrowserObject >> actionsForObjectBrowserReferencesList [
+{ #category : #accessing }
+ObjectBrowserObject >> actionsForObjectVariableList [
 	^#(#('Clonar objeto referenciado' #cloneObject)).
-]
-
-{ #category : #attributes }
-ObjectBrowserObject >> addAttributeNamed: attributeName [
-
-	self realClass addInstVarNamed: attributeName.
-	self flushAttributesCache.
-	self changed.
 ]
 
 { #category : #references }
@@ -100,45 +93,32 @@ ObjectBrowserObject >> addToGraph: aGraph [
 	aGraph addObjectBrowserObject: self.
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> allAttributeNames [
-
-	^prototype allAttributeNames, self attributeNames.
+{ #category : #accessing }
+ObjectBrowserObject >> addVariable: variableName [
+	self realClass addInstVarNamed: variableName.
+	self flushVariablesCache.
+	self changed.
 ]
 
-{ #category : #printing }
+{ #category : #accessing }
 ObjectBrowserObject >> asString [
 	^self posibleName
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> attributeNamed: varName [
-
-	^self attributes detect: [:v | v name = varName ].
+{ #category : #accessing }
+ObjectBrowserObject >> at: index [
+	self deprecated: 'No hay mas diccionarios, no usar!'.
+	^self realObject at: index .
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> attributeNamed: attributeNamed pointTo: anObject [
-
-	self realObject instVarNamed: attributeNamed put: anObject realObject.
-]
-
-{ #category : #attributes }
-ObjectBrowserObject >> attributeNames [
-
-	^attributes ifNil: [ attributes := self realClass instVarNames ].
-]
-
-{ #category : #attributes }
-ObjectBrowserObject >> attributes [
-
-	^(self allAttributeNames collect: [ :var | OBAttribute newNamed: var owner: self ]) 
-		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
+{ #category : #accessing }
+ObjectBrowserObject >> at: index put: obj [
+	self deprecated: 'para mi esto no sirve.  Guille'.
+	^self realObject at: index put: obj.
 ]
 
 { #category : #cloning }
 ObjectBrowserObject >> bePrototypeOf: clone [
-
 	clone prototype: self.
 	self realClass
 		subclass: clone realClass name asSymbol
@@ -150,16 +130,20 @@ ObjectBrowserObject >> bePrototypeOf: clone [
 
 { #category : #cloning }
 ObjectBrowserObject >> clone [
-
 	^self class newFrom: self on: self lesson.
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
+ObjectBrowserObject >> collectRealVariables [
+	^self realClass instVarNames
+]
+
+{ #category : #compiling }
 ObjectBrowserObject >> compileMethod: aMethod [
 	self compileMethod: aMethod notifying: nil 
 ]
 
-{ #category : #methods }
+{ #category : #compiling }
 ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 	| result obMethod |
 	self suspendAllWhile: [
@@ -170,7 +154,7 @@ ObjectBrowserObject >> compileMethod: aMethod notifying: someone [
 			object: self;
 			yourself.
 		methods at: result put: obMethod.
-		self flushAttributesCache.
+		self flushVariablesCache.
 		self changed.
 		^obMethod
 	]
@@ -193,12 +177,9 @@ ObjectBrowserObject >> fileOut [
 	FileStream writeSourceCodeFrom: internalStream baseName: 'fileOut' isSt: true.
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> flushAttributesCache [
-
-	"We flush the cached attributed.
-	We keep a cache because we are not the only ones that can add attributes into an object, which can happen also e.g., in method compilation."
-	attributes := nil
+{ #category : #accessing }
+ObjectBrowserObject >> flushVariablesCache [
+	variables := nil
 ]
 
 { #category : #references }
@@ -206,35 +187,38 @@ ObjectBrowserObject >> fullfillObjectBrowserObjectsCollection: aCollection [
 |pointed|
 	(aCollection includes: self) ifFalse: [
 		aCollection add: self.
-		self attributes do: [ :v | pointed := self objectPointedByVariableNamed: v name. (pointed notNil and: [
+		self variables do: [ :v | pointed := self objectPointedByVariableNamed: v name. (pointed notNil and: [
 				pointed class isKindOf: ObjectBrowserObject]) ifTrue: [ pointed fullfillObjectBrowserObjectsCollection: aCollection ]].
 		]
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> hasAttributeNamed: anAttributeName [
-
-	^self allAttributeNames includes: anAttributeName
+{ #category : #accessing }
+ObjectBrowserObject >> hasClones [
+	^self realClass subclasses notEmpty
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> hasMethod: aSelector [
 	^self methods anySatisfy: [:m | m selector = aSelector ]
 ]
 
-{ #category : #references }
+{ #category : #accessing }
 ObjectBrowserObject >> hasReferencesTo: anOBObject [
 
 	^self knownObjects includes: anOBObject realObject 
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #accessing }
+ObjectBrowserObject >> hasVariable: aVariableName [
+	^self variables anySatisfy: [:v | v name = aVariableName ]
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> initialize [
 	super initialize.
-
 	self realObject ifNotNil: [self realObject initialize].
 	prototype ifNil: [ prototype := NullObjectBrowserObject new].
-	attributes := Set new.
+	variables := Set new.
 	methods := Dictionary new.
 	^self
 ]
@@ -244,7 +228,18 @@ ObjectBrowserObject >> inspect [
 	self realObject inspect
 ]
 
-{ #category : #methods }
+{ #category : #testing }
+ObjectBrowserObject >> isClone [
+	^prototype notNil
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> isNull [
+	self deprecated: 'para mi esto ya no sirve.  Guille'.
+	^false
+]
+
+{ #category : #testing }
 ObjectBrowserObject >> isRedefined: aSelector [
 	^self realClass allSubclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
 ]
@@ -252,7 +247,7 @@ ObjectBrowserObject >> isRedefined: aSelector [
 { #category : #references }
 ObjectBrowserObject >> knownObjects [
 	| refs |
-	refs := self attributes asBag collect: [:v | self objectPointedByVariableNamed:  v name ].
+	refs := self variables asBag collect: [:v | self objectPointedByVariableNamed:  v name ].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	
@@ -261,29 +256,33 @@ ObjectBrowserObject >> knownObjects [
 
 { #category : #accessing }
 ObjectBrowserObject >> lesson [
-
 	^lesson
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> lesson: aLesson [
-
 	lesson := aLesson
 ]
 
-{ #category : #'ui-actions' }
+{ #category : #accessing }
 ObjectBrowserObject >> menu: aMenuMorph [
 	aMenuMorph addLine.
-	^aMenuMorph addList: (self actionsForObjectBrowserReferencesList).
+	^aMenuMorph addList: (self actionsForObjectVariableList).
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
+ObjectBrowserObject >> methodCategory: aSelector [
+	self deprecated: 'para mi esto ya no sirve.  Guille'.
+	^ self realClass organization categoryOfElement: aSelector.
+]
+
+{ #category : #accessing }
 ObjectBrowserObject >> methodOfSelector: aSelector [
 	"Para testing"
 	^self myClassMethods detect: [:m | m selector = aSelector ].
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> methods [
 "	^self myClassMethods union: prototype methods"
 	| allMethods dictionaryMethods |
@@ -294,42 +293,43 @@ ObjectBrowserObject >> methods [
 	^ dictionaryMethods values asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector].
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> myClassHasMethod: aSelector [
 	^methods includesKey: aSelector selector 
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> myClassMethodSelectors [
 	^self realClass selectors asOrderedCollection
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> myClassMethods [
 	^methods values
 ]
 
-{ #category : #exporting }
-ObjectBrowserObject >> myNewScriptOn: aLesson [
+{ #category : #accessing }
+ObjectBrowserObject >> myClassVariables [
+	^variables
+]
 
+{ #category : #exportation }
+ObjectBrowserObject >> myNewScriptOn: aLesson [
 	^ObjectBrowserObject name , ' newOn: ', aLesson lessonIdentification
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> object [
-
-	self deprecated.
 	^self
 ]
 
-{ #category : #references }
+{ #category : #accessing }
 ObjectBrowserObject >> objectPointedByVariableNamed: varName [
 	^realObject instVarNamed: varName
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> posibleName [
-
 	^ (self realClass name, self realObject hash asString) asLowercase.
 ]
 
@@ -340,37 +340,40 @@ ObjectBrowserObject >> printOn: aStream [
 
 { #category : #cloning }
 ObjectBrowserObject >> prototype [
-
 	^prototype
 ]
 
 { #category : #cloning }
 ObjectBrowserObject >> prototype: anObject [
-
 	prototype := anObject
 ]
 
-{ #category : #'pharo-interaction' }
+{ #category : #accessing }
 ObjectBrowserObject >> realClass [
 	"la clase de la que hay que mostrar metodos y variables"
 	^self realObject class
 ]
 
-{ #category : #references }
+{ #category : #associating }
 ObjectBrowserObject >> realClassForVariableNamed: aByteString [ 
 	^ (self realObject instVarNamed: aByteString) class .
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> realObject [
-
+	"el objeto al que le digo cosas desde el workspace"
 	^ realObject
 ]
 
 { #category : #accessing }
 ObjectBrowserObject >> realObject: anObject [
-
 	realObject := anObject
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> realObjectVariables [
+	variables ifNil: [ variables := self collectRealVariables asSet  ].
+	^ (variables union: prototype realObjectVariables).  
 ]
 
 { #category : #methods }
@@ -381,27 +384,19 @@ ObjectBrowserObject >> redefines: aSelector [
 { #category : #references }
 ObjectBrowserObject >> references [
 	| refs |
-	refs := self attributes collect: [:v | self objectPointedBy:  v name ].
+	refs := self variables collect: [:v | self objectPointedBy:  v name ].
 	prototype addInversePrototypeRelationship: refs.
 	^refs.
 	
 
 ]
 
-{ #category : #attributes }
-ObjectBrowserObject >> removeAttribute: anAttribute [
-
-	anAttribute removeFrom: self realClass.
-	self flushAttributesCache.
-	self changed.
-]
-
-{ #category : #'pharo-interaction' }
+{ #category : #accessing }
 ObjectBrowserObject >> removeClassFromSystem [
 	self realClass removeFromSystem
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> removeMethod: aMethod [
 	(self myClassHasMethod: aMethod) ifFalse: [
 		self error: 'El método #', aMethod selector ,' pertenece a un prototipo, no puede eliminarse'.
@@ -415,65 +410,67 @@ ObjectBrowserObject >> removeMethod: aMethod [
 ]
 
 { #category : #accessing }
-ObjectBrowserObject >> size [
+ObjectBrowserObject >> removeVariable: anAttribute [
+	variables remove: anAttribute name.
+	anAttribute removeFrom: self realClass.
+	self changed.
+]
 
+{ #category : #accessing }
+ObjectBrowserObject >> size [
 	^self realObject size
 ]
 
-{ #category : #methods }
+{ #category : #accessing }
 ObjectBrowserObject >> sourceCodeAt: aMethod [
 	^ aMethod code.
 ]
 
-{ #category : #'pharo-interaction' }
+{ #category : #'system-events' }
 ObjectBrowserObject >> suspendAllWhile: aBlock [
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
-{ #category : #methods }
+{ #category : #testing }
 ObjectBrowserObject >> understands: aSelector [
 	^self realObject respondsTo: aSelector
 ]
 
+{ #category : #accessing }
+ObjectBrowserObject >> variable: varName pointTo: anObject [
+	self realObject instVarNamed: varName put: anObject realObject.
+]
+
+{ #category : #accessing }
+ObjectBrowserObject >> variableNamed: varName [
+	^self variables detect: [:v | v name = varName ].
+]
+
 { #category : #attributes }
 ObjectBrowserObject >> variableNames [
-
-	^self attributes collect: [:var | var name]
+	^self variables collect:[:var | var name]
 ]
 
-{ #category : #exporting }
-ObjectBrowserObject >> writeAttributesOn: stream [
-
-	self attributeNames asSet do:[ :v | 
-		stream
-			nextPutAll: self posibleName;
-			space;
-			nextPutAll: (self class>>#addAttributeNamed:) selector;
-			space;
-			nextPutAll: '''';
-			nextPutAll: v asString;
-			nextPutAll: '''.';
-			cr.
-		].
+{ #category : #accessing }
+ObjectBrowserObject >> variables [
+	^(self realObjectVariables collect: [ :var | OBAttribute newNamed: var owner: self ]) 
+		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
-{ #category : #exporting }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
-
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
 	stream cr.
 ]
 
-{ #category : #exporting }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
-
 	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
 ]
 
-{ #category : #exporting }
+{ #category : #exportation }
 ObjectBrowserObject >> writeCreationScriptOver: stream [
-
 	| objectVariable |
 	objectVariable := self posibleName.
 	
@@ -485,8 +482,8 @@ ObjectBrowserObject >> writeCreationScriptOver: stream [
 	stream cr.
 ]
 
-{ #category : #exporting }
-ObjectBrowserObject >> writeMethodsOn: stream [
+{ #category : #exportation }
+ObjectBrowserObject >> writeMethodsOn: stream [ .
 	
 	self myClassMethods do:[ :m |
 		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
@@ -495,21 +492,28 @@ ObjectBrowserObject >> writeMethodsOn: stream [
 
 ]
 
-{ #category : #exporting }
+{ #category : #exportation }
 ObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
-	self writeAttributesOn: stream .
+	self writeVarianblesOn: stream .
 	self writeMethodsOn: stream .
 	
 
 ]
 
-{ #category : #exporting }
+{ #category : #exportation }
 ObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
-
 	"saves the state, all the variables values and relationships"
-	self attributes do:  [ :var | 
-			stream nextPutAll: self posibleName , ' attributeNamed: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
+	self variables do:  [ :var | 
+			stream nextPutAll: self posibleName , ' variable: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self objectPointedByVariableNamed: var name)) posibleName, '.'. 
 			stream cr].
+]
+
+{ #category : #exportation }
+ObjectBrowserObject >> writeVarianblesOn: stream [ .
+	self collectRealVariables asSet do:[ :v | 
+		stream nextPutAll: self posibleName , ' addVariable: ''', v, '''.'.
+		stream cr.
+		].
 ]

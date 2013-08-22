@@ -23,12 +23,23 @@ ObjectBrowserClass >> clone [
 
 { #category : #printing }
 ObjectBrowserClass >> displayString [
-
 	^'anObject'
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserClass >> objectBrowserObjectForMe [
+
+	^self deprecated: 'use the lesson to obtain the object'.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserClass >> objectBrowserObjects [
+	^self deprecated: 'use the lesson'
 ]
 
 { #category : #printing }
 ObjectBrowserClass >> printOn: aStream [
+	"eso"
 
 	aStream nextPutAll: self displayString
 ]

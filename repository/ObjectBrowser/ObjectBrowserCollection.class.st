@@ -68,14 +68,14 @@ ObjectBrowserCollection >> add: anObj [
 	self realObject add: anObj realObject .
 ]
 
-{ #category : #'attribute-handling' }
-ObjectBrowserCollection >> addAttributeNamed: anAttributeName [
-	self signalNotModificableCollection
-]
-
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> addToGraph: aGraph [
 	aGraph addCollection: self.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> addVariable: variableName [
+	self signalNotModificableCollection
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,6 +91,11 @@ ObjectBrowserCollection >> displayString [
 		ifTrue: [ prefix := 'an'. ]
 		ifFalse: [ prefix:= 'a' ].
 	^(prefix, self realObject class name) asLegalSelector
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> hasClones [
+	^false
 ]
 
 { #category : #'as yet unclassified' }
@@ -155,11 +160,6 @@ ObjectBrowserCollection >> references [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection >> removeAttribute: variableName [
-	self signalNotModificableCollection
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection >> removeClassFromSystem [
 	"No hace nada, Sino eliminaria nuestra coleccion"
 	^ self
@@ -167,6 +167,11 @@ ObjectBrowserCollection >> removeClassFromSystem [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection >> removeMethod: aSelector [
+	self signalNotModificableCollection
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserCollection >> removeVariable: variableName [
 	self signalNotModificableCollection
 ]
 

@@ -7,19 +7,19 @@ Class {
 { #category : #'as yet unclassified' }
 GraphTestCase >> testComplicatedGraph [
 	| obj graph obj2 noObo1 noObo2 |
-	obj := currentLesson createObject.
-	obj2 := currentLesson createObject.
+	obj := currentLesson addNewObject.
+	obj2 := currentLesson addNewObject.
 	currentLesson addObject: (noObo1 := NoObjectBrowserObject for: 2).
 	currentLesson addObject: (noObo2 := NoObjectBrowserObject for: nil).
 	
-	obj addAttributeNamed: 'var1'.
-	obj attributeNamed: 'var1' pointTo: obj2.
-	obj addAttributeNamed: 'var2'.
-	obj attributeNamed: 'var2' pointTo: (NoObjectBrowserObject for: 2).
+	obj addVariable: 'var1'.
+	obj variable: 'var1' pointTo: obj2.
+	obj addVariable: 'var2'.
+	obj variable: 'var2' pointTo: (NoObjectBrowserObject for: 2).
 	
-	obj2 addAttributeNamed: 'var1'.
-	obj2 attributeNamed: 'var1' pointTo: obj.
-	obj2 addAttributeNamed: 'var2'.
+	obj2 addVariable: 'var1'.
+	obj2 variable: 'var1' pointTo: obj.
+	obj2 addVariable: 'var2'.
 
 	graph := currentLesson buildGraph.
 	
@@ -39,14 +39,14 @@ GraphTestCase >> testComplicatedGraph [
 { #category : #'as yet unclassified' }
 GraphTestCase >> testLoopGraph [
 	| obj graph obj2 |
-	obj := currentLesson createObject.
-	obj2 := currentLesson createObject.
+	obj := currentLesson addNewObject.
+	obj2 := currentLesson addNewObject.
 	
-	obj addAttributeNamed: 'var1'.
-	obj attributeNamed: 'var1' pointTo: obj2.
+	obj addVariable: 'var1'.
+	obj variable: 'var1' pointTo: obj2.
 	
-	obj2 addAttributeNamed: 'var1'.
-	obj2 attributeNamed: 'var1' pointTo: obj.
+	obj2 addVariable: 'var1'.
+	obj2 variable: 'var1' pointTo: obj.
 
 	graph := currentLesson buildGraph.
 	
@@ -60,11 +60,11 @@ GraphTestCase >> testLoopGraph [
 { #category : #'as yet unclassified' }
 GraphTestCase >> testObjectWithVariables [
 	| obj graph |
-	obj := currentLesson createObject.
-	obj addAttributeNamed: 'var1'.
-	obj attributeNamed: 'var1' pointTo: (NoObjectBrowserObject for: 2).
+	obj := currentLesson addNewObject.
+	obj addVariable: 'var1'.
+	obj variable: 'var1' pointTo: (NoObjectBrowserObject for: 2).
 	
-	obj addAttributeNamed: 'var2'.
+	obj addVariable: 'var2'.
 	
 	graph := currentLesson buildGraph.
 	
@@ -81,7 +81,7 @@ GraphTestCase >> testObjectWithVariables [
 { #category : #'as yet unclassified' }
 GraphTestCase >> testSimpleObjectGraph [
 	| obj graph |
-	obj := currentLesson createObject.
+	obj := currentLesson addNewObject.
 	graph := currentLesson buildGraph.
 	
 	self assert: (graph objects includes: obj).

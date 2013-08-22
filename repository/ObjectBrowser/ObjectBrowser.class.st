@@ -33,9 +33,9 @@ ObjectBrowser >> actionsForAttributeListWith: selectedAttribute [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> actionsForObjectBrowserReferencesList [
+ObjectBrowser >> actionsForObjectVariableList [
 	^(OrderedCollection with: #('crear nuevo objeto' #createObject))
-		addAll: self selectedObject actionsForObjectBrowserReferencesList;
+		addAll: self selectedObject actionsForObjectVariableList;
 		asArray.
 ]
 
@@ -104,13 +104,9 @@ ObjectBrowser >> confirmDeletion [
 { #category : #'as yet unclassified' }
 ObjectBrowser >> createAttribute [
 	| variableName |
-	self errorHandler
-		evaluate: [ 
-			variableName := self request: '¿Qué nombre deseas ponerle a este nuevo atributo?' default: ''.
-			variableName
-				ifNotNil: [ 
-					self validateVariableName: variableName usingExistingVariables: self selectedObject attributes.
-					self selectedObject addAttributeNamed: variableName ] ].
+	(self errorHandler
+		evaluate: [variableName := self request: 'Nombre de la referencia' default: ''.
+			variableName ifNotNil: [self validateVariableName: variableName usingExistingVariables: self selectedObject variables  .self selectedObject addVariable: variableName]]).
 	self changed
 ]
 
@@ -193,7 +189,7 @@ ObjectBrowser >> createVariable: aVariableNameString toRecover: anObjectBrowserO
 	newVariable := (LessonVariable newNamed: aVariableNameString)
 		pointTo: anObjectBrowserObject;
 		yourself.
-	self lesson basicAddVariable: newVariable.
+	self lesson addVariableWithExistentObject: newVariable.
 	self selectedItem: newVariable.
 ]
 
@@ -297,7 +293,7 @@ ObjectBrowser >> doDeleteLessonVariable [
 
 { #category : #'as yet unclassified' }
 ObjectBrowser >> doDeleteVariable [
-	self selectedObject removeAttribute: self selectedObjectAttribute.
+	self selectedObject removeVariable: self selectedObjectAttribute.
 	self deselectVariables 
 	
 ]
@@ -564,7 +560,7 @@ ObjectBrowser >> selectedObjectAttribute: anAttribute [
 
 { #category : #accessing }
 ObjectBrowser >> selectedObjectAttributes [
-	^self selectedObject attributes
+	^self selectedObject variables
 ]
 
 { #category : #accessing }

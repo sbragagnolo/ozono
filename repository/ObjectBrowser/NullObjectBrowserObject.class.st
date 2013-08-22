@@ -9,14 +9,9 @@ NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
 	^#()
 ]
 
-{ #category : #'ui-actions' }
-NullObjectBrowserObject >> actionsForObjectBrowserReferencesList [
+{ #category : #'as yet unclassified' }
+NullObjectBrowserObject >> actionsForObjectVariableList [
 	^#(#('eliminar' #deleteLessonVariable))
-]
-
-{ #category : #attributes }
-NullObjectBrowserObject >> addAttributeNamed: anAttributeName [
-	self error: 'Debes seleccionar un objeto para crearle un atributo'.
 ]
 
 { #category : #references }
@@ -25,20 +20,14 @@ NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection
 	^self
 ]
 
-{ #category : #graph }
+{ #category : #'graph model' }
 NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
 	"Nothing"
 ]
 
-{ #category : #attributes }
-NullObjectBrowserObject >> allAttributeNames [
-	^OrderedCollection new
-]
-
-{ #category : #attributes }
-NullObjectBrowserObject >> attributes [
-	
-	^ #()
+{ #category : #'as yet unclassified' }
+NullObjectBrowserObject >> addVariable: variableName [
+	self error: 'Debe seleccionar un objeto para crear una variable'.
 ]
 
 { #category : #methods }
@@ -56,7 +45,7 @@ NullObjectBrowserObject >> isNil [
 	^true
 ]
 
-{ #category : #'ui-actions' }
+{ #category : #menu }
 NullObjectBrowserObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
@@ -64,6 +53,11 @@ NullObjectBrowserObject >> menu: aMenuMorph [
 { #category : #methods }
 NullObjectBrowserObject >> methods [
 	^ OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
+NullObjectBrowserObject >> realObjectVariables [
+	^OrderedCollection new
 ]
 
 { #category : #'pharo-interaction' }
@@ -75,6 +69,11 @@ NullObjectBrowserObject >> removeFromSystem [
 { #category : #methods }
 NullObjectBrowserObject >> sourceCodeAt: aSelector [ 
 	^''
+]
+
+{ #category : #'as yet unclassified' }
+NullObjectBrowserObject >> variables [
+	^OrderedCollection new
 ]
 
 { #category : #exporting }

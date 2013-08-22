@@ -18,6 +18,11 @@ OBTest class >> newText: aTestSelector onLesson: aLesson [
 ]
 
 { #category : #'as yet unclassified' }
+OBTest >> clickIcon [
+	'click all you want it is gona be ok'
+]
+
+{ #category : #'as yet unclassified' }
 OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]

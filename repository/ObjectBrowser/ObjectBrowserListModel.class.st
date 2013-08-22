@@ -19,8 +19,8 @@ ObjectBrowserListModel >> fontAt: index withBasicFont: font [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> iconAt: anAttribute [
-	^anAttribute icon
+ObjectBrowserListModel >> iconAt: anIndex [
+	^(self listModel at: anIndex) icon
 ]
 
 { #category : #'as yet unclassified' }

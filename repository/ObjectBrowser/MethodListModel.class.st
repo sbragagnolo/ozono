@@ -11,8 +11,8 @@ MethodListModel >> colorAt: index [
 ]
 
 { #category : #'as yet unclassified' }
-MethodListModel >> iconAt: aMethod [
-	^aMethod iconFor: (model selectedObject)
+MethodListModel >> iconAt: anIndex [
+	^(self listModel at: anIndex) iconFor: (model selectedObject)
 ]
 
 { #category : #'as yet unclassified' }

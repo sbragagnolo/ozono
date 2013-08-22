@@ -31,7 +31,7 @@ NoObjectBrowserObject >> actionsForAttributeListWith: aNullOBVariable [
 ]
 
 { #category : #accessing }
-NoObjectBrowserObject >> actionsForObjectBrowserReferencesList [
+NoObjectBrowserObject >> actionsForObjectVariableList [
 	^OrderedCollection new.
 ]
 
