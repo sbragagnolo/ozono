@@ -37,7 +37,7 @@ OBCollectionFactory >> lesson: aLesson [
 { #category : #'instance-creation' }
 OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
 
-	^ObjectBrowserCollection
+	^OBCollectionMetaObject
 			newWithRealObject: aRealCollection
 			inLesson: lesson.
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #ObjectBrowserCollection,
+	#name : #OBCollectionMetaObject,
 	#superclass : #OBMetaObject,
 	#instVars : [
 		'posibleName'
@@ -12,12 +12,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> basicNew [	
+OBCollectionMetaObject class >> basicNew [	
 	^super basicNew posibleName: self name asLowercase , self collectionClassNumber asString ; yourself 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> collectionClassNumber [
+OBCollectionMetaObject class >> collectionClassNumber [
 	"devuelve un numero valido de coleccion en el sistema, que no se repite con otra colleccion"
 	NextCollectionClassNumberAvailable ifNil: [NextCollectionClassNumberAvailable := 0].
 	NextCollectionClassNumberAvailable :=  NextCollectionClassNumberAvailable + 1.
@@ -26,17 +26,17 @@ ObjectBrowserCollection class >> collectionClassNumber [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> new [
+OBCollectionMetaObject class >> new [
 	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> new: setName [
+OBCollectionMetaObject class >> new: setName [
 	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newWithRealObject: realObject inLesson: aLesson [
+OBCollectionMetaObject class >> newWithRealObject: realObject inLesson: aLesson [
 	^super new
 		realObject: realObject;
 		lesson: aLesson;
@@ -44,23 +44,23 @@ ObjectBrowserCollection class >> newWithRealObject: realObject inLesson: aLesson
 ]
 
 { #category : #visiting }
-ObjectBrowserCollection >> accept: aVisitor [
+OBCollectionMetaObject >> accept: aVisitor [
 
 	aVisitor visitCollection: self.
 ]
 
 { #category : #adding }
-ObjectBrowserCollection >> add: anObj [
+OBCollectionMetaObject >> add: anObj [
 	self realObject add: anObj realObject .
 ]
 
 { #category : #'attribute-handling' }
-ObjectBrowserCollection >> addAttributeNamed: anAttributeName [
+OBCollectionMetaObject >> addAttributeNamed: anAttributeName [
 	self signalNotModificableCollection
 ]
 
 { #category : #attributes }
-ObjectBrowserCollection >> allRelationships [
+OBCollectionMetaObject >> allRelationships [
 	
 	"Returns all normal attributes plus special ones such as the prototype if available"
 	| prototypeRelationship |
@@ -69,7 +69,7 @@ ObjectBrowserCollection >> allRelationships [
 ]
 
 { #category : #attributes }
-ObjectBrowserCollection >> basicRelationships [
+OBCollectionMetaObject >> basicRelationships [
 	
 	^self realObject collect: [ :elem | 
 		OBSpecialAttribute 
@@ -80,12 +80,12 @@ ObjectBrowserCollection >> basicRelationships [
 ]
 
 { #category : #methods }
-ObjectBrowserCollection >> compileMethod: aMethod  notifying: someone [
+OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
 	self signalNotModificableCollection
 ]
 
 { #category : #printing }
-ObjectBrowserCollection >> displayString [
+OBCollectionMetaObject >> displayString [
 	| className prefix |
 	className := self realObject class name.
 	className first isVowel 
@@ -95,101 +95,101 @@ ObjectBrowserCollection >> displayString [
 ]
 
 { #category : #references }
-ObjectBrowserCollection >> hasReferencesTo: anOBObject [
+OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 	^self realObject anySatisfy: [:elem | elem == anOBObject realObject ].
 ]
 
 { #category : #accessing }
-ObjectBrowserCollection >> icon [
+OBCollectionMetaObject >> icon [
 	^nil
 ]
 
 { #category : #testing }
-ObjectBrowserCollection >> isNull [
+OBCollectionMetaObject >> isNull [
 	^false
 ]
 
 { #category : #selection }
-ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
+OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 	anObjectBrowser selectedPage: #objects.
 ]
 
 { #category : #accessing }
-ObjectBrowserCollection >> methods [
+OBCollectionMetaObject >> methods [
 	^ (self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]) asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector ].
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> myNewScriptOn: aLesson [
-^ ObjectBrowserCollection name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
+OBCollectionMetaObject >> myNewScriptOn: aLesson [
+^ OBCollectionMetaObject name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> posibleName [ 
+OBCollectionMetaObject >> posibleName [ 
 	^ posibleName 
 ]
 
 { #category : #accessing }
-ObjectBrowserCollection >> posibleName: aPosibleName [
+OBCollectionMetaObject >> posibleName: aPosibleName [
 	posibleName := aPosibleName .
 ]
 
 { #category : #printing }
-ObjectBrowserCollection >> printString [
+OBCollectionMetaObject >> printString [
 	^'aCollection'.
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> realObjectPosibleName [ 
+OBCollectionMetaObject >> realObjectPosibleName [ 
 	^ self posibleName , '_conj'
 
 ]
 
 { #category : #attributes }
-ObjectBrowserCollection >> removeAttribute: variableName [
+OBCollectionMetaObject >> removeAttribute: variableName [
 	self signalNotModificableCollection
 ]
 
 { #category : #'pharo-interaction' }
-ObjectBrowserCollection >> removeClassFromSystem [
+OBCollectionMetaObject >> removeClassFromSystem [
 	"No hace nada, Sino eliminaria nuestra coleccion"
 	^ self
 ]
 
 { #category : #methods }
-ObjectBrowserCollection >> removeMethod: aSelector [
+OBCollectionMetaObject >> removeMethod: aSelector [
 	self signalNotModificableCollection
 ]
 
 { #category : #signalling }
-ObjectBrowserCollection >> signalNotModificableCollection [
+OBCollectionMetaObject >> signalNotModificableCollection [
 	self error: 'las colecciones no son modificables'
 ]
 
 { #category : #methods }
-ObjectBrowserCollection >> sourceCodeAt: aSelector [
+OBCollectionMetaObject >> sourceCodeAt: aSelector [
 	^'Código mágico :O'
 ]
 
 { #category : #accessing }
-ObjectBrowserCollection >> treeContents [
+OBCollectionMetaObject >> treeContents [
 	^OrderedCollection new.
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> variables [
+OBCollectionMetaObject >> variables [
 	^ OrderedCollection new
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
+OBCollectionMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
 
 ]
 
 { #category : #exportation }
-ObjectBrowserCollection >> writeStateScriptOn: stream lesson: aLesson [
+OBCollectionMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 		"saves the state, all the variables values and relationships"
 	self realObject do:  [ :obj | 
 			stream nextPutAll: self posibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 

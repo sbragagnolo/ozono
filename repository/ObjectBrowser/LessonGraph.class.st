@@ -60,7 +60,7 @@ LessonGraph >> addLesson: aLesson [
 		 ]
 ]
 
-{ #category : #'graph model' }
+{ #category : #adding }
 LessonGraph >> addNoObjectBrowserObject: aNoObjectBrowserObject [
 	self addObject: aNoObjectBrowserObject
 ]
@@ -161,6 +161,16 @@ LessonGraph >> variables [
 ]
 
 { #category : #visiting }
+LessonGraph >> visitAssociationAttribute: anAttribute [
+
+	(self includesObject: anAttribute objectPointed) ifTrue: [ ^self ].
+	
+	self visitAttribute: anAttribute.
+	anAttribute keyAttribute accept: self.
+	anAttribute valueAttribute accept: self.
+]
+
+{ #category : #visiting }
 LessonGraph >> visitAttribute: anAttribute [
 
 	| referencedObjectBrowserObject |
@@ -172,13 +182,13 @@ LessonGraph >> visitAttribute: anAttribute [
 { #category : #visiting }
 LessonGraph >> visitCollection: aCollection [
 
-	self addCollection: aCollection
+	self visitObject: aCollection
 ]
 
 { #category : #visiting }
 LessonGraph >> visitDictionary: aCollection [
 
-	self addDictionary: aCollection
+	self visitCollection: aCollection
 ]
 
 { #category : #visiting }
@@ -190,13 +200,16 @@ LessonGraph >> visitDirectAttribute: anAttribute [
 { #category : #visiting }
 LessonGraph >> visitOBExternalObject: anExternalObject [
 
-	self addNoObjectBrowserObject: anExternalObject.
+	self addObject: anExternalObject
 ]
 
 { #category : #visiting }
 LessonGraph >> visitObject: anObject [
-
-	self addObjectBrowserObject: anObject
+	
+	(self includesObject: anObject)
+		ifTrue: [ ^ self ].
+	self addObject: anObject.
+	anObject allRelationships do: [ :v | v accept: self ]
 ]
 
 { #category : #visiting }
