@@ -1,3 +1,6 @@
+"
+I am a null object representing the not existance of a lesson
+"
 Class {
 	#name : #NullLOOPLesson,
 	#superclass : #Object,

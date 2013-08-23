@@ -1,5 +1,8 @@
+"
+I am a loop lesson. I contain the objects the lesson have, the tests and workspaces.
+"
 Class {
-	#name : #LOOPLesson,
+	#name : #OBLesson,
 	#superclass : #Object,
 	#instVars : [
 		'variables',
@@ -21,22 +24,22 @@ Class {
 }
 
 { #category : #creation }
-LOOPLesson class >> addLesson: lesson. [
+OBLesson class >> addLesson: lesson. [
 	self lessons add: lesson.
 ]
 
 { #category : #accessing }
-LOOPLesson class >> browseLessons [ 
+OBLesson class >> browseLessons [ 
 	(OBLessonBrowserModel on: self) openInWorld
 ]
 
 { #category : #accessing }
-LOOPLesson class >> cleanAllLessons [
+OBLesson class >> cleanAllLessons [
 	self lessons do: [ :lesson | lesson clean  ].
 ]
 
 { #category : #creation }
-LOOPLesson class >> createFreeLesson [
+OBLesson class >> createFreeLesson [
 	| lesson |
 	lesson := self newFreeLesson.
 	self addLesson: lesson.
@@ -44,18 +47,18 @@ LOOPLesson class >> createFreeLesson [
 ]
 
 { #category : #creation }
-LOOPLesson class >> createLessonNamed: title [ 
+OBLesson class >> createLessonNamed: title [ 
 	^self createFreeLesson title:  title; yourself .
 ]
 
 { #category : #accessing }
-LOOPLesson class >> deleteAllLessons [
+OBLesson class >> deleteAllLessons [
 	self cleanAllLessons .
 	lessons := OrderedCollection new.
 ]
 
 { #category : #accessing }
-LOOPLesson class >> fileIn: aFileEntry [
+OBLesson class >> fileIn: aFileEntry [
 	| lessonImported inStream |
 	
 	Author fullName ifNil: [Author requestFullName].	
@@ -81,50 +84,50 @@ LOOPLesson class >> fileIn: aFileEntry [
 ]
 
 { #category : #accessing }
-LOOPLesson class >> lessons [
+OBLesson class >> lessons [
 	^lessons ifNil: [ lessons := OrderedCollection new ].
 ]
 
 { #category : #accessing }
-LOOPLesson class >> newFreeLesson [
+OBLesson class >> newFreeLesson [
 	^self new title:'Free Lesson'
 	
 ]
 
 { #category : #accessing }
-LOOPLesson class >> select [
+OBLesson class >> select [
 ]
 
 { #category : #accessing }
-LOOPLesson class >> selectFrom: start to: end [ 
+OBLesson class >> selectFrom: start to: end [ 
 	"asco para fileIn #2"
 ]
 
 { #category : #accessing }
-LOOPLesson class >> selectionInterval [
+OBLesson class >> selectionInterval [
 	"asco para poder hacer fileins"
 	^1 to: 0
 ]
 
 { #category : #'system-events' }
-LOOPLesson class >> suspendAllWhile: aBlock [
+OBLesson class >> suspendAllWhile: aBlock [
 
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
 { #category : #'object-handling' }
-LOOPLesson >> addObject: anObject [
+OBLesson >> addObject: anObject [
 	^self objects add: anObject.
 ]
 
 { #category : #'reference-handling' }
-LOOPLesson >> addVariable: aVariable [
+OBLesson >> addVariable: aVariable [
 	self basicAddVariable: aVariable.
 	(aVariable pointsTo isKindOf: OBExternalObjectMetaObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
 { #category : #'reference-handling' }
-LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
+OBLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 	|aVariable|
 	aVariable :=	 (LessonVariable new)
 		name: theReferenceName ;
@@ -136,17 +139,17 @@ LOOPLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 ]
 
 { #category : #accessing }
-LOOPLesson >> addWorkspace: aWorkspace [
+OBLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
 
 { #category : #accessing }
-LOOPLesson >> asString [
+OBLesson >> asString [
 	^self displayString copyReplaceAll: ' ' with: ''
 ]
 
 { #category : #'reference-handling' }
-LOOPLesson >> basicAddVariable: aVariable [
+OBLesson >> basicAddVariable: aVariable [
 	self variables add: aVariable.
 	self suspendAllWhile: [
 		self executionContext class addInstVarNamed: aVariable name.
@@ -154,7 +157,7 @@ LOOPLesson >> basicAddVariable: aVariable [
 ]
 
 { #category : #diagram }
-LOOPLesson >> buildGraph [
+OBLesson >> buildGraph [
 	| graph |
 	graph := LessonGraph new.
 	graph addLesson: self.
@@ -163,13 +166,13 @@ LOOPLesson >> buildGraph [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> changed [
+OBLesson >> changed [
 	super changed .
 	browser changed .
 ]
 
 { #category : #accessing }
-LOOPLesson >> clean [
+OBLesson >> clean [
 	self objects removeAll.
 	self variables do:[:v | executionContext class removeFromSystem ].
 	self variables removeAll.
@@ -178,7 +181,7 @@ LOOPLesson >> clean [
 ]
 
 { #category : #accessing }
-LOOPLesson >> compileTest: aTestText [
+OBLesson >> compileTest: aTestText [
 	| result newTest |
 	self suspendAllWhile: [
 		result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
@@ -189,7 +192,7 @@ LOOPLesson >> compileTest: aTestText [
 ]
 
 { #category : #accessing }
-LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
+OBLesson >> createClass: aClassName subclassOf: aSuperClass [
 	self suspendAllWhile: [
 		^ClassBuilder new
 			name: aClassName
@@ -204,7 +207,7 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 ]
 
 { #category : #'object-handling' }
-LOOPLesson >> createObject [
+OBLesson >> createObject [
 	| newObject |
 	newObject := OBMetaObject newOn: self.
 	self addObject: newObject.
@@ -213,7 +216,7 @@ LOOPLesson >> createObject [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
+OBLesson >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
 	workspace := OBWorkspace new
 		label: workspaceLabel;
@@ -226,32 +229,32 @@ LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> delete [
+OBLesson >> delete [
 	browser ifNotNil: [ :br | br delete ]
 ]
 
 { #category : #accessing }
-LOOPLesson >> dereferencedObjects [
+OBLesson >> dereferencedObjects [
 	^self buildGraph dereferencedObjects
 ]
 
 { #category : #accessing }
-LOOPLesson >> displayString [
+OBLesson >> displayString [
 	^self title
 ]
 
 { #category : #accessing }
-LOOPLesson >> executionContext [
+OBLesson >> executionContext [
 	^executionContext lesson: self; yourself
 ]
 
 { #category : #diagram }
-LOOPLesson >> exportDiagram [
+OBLesson >> exportDiagram [
 	self objectDiagram exportDiagram
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> exportTest: anOBTest [
+OBLesson >> exportTest: anOBTest [
 
 	|internalStream|
 
@@ -262,7 +265,7 @@ LOOPLesson >> exportTest: anOBTest [
 ]
 
 { #category : #exportation }
-LOOPLesson >> fileIn: aFileName [
+OBLesson >> fileIn: aFileName [
 	^Compiler new 
 			evaluate: aFileName readStream
 			in: nil
@@ -273,7 +276,7 @@ LOOPLesson >> fileIn: aFileName [
 ]
 
 { #category : #exportation }
-LOOPLesson >> fileInSomethingInFile: aFileName [
+OBLesson >> fileInSomethingInFile: aFileName [
 	| lessonImported inStream |
 	
 	[ inStream := StandardFileStream fileNamed: aFileName.
@@ -290,7 +293,7 @@ LOOPLesson >> fileInSomethingInFile: aFileName [
 ]
 
 { #category : #exportation }
-LOOPLesson >> fileOut [
+OBLesson >> fileOut [
 
 	| internalStream |
 	[internalStream := (String new: 100) writeStream.
@@ -304,40 +307,40 @@ LOOPLesson >> fileOut [
 ]
 
 { #category : #accessing }
-LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
+OBLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
 	(self realObjects anySatisfy: [:realObject | realObject == aRealObject])
 		ifTrue:  [ ^self objects detect: [ :o | o realObject == aRealObject ] ]
 		ifFalse: [ ^OBExternalObjectMetaObject for: aRealObject . ]
 ]
 
 { #category : #accessing }
-LOOPLesson >> hasObject: anObject [
+OBLesson >> hasObject: anObject [
 	^objects includes: anObject.
 ]
 
 { #category : #accessing }
-LOOPLesson >> hasReferencesTo: anObjectBrowserObject [
+OBLesson >> hasReferencesTo: anObjectBrowserObject [
 	^self variables anySatisfy: [ :v | v hasReferencesTo: anObjectBrowserObject ].
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> hasVariable: aVariableName [
+OBLesson >> hasVariable: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> hasVariableNamed: aVariableName [
+OBLesson >> hasVariableNamed: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 
 { #category : #literals }
-LOOPLesson >> includesLiteralNamed: aLiteralName [
+OBLesson >> includesLiteralNamed: aLiteralName [
 	
 	^literals includesKey: aLiteralName 
 ]
 
 { #category : #'initialize-release' }
-LOOPLesson >> initialize [
+OBLesson >> initialize [
 	executionContext := self loopExecutionContextClass new
 							lesson: self;
 							yourself.
@@ -346,7 +349,7 @@ LOOPLesson >> initialize [
 ]
 
 { #category : #literals }
-LOOPLesson >> initializeLiterals [
+OBLesson >> initializeLiterals [
 	literals := Dictionary new.
 	
 	literals at:#bag put: (OBBagFactory newForLesson: self).
@@ -359,25 +362,25 @@ LOOPLesson >> initializeLiterals [
 ]
 
 { #category : #accessing }
-LOOPLesson >> lessonEnvironment [
+OBLesson >> lessonEnvironment [
 	^lessonEnvironment ifNil: [ 
 		lessonEnvironment := SystemDictionary withOrganizer: SystemOrganizer new.
 		 ].
 ]
 
 { #category : #exportation }
-LOOPLesson >> lessonIdentification [
+OBLesson >> lessonIdentification [
 	^self title asLegalSelector
 ]
 
 { #category : #literals }
-LOOPLesson >> literalNamed: aLiteralName [
+OBLesson >> literalNamed: aLiteralName [
 
 	^literals at: aLiteralName
 ]
 
 { #category : #accessing }
-LOOPLesson >> loopExecutionContextClass [
+OBLesson >> loopExecutionContextClass [
 	^loopExecutionContextClass ifNil: [ 
 		loopExecutionContextClass :=  
 			self createClass: #LessonExecutionContext 
@@ -385,7 +388,7 @@ LOOPLesson >> loopExecutionContextClass [
 ]
 
 { #category : #showing }
-LOOPLesson >> menuActions [
+OBLesson >> menuActions [
 ^OrderedCollection
 		with: (Array braceWith: 'abrir' translated with: #openSelectedLesson)
 		with: (Array braceWith: 'eliminar' translated with: #removeSelectedLesson)
@@ -394,75 +397,75 @@ LOOPLesson >> menuActions [
 ]
 
 { #category : #showing }
-LOOPLesson >> objectBrowserObjectForRealObject: realObject [
+OBLesson >> objectBrowserObjectForRealObject: realObject [
 	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ OBExternalObjectMetaObject for: realObject ].
 ]
 
 { #category : #diagram }
-LOOPLesson >> objectDiagram [
+OBLesson >> objectDiagram [
 	^objectDiagram 
 ]
 
 { #category : #accessing }
-LOOPLesson >> objects [
+OBLesson >> objects [
 	^objects ifNil: [objects := Set new].
 ]
 
 { #category : #accessing }
-LOOPLesson >> objects: anObject [
+OBLesson >> objects: anObject [
 	objects := anObject
 ]
 
 { #category : #showing }
-LOOPLesson >> openInWorld [
+OBLesson >> openInWorld [
 	browser := (OBLessonModel onLesson: self) openInWorld
 ]
 
 { #category : #accessing }
-LOOPLesson >> parseTestCodeFrom: stream [
+OBLesson >> parseTestCodeFrom: stream [
 
 ]
 
 { #category : #accessing }
-LOOPLesson >> printString [
+OBLesson >> printString [
 	^self title
 ]
 
 { #category : #accessing }
-LOOPLesson >> realObjects [
+OBLesson >> realObjects [
 	^self objects collect: [ :o | o realObject ].
 ]
 
 { #category : #accessing }
-LOOPLesson >> referencesObject: anObjectBrowserObject [
+OBLesson >> referencesObject: anObjectBrowserObject [
 	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
 ]
 
 { #category : #accessing }
-LOOPLesson >> removeDerrefencedObject: aDereferencedObject [ 
+OBLesson >> removeDerrefencedObject: aDereferencedObject [ 
 	self deprecated: 'no se usa'.
 	self dereferencedObjects remove: aDereferencedObject .
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> removeFromSystem [
+OBLesson >> removeFromSystem [
 	self loopExecutionContextClass removeFromSystem.
 	self lessonEnvironment do: [ :c | c isBehavior ifTrue: [ c removeFromSystem ] ].
 	self lessonEnvironment removeAll.
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> removeObject: anObjectBrowserObject [ 
+OBLesson >> removeObject: anObjectBrowserObject [ 
 	self objects remove: anObjectBrowserObject.
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> removeTest: aTest [
+OBLesson >> removeTest: aTest [
 	tests removeKey: aTest selector
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> removeVariable: anOBVariable [ 
+OBLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
 	self suspendAllWhile: [
 		self executionContext class removeInstVarNamed: anOBVariable name.
@@ -470,7 +473,7 @@ LOOPLesson >> removeVariable: anOBVariable [
 ]
 
 { #category : #accessing }
-LOOPLesson >> runAllTests [
+OBLesson >> runAllTests [
 	| results result |
 	results := LOOPTestCaseResult new.
 	self tests do: [ :t | 
@@ -481,84 +484,93 @@ LOOPLesson >> runAllTests [
 ]
 
 { #category : #accessing }
-LOOPLesson >> runGarbageCollector [ 
+OBLesson >> runGarbageCollector [ 
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
 		self removeObject: o ].
 ]
 
 { #category : #accessing }
-LOOPLesson >> selectFrom: start to: end [ 
+OBLesson >> selectFrom: start to: end [ 
 	"asco para poder hacer fileins"
 ]
 
 { #category : #accessing }
-LOOPLesson >> selectionInterval [
+OBLesson >> selectionInterval [
 	"asco para poder hacer fileins"
 	^1 to: 0
 ]
 
 { #category : #'system-events' }
-LOOPLesson >> suspendAllWhile: aBlock [
+OBLesson >> suspendAllWhile: aBlock [
 	"we suspend the system announcements"
 	self class suspendAllWhile: aBlock
 ]
 
 { #category : #accessing }
-LOOPLesson >> testDictionary [
+OBLesson >> testDictionary [
 	^tests ifNil: [ tests := Dictionary new ]
 ]
 
 { #category : #accessing }
-LOOPLesson >> tests [
+OBLesson >> tests [
 	^self testDictionary values
 ]
 
 { #category : #accessing }
-LOOPLesson >> title [
+OBLesson >> title [
 	^ title
 ]
 
 { #category : #accessing }
-LOOPLesson >> title: anObject [
+OBLesson >> title: anObject [
 	title := anObject
 ]
 
 { #category : #diagram }
-LOOPLesson >> updateObjectDiagram [
+OBLesson >> updateObjectDiagram [
 	objectDiagram update
 ]
 
 { #category : #'as yet unclassified' }
-LOOPLesson >> variableNamed: aByteString [ 
+OBLesson >> variableNamed: aByteString [ 
 	^self variables detect:[ :var | var name = aByteString  ].
 ]
 
 { #category : #accessing }
-LOOPLesson >> variables [
+OBLesson >> variables [
 	^ variables ifNil:[variables := OrderedCollection new]
 ]
 
 { #category : #accessing }
-LOOPLesson >> variables: anObject [
+OBLesson >> variables: anObject [
 	variables := anObject
 ]
 
 { #category : #accessing }
-LOOPLesson >> workspaces [
+OBLesson >> workspaces [
 	^ workspaces ifNil:[ workspaces := OrderedCollection new]
 ]
 
 { #category : #exportation }
-LOOPLesson >> writeAddScriptToLessonOn: stream [
-	self variables do: [ :variable | stream nextPutAll: self lessonIdentification ,' addVariableNamed: ''', variable name , ''' pointingTo: ', variable referencePosibleName, '.'. stream cr].
-	self objects do: [ :object | stream nextPutAll: self lessonIdentification ,' addObject: ', object posibleName , '.'. stream cr].
-	stream nextPutAll: '^ ', self lessonIdentification , '.'.
-	stream cr.
+OBLesson >> writeAddScriptToLessonOn: stream [
+	self variables
+		do: [ :variable | 
+			stream
+				nextPutAll:
+					self lessonIdentification , ' addVariableNamed: ''' , variable name , ''' pointingTo: ' , variable pointsTo posibleName
+						, '.'.
+			stream cr ].
+	self objects
+		do: [ :object | 
+			stream nextPutAll: self lessonIdentification , ' addObject: ' , object posibleName , '.'.
+			stream cr ].
+	stream nextPutAll: '^ ' , self lessonIdentification , '.'.
+	stream cr
 ]
 
 { #category : #exportation }
-LOOPLesson >> writeAllTheVariablesOn: stream [ 
+OBLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
 	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName , ' ' ] .
@@ -567,7 +579,7 @@ LOOPLesson >> writeAllTheVariablesOn: stream [
 ]
 
 { #category : #exportation }
-LOOPLesson >> writeCreationScriptOver: stream [
+OBLesson >> writeCreationScriptOver: stream [
 	
 	"primero la definicion de variables"
 	self writeAllTheVariablesOn: stream .
@@ -605,7 +617,7 @@ LOOPLesson >> writeCreationScriptOver: stream [
 ]
 
 { #category : #exportation }
-LOOPLesson >> writeLessonCreationOn: stream. [
+OBLesson >> writeLessonCreationOn: stream. [
 	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
 	stream cr.
 	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
@@ -613,7 +625,7 @@ LOOPLesson >> writeLessonCreationOn: stream. [
 ]
 
 { #category : #exportation }
-LOOPLesson >> writeWorkspacesOn: stream [
+OBLesson >> writeWorkspacesOn: stream [
 	
 	stream cr.
 	stream nextPutAll: '"Workspaces exported"'.

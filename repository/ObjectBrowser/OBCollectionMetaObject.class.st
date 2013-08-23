@@ -62,11 +62,13 @@ OBCollectionMetaObject >> accept: aVisitor [
 
 { #category : #adding }
 OBCollectionMetaObject >> add: anObj [
-	self realObject add: anObj realObject .
+
+	self realObject add: anObj realObject.
 ]
 
-{ #category : #'attribute-handling' }
+{ #category : #attributes }
 OBCollectionMetaObject >> addAttributeNamed: anAttributeName [
+
 	self signalNotModificableCollection
 ]
 
@@ -92,11 +94,13 @@ OBCollectionMetaObject >> basicRelationships [
 
 { #category : #methods }
 OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
+
 	self signalNotModificableCollection
 ]
 
 { #category : #printing }
 OBCollectionMetaObject >> displayString [
+
 	| className prefix |
 	className := self realObject class name.
 	className first isVowel 
@@ -107,101 +111,110 @@ OBCollectionMetaObject >> displayString [
 
 { #category : #references }
 OBCollectionMetaObject >> hasReferencesTo: anOBObject [
-	^self realObject anySatisfy: [:elem | elem == anOBObject realObject ].
+
+	^self realObject includes: anOBObject realObject
 ]
 
-{ #category : #accessing }
+{ #category : #'ui-actions' }
 OBCollectionMetaObject >> icon [
 	^nil
 ]
 
-{ #category : #testing }
-OBCollectionMetaObject >> isNull [
-	^false
-]
-
-{ #category : #selection }
+{ #category : #'ui-actions' }
 OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
+
 	anObjectBrowser selectedPage: #objects.
 ]
 
-{ #category : #accessing }
+{ #category : #methods }
 OBCollectionMetaObject >> methods [
-	^ (self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]) asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector ].
+
+	^ self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBCollectionMetaObject >> myNewScriptOn: aLesson [
-^ OBCollectionMetaObject name, ' newOn: ', aLesson lessonIdentification, ' withRealObject: ' , self realObject class name asLowercase, ' clone'.
+
+	^ '(', aLesson lessonIdentification , ' literalNamed: ', self realObject class name asLowercase , ') basicClone'
+	
 ]
 
-{ #category : #exportation }
-OBCollectionMetaObject >> posibleName [ 
-	^ posibleName 
+{ #category : #accessing }
+OBCollectionMetaObject >> posibleName [
+
+	^ posibleName
 ]
 
 { #category : #accessing }
 OBCollectionMetaObject >> posibleName: aPosibleName [
-	posibleName := aPosibleName .
+
+	posibleName := aPosibleName
 ]
 
 { #category : #printing }
 OBCollectionMetaObject >> printString [
+
 	^'aCollection'.
 ]
 
-{ #category : #exportation }
-OBCollectionMetaObject >> realObjectPosibleName [ 
+{ #category : #accessing }
+OBCollectionMetaObject >> realObjectPosibleName [
+
 	^ self posibleName , '_conj'
 
 ]
 
 { #category : #attributes }
 OBCollectionMetaObject >> removeAttribute: variableName [
+
 	self signalNotModificableCollection
 ]
 
 { #category : #'pharo-interaction' }
 OBCollectionMetaObject >> removeClassFromSystem [
-	"No hace nada, Sino eliminaria nuestra coleccion"
-	^ self
+
+	"Does nothing. If not, it would remove the collection from the system"
+
 ]
 
 { #category : #methods }
 OBCollectionMetaObject >> removeMethod: aSelector [
+
 	self signalNotModificableCollection
 ]
 
-{ #category : #signalling }
+{ #category : #accessing }
 OBCollectionMetaObject >> signalNotModificableCollection [
 	self error: 'las colecciones no son modificables'
 ]
 
 { #category : #methods }
 OBCollectionMetaObject >> sourceCodeAt: aSelector [
+
 	^'Código mágico :O'
 ]
 
-{ #category : #accessing }
+{ #category : #'ui-actions' }
 OBCollectionMetaObject >> treeContents [
 	^OrderedCollection new.
 ]
 
-{ #category : #exportation }
+{ #category : #attributes }
 OBCollectionMetaObject >> variables [
-	^ OrderedCollection new
+
+	^ #()
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBCollectionMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self writeCreateObjectOn: stream lesson: aLesson.
 
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBCollectionMetaObject >> writeStateScriptOn: stream lesson: aLesson [
-		"saves the state, all the variables values and relationships"
+
 	self realObject do:  [ :obj | 
 			stream nextPutAll: self posibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
 			stream cr].

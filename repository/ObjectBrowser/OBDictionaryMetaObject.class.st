@@ -34,10 +34,11 @@ OBDictionaryMetaObject >> basicRelationships [
 
 { #category : #references }
 OBDictionaryMetaObject >> hasReferencesTo: anOBObject [
+
 	^(self valuesReferenceTo: anOBObject) or: [ self keysReferenceTo: anOBObject ]
 ]
 
-{ #category : #testing }
+{ #category : #references }
 OBDictionaryMetaObject >> keysReferenceTo: anOBObject [
 
 	^self realObject includesKey: anOBObject realObject
@@ -48,8 +49,22 @@ OBDictionaryMetaObject >> printString [
 	^'aDictionary'.
 ]
 
-{ #category : #testing }
+{ #category : #references }
 OBDictionaryMetaObject >> valuesReferenceTo: anOBObject [
 
 	^self realObject includes: anOBObject realObject
+]
+
+{ #category : #exporting }
+OBDictionaryMetaObject >> writeStateScriptOn: stream lesson: aLesson [
+	"saves the state, all the variables values and relationships"
+	self realObject keysAndValuesDo:  [ :key :value | 
+			stream nextPutAll: self posibleName.
+			stream nextPutAll: ' at: '.
+			stream nextPutAll:  (aLesson objectBrowserObjectForRealObject: key) posibleName.
+			stream nextPutAll: ' put: '.
+			stream nextPutAll:  (aLesson objectBrowserObjectForRealObject: value) posibleName.
+			stream nextPutAll: '.'.
+			stream cr].
+
 ]

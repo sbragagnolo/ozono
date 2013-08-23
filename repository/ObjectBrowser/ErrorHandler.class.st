@@ -1,5 +1,6 @@
 "
-Un objeto que sabe evaluar un bloque, y si ocurre un error tomar el mensaje y mostrarlo en un popup de informacion.
+An object that evaluates a Block.
+If an error occurrs during evaluation, the handler takes it and does something with the error.
 "
 Class {
 	#name : #ErrorHandler,

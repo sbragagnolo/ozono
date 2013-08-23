@@ -1,3 +1,6 @@
+"
+I am a variable hold by the lesson.
+"
 Class {
 	#name : #LessonVariable,
 	#superclass : #Object,
@@ -13,89 +16,97 @@ LessonVariable class >> newNamed: aNameString [
 	^self new name: aNameString; yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 LessonVariable >> asString [
+
 	^self name, ' - (' , self pointsTo displayString , ')'.
 ]
 
-{ #category : #'as yet unclassified' }
-LessonVariable >> asStringOrText [ 
+{ #category : #printing }
+LessonVariable >> asStringOrText [
+
 	^self name
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonVariable >> desreference [
+
 	self pointTo: (OBExternalObjectMetaObject new: nil).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 LessonVariable >> hasReferencesTo: anObject [
 
 	^(reference realObject == anObject realObject )
 ]
 
-{ #category : #showing }
+{ #category : #ui }
 LessonVariable >> icon [
+
 	^OBIcons referenceIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 LessonVariable >> isPointingTo: anObject [
-	^(reference = anObject)
+
+	^reference = anObject
 ]
 
 { #category : #selection }
-LessonVariable >> makeSelectionOn: anObjectBrowser [ 
+LessonVariable >> makeSelectionOn: anObjectBrowser [
+
 	anObjectBrowser selectedObjectBrowserVariable: self.
-	
 ]
 
-{ #category : #menues }
+{ #category : #ui }
 LessonVariable >> menu: aMenuMorph [ 
-|opcionEliminar|
+
+	|opcionEliminar|
 	opcionEliminar := Array braceWith: 'Eliminar referencia a este objeto' translated with: #deleteLessonVariable.
 	aMenuMorph addList: (OrderedCollection with: opcionEliminar ).
 	self pointsTo menu: aMenuMorph.
 	^aMenuMorph
 ]
 
-{ #category : #menues }
+{ #category : #accessing }
 LessonVariable >> name [
+
 	 ^name
 ]
 
-{ #category : #menues }
+{ #category : #accessing }
 LessonVariable >> name: aName [
+
 	 name := aName
 ]
 
-{ #category : #messages }
+{ #category : #selection }
 LessonVariable >> notifySelectionTo: anObserverCollection [
+
 	anObserverCollection do: [ :o | o selectedClassOrMetaClass: self pointsTo realClass ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonVariable >> pointTo: anObject [
+
 	reference := anObject.
 	self changed.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 LessonVariable >> pointsTo [
+
 	^reference
 ]
 
-{ #category : #'as yet unclassified' }
-LessonVariable >> printString [ 
-	^self pointsTo printString 
+{ #category : #printing }
+LessonVariable >> printString [
+
+	^self pointsTo printString
 ]
 
-{ #category : #messages }
-LessonVariable >> referencePosibleName [
-	^self pointsTo posibleName
-]
-
-{ #category : #accessing }
+{ #category : #ui }
 LessonVariable >> treeContents [
-	^OrderedCollection new
+
+	^#()
 ]

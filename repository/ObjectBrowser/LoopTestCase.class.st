@@ -10,11 +10,11 @@ Class {
 { #category : #'as yet unclassified' }
 LoopTestCase >> setUp [
 	"LOOPLesson currentLesson: LOOPLesson freeLesson."
-	currentLesson := LOOPLesson new.
+	currentLesson := OBLesson new.
 ]
 
 { #category : #'as yet unclassified' }
 LoopTestCase >> tearDown [ 
 	currentLesson clean.
-	LOOPLesson lessons removeAll.
+	OBLesson lessons removeAll.
 ]

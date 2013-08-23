@@ -64,7 +64,7 @@ OBExternalObjectMetaObject >> compileMethod: aText notifying: someone [
 
 { #category : #printing }
 OBExternalObjectMetaObject >> displayString [
-	^self object printString
+	^self realObject printString
 ]
 
 { #category : #references }

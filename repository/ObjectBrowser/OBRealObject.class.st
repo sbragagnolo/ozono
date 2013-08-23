@@ -14,7 +14,7 @@ OBRealObject class >> new [
 
 { #category : #cloning }
 OBRealObject >> clone [
-	LOOPLesson allInstancesDo: [ :aLesson |
+	OBLesson allInstancesDo: [ :aLesson |
 		aLesson objects do: [ :anObjectBrowserObject |
 			anObjectBrowserObject realObject == self ifTrue:
 				[ ^anObjectBrowserObject clone ]]].

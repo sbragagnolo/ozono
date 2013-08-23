@@ -49,17 +49,24 @@ OBTest >> printString [
 
 { #category : #'as yet unclassified' }
 OBTest >> run [
+
 	| context |
 	context := lesson executionContext.
 	context prepare.
 	context setTestSelector: self selector.
-	^result := self runContext: context.
+	[ ^ result := self runContext: context ]
+		ensure: [ context commitChanges ]
 ]
 
 { #category : #'as yet unclassified' }
 OBTest >> runContext: aPreparedContext [
-	[[aPreparedContext runCase] on: TestFailure do: [ :signal | ^LOOPTestFailure new: signal ]] on: Error do: [ :signal | ^LOOPTestError new: signal ].
-	^LOOPTestSuccess new
+	[ 
+	[ aPreparedContext runCase ]
+		on: TestFailure
+		do: [ :signal | ^ LOOPTestFailure new: signal ] ]
+		on: Error
+		do: [ :signal | ^ LOOPTestError new: signal ].
+	^ LOOPTestSuccess new
 ]
 
 { #category : #'as yet unclassified' }

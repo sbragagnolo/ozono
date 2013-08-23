@@ -45,7 +45,7 @@ OBLessonBrowserModel class >> menuCommandOn: aBuilder [
 		icon: UITheme current homeIcon.
 	(aBuilder item: #'Lesson Browser')
 		parent: #'PdeP Software';  
-		action: [LOOPLesson browseLessons];
+		action: [OBLesson browseLessons];
 		icon: self icon.
 ]
 
@@ -101,7 +101,7 @@ OBLessonBrowserModel >> importLesson [
 OBLessonBrowserModel >> importLesson: aFileEntry [
 
 	| lesson |
-	lesson := LOOPLesson fileIn: aFileEntry.
+	lesson := OBLesson fileIn: aFileEntry.
 	lesson openInWorld.
 	self changed.
 ]

@@ -1,3 +1,8 @@
+"
+I trap the error and show it as a pop up.
+
+Mainly for Release
+"
 Class {
 	#name : #SimpleErrorHandler,
 	#superclass : #ErrorHandler,

@@ -1,14 +1,20 @@
+"
+I am in charge of evaluating the expressions inside the execution context.
+
+I delegate to the context to prepare and commit the changes after execution.
+"
 Class {
 	#name : #LOOPEvaluator,
-	#superclass : #Compiler,
+	#superclass : #Object,
 	#category : #'ObjectBrowser-Lessons'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'public access' }
 LOOPEvaluator >> evaluate: textOrStream in: aContext to: receiver notifying: aRequestor ifFail: failBlock logged: logFlag [
 
 	receiver prepare.
-	^ErrorHandler evaluate:  [[super 
+	^ErrorHandler evaluate:  [[
+			Compiler new
 		evaluate: textOrStream 
 		in: aContext 
 		to: receiver 

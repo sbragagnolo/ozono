@@ -19,12 +19,18 @@ OBCollectionFactory class >> newForLesson: aLesson [
 ]
 
 { #category : #cloning }
+OBCollectionFactory >> basicClone [
+
+	| collection |
+	collection := self newMetaObjectForCollection: self createRealCollection.
+	lesson addObject: collection.
+	^collection
+]
+
+{ #category : #cloning }
 OBCollectionFactory >> clone [
 
-	| realCollection |
-	realCollection := self createRealCollection.
-	lesson addObject: (self newMetaObjectForCollection: realCollection).
-	^realCollection
+	^self basicClone realObject
 ]
 
 { #category : #printing }

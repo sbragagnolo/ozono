@@ -431,7 +431,7 @@ OBLessonModel >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
 	objectName ifNil: [OperationCancelled new signal].
-	self validateVariableName: objectName .
+	self validateVariableName: objectName.
 	^ objectName
 ]
 
@@ -577,7 +577,7 @@ OBLessonModel >> selectedObjectBrowserVariable [
 	^selectedObjectBrowserVariable
 ]
 
-{ #category : #accessing }
+{ #category : #selection }
 OBLessonModel >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := OBNullLessonVariable new.

@@ -56,17 +56,17 @@ ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importEmptyLesson [
-	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonEmptyTitle)).
+	^ OBLesson fileIn: (FileStream fileNamed: (self fileName: self lessonEmptyTitle)).
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importLessonWithObjects [
-	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithObjectsTitle )).
+	^ OBLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithObjectsTitle )).
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> importLessonWithState [
-	^ LOOPLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithStateTitle)).
+	^ OBLesson fileIn: (FileStream fileNamed: (self fileName: self lessonWithStateTitle)).
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,14 +89,14 @@ ObjectBrowserLoopLessonTestCase >> lessonWithStateTitle [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareEmptyLesson [
-	^ LOOPLesson new title: self lessonEmptyTitle.
+	^ OBLesson new title: self lessonEmptyTitle.
 
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLesson [
 	| lesson |
-	lesson := LOOPLesson new title: self lessonWithObjectsTitle.
+	lesson := OBLesson new title: self lessonWithObjectsTitle.
 	self addObjectsTo: lesson .
 	
 	^lesson.
@@ -107,7 +107,7 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	| lesson pepita rosario fileEntry |
 	fileEntry := self lessonWithStateTitle asLegalSelector asFileName asFileReference, '.st'.
 	fileEntry ensureDeleted.
-	lesson := LOOPLesson new title: self lessonWithStateTitle.
+	lesson := OBLesson new title: self lessonWithStateTitle.
 	pepita := self createPepitaObObject: lesson .
 	rosario := self createRosarioObObject: lesson .
 	lesson addVariableNamed: 'pepita' pointingTo: pepita.
