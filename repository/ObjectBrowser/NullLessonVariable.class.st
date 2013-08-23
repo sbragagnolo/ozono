@@ -1,7 +1,7 @@
 Class {
 	#name : #NullLessonVariable,
 	#superclass : #Object,
-	#category : #'ObjectBrowser-Objects'
+	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #ui }

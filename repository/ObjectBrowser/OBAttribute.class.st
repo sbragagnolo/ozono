@@ -8,7 +8,7 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBAttribute class >> newNamed: aNameString owner: obObjectOwnerWhereTheVariableBelongs [
 	^self new 
 		name: aNameString;

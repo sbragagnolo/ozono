@@ -14,7 +14,7 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBNormalMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson [
 	| objectBrowserClassNumber |
 	objectBrowserClassNumber := NextObjectBrowserClassNumber.
@@ -22,18 +22,18 @@ OBNormalMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aL
 	^aLesson createClass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol subclassOf: aClass			
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBNormalMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
 	^self createNewObjectBrowserObjectClassFrom: OBRealObject in: aLesson.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'class initialization' }
 OBNormalMetaObject class >> initialize [
 	NextObjectBrowserClassNumber := 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBNormalMetaObject class >> newFrom: anObo on: aLesson [
 	| klass |
 	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
@@ -44,7 +44,7 @@ OBNormalMetaObject class >> newFrom: anObo on: aLesson [
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBNormalMetaObject class >> newOn: aLesson [
 	| klass |
 	klass := self createNewObjectBrowserObjectClassIn: aLesson.
@@ -54,7 +54,7 @@ OBNormalMetaObject class >> newOn: aLesson [
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBNormalMetaObject class >> newOn: aLesson withRealObject: realObject [
 	^super new
 		realObject: realObject;

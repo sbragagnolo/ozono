@@ -1,13 +1,10 @@
 Class {
 	#name : #OBRealObject,
 	#superclass : #Object,
-	#classVars : [
-		'ObjectBrowserObjects'
-	],
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBRealObject class >> new [
 	^self basicNew
 ]

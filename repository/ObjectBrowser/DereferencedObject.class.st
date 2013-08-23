@@ -7,7 +7,7 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 DereferencedObject class >> newOn: anObject [
 	^self new
 		dereferencedObject: anObject;

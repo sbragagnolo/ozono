@@ -8,14 +8,14 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 NoObjectBrowserObject class >> for: anObject [
 	^((anObject isKindOf: Collection) and: [ (anObject isKindOf: String) not ])
 		ifTrue: [ ObjectBrowserCollection newWithRealObject: anObject ]
 		ifFalse: [ self new: anObject ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 NoObjectBrowserObject class >> new: anObject [
 	^self new realObject: anObject; yourself.
 ]
