@@ -1,6 +1,6 @@
 Class {
-	#name : #TestEditorModel,
-	#superclass : #ObjectModel,
+	#name : #OBTestEditorModel,
+	#superclass : #OBAbstractModel,
 	#instVars : [
 		'testEditorMorph'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> acceptCode: unText notifying: someone [
+OBTestEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
 		[self model compileTest: unText] 
@@ -19,12 +19,12 @@ TestEditorModel >> acceptCode: unText notifying: someone [
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> errorHandler [
+OBTestEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
 { #category : #'code completion' }
-TestEditorModel >> guessTypeForName: aString [
+OBTestEditorModel >> guessTypeForName: aString [
 	| binding |
 	(model lesson hasVariableNamed: aString) ifTrue: [
 		^(model lesson variableNamed: aString) pointsTo realClass.
@@ -34,41 +34,41 @@ TestEditorModel >> guessTypeForName: aString [
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> menu: unMenu [ 
+OBTestEditorModel >> menu: unMenu [ 
 	unMenu addList: (OrderedCollection with: (Array braceWith: 'aceptar(s)' translated with: #accept)).
 	^ unMenu
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> methodCode [
+OBTestEditorModel >> methodCode [
 	^self model selectedTest code
 ]
 
 { #category : #accessing }
-TestEditorModel >> selectedClassOrMetaClass [
+OBTestEditorModel >> selectedClassOrMetaClass [
 	^self model lesson executionContext class
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> selectedTestCode [
+OBTestEditorModel >> selectedTestCode [
 	| c |
 	c := self model selectedTest ifNotNil: [ :t | t code ].
 	^c
 ]
 
 { #category : #styling }
-TestEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
+OBTestEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
 	aPluggableShoutMorphOrView classOrMetaClass: self selectedClassOrMetaClass.
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> testEditorMorph: aMorph [
+OBTestEditorModel >> testEditorMorph: aMorph [
 	testEditorMorph := aMorph.
 ]
 
 { #category : #'as yet unclassified' }
-TestEditorModel >> update: anObject [ 
+OBTestEditorModel >> update: anObject [ 
 	super update: anObject.
 	self changed: #selectedTestCode.
 	self changed: #listModel

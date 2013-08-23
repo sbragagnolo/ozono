@@ -39,7 +39,7 @@ OBLessonBrowserWindow >> buildImportLessonButton [
 { #category : #creation }
 OBLessonBrowserWindow >> buildLessonList [
 	^ PluggableListMorph new
-		on: (LessonListModel newOn: loopBrowser)
+		on: (OBLessonListModel newOn: loopBrowser)
 		list: #listModel
 		selected: #listIndex
 		changeSelected: #listIndex:

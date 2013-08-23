@@ -1,6 +1,6 @@
 Class {
-	#name : #MethodEditorModel,
-	#superclass : #ObjectModel,
+	#name : #OBMethodEditorModel,
+	#superclass : #OBAbstractModel,
 	#instVars : [
 		'methodCode',
 		'methodEditorMorph',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #actions }
-MethodEditorModel >> acceptCode: unText notifying: someone [
+OBMethodEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
 		[self model compileMethod: unText notifying: someone.
@@ -27,12 +27,12 @@ MethodEditorModel >> acceptCode: unText notifying: someone [
 ]
 
 { #category : #actions }
-MethodEditorModel >> errorHandler [
+OBMethodEditorModel >> errorHandler [
 	^ErrorHandler  default.
 ]
 
 { #category : #'code completion' }
-MethodEditorModel >> guessTypeForName: aString [
+OBMethodEditorModel >> guessTypeForName: aString [
 	| object |
 	object := self model selectedObject.
 	^(object hasAttributeNamed: aString)
@@ -41,39 +41,39 @@ MethodEditorModel >> guessTypeForName: aString [
 ]
 
 { #category : #actions }
-MethodEditorModel >> menu: unMenu [ 
+OBMethodEditorModel >> menu: unMenu [ 
 	unMenu addList: (OrderedCollection  with: (Array braceWith: 'aceptar(s)' translated with: #accept)).
 	^ unMenu
 ]
 
 { #category : #accessing }
-MethodEditorModel >> methodEditorMorph: aMorph [
+OBMethodEditorModel >> methodEditorMorph: aMorph [
 	methodEditorMorph := aMorph.
 ]
 
 { #category : #accessing }
-MethodEditorModel >> selectedClassOrMetaClass [
+OBMethodEditorModel >> selectedClassOrMetaClass [
 	^selectedClassOrMetaClass
 ]
 
 { #category : #accessing }
-MethodEditorModel >> selectedClassOrMetaClass: aClassOrMetaClass [
+OBMethodEditorModel >> selectedClassOrMetaClass: aClassOrMetaClass [
 	^selectedClassOrMetaClass := aClassOrMetaClass
 ]
 
 { #category : #accessing }
-MethodEditorModel >> selectedMethodCode [
+OBMethodEditorModel >> selectedMethodCode [
 	^self model selectedMethodCode
 ]
 
 { #category : #styling }
-MethodEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
+OBMethodEditorModel >> shoutAboutToStyle: aPluggableShoutMorphOrView [ 
 	aPluggableShoutMorphOrView classOrMetaClass: self selectedClassOrMetaClass.
 	^ true
 ]
 
 { #category : #updating }
-MethodEditorModel >> update: anObject [ 
+OBMethodEditorModel >> update: anObject [ 
 	super update: anObject.
 	self changed: #selectedMethodCode.
 	self changed: #listModel

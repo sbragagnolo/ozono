@@ -4,7 +4,7 @@ I representing an object that has been dereferenced and is subject to be garbage
 I also implement some UI related stuff such as the icon and menu items.
 "
 Class {
-	#name : #DereferencedObject,
+	#name : #OBDereferencedObject,
 	#superclass : #Object,
 	#instVars : [
 		'dereferencedObject'
@@ -13,58 +13,58 @@ Class {
 }
 
 { #category : #'instance-creation' }
-DereferencedObject class >> newOn: anObject [
+OBDereferencedObject class >> newOn: anObject [
 	^self new
 		dereferencedObject: anObject;
 		yourself
 ]
 
 { #category : #comparing }
-DereferencedObject >> = anObject [
-	^(anObject isKindOf: DereferencedObject) and: [ anObject realObject = self realObject  ]
+OBDereferencedObject >> = anObject [
+	^(anObject isKindOf: OBDereferencedObject) and: [ anObject realObject = self realObject  ]
 ]
 
 { #category : #'ui-actions' }
-DereferencedObject >> actions [
+OBDereferencedObject >> actions [
 		^OrderedCollection  with: (Array braceWith: 'Recuperar objeto' translated with: #recoverObject).
 ]
 
 { #category : #converting }
-DereferencedObject >> asString [
+OBDereferencedObject >> asString [
 	^dereferencedObject displayString
 ]
 
 { #category : #accessing }
-DereferencedObject >> dereferencedObject: anObject [
+OBDereferencedObject >> dereferencedObject: anObject [
 	dereferencedObject := anObject
 ]
 
 { #category : #comparing }
-DereferencedObject >> hash [
+OBDereferencedObject >> hash [
 	^self realObject hash
 ]
 
 { #category : #'ui-actions' }
-DereferencedObject >> icon [
+OBDereferencedObject >> icon [
 	^nil
 ]
 
 { #category : #'ui-actions' }
-DereferencedObject >> makeSelectionOn: aBrowser [
+OBDereferencedObject >> makeSelectionOn: aBrowser [
 	^aBrowser selectDereferencedObject: self .
 ]
 
 { #category : #'ui-actions' }
-DereferencedObject >> menu: aMenuBuilder [
+OBDereferencedObject >> menu: aMenuBuilder [
 	^aMenuBuilder addList: self actions
 ]
 
 { #category : #accessing }
-DereferencedObject >> realObject [
+OBDereferencedObject >> realObject [
 	^dereferencedObject.
 ]
 
 { #category : #'ui-actions' }
-DereferencedObject >> treeContents [
+OBDereferencedObject >> treeContents [
 	^OrderedCollection new
 ]

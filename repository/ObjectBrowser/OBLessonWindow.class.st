@@ -38,7 +38,7 @@ OBLessonWindow >> backgroundColorFor: category [
 OBLessonWindow >> buildMethodEditor [
 	| model |
 	methodEditor := (PluggableTextMorph
-		on: (model := MethodEditorModel newOn: self objectBrowser )
+		on: (model := OBMethodEditorModel newOn: self objectBrowser )
 		text: #selectedMethodCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
@@ -55,7 +55,7 @@ OBLessonWindow >> buildMethodEditor [
 OBLessonWindow >> buildMethodList [
 
 	^ (PluggableIconListMorph
-		on: (MethodListModel newOn: self objectBrowser)
+		on: (OBMethodListModel newOn: self objectBrowser)
 		list: #listModel
 		selected: #listIndex
 		changeSelected: #listIndex:
@@ -72,7 +72,7 @@ OBLessonWindow >> buildMethodList [
 OBLessonWindow >> buildObjectAttributeList [
 
 	^ (PluggableIconListMorph
-		on: (ObjectAttributeListModel newOn: self objectBrowser)
+		on: (OBAttributeListModel newOn: self objectBrowser)
 		list: #listModel
 		selected: #listIndex
 		changeSelected: #listIndex:
@@ -141,7 +141,7 @@ OBLessonWindow >> createTestRunnerTab [
 	| hSepFrac panel testEditor testEditorModel |
 	hSepFrac := 0.45.
 	testEditor := (PluggableTextMorph
-		on: (testEditorModel := TestEditorModel newOn: self objectBrowser)
+		on: (testEditorModel := OBTestEditorModel newOn: self objectBrowser)
 		text: #selectedTestCode
 		accept: #acceptCode:notifying:
 		readSelection: nil
@@ -158,7 +158,7 @@ OBLessonWindow >> createTestRunnerTab [
 	panel
 		addMorph:
 				((PluggableIconListMorph
-						on: (ObjectTestsListModel newOn: self objectBrowser)
+						on: (OBTestsListModel newOn: self objectBrowser)
 						list: #listModel
 						selected: #listIndex
 						changeSelected: #listIndex:

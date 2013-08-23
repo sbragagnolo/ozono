@@ -1,11 +1,11 @@
 Class {
-	#name : #ObjectTestsListModel,
-	#superclass : #ObjectBrowserListModel,
+	#name : #OBTestsListModel,
+	#superclass : #OBListModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> iconAt: aTest [
+OBTestsListModel >> iconAt: aTest [
 
 	^IconicButton new 
 		target: self model;
@@ -17,21 +17,21 @@ ObjectTestsListModel >> iconAt: aTest [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> listModel [
+OBTestsListModel >> listModel [
 	^self model tests asOrderedCollection
 ]
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> menuSelector [
+OBTestsListModel >> menuSelector [
 	^#testListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> selectedItem [
+OBTestsListModel >> selectedItem [
 	^self model selectedTest
 ]
 
 { #category : #'as yet unclassified' }
-ObjectTestsListModel >> selectedItem: aTest [
+OBTestsListModel >> selectedItem: aTest [
 	self model selectedTest: aTest
 ]

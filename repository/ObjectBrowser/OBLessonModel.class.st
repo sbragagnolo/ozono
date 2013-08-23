@@ -236,7 +236,7 @@ OBLessonModel >> deleteLessonVariable [
 				ifNil: [self error: 'No hay ninguna referencia elegida'].
 			self confirmDeletion ifTrue: [
 				self doDeleteLessonVariable.
-				self selectedObjectBrowserVariable: NullLessonVariable new.
+				self selectedObjectBrowserVariable: OBNullLessonVariable new.
 				].
 			].
 	self changed
@@ -245,7 +245,7 @@ OBLessonModel >> deleteLessonVariable [
 { #category : #deleting }
 OBLessonModel >> deleteMethod [
 	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectMethod ].
-	self selectedObjectMethod: NullOBMethod new.
+	self selectedObjectMethod: OBNullMethod new.
 	self changed.
 ]
 
@@ -287,7 +287,7 @@ OBLessonModel >> dereferenceSelectedVariable [
 
 { #category : #'as yet unclassified' }
 OBLessonModel >> deselectVariables [
-	self selectedObjectAttribute: NullLessonVariable new.
+	self selectedObjectAttribute: OBNullLessonVariable new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -357,7 +357,7 @@ OBLessonModel >> garbageCollectorButtonLabel [
 OBLessonModel >> initialize [
 	super initialize.
 	self selectedTabIndex: 1.
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -379,11 +379,11 @@ OBLessonModel >> lesson: aLOOPLesson [
 { #category : #accessing }
 OBLessonModel >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
-		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
-		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
-		with: (OBListItemWrapper with: (TestsOrganization for: self))
-		with: (OBListItemWrapper with: (RecicleBinOrganization for: self))
-		with: (OBListItemWrapper with: (DiagramOrganization for: self))
+		with: (OBListItemWrapper with: (OBObjectsTreeMenuNode for: self))
+		with: (OBListItemWrapper with: (OBWorkspacesTreeMenuNode for: self))
+		with: (OBListItemWrapper with: (OBTestsTreeMenuNode for: self))
+		with: (OBListItemWrapper with: (OBRecycleBinTreeMenuNode for: self))
+		with: (OBListItemWrapper with: (OBDiagramTreeMenuNode for: self))
 		]
 ]
 
@@ -417,7 +417,7 @@ OBLessonModel >> objects [
 OBLessonModel >> objectsOrganizationSelected [
 	"self selectedTabIndex:  1."
 	selectedPage := #objects.
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 	self changed.
 ]
 
@@ -448,7 +448,7 @@ OBLessonModel >> openWorkspace [
 
 { #category : #menues }
 OBLessonModel >> orphanObjects [
-	^(self lesson dereferencedObjects) collect: [ :o | DereferencedObject newOn: o].
+	^(self lesson dereferencedObjects) collect: [ :o | OBDereferencedObject newOn: o].
 ]
 
 { #category : #'as yet unclassified' }
@@ -509,8 +509,8 @@ OBLessonModel >> runTest [
 
 { #category : #'as yet unclassified' }
 OBLessonModel >> selectDereferencedObject: aDerreferencedObject [
-	selectedObjectAttribute := NullLessonVariable new.
-	selectedObjectMethod := NullOBMethod new.
+	selectedObjectAttribute := OBNullLessonVariable new.
+	selectedObjectMethod := OBNullMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
 	self changed.
 ]
@@ -575,8 +575,8 @@ OBLessonModel >> selectedObjectBrowserVariable [
 { #category : #accessing }
 OBLessonModel >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
-	selectedObjectAttribute := NullLessonVariable new.
-	selectedObjectMethod := NullOBMethod new.
+	selectedObjectAttribute := OBNullLessonVariable new.
+	selectedObjectMethod := OBNullMethod new.
 	anOBVariable notifySelectionTo: self objectSelectionInterested.
 	selectedPage := #objects.
 	self changed.
@@ -669,7 +669,7 @@ self deprecated: 'esta en ObjectsOrganization'.
 
 { #category : #accessing }
 OBLessonModel >> testCaseSelected: aTestCase [
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 	self selectedTest: aTestCase.
 ]
 
@@ -689,7 +689,7 @@ OBLessonModel >> tests [
 
 { #category : #menues }
 OBLessonModel >> testsOrganizationSelected [
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 	selectedPage := #tests.
 	self changed.
 	
@@ -727,7 +727,7 @@ OBLessonModel >> variables [
 
 { #category : #accessing }
 OBLessonModel >> workspaceSelected: aWorkspace [
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 	self selectedWorkspace: aWorkspace.
 ]
 
@@ -738,5 +738,5 @@ OBLessonModel >> workspaces [
 
 { #category : #selection }
 OBLessonModel >> workspacesOrganizationSelected [
-	self selectedObjectBrowserVariable: NullLessonVariable new.
+	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 ]

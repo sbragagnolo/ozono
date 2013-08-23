@@ -1,59 +1,56 @@
 Class {
-	#name : #ObjectsOrganization,
-	#superclass : #Object,
-	#instVars : [
-		'objectBrowser'
-	],
+	#name : #OBObjectsTreeMenuNode,
+	#superclass : #OBTreeMenuModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization class >> for: anObjectBrowser [
+OBObjectsTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> asString [
+OBObjectsTreeMenuNode >> asString [
 	^'Referencias' translated 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> createBag [
+OBObjectsTreeMenuNode >> createBag [
 	objectBrowser createBag.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> createDictionary [
+OBObjectsTreeMenuNode >> createDictionary [
 	objectBrowser createDictionary.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> createOrdered [
+OBObjectsTreeMenuNode >> createOrdered [
 	objectBrowser createOrdered.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> createSet [
+OBObjectsTreeMenuNode >> createSet [
 	objectBrowser createSet.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> createSorted [
+OBObjectsTreeMenuNode >> createSorted [
 	objectBrowser createSorted.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> icon [
+OBObjectsTreeMenuNode >> icon [
 	^OBIcons homeIcon
 ]
 
 { #category : #selection }
-ObjectsOrganization >> makeSelectionOn: anObjectBrowser [ 
+OBObjectsTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
 	anObjectBrowser objectsOrganizationSelected.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> menu: aMenu [
+OBObjectsTreeMenuNode >> menu: aMenu [
 	aMenu addList: (OrderedCollection with: (Array braceWith: 'crear nuevo objeto' translated with: #createObject)).
 	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections.
 	^aMenu
@@ -61,12 +58,7 @@ ObjectsOrganization >> menu: aMenu [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> objectBrowser: anObjectBrowser [
-	objectBrowser := anObjectBrowser
-]
-
-{ #category : #'as yet unclassified' }
-ObjectsOrganization >> subMenuCollections [
+OBObjectsTreeMenuNode >> subMenuCollections [
 	| menuCrearColeccion |
 	menuCrearColeccion := MenuMorph new target: self; yourself .
 	menuCrearColeccion add:'set' action: #createSet.
@@ -78,11 +70,11 @@ ObjectsOrganization >> subMenuCollections [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> subMenuCollectionsName [
+OBObjectsTreeMenuNode >> subMenuCollectionsName [
 	^'Crear nuevo conjunto' translated 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectsOrganization >> treeContents [
+OBObjectsTreeMenuNode >> treeContents [
 	^objectBrowser variables collect:[:v | OBListItemWrapper with: v model: v ]
 ]

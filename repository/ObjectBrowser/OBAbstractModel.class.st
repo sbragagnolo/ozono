@@ -1,5 +1,5 @@
 Class {
-	#name : #ObjectModel,
+	#name : #OBAbstractModel,
 	#superclass : #Object,
 	#instVars : [
 		'model'
@@ -8,41 +8,41 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectModel class >> newOn: realModel [ 
+OBAbstractModel class >> newOn: realModel [ 
 	^ self new model: realModel;
 		 yourself
 ]
 
 { #category : #'code completion' }
-ObjectModel >> isCodeCompletionAllowed [
+OBAbstractModel >> isCodeCompletionAllowed [
 	^true
 ]
 
 { #category : #'as yet unclassified' }
-ObjectModel >> model [
+OBAbstractModel >> model [
 	^model
 ]
 
 { #category : #'as yet unclassified' }
-ObjectModel >> model: aModel [ 
+OBAbstractModel >> model: aModel [ 
 	model := aModel.
 	aModel addDependent: self
 ]
 
 { #category : #'as yet unclassified' }
-ObjectModel >> perform: aSelector [ 
+OBAbstractModel >> perform: aSelector [ 
 	^ (super respondsTo: aSelector)
 		ifTrue: [super perform: aSelector]
 		ifFalse: [self model perform: aSelector]
 ]
 
 { #category : #'as yet unclassified' }
-ObjectModel >> respondsTo: aSelector [
+OBAbstractModel >> respondsTo: aSelector [
 	^(super respondsTo: aSelector) or: [self model respondsTo: aSelector ]
 ]
 
 { #category : #'as yet unclassified' }
-ObjectModel >> update: anObject [
+OBAbstractModel >> update: anObject [
 	super update: anObject.
 	self changed: self
 ]

@@ -1,45 +1,37 @@
 Class {
-	#name : #DiagramOrganization,
-	#superclass : #Object,
-	#instVars : [
-		'objectBrowser'
-	],
+	#name : #OBDiagramTreeMenuNode,
+	#superclass : #OBTreeMenuModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-DiagramOrganization class >> for: anObjectBrowser [
+OBDiagramTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
 { #category : #'as yet unclassified' }
-DiagramOrganization >> asString [
+OBDiagramTreeMenuNode >> asString [
 	^'Diagrama' translated 
 ]
 
 { #category : #'as yet unclassified' }
-DiagramOrganization >> icon [
+OBDiagramTreeMenuNode >> icon [
 	^OBIcons diagramsIcon
 ]
 
 { #category : #'as yet unclassified' }
-DiagramOrganization >> makeSelectionOn: anObjectBrowser [ 
+OBDiagramTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
 	anObjectBrowser selectedPage: #diagram.
 	anObjectBrowser changed.
 ]
 
 { #category : #'as yet unclassified' }
-DiagramOrganization >> menu: aMenu [
+OBDiagramTreeMenuNode >> menu: aMenu [
 	aMenu add: 'exportar' translated action: #exportDiagram.	
 ^aMenu.
 ]
 
 { #category : #'as yet unclassified' }
-DiagramOrganization >> objectBrowser: anObjectBrowser [
-	objectBrowser := anObjectBrowser
-]
-
-{ #category : #'as yet unclassified' }
-DiagramOrganization >> treeContents [
+OBDiagramTreeMenuNode >> treeContents [
 	^#()
 ]

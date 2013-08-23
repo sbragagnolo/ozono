@@ -1,23 +1,23 @@
 Class {
-	#name : #NullOBMethod,
+	#name : #OBNullMethod,
 	#superclass : #Object,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #testing }
-NullOBMethod >> isNil [
+OBNullMethod >> isNil [
 
 	^true
 ]
 
 { #category : #ui }
-NullOBMethod >> menuItems [
+OBNullMethod >> menuItems [
 
 	^#()
 ]
 
 { #category : #accessing }
-NullOBMethod >> method [
+OBNullMethod >> method [
 
 	^nil
 ]

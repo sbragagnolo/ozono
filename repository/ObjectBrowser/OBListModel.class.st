@@ -1,6 +1,6 @@
 Class {
-	#name : #ObjectBrowserListModel,
-	#superclass : #ObjectModel,
+	#name : #OBListModel,
+	#superclass : #OBAbstractModel,
 	#instVars : [
 		'selectedObject',
 		'menuSelector'
@@ -9,27 +9,27 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> colorAt: index [
+OBListModel >> colorAt: index [
 	^Color black
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> fontAt: index withBasicFont: font [
+OBListModel >> fontAt: index withBasicFont: font [
 	^font
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> iconAt: anAttribute [
+OBListModel >> iconAt: anAttribute [
 	^anAttribute icon
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> listIndex [
+OBListModel >> listIndex [
 	^self listModel indexOf: self selectedItem
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> listIndex: anIndex [
+OBListModel >> listIndex: anIndex [
 
 	anIndex > 0 ifTrue:[
 	self selectedItem: (self listModel asOrderedCollection at: anIndex).
@@ -38,7 +38,7 @@ ObjectBrowserListModel >> listIndex: anIndex [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> listKey: aChar from: view [
+OBListModel >> listKey: aChar from: view [
 	"Responde cuando se presiona un bot󮠥n la lista de objetos."
 
 "	aChar == $f ifTrue: [^ self findMethod].
@@ -49,17 +49,17 @@ ObjectBrowserListModel >> listKey: aChar from: view [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> listMenu: aMenu shifted: shifted [
+OBListModel >> listMenu: aMenu shifted: shifted [
 	^self model perform: self menuSelector with: aMenu with: shifted 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> menuSelector [
+OBListModel >> menuSelector [
 	^#listMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserListModel >> update: anObject [ 
+OBListModel >> update: anObject [ 
 	super update: anObject.
 	self changed: #listModel
 ]

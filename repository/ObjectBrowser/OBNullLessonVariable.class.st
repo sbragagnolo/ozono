@@ -1,20 +1,20 @@
 Class {
-	#name : #NullLessonVariable,
+	#name : #OBNullLessonVariable,
 	#superclass : #Object,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #ui }
-NullLessonVariable >> actionsForAttributeList [
+OBNullLessonVariable >> actionsForAttributeList [
 	^#()
 ]
 
 { #category : #notifying }
-NullLessonVariable >> notifySelectionTo: anObjectBrowser [ 
+OBNullLessonVariable >> notifySelectionTo: anObjectBrowser [ 
 	"Nothing"
 ]
 
 { #category : #references }
-NullLessonVariable >> pointsTo [
+OBNullLessonVariable >> pointsTo [
 	^OBNullObject new.
 ]

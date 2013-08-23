@@ -1,30 +1,30 @@
 Class {
-	#name : #ObjectAttributeListModel,
-	#superclass : #ObjectBrowserListModel,
+	#name : #OBAttributeListModel,
+	#superclass : #OBListModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> listModel [
+OBAttributeListModel >> listModel [
 	^self selectedObjectAttributes asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> menuSelector [
+OBAttributeListModel >> menuSelector [
 	^#attributeListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> selectedItem [
+OBAttributeListModel >> selectedItem [
 	^self model selectedObjectAttribute
 ]
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> selectedItem: aVariable [
+OBAttributeListModel >> selectedItem: aVariable [
 	self model selectedObjectAttribute: aVariable.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectAttributeListModel >> selectedObjectAttributes [
+OBAttributeListModel >> selectedObjectAttributes [
 	^self model selectedObjectAttributes
 ]

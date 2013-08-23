@@ -1,43 +1,35 @@
 Class {
-	#name : #TestsOrganization,
-	#superclass : #Object,
-	#instVars : [
-		'objectBrowser'
-	],
+	#name : #OBTestsTreeMenuNode,
+	#superclass : #OBTreeMenuModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-TestsOrganization class >> for: anObjectBrowser [
+OBTestsTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> asString [
+OBTestsTreeMenuNode >> asString [
 	^'Tests' translated 
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> icon [
+OBTestsTreeMenuNode >> icon [
 	^OBIcons testsIcon
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> makeSelectionOn: anObjectBrowser [ 
+OBTestsTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
 	anObjectBrowser testsOrganizationSelected.
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> menu: aMenu [
+OBTestsTreeMenuNode >> menu: aMenu [
 	^aMenu addList: (OrderedCollection with: (Array braceWith: 'importar' translated with: #fileInTests)).
 ]
 
 { #category : #'as yet unclassified' }
-TestsOrganization >> objectBrowser: anObjectBrowser [
-	objectBrowser := anObjectBrowser
-]
-
-{ #category : #'as yet unclassified' }
-TestsOrganization >> treeContents [ 
+OBTestsTreeMenuNode >> treeContents [ 
 	^OrderedCollection new
 ]

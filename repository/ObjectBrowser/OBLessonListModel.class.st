@@ -1,26 +1,26 @@
 Class {
-	#name : #LessonListModel,
-	#superclass : #ObjectBrowserListModel,
+	#name : #OBLessonListModel,
+	#superclass : #OBListModel,
 	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }
-LessonListModel >> listModel [
+OBLessonListModel >> listModel [
 	^self model lessons asOrderedCollection.
 ]
 
 { #category : #'as yet unclassified' }
-LessonListModel >> menuSelector [
+OBLessonListModel >> menuSelector [
 	^#lessonListMenu:shifted:
 ]
 
 { #category : #'as yet unclassified' }
-LessonListModel >> selectedItem [
+OBLessonListModel >> selectedItem [
 	^self model selectedLesson
 ]
 
 { #category : #'as yet unclassified' }
-LessonListModel >> selectedItem: aLesson [
+OBLessonListModel >> selectedItem: aLesson [
 	self model selectedLesson: aLesson.
 	self model changed.
 ]
