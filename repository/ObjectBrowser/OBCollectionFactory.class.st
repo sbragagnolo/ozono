@@ -10,7 +10,7 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBCollectionFactory class >> newForLesson: aLesson [
 
 	^self new
@@ -20,15 +20,23 @@ OBCollectionFactory class >> newForLesson: aLesson [
 
 { #category : #cloning }
 OBCollectionFactory >> clone [
-	| col |
-	col := self createCollection.
-	lesson addObject: (self newObjectBrowserObjectWithRealObject: col).
-	^col
+
+	| realCollection |
+	realCollection := self createRealCollection.
+	lesson addObject: (self newMetaObjectForCollection: realCollection).
+	^realCollection
 ]
 
-{ #category : #testing }
-OBCollectionFactory >> isObjectBrowserLiteral [
-	^true
+{ #category : #printing }
+OBCollectionFactory >> collectionTypeName [
+
+	self subclassResponsibility
+]
+
+{ #category : #cloning }
+OBCollectionFactory >> createRealCollection [
+
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -38,7 +46,7 @@ OBCollectionFactory >> lesson: aLesson [
 ]
 
 { #category : #'instance-creation' }
-OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
+OBCollectionFactory >> newMetaObjectForCollection: aRealCollection [
 
 	^OBCollectionMetaObject
 			newWithRealObject: aRealCollection
@@ -47,5 +55,6 @@ OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
 
 { #category : #printing }
 OBCollectionFactory >> printString [
+
 	^self displayString 
 ]

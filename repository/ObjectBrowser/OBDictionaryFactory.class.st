@@ -7,23 +7,23 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBDictionaryFactory >> collectionTypeName [
 	^'Dictionary'
 ]
 
-{ #category : #'as yet unclassified' }
-OBDictionaryFactory >> createCollection [
+{ #category : #cloning }
+OBDictionaryFactory >> createRealCollection [
 	^Dictionary new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBDictionaryFactory >> displayString [
 	^ 'aDictionary'
 ]
 
-{ #category : #'as yet unclassified' }
-OBDictionaryFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
+{ #category : #'instance-creation' }
+OBDictionaryFactory >> newMetaObjectForCollection: aRealCollection [
 
 	^OBDictionaryMetaObject
 			newWithRealObject: aRealCollection

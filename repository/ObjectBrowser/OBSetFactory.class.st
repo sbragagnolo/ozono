@@ -7,17 +7,17 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBSetFactory >> collectionTypeName [
 	^'Set'
 ]
 
-{ #category : #'as yet unclassified' }
-OBSetFactory >> createCollection [
+{ #category : #cloning }
+OBSetFactory >> createRealCollection [
 	^Set new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBSetFactory >> displayString [
 	^ 'aSet'
 ]

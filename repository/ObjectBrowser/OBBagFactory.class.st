@@ -7,17 +7,17 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBBagFactory >> collectionTypeName [
 	^'Bag'
 ]
 
-{ #category : #'as yet unclassified' }
-OBBagFactory >> createCollection [
+{ #category : #cloning }
+OBBagFactory >> createRealCollection [
 	^Bag new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBBagFactory >> displayString [
 	^'aBag'
 ]

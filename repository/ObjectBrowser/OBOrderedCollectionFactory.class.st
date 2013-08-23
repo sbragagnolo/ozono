@@ -7,17 +7,17 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBOrderedCollectionFactory >> collectionTypeName [
 	^'OrderedCollection'
 ]
 
-{ #category : #'as yet unclassified' }
-OBOrderedCollectionFactory >> createCollection [
+{ #category : #cloning }
+OBOrderedCollectionFactory >> createRealCollection [
 	^OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBOrderedCollectionFactory >> displayString [
 	^'anOrderedCollection'
 ]
