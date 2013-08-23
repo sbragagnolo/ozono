@@ -31,7 +31,7 @@ OBMethodEditorModel >> acceptCode: unText notifying: someone [
 
 { #category : #actions }
 OBMethodEditorModel >> errorHandler [
-	^ErrorHandler  default.
+	^OBErrorHandler  default.
 ]
 
 { #category : #'code completion' }

@@ -13,7 +13,7 @@ Class {
 OBLessonEvaluator >> evaluate: textOrStream in: aContext to: receiver notifying: aRequestor ifFail: failBlock logged: logFlag [
 
 	receiver prepare.
-	^ErrorHandler evaluate:  [[
+	^OBErrorHandler evaluate:  [[
 			Compiler new
 		evaluate: textOrStream 
 		in: aContext 

@@ -3,7 +3,7 @@ An object that evaluates a Block.
 If an error occurrs during evaluation, the handler takes it and does something with the error.
 "
 Class {
-	#name : #ErrorHandler,
+	#name : #OBErrorHandler,
 	#superclass : #Object,
 	#instVars : [
 		'block'
@@ -15,35 +15,35 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ErrorHandler class >> default [
-	^DefaultErrorHandler ifNil: [DefaultErrorHandler := SimpleErrorHandler]
+OBErrorHandler class >> default [
+	^DefaultErrorHandler ifNil: [DefaultErrorHandler := OBSimpleErrorHandler]
 ]
 
 { #category : #'as yet unclassified' }
-ErrorHandler class >> default: aDefaultErrorHandler [
+OBErrorHandler class >> default: aDefaultErrorHandler [
 	^DefaultErrorHandler := aDefaultErrorHandler
 ]
 
 { #category : #'as yet unclassified' }
-ErrorHandler class >> evaluate: aBlock [ 
+OBErrorHandler class >> evaluate: aBlock [ 
 	^self default new block: aBlock;
 		 value
 ]
 
 { #category : #installing }
-ErrorHandler class >> install [
+OBErrorHandler class >> install [
 	self default: self.
 ]
 
 { #category : #'as yet unclassified' }
-ErrorHandler >> block: aBlock [
+OBErrorHandler >> block: aBlock [
 	"me pasan el bloque que voy a intentar evaluar"
 
 	block := aBlock
 ]
 
 { #category : #'as yet unclassified' }
-ErrorHandler >> value [
+OBErrorHandler >> value [
 	"evaluo mi bloque o manejo el error"
 
 	self subclassResponsibility

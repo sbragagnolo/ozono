@@ -3,7 +3,7 @@ OperationCancelled is an exception that represents the moment when the user pres
 It exists so as not to put the cancelling logic within the normal flow of the program
 "
 Class {
-	#name : #OperationCancelled,
+	#name : #OBOperationCancelled,
 	#superclass : #Error,
 	#category : #'ObjectBrowser-Errors'
 }

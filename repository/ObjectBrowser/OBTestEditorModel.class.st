@@ -23,7 +23,7 @@ OBTestEditorModel >> acceptCode: unText notifying: someone [
 
 { #category : #'as yet unclassified' }
 OBTestEditorModel >> errorHandler [
-	^ErrorHandler  default.
+	^OBErrorHandler  default.
 ]
 
 { #category : #'code completion' }

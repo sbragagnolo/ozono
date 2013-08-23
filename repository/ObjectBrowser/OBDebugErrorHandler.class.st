@@ -4,12 +4,12 @@ I let the error continue its course so It opens a debugger.
 Mainly for Debug
 "
 Class {
-	#name : #DebugErrorHandler,
-	#superclass : #ErrorHandler,
+	#name : #OBDebugErrorHandler,
+	#superclass : #OBErrorHandler,
 	#category : #'ObjectBrowser-Errors'
 }
 
 { #category : #'as yet unclassified' }
-DebugErrorHandler >> value [
+OBDebugErrorHandler >> value [
 	^block value
 ]

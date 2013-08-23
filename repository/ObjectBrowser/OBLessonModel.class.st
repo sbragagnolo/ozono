@@ -297,7 +297,7 @@ OBLessonModel >> doDeleteVariable [
 
 { #category : #accessing }
 OBLessonModel >> errorHandler [
-	^ErrorHandler default
+	^OBErrorHandler default
 ]
 
 { #category : #accessing }
@@ -418,7 +418,7 @@ OBLessonModel >> objectsOrganizationSelected [
 OBLessonModel >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
-	objectName ifNil: [OperationCancelled new signal].
+	objectName ifNil: [OBOperationCancelled new signal].
 	self validateVariableName: objectName.
 	^ objectName
 ]

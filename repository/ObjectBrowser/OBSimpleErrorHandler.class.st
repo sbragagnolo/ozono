@@ -4,20 +4,20 @@ I trap the error and show it as a pop up.
 Mainly for Release
 "
 Class {
-	#name : #SimpleErrorHandler,
-	#superclass : #ErrorHandler,
+	#name : #OBSimpleErrorHandler,
+	#superclass : #OBErrorHandler,
 	#category : #'ObjectBrowser-Errors'
 }
 
 { #category : #'as yet unclassified' }
-SimpleErrorHandler >> blockForError [
+OBSimpleErrorHandler >> blockForError [
 	^ [ :error | 
 	UIManager default inform: error messageText.
 	nil ]
 ]
 
 { #category : #'as yet unclassified' }
-SimpleErrorHandler >> blockForMessageNotUnderstood [
+OBSimpleErrorHandler >> blockForMessageNotUnderstood [
 	^ [ :dnu | 
 	| nombreObjeto |
 	nombreObjeto := dnu receiver printString.
@@ -26,28 +26,28 @@ SimpleErrorHandler >> blockForMessageNotUnderstood [
 ]
 
 { #category : #'as yet unclassified' }
-SimpleErrorHandler >> blockForOperationCancelled [
+OBSimpleErrorHandler >> blockForOperationCancelled [
 	^ [ 
 	"nothing: an Operation Cancelled should not be warned nor explained, just must keep doing what the user was doing"
 	 ]
 ]
 
 { #category : #'as yet unclassified' }
-SimpleErrorHandler >> blockForSyntaxErrorNotification [
+OBSimpleErrorHandler >> blockForSyntaxErrorNotification [
 	^ [ :error | 
 	UIManager default inform: 'Ha ocurrido un error de sintaxis:  ' , error errorCode.
 	nil ]
 ]
 
 { #category : #'as yet unclassified' }
-SimpleErrorHandler >> value [
+OBSimpleErrorHandler >> value [
 	"evaluo mi bloque o manejo el error"
 
 	^ [ 
 	[ 
 	[ 
 	block
-		on: OperationCancelled
+		on: OBOperationCancelled
 		do: self blockForOperationCancelled ]
 		on: MessageNotUnderstood
 		do: self blockForMessageNotUnderstood ]
