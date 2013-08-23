@@ -1,5 +1,12 @@
+"
+I am the window that shows a lesson:
+- the objects in it with their attributes and methods
+- the objet graph
+- the tests
+- the workspaces
+"
 Class {
-	#name : #ObjectBrowserWindow,
+	#name : #OBLessonWindow,
 	#superclass : #Object,
 	#instVars : [
 		'objectBrowser',
@@ -17,18 +24,18 @@ Class {
 	#category : #'ObjectBrowser-UI'
 }
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserWindow class >> show: anObjectBrowser [
+{ #category : #showing }
+OBLessonWindow class >> show: anObjectBrowser [
 	^self new show: anObjectBrowser
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> backgroundColorFor: category [ 
+OBLessonWindow >> backgroundColorFor: category [ 
 	^ category = #diagram ifTrue: [Color white ] ifFalse: [Color lightGray ].
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildMethodEditor [
+OBLessonWindow >> buildMethodEditor [
 	| model |
 	methodEditor := (PluggableTextMorph
 		on: (model := MethodEditorModel newOn: self objectBrowser )
@@ -45,7 +52,7 @@ ObjectBrowserWindow >> buildMethodEditor [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildMethodList [
+OBLessonWindow >> buildMethodList [
 
 	^ (PluggableIconListMorph
 		on: (MethodListModel newOn: self objectBrowser)
@@ -62,7 +69,7 @@ ObjectBrowserWindow >> buildMethodList [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildObjectAttributeList [
+OBLessonWindow >> buildObjectAttributeList [
 
 	^ (PluggableIconListMorph
 		on: (ObjectAttributeListModel newOn: self objectBrowser)
@@ -79,7 +86,7 @@ ObjectBrowserWindow >> buildObjectAttributeList [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> buildObjectBrowserTree [
+OBLessonWindow >> buildObjectBrowserTree [
 	^objectBrowserTree := (PluggableTreeMorph 
 		on: self objectBrowser
 		list: #lessonOrganization
@@ -90,14 +97,14 @@ ObjectBrowserWindow >> buildObjectBrowserTree [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> createGroupTab [
+OBLessonWindow >> createGroupTab [
 	pages at: #objects put: self createObjectEditionTab.
 	pages at: #tests put: self createTestRunnerTab.
 	pages at: #diagram put: self createObjectDiagramTab.
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> createObjectDiagramTab [
+OBLessonWindow >> createObjectDiagramTab [
 	| hSepFrac panel scrollPane |
 	scrollPane := ScrollPane new.
 	diagram := self lesson objectDiagram. 
@@ -112,7 +119,7 @@ ObjectBrowserWindow >> createObjectDiagramTab [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> createObjectEditionTab [
+OBLessonWindow >> createObjectEditionTab [
 	| hSepFrac panel |
 	hSepFrac := 0.45.
 	panel := PanelMorph new
@@ -130,7 +137,7 @@ ObjectBrowserWindow >> createObjectEditionTab [
 ]
 
 { #category : #'test-runner' }
-ObjectBrowserWindow >> createTestRunnerTab [
+OBLessonWindow >> createTestRunnerTab [
 	| hSepFrac panel testEditor testEditorModel |
 	hSepFrac := 0.45.
 	testEditor := (PluggableTextMorph
@@ -190,7 +197,7 @@ ObjectBrowserWindow >> createTestRunnerTab [
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> createView [
+OBLessonWindow >> createView [
 	| window |
 	self createGroupTab.
 	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') 
@@ -211,33 +218,33 @@ ObjectBrowserWindow >> createView [
 ]
 
 { #category : #'initialize-release' }
-ObjectBrowserWindow >> initialize [
+OBLessonWindow >> initialize [
 	pages := Dictionary new.
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> lesson [
+OBLessonWindow >> lesson [
 	^self objectBrowser lesson
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> objectBrowser [
+OBLessonWindow >> objectBrowser [
 	^objectBrowser 
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> objectBrowser: anObjectBrowser. [
+OBLessonWindow >> objectBrowser: anObjectBrowser. [
 	objectBrowser := anObjectBrowser.
 	objectBrowser dependant: self.
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> objectGraphButtonLabel [
+OBLessonWindow >> objectGraphButtonLabel [
 	^'Diagrama de objetos' translated 
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> refresh [
+OBLessonWindow >> refresh [
 	objectBrowserTree ifNotNil: [ objectBrowserTree list: self objectBrowser lessonOrganization ].
 	objectBrowserTree ifNotNil: [objectBrowserTree selection: self objectBrowser selectedItem].
 	
@@ -248,29 +255,29 @@ ObjectBrowserWindow >> refresh [
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> selectedItemMenu: aMenu [
+OBLessonWindow >> selectedItemMenu: aMenu [
 	self selectedItem menu: aMenu.
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> setGroupTabIndex: anIndex [
+OBLessonWindow >> setGroupTabIndex: anIndex [
 	self objectBrowser selectedTabIndex: anIndex.
 	groupTab selectedPageIndex: anIndex 
 ]
 
 { #category : #accessing }
-ObjectBrowserWindow >> setTestsResults: result [
+OBLessonWindow >> setTestsResults: result [
 	statusTextMorph contents: result printString.
 	statusMorph color: (result color).
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> show: anObjectBrowser [ 
+OBLessonWindow >> show: anObjectBrowser [ 
 	self objectBrowser: anObjectBrowser.
 	^self createView openInWorld.
 ]
 
 { #category : #view }
-ObjectBrowserWindow >> workspaceButtonLabel [
+OBLessonWindow >> workspaceButtonLabel [
 	^'Abrir Workspace' translated 
 ]

@@ -9,7 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 LOOPTestNotRan >> icon [
-	^ObjectBrowserIcons notRanIcon
+	^OBIcons notRanIcon
 ]
 
 { #category : #'as yet unclassified' }

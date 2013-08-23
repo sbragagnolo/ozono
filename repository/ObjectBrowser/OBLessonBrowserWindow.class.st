@@ -1,5 +1,8 @@
+"
+I am the creator of the initial loop window. I give access to the lessons, the version number, importing and exporting and updating the software.
+"
 Class {
-	#name : #LOOPWindow,
+	#name : #OBLessonBrowserWindow,
 	#superclass : #Object,
 	#instVars : [
 		'loopBrowser',
@@ -8,13 +11,13 @@ Class {
 	#category : #'ObjectBrowser-UI'
 }
 
-{ #category : #creation }
-LOOPWindow class >> show: aLOOPBrowser [ 
+{ #category : #showing }
+OBLessonBrowserWindow class >> show: aLOOPBrowser [ 
 	^self new show: aLOOPBrowser
 ]
 
 { #category : #creation }
-LOOPWindow >> buildAboutMorph [
+OBLessonBrowserWindow >> buildAboutMorph [
 	^(window
 		newTextEditorFor: loopBrowser
 		getText: #aboutText
@@ -24,7 +27,7 @@ LOOPWindow >> buildAboutMorph [
 ]
 
 { #category : #creation }
-LOOPWindow >> buildImportLessonButton [
+OBLessonBrowserWindow >> buildImportLessonButton [
 	^PluggableButtonMorph 
 		on: loopBrowser
 		getState: nil
@@ -34,7 +37,7 @@ LOOPWindow >> buildImportLessonButton [
 ]
 
 { #category : #creation }
-LOOPWindow >> buildLessonList [
+OBLessonBrowserWindow >> buildLessonList [
 	^ PluggableListMorph new
 		on: (LessonListModel newOn: loopBrowser)
 		list: #listModel
@@ -49,7 +52,7 @@ LOOPWindow >> buildLessonList [
 ]
 
 { #category : #creation }
-LOOPWindow >> buildNewFreeLessonButton [
+OBLessonBrowserWindow >> buildNewFreeLessonButton [
 	^PluggableButtonMorph 
 		on: loopBrowser 
 		getState: nil
@@ -59,7 +62,7 @@ LOOPWindow >> buildNewFreeLessonButton [
 ]
 
 { #category : #creation }
-LOOPWindow >> buildUpdateButton [
+OBLessonBrowserWindow >> buildUpdateButton [
 	^PluggableButtonMorph 
 		on: loopBrowser 
 		getState: nil
@@ -69,7 +72,7 @@ LOOPWindow >> buildUpdateButton [
 ]
 
 { #category : #creation }
-LOOPWindow >> createView [
+OBLessonBrowserWindow >> createView [
 	| top left bottom right middle |
 	window := StandardWindow labelled: 'Lecciones' translated.
 	window model: loopBrowser.
@@ -85,17 +88,17 @@ LOOPWindow >> createView [
 ]
 
 { #category : #showing }
-LOOPWindow >> delete [
+OBLessonBrowserWindow >> delete [
 	window delete.
 ]
 
 { #category : #accessing }
-LOOPWindow >> loopBrowser: aLOOPBrowser [ 
+OBLessonBrowserWindow >> loopBrowser: aLOOPBrowser [ 
 	loopBrowser := aLOOPBrowser
 ]
 
 { #category : #showing }
-LOOPWindow >> show [
+OBLessonBrowserWindow >> show [
 	window openInWorld.
 	window extent: 400@300.
 	window center: World center.
@@ -103,7 +106,7 @@ LOOPWindow >> show [
 ]
 
 { #category : #showing }
-LOOPWindow >> show: aLOOPBrowser [ 
+OBLessonBrowserWindow >> show: aLOOPBrowser [ 
 	self loopBrowser: aLOOPBrowser.
 	self createView.
 	self show.

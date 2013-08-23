@@ -15,7 +15,7 @@ LOOPTestError class >> new: aSignal [
 
 { #category : #'as yet unclassified' }
 LOOPTestError >> icon [
-	^ObjectBrowserIcons badIcon
+	^OBIcons badIcon
 ]
 
 { #category : #'as yet unclassified' }

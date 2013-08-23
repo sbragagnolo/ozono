@@ -19,7 +19,7 @@ DiagramOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 DiagramOrganization >> icon [
-	^ObjectBrowserIcons diagramsIcon
+	^OBIcons diagramsIcon
 ]
 
 { #category : #'as yet unclassified' }

@@ -40,7 +40,7 @@ OBAttribute >> hash [
 
 { #category : #ui }
 OBAttribute >> icon [
-	^ObjectBrowserIcons referenceIcon
+	^OBIcons referenceIcon
 ]
 
 { #category : #accessing }

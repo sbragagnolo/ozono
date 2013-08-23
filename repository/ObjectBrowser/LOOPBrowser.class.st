@@ -155,7 +155,7 @@ LOOPBrowser >> obtainLessonName [
 
 { #category : #showing }
 LOOPBrowser >> openInWorld [
-	window := LOOPWindow show: self.
+	window := OBLessonBrowserWindow show: self.
 ]
 
 { #category : #accessing }

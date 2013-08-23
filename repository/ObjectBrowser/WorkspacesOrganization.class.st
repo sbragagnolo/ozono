@@ -19,7 +19,7 @@ WorkspacesOrganization >> asString [
 
 { #category : #'as yet unclassified' }
 WorkspacesOrganization >> icon [
-	^ObjectBrowserIcons folderIcon
+	^OBIcons folderIcon
 ]
 
 { #category : #selection }

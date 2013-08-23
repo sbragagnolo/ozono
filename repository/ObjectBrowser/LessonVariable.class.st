@@ -36,7 +36,7 @@ LessonVariable >> hasReferencesTo: anObject [
 
 { #category : #showing }
 LessonVariable >> icon [
-	^ObjectBrowserIcons referenceIcon
+	^OBIcons referenceIcon
 ]
 
 { #category : #'as yet unclassified' }

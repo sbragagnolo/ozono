@@ -15,7 +15,7 @@ LOOPTestFailure class >> new: aSignal [
 
 { #category : #'as yet unclassified' }
 LOOPTestFailure >> icon [
-	^ObjectBrowserIcons warnIcon
+	^OBIcons warnIcon
 ]
 
 { #category : #'as yet unclassified' }

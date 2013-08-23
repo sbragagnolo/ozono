@@ -27,8 +27,6 @@ LOOPLesson class >> addLesson: lesson. [
 { #category : #accessing }
 LOOPLesson class >> browseLessons [ 
 	(LOOPBrowser on: self) openInWorld
-	
-	
 ]
 
 { #category : #accessing }
@@ -216,7 +214,7 @@ LOOPLesson >> createObject [
 { #category : #'as yet unclassified' }
 LOOPLesson >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
-	workspace := LOOPWorkspace new
+	workspace := OBWorkspace new
 		label: workspaceLabel;
 		contents: someContents;
 		lesson: self.

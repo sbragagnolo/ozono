@@ -437,7 +437,7 @@ ObjectBrowser >> obtainWorkpaceLabel [
 
 { #category : #'initialize-release' }
 ObjectBrowser >> openInWorld [
-	window := ObjectBrowserWindow show: self.
+	window := OBLessonWindow show: self.
 	
 ]
 
@@ -486,7 +486,7 @@ ObjectBrowser >> request: aTitle default: aDefaultValue [
 ObjectBrowser >> runAllTests [
 	| results |
 	results := self lesson runAllTests.
-	(self dependants detect: [ :d | d isKindOf: ObjectBrowserWindow ]) setTestsResults: results.
+	(self dependants detect: [ :d | d isKindOf: OBLessonWindow ]) setTestsResults: results.
 	self changed.
 ]
 

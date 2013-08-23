@@ -1,11 +1,14 @@
+"
+I have the icons used by the Object Browser
+"
 Class {
-	#name : #ObjectBrowserIcons,
+	#name : #OBIcons,
 	#superclass : #Object,
 	#category : #'ObjectBrowser-UI'
 }
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> arrowDown [
+{ #category : #icons }
+OBIcons class >> arrowDown [
 	^ ((ColorForm
 	extent: 12@12
 	depth: 8
@@ -14,8 +17,8 @@ ObjectBrowserIcons class >> arrowDown [
 	colorsFromArray: #(#(0.573 0.804 0.369) #(0.565 0.768 0.412) #(0.577 0.804 0.372) #(0.561 0.804 0.326) #(0.588 0.831 0.345) #(0.6 0.844 0.353) #(0.565 0.804 0.329) #(0.545 0.772 0.349) #(0.486 0.682 0.353) #(0.388 0.561 0.271) #(1.0 1.0 1.0) #( )))
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> arrowUp [
+{ #category : #icons }
+OBIcons class >> arrowUp [
 	^ ((ColorForm
 	extent: 12@12
 	depth: 8
@@ -24,8 +27,8 @@ ObjectBrowserIcons class >> arrowUp [
 	colorsFromArray: #(#(0.573 0.804 0.369) #(0.565 0.768 0.412) #(0.577 0.804 0.372) #(0.561 0.804 0.326) #(0.588 0.831 0.345) #(0.6 0.844 0.353) #(0.565 0.804 0.329) #(0.545 0.772 0.349) #(0.486 0.682 0.353) #(0.388 0.561 0.271) #(1.0 1.0 1.0) #( )))
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> arrowUpAndDown [
+{ #category : #icons }
+OBIcons class >> arrowUpAndDown [
 	^ ((ColorForm
 	extent: 12@12
 	depth: 8
@@ -34,8 +37,8 @@ ObjectBrowserIcons class >> arrowUpAndDown [
 	colorsFromArray: #(#(0.388 0.561 0.271) #(0.486 0.682 0.353) #(0.565 0.768 0.412) #(0.545 0.772 0.349) #(0.573 0.804 0.369) #(0.577 0.804 0.372) #(0.561 0.804 0.326) #(0.565 0.804 0.329) #(0.588 0.831 0.345) #(0.6 0.844 0.353) #(1.0 1.0 1.0) #( )))
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> badIcon [
+{ #category : #icons }
+OBIcons class >> badIcon [
 ^(Form
 	extent: 16@16
 	depth: 32
@@ -43,8 +46,8 @@ ObjectBrowserIcons class >> badIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> diagramsIcon [
+{ #category : #icons }
+OBIcons class >> diagramsIcon [
 	^Form fromBinaryStream: (Base64MimeConverter mimeDecodeToBytes: 
 	
 	'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA
@@ -60,8 +63,8 @@ HS/4FQ5eAbsdtZx9IT/aAAAAAElFTkSuQmCC' readStream)
 	
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> folderIcon [
+{ #category : #icons }
+OBIcons class >> folderIcon [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -69,8 +72,8 @@ ObjectBrowserIcons class >> folderIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> homeIcon [
+{ #category : #icons }
+OBIcons class >> homeIcon [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -78,8 +81,8 @@ ObjectBrowserIcons class >> homeIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> notRanIcon [
+{ #category : #icons }
+OBIcons class >> notRanIcon [
 ^(Form
 	extent: 16@16
 	depth: 32
@@ -87,8 +90,8 @@ ObjectBrowserIcons class >> notRanIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> okIcon [
+{ #category : #icons }
+OBIcons class >> okIcon [
 ^(Form
 	extent: 16@16
 	depth: 32
@@ -96,8 +99,8 @@ ObjectBrowserIcons class >> okIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> prototype [
+{ #category : #icons }
+OBIcons class >> prototype [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -105,8 +108,8 @@ ObjectBrowserIcons class >> prototype [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> referenceIcon [
+{ #category : #icons }
+OBIcons class >> referenceIcon [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -114,8 +117,8 @@ ObjectBrowserIcons class >> referenceIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> testsIcon [
+{ #category : #icons }
+OBIcons class >> testsIcon [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -123,8 +126,8 @@ ObjectBrowserIcons class >> testsIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> trashIcon [
+{ #category : #icons }
+OBIcons class >> trashIcon [
 	^(Form
 	extent: 16@16
 	depth: 32
@@ -132,8 +135,8 @@ ObjectBrowserIcons class >> trashIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> warnIcon [
+{ #category : #icons }
+OBIcons class >> warnIcon [
 ^(Form
 	extent: 16@16
 	depth: 32
@@ -141,8 +144,8 @@ ObjectBrowserIcons class >> warnIcon [
 	offset: 0@0)
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserIcons class >> workspaceIcon [
+{ #category : #icons }
+OBIcons class >> workspaceIcon [
 	^(Form
 	extent: 16@16
 	depth: 32

@@ -44,7 +44,7 @@ ObjectsOrganization >> createSorted [
 
 { #category : #'as yet unclassified' }
 ObjectsOrganization >> icon [
-	^ObjectBrowserIcons homeIcon
+	^OBIcons homeIcon
 ]
 
 { #category : #selection }

@@ -1,5 +1,10 @@
+"
+I am a workspace for the Object Browser.
+
+I bind the lesson variables to the code executed, and update them if they are assigned in me.
+"
 Class {
-	#name : #LOOPWorkspace,
+	#name : #OBWorkspace,
 	#superclass : #Workspace,
 	#instVars : [
 		'lesson',
@@ -11,12 +16,12 @@ Class {
 }
 
 { #category : #accessing }
-LOOPWorkspace >> asString [
+OBWorkspace >> asString [
 	^self label
 ]
 
 { #category : #bindings }
-LOOPWorkspace >> bindingOf: aString [ 
+OBWorkspace >> bindingOf: aString [ 
 	(self hasBindingOf: aString)
 		ifTrue:[
 			(self isLiteral: aString)
@@ -28,27 +33,27 @@ LOOPWorkspace >> bindingOf: aString [
 ]
 
 { #category : #bindings }
-LOOPWorkspace >> bindings [
+OBWorkspace >> bindings [
 	^lesson variables collect: #name
 ]
 
 { #category : #actions }
-LOOPWorkspace >> closeYourself [
+OBWorkspace >> closeYourself [
 	window delete.
 ]
 
 { #category : #evaluation }
-LOOPWorkspace >> doItContext [
+OBWorkspace >> doItContext [
 	^nil
 ]
 
 { #category : #evaluation }
-LOOPWorkspace >> doItReceiver [
+OBWorkspace >> doItReceiver [
 	^lesson executionContext
 ]
 
 { #category : #fileout }
-LOOPWorkspace >> export [
+OBWorkspace >> export [
 	| internalStream converter f |
 	[	internalStream := (String new: 100) writeStream.
 	self writeContentsOn: internalStream.
@@ -70,43 +75,43 @@ LOOPWorkspace >> export [
 ]
 
 { #category : #bindings }
-LOOPWorkspace >> hasBindingOf: aString [ 
+OBWorkspace >> hasBindingOf: aString [ 
 	^(lesson hasVariable: aString) or: [ self isLiteral: aString ].
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> icon [
-	^ObjectBrowserIcons workspaceIcon
+OBWorkspace >> icon [
+	^OBIcons workspaceIcon
 ]
 
 { #category : #bindings }
-LOOPWorkspace >> isLiteral: aString [
+OBWorkspace >> isLiteral: aString [
 	^(Smalltalk globals includesKey: aString asSymbol)
 		and: [ (Smalltalk globals at: aString asSymbol) isObjectBrowserLiteral ]
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> label [
+OBWorkspace >> label [
 	^label
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> label: aLabel [
+OBWorkspace >> label: aLabel [
 	label := aLabel.
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> lesson: aLesson [
+OBWorkspace >> lesson: aLesson [
 	lesson := aLesson.
 ]
 
 { #category : #selection }
-LOOPWorkspace >> makeSelectionOn: anObjectBrowser [ 
+OBWorkspace >> makeSelectionOn: anObjectBrowser [ 
 	anObjectBrowser workspaceSelected: self.
 ]
 
 { #category : #actions }
-LOOPWorkspace >> menu: aMenuBuilder [
+OBWorkspace >> menu: aMenuBuilder [
 	^aMenuBuilder addList: (OrderedCollection
 		with: (Array braceWith: 'abrir' translated with: #openWorkspace)
 		with: (Array braceWith: 'eliminar' translated with: #removeWorkspace) 
@@ -114,37 +119,37 @@ LOOPWorkspace >> menu: aMenuBuilder [
 ]
 
 { #category : #'showing/creation' }
-LOOPWorkspace >> openInWorld [
+OBWorkspace >> openInWorld [
 	window := self openLabel: self label.
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> selectedClassOrMetaClass [  
+OBWorkspace >> selectedClassOrMetaClass [  
 	^nil
 ]
 
 { #category : #fileout }
-LOOPWorkspace >> stringContents [
+OBWorkspace >> stringContents [
 	^(window findDeeplyA:TextMorph) text asString
 ]
 
 { #category : #accessing }
-LOOPWorkspace >> treeContents [
+OBWorkspace >> treeContents [
 	^OrderedCollection new
 ]
 
 { #category : #fileout }
-LOOPWorkspace >> writeContentsOn: stream [
+OBWorkspace >> writeContentsOn: stream [
 	stream nextPutAll: self stringContents.
 ]
 
 { #category : #fileout }
-LOOPWorkspace >> writeOn: stream [
+OBWorkspace >> writeOn: stream [
 	self writeOn: stream  withLessonIdentification: 'self'
 ]
 
 { #category : #fileout }
-LOOPWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
+OBWorkspace >> writeOn: stream withLessonIdentification: lessonIdentification [
 	stream nextPutAll: (lessonIdentification, ' createWorkspace: ''', self label ,'''' ,' contents: ''', 
 		(self stringContents copyReplaceAll: $' asString with: $' asString,$' asString ), '''.').
 ]

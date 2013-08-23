@@ -6,7 +6,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 LOOPTestSuccess >> icon [
-	^ObjectBrowserIcons okIcon
+	^OBIcons okIcon
 ]
 
 { #category : #'as yet unclassified' }
