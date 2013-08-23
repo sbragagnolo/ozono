@@ -226,7 +226,7 @@ ConfigurationOfObjectBrowser >> baseline20: spec [
 { #category : #symbolic }
 ConfigurationOfObjectBrowser >> development: spec [ 
 	<symbolicVersion: #development>
-	spec for: #'pharo1.2.x' version: '1.2.1'. 
+	spec for: #'common' version: '3.0'. 
 
 ]
 
@@ -453,6 +453,19 @@ ConfigurationOfObjectBrowser >> version20: spec [
 	spec for: #common do:[
 		spec blessing: #development.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.454'.
+
+		spec project: 'smallUML' with: '1.1.4'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
+	].
+]
+
+{ #category : #versions }
+ConfigurationOfObjectBrowser >> version30: spec [ 
+    <version: '3.0' imports: #('2.0-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.484'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
