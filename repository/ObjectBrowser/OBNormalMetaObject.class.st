@@ -247,7 +247,7 @@ OBNormalMetaObject >> hasReferencesTo: anOBObject [
 { #category : #methods }
 OBNormalMetaObject >> includesSelector: aSelector [
 
-	^self methods includesKey: aSelector
+	^self methods anySatisfy: [ :m | m selector == aSelector ]
 ]
 
 { #category : #'initialize-release' }
@@ -300,7 +300,7 @@ OBNormalMetaObject >> methods [
 	allMethods:= prototype methods .
 	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
 	methods do: [:method | dictionaryMethods at: method selector put: method ].
-	^ dictionaryMethods values asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector].
+	^ dictionaryMethods values
 ]
 
 { #category : #exporting }

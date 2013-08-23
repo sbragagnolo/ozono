@@ -20,7 +20,7 @@ ObjectBrowserVariableTestCase >> testDesreferenciarVariable [
 	variable pointTo: anObject.
 	self assert: variable pointsTo == anObject .
 	variable desreference.
-	self assert: variable pointsTo object == nil.
+	self assert: variable pointsTo realObject == nil.
 ]
 
 { #category : #'as yet unclassified' }

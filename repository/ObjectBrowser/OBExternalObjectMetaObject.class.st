@@ -99,14 +99,14 @@ OBExternalObjectMetaObject >> myClassHasMethod: aSelector [
 
 { #category : #accessing }
 OBExternalObjectMetaObject >> posibleName [
-	^'(NoObjectBrowserObject new: ', self realObject printString, ')'
+	^'(',self class name,' new: ', self realObject printString, ')'
 
 
 ]
 
 { #category : #printing }
 OBExternalObjectMetaObject >> printString [
-	^self object printString
+	^self realObject printString
 ]
 
 { #category : #'pharo-interaction' }

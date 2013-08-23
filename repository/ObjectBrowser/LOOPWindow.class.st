@@ -8,17 +8,12 @@ Class {
 	#category : #'ObjectBrowser-UI'
 }
 
-{ #category : #'as yet unclassified' }
-LOOPWindow class >> on: aLessonBrowser [
-	^self new on: aLessonBrowser; yourself.
-]
-
 { #category : #creation }
 LOOPWindow class >> show: aLOOPBrowser [ 
 	^self new show: aLOOPBrowser
 ]
 
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> buildAboutMorph [
 	^(window
 		newTextEditorFor: loopBrowser
@@ -28,17 +23,17 @@ LOOPWindow >> buildAboutMorph [
 		yourself
 ]
 
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> buildImportLessonButton [
 	^PluggableButtonMorph 
-		on: self
+		on: loopBrowser
 		getState: nil
 		action: #importLesson
 		label: #importLessonLabel
 		
 ]
 
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> buildLessonList [
 	^ PluggableListMorph new
 		on: (LessonListModel newOn: loopBrowser)
@@ -53,7 +48,7 @@ LOOPWindow >> buildLessonList [
 		 yourself
 ]
 
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> buildNewFreeLessonButton [
 	^PluggableButtonMorph 
 		on: loopBrowser 
@@ -63,7 +58,7 @@ LOOPWindow >> buildNewFreeLessonButton [
 		
 ]
 
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> buildUpdateButton [
 	^PluggableButtonMorph 
 		on: loopBrowser 
@@ -73,20 +68,10 @@ LOOPWindow >> buildUpdateButton [
 		
 ]
 
-{ #category : #showing }
-LOOPWindow >> chooseLessonFile. [
-	^ UITheme current
-		chooseFileIn: window
-		title: 'Selecciona la leccion a importar' translated
-		extensions: #('st') 
-		path: nil
-		preview: nil.
-]
-
-{ #category : #showing }
+{ #category : #creation }
 LOOPWindow >> createView [
 	| top left bottom right middle |
-	window := StandardWindow labelled: 'Lessons' translated.
+	window := StandardWindow labelled: 'Lecciones' translated.
 	window model: loopBrowser.
 	
 	top := left := 0.
@@ -99,20 +84,9 @@ LOOPWindow >> createView [
 	window addMorph: self buildLessonList frame: (left@top corner: middle@bottom).
 ]
 
-{ #category : #creation }
+{ #category : #showing }
 LOOPWindow >> delete [
 	window delete.
-]
-
-{ #category : #showing }
-LOOPWindow >> importLesson [
-	self chooseLessonFile ifNotNil: [ :fileEntry | ^loopBrowser importLesson: fileEntry ]
-]
-
-{ #category : #showing }
-LOOPWindow >> importLessonLabel [
-	^loopBrowser importLessonLabel
-		
 ]
 
 { #category : #accessing }
@@ -120,12 +94,17 @@ LOOPWindow >> loopBrowser: aLOOPBrowser [
 	loopBrowser := aLOOPBrowser
 ]
 
-{ #category : #creation }
-LOOPWindow >> show: aLOOPBrowser [ 
-	self loopBrowser: aLOOPBrowser.
-	self createView.
+{ #category : #showing }
+LOOPWindow >> show [
 	window openInWorld.
 	window extent: 400@300.
 	window center: World center.
 	^window.
+]
+
+{ #category : #showing }
+LOOPWindow >> show: aLOOPBrowser [ 
+	self loopBrowser: aLOOPBrowser.
+	self createView.
+	self show.
 ]

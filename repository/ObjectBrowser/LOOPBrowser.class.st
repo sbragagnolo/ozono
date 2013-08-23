@@ -57,6 +57,16 @@ LOOPBrowser >> aboutText [
 	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
 ]
 
+{ #category : #importing }
+LOOPBrowser >> chooseLessonFile. [
+	^ UITheme current
+		chooseFileIn: World
+		title: 'Selecciona la leccion a importar' translated
+		extensions: #('st') 
+		path: nil
+		preview: nil.
+]
+
 { #category : #creation }
 LOOPBrowser >> chooseTheFile. [
 	^ UITheme current
@@ -92,7 +102,12 @@ LOOPBrowser >> fileOutSelectedLesson [
 	UIManager inform: 'La lección se exportó correctamente!'.
 ]
 
-{ #category : #export }
+{ #category : #importing }
+LOOPBrowser >> importLesson [
+	self chooseLessonFile ifNotNil: [ :fileEntry | ^self importLesson: fileEntry ]
+]
+
+{ #category : #importing }
 LOOPBrowser >> importLesson: aFileEntry [
 	"LOOPImportFileList open. - > esto abre el browser con el boton importar que esta ahora"
 	| lesson lessonName |
@@ -101,7 +116,7 @@ LOOPBrowser >> importLesson: aFileEntry [
 	self changed.
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 LOOPBrowser >> importLessonLabel [
 	^'Importar Leccion'
 ]
