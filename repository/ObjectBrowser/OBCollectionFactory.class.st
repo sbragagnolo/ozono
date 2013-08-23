@@ -1,3 +1,6 @@
+"
+I am an abstract collection factory. My sub instances can create collections and are used as prototypes in the lesson workspace.
+"
 Class {
 	#name : #OBCollectionFactory,
 	#superclass : #Object,

@@ -1,3 +1,6 @@
+"
+I am a ordered collection factory. My instances can create ordered collections and are used as prototypes in the lesson workspace.
+"
 Class {
 	#name : #OBOrderedCollectionFactory,
 	#superclass : #OBCollectionFactory,

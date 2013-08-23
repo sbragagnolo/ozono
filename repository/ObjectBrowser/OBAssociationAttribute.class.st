@@ -1,3 +1,6 @@
+"
+I am an attribute representing an association. I am used to traverse the dictionary instances.
+"
 Class {
 	#name : #OBAssociationAttribute,
 	#superclass : #OBSpecialAttribute,
