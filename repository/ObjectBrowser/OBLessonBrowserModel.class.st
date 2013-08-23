@@ -1,5 +1,5 @@
 Class {
-	#name : #LOOPBrowser,
+	#name : #OBLessonBrowserModel,
 	#superclass : #Object,
 	#instVars : [
 		'lessonContainer',
@@ -10,12 +10,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-LOOPBrowser class >> icon [
+OBLessonBrowserModel class >> icon [
 	^Form fromBinaryStream: (Base64MimeConverter mimeDecodeToBytes: self iconContents readStream).
 ]
 
 { #category : #'as yet unclassified' }
-LOOPBrowser class >> iconContents [
+OBLessonBrowserModel class >> iconContents [
 ^'/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRof
 Hh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwh
 MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAAR
@@ -34,7 +34,7 @@ DOAO3NFQbH//2Q=='
 ]
 
 { #category : #'as yet unclassified' }
-LOOPBrowser class >> menuCommandOn: aBuilder [ 
+OBLessonBrowserModel class >> menuCommandOn: aBuilder [ 
 	<worldMenu>
 	(aBuilder item: #'PdeP Software')
 		order: 0.1;
@@ -47,18 +47,18 @@ LOOPBrowser class >> menuCommandOn: aBuilder [
 ]
 
 { #category : #'as yet unclassified' }
-LOOPBrowser class >> on: aLOOPLessonContainer [
+OBLessonBrowserModel class >> on: aLOOPLessonContainer [
 	^self new lessonContainer: aLOOPLessonContainer;
 		yourself.
 ]
 
 { #category : #accessing }
-LOOPBrowser >> aboutText [
+OBLessonBrowserModel >> aboutText [
 	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
 ]
 
 { #category : #importing }
-LOOPBrowser >> chooseLessonFile. [
+OBLessonBrowserModel >> chooseLessonFile. [
 	^ UITheme current
 		chooseFileIn: World
 		title: 'Selecciona la leccion a importar' translated
@@ -68,7 +68,7 @@ LOOPBrowser >> chooseLessonFile. [
 ]
 
 { #category : #creation }
-LOOPBrowser >> chooseTheFile. [
+OBLessonBrowserModel >> chooseTheFile. [
 	^ UITheme current
 		chooseFileIn: self 
 		title: 'Selecciona la leccion a importar'
@@ -78,7 +78,7 @@ LOOPBrowser >> chooseTheFile. [
 ]
 
 { #category : #creation }
-LOOPBrowser >> createFreeLesson [
+OBLessonBrowserModel >> createFreeLesson [
 	| lesson |
 	lesson := lessonContainer createFreeLesson.
 	lesson openInWorld.
@@ -86,7 +86,7 @@ LOOPBrowser >> createFreeLesson [
 ]
 
 { #category : #creation }
-LOOPBrowser >> createNewFreeLesson [
+OBLessonBrowserModel >> createNewFreeLesson [
 	| lesson lessonName |
 	lessonName :=self obtainLessonName.
 	lessonName ifNotNil:[
@@ -97,18 +97,18 @@ LOOPBrowser >> createNewFreeLesson [
 ]
 
 { #category : #export }
-LOOPBrowser >> fileOutSelectedLesson [
+OBLessonBrowserModel >> fileOutSelectedLesson [
 	self selectedLesson fileOut.
 	UIManager inform: 'La lección se exportó correctamente!'.
 ]
 
 { #category : #importing }
-LOOPBrowser >> importLesson [
+OBLessonBrowserModel >> importLesson [
 	self chooseLessonFile ifNotNil: [ :fileEntry | ^self importLesson: fileEntry ]
 ]
 
 { #category : #importing }
-LOOPBrowser >> importLesson: aFileEntry [
+OBLessonBrowserModel >> importLesson: aFileEntry [
 	"LOOPImportFileList open. - > esto abre el browser con el boton importar que esta ahora"
 	| lesson lessonName |
 	lesson := LOOPLesson fileIn: aFileEntry.
@@ -117,54 +117,54 @@ LOOPBrowser >> importLesson: aFileEntry [
 ]
 
 { #category : #importing }
-LOOPBrowser >> importLessonLabel [
+OBLessonBrowserModel >> importLessonLabel [
 	^'Importar Leccion'
 ]
 
 { #category : #accessing }
-LOOPBrowser >> initialize [
+OBLessonBrowserModel >> initialize [
 	self selectedLesson: NullLOOPLesson new.
 ]
 
 { #category : #creation }
-LOOPBrowser >> lessonContainer: aLessonContainer [
+OBLessonBrowserModel >> lessonContainer: aLessonContainer [
 	lessonContainer := aLessonContainer
 ]
 
 { #category : #showing }
-LOOPBrowser >> lessonListMenu: aMenu shifted: shifted [
+OBLessonBrowserModel >> lessonListMenu: aMenu shifted: shifted [
 	^aMenu addList: self selectedLesson menuActions.
 ]
 
 { #category : #creation }
-LOOPBrowser >> lessons [
+OBLessonBrowserModel >> lessons [
 	^lessonContainer lessons
 ]
 
 { #category : #accessing }
-LOOPBrowser >> newFreeLessonLabel [
+OBLessonBrowserModel >> newFreeLessonLabel [
 	^'Nueva Leccion' translated 
 ]
 
 { #category : #creation }
-LOOPBrowser >> obtainLessonName [
+OBLessonBrowserModel >> obtainLessonName [
 	| lessonName |
 	lessonName := self request: 'Nombre de la leccion' translated  default: 'Free Lesson'.
 	^ lessonName
 ]
 
 { #category : #showing }
-LOOPBrowser >> openInWorld [
+OBLessonBrowserModel >> openInWorld [
 	window := OBLessonBrowserWindow show: self.
 ]
 
 { #category : #accessing }
-LOOPBrowser >> openSelectedLesson [
+OBLessonBrowserModel >> openSelectedLesson [
 	self selectedLesson openInWorld
 ]
 
 { #category : #accessing }
-LOOPBrowser >> removeSelectedLesson [
+OBLessonBrowserModel >> removeSelectedLesson [
 	| lesson |
 	lesson := self selectedLesson.
 	lesson delete.
@@ -174,7 +174,7 @@ LOOPBrowser >> removeSelectedLesson [
 ]
 
 { #category : #accessing }
-LOOPBrowser >> renameSelectedLesson [
+OBLessonBrowserModel >> renameSelectedLesson [
 	|newTitle|
 	
 	newTitle := self obtainLessonName.
@@ -183,24 +183,24 @@ LOOPBrowser >> renameSelectedLesson [
 ]
 
 { #category : #creation }
-LOOPBrowser >> request: aTitle default: aDefaultValue [
+OBLessonBrowserModel >> request: aTitle default: aDefaultValue [
 	^ UIManager default
 		request: aTitle
 		initialAnswer: aDefaultValue
 ]
 
 { #category : #accessing }
-LOOPBrowser >> selectedLesson [
+OBLessonBrowserModel >> selectedLesson [
 	^selectedLesson
 ]
 
 { #category : #accessing }
-LOOPBrowser >> selectedLesson: aLOOPLesson [ 
+OBLessonBrowserModel >> selectedLesson: aLOOPLesson [ 
 	selectedLesson := aLOOPLesson.
 ]
 
 { #category : #creation }
-LOOPBrowser >> updateLOOP [
+OBLessonBrowserModel >> updateLOOP [
 	[
 		Gofer it
 			url: 'http://www.smalltalkhub.com/mc/Guille/LOOP/main';
@@ -212,6 +212,6 @@ LOOPBrowser >> updateLOOP [
 ]
 
 { #category : #creation }
-LOOPBrowser >> updateLOOPLabel [
+OBLessonBrowserModel >> updateLOOPLabel [
 	^'Actualizar Software!' translated 
 ]

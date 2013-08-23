@@ -1,5 +1,5 @@
 Class {
-	#name : #ObjectBrowser,
+	#name : #OBLessonModel,
 	#superclass : #Object,
 	#instVars : [
 		'lesson',
@@ -22,64 +22,64 @@ Class {
 }
 
 { #category : #creation }
-ObjectBrowser class >> onLesson: aLOOPLesson [ 
+OBLessonModel class >> onLesson: aLOOPLesson [ 
 	^self new lesson: aLOOPLesson;
 		yourself.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> actionsForAttributeListWith: selectedAttribute [
+OBLessonModel >> actionsForAttributeListWith: selectedAttribute [
 	^self selectedObject actionsForAttributeListWith: selectedAttribute
 ]
 
 { #category : #accessing }
-ObjectBrowser >> actionsForObjectBrowserReferencesList [
+OBLessonModel >> actionsForObjectBrowserReferencesList [
 	^(OrderedCollection with: #('crear nuevo objeto' #createObject))
 		addAll: self selectedObject actionsForObjectBrowserReferencesList;
 		asArray.
 ]
 
 { #category : #'dependents access' }
-ObjectBrowser >> addObjectSelectionInterested: anInterested [
+OBLessonModel >> addObjectSelectionInterested: anInterested [
 	self objectSelectionInterested add: anInterested
 ]
 
 { #category : #'dependents access' }
-ObjectBrowser >> addTestSelectionInterested: anInterested [
+OBLessonModel >> addTestSelectionInterested: anInterested [
 "	anInterested classOrMetaClass:  self lesson loopExecutionContextClass"
 ]
 
 { #category : #menues }
-ObjectBrowser >> attributeListMenu: aMenu shifted: shifted [
+OBLessonModel >> attributeListMenu: aMenu shifted: shifted [
 	^aMenu addList: (self actionsForAttributeListWith: self selectedObjectAttribute)
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> canDelete: anObjectBrowserObject [
+OBLessonModel >> canDelete: anObjectBrowserObject [
 
 	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> changed [
+OBLessonModel >> changed [
 	super changed.
 	self dependants do: [ :d | d refresh ].
 ]
 
 { #category : #showing }
-ObjectBrowser >> cloneObject [
+OBLessonModel >> cloneObject [
 		self createObject: [:objectName | 
 			self createVariable: objectName referencingTo: (self selectedObjectBrowserVariable pointsTo clone)
 			].
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> closeWorkspaces [
+OBLessonModel >> closeWorkspaces [
  	self workspaces do:[:wk | wk closeYourself].
 ]
 
 { #category : #accessing }
-ObjectBrowser >> compileMethod: aText notifying: someone [
+OBLessonModel >> compileMethod: aText notifying: someone [
 
 	self errorHandler
 		evaluate: [
@@ -90,19 +90,19 @@ ObjectBrowser >> compileMethod: aText notifying: someone [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> compileTest: aText [ 
+OBLessonModel >> compileTest: aText [ 
 	self errorHandler
 		evaluate: [	self selectedTest: (self lesson compileTest: aText).
 					self changed]
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> confirmDeletion [ 
+OBLessonModel >> confirmDeletion [ 
 	^UIManager default confirm: '¿Esta seguro de eliminar la referencia a este objeto?  El objeto aparecerá en la papelera si no tiene referencias' trueChoice: 'Si' falseChoice: 'No' .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> createAttribute [
+OBLessonModel >> createAttribute [
 	| variableName |
 	self errorHandler
 		evaluate: [ 
@@ -115,12 +115,12 @@ ObjectBrowser >> createAttribute [
 ]
 
 { #category : #showing }
-ObjectBrowser >> createBag [
+OBLessonModel >> createBag [
 	self createCollection: (Smalltalk at:#bag).
 ]
 
 { #category : #showing }
-ObjectBrowser >> createCollection: type [
+OBLessonModel >> createCollection: type [
 		self createObject: [:collectionName |  
 			self createVariable: collectionName referencingTo: (ObjectBrowserCollection newWithRealObject: type clone) 
 			].
@@ -129,38 +129,38 @@ ObjectBrowser >> createCollection: type [
 ]
 
 { #category : #showing }
-ObjectBrowser >> createDictionary [  
+OBLessonModel >> createDictionary [  
 	self createCollection: (Smalltalk at:#dictionary).
 ]
 
 { #category : #showing }
-ObjectBrowser >> createObject [
+OBLessonModel >> createObject [
 	self createObject: [:objectName | self createVariable: objectName].
 ]
 
 { #category : #showing }
-ObjectBrowser >> createObject: creationBlock [
+OBLessonModel >> createObject: creationBlock [
 	self errorHandler evaluate: [creationBlock value: self obtainObjectName].
 	self changed.
 ]
 
 { #category : #showing }
-ObjectBrowser >> createOrdered [
+OBLessonModel >> createOrdered [
 	self createCollection: (Smalltalk at:#ordered).
 ]
 
 { #category : #showing }
-ObjectBrowser >> createSet [
+OBLessonModel >> createSet [
 	self createCollection: (Smalltalk at:#set).
 ]
 
 { #category : #showing }
-ObjectBrowser >> createSorted [ 
+OBLessonModel >> createSorted [ 
 	self createCollection: (Smalltalk at:#sorted).
 ]
 
 { #category : #menues }
-ObjectBrowser >> createTest: testLabel contents: someContents [
+OBLessonModel >> createTest: testLabel contents: someContents [
 	| testCase |
 	testCase := self lesson compileTest: someContents.
 	self selectedItem: testCase.
@@ -169,12 +169,12 @@ ObjectBrowser >> createTest: testLabel contents: someContents [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> createVariable: aVariableNameString [
+OBLessonModel >> createVariable: aVariableNameString [
 	self createVariable: aVariableNameString  referencingTo: self lesson createObject.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrowserObject [
+OBLessonModel >> createVariable: aVariableNameString referencingTo: anObjectBrowserObject [
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
@@ -186,7 +186,7 @@ ObjectBrowser >> createVariable: aVariableNameString referencingTo: anObjectBrow
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> createVariable: aVariableNameString toRecover: anObjectBrowserObject [
+OBLessonModel >> createVariable: aVariableNameString toRecover: anObjectBrowserObject [
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
@@ -198,7 +198,7 @@ ObjectBrowser >> createVariable: aVariableNameString toRecover: anObjectBrowserO
 ]
 
 { #category : #showing }
-ObjectBrowser >> createWorkspace [
+OBLessonModel >> createWorkspace [
 	| workspaceLabel |
 	(self errorHandler
 		evaluate: [
@@ -210,12 +210,12 @@ ObjectBrowser >> createWorkspace [
 ]
 
 { #category : #showing }
-ObjectBrowser >> createWorkspace: workspaceLabel [
+OBLessonModel >> createWorkspace: workspaceLabel [
 	^self createWorkspace: workspaceLabel contents: ''.
 ]
 
 { #category : #showing }
-ObjectBrowser >> createWorkspace: workspaceLabel contents: someContents [
+OBLessonModel >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
 	workspace := self lesson createWorkspace: workspaceLabel contents: someContents.
 	self selectedItem: workspace.
@@ -224,12 +224,12 @@ ObjectBrowser >> createWorkspace: workspaceLabel contents: someContents [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> delete [
+OBLessonModel >> delete [
 	window delete.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> deleteLessonVariable [
+OBLessonModel >> deleteLessonVariable [
 	self errorHandler
 		evaluate: [
 			self selectedObject
@@ -243,21 +243,21 @@ ObjectBrowser >> deleteLessonVariable [
 ]
 
 { #category : #deleting }
-ObjectBrowser >> deleteMethod [
+OBLessonModel >> deleteMethod [
 	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectMethod ].
 	self selectedObjectMethod: NullOBMethod new.
 	self changed.
 ]
 
 { #category : #deleting }
-ObjectBrowser >> deleteTest [
+OBLessonModel >> deleteTest [
 	self errorHandler evaluate: [self lesson removeTest: self selectedTest  ].
 	self selectedTest: nil.
 	self changed.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> deleteVariable [
+OBLessonModel >> deleteVariable [
 	self errorHandler
 		evaluate: [
 			self selectedObjectAttribute
@@ -269,61 +269,61 @@ ObjectBrowser >> deleteVariable [
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> dependant: aDependant [
+OBLessonModel >> dependant: aDependant [
 	self dependants add: aDependant.
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> dependants [
+OBLessonModel >> dependants [
 	^dependants ifNil: [ dependants := Set new].
 ]
 
 { #category : #accessing }
-ObjectBrowser >> dereferenceSelectedVariable [
+OBLessonModel >> dereferenceSelectedVariable [
 	self selectedObjectBrowserVariable desreference.
 	self selectDereferencedObject: self selectedObjectBrowserVariable.
 	self changed .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> deselectVariables [
+OBLessonModel >> deselectVariables [
 	self selectedObjectAttribute: NullLessonVariable new.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> doDeleteLessonVariable [
+OBLessonModel >> doDeleteLessonVariable [
 	self lesson removeVariable: self selectedObjectBrowserVariable .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> doDeleteVariable [
+OBLessonModel >> doDeleteVariable [
 	self selectedObject removeAttribute: self selectedObjectAttribute.
 	self deselectVariables 
 	
 ]
 
 { #category : #accessing }
-ObjectBrowser >> errorHandler [
+OBLessonModel >> errorHandler [
 	^ErrorHandler default
 ]
 
 { #category : #accessing }
-ObjectBrowser >> exportDiagram [
+OBLessonModel >> exportDiagram [
 	self lesson exportDiagram
 ]
 
 { #category : #export }
-ObjectBrowser >> exportTest [
+OBLessonModel >> exportTest [
 	self lesson exportTest: self selectedTest.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> exportWorkspace [
+OBLessonModel >> exportWorkspace [
 	selectedWorkspace export
 ]
 
 { #category : #accessing }
-ObjectBrowser >> fileInTests [
+OBLessonModel >> fileInTests [
 	| fileName inStream contents st |
 	fileName := UIManager default chooseFileMatching: #('*.st') label: 'Selecciona el test a importar'.
 	fileName ifNotNil:[
@@ -336,7 +336,7 @@ ObjectBrowser >> fileInTests [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> fileInWorkspace [
+OBLessonModel >> fileInWorkspace [
 	| fileName inStream contents ws |
 	fileName := UIManager default chooseFileMatching: #('*.ws') label: 'Selecciona el workspace a importar'.
 	fileName ifNotNil:[
@@ -349,35 +349,35 @@ ObjectBrowser >> fileInWorkspace [
 ]
 
 { #category : #showing }
-ObjectBrowser >> garbageCollectorButtonLabel [
+OBLessonModel >> garbageCollectorButtonLabel [
 	^'Run Garbage Collector'
 ]
 
 { #category : #'initialize-release' }
-ObjectBrowser >> initialize [
+OBLessonModel >> initialize [
 	super initialize.
 	self selectedTabIndex: 1.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> isDiagramSelected [ 
+OBLessonModel >> isDiagramSelected [ 
 	"Está hardcodeado el índice 3 para el diagrama..."
 	^self selectedTabIndex = 3
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> lesson [
+OBLessonModel >> lesson [
 	^lesson
 ]
 
 { #category : #accessing }
-ObjectBrowser >> lesson: aLOOPLesson [ 
+OBLessonModel >> lesson: aLOOPLesson [ 
 	lesson := aLOOPLesson.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> lessonOrganization [
+OBLessonModel >> lessonOrganization [
 	^organization ifNil: [ organization := OrderedCollection 
 		with: (OBListItemWrapper with: (ObjectsOrganization for: self))
 		with: (OBListItemWrapper with: (WorkspacesOrganization for: self))
@@ -388,33 +388,33 @@ ObjectBrowser >> lessonOrganization [
 ]
 
 { #category : #menues }
-ObjectBrowser >> methodListMenu: aMenu shifted: shifted [
+OBLessonModel >> methodListMenu: aMenu shifted: shifted [
 	aMenu addList: self selectedObjectMethod menuItems.
 	^ aMenu
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> objectBrowserVariables [
+OBLessonModel >> objectBrowserVariables [
 	^self lesson variables
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> objectNames [
+OBLessonModel >> objectNames [
 	^self objects collect:[:each | each name]
 ]
 
 { #category : #'dependents access' }
-ObjectBrowser >> objectSelectionInterested [
+OBLessonModel >> objectSelectionInterested [
 	^objectSelectionInterested ifNil: [ objectSelectionInterested := Set new ]
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> objects [
+OBLessonModel >> objects [
 	^self lesson objects
 ]
 
 { #category : #accessing }
-ObjectBrowser >> objectsOrganizationSelected [
+OBLessonModel >> objectsOrganizationSelected [
 	"self selectedTabIndex:  1."
 	selectedPage := #objects.
 	self selectedObjectBrowserVariable: NullLessonVariable new.
@@ -422,7 +422,7 @@ ObjectBrowser >> objectsOrganizationSelected [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> obtainObjectName [
+OBLessonModel >> obtainObjectName [
 	| objectName |
 	objectName := self request: 'Nombre de la referencia al objeto' default: 'nuevaReferencia'.
 	objectName ifNil: [OperationCancelled new signal].
@@ -431,28 +431,28 @@ ObjectBrowser >> obtainObjectName [
 ]
 
 { #category : #showing }
-ObjectBrowser >> obtainWorkpaceLabel [
+OBLessonModel >> obtainWorkpaceLabel [
 	^self request: 'Nombre del workspace' default: 'nuevoWorkspace'.
 ]
 
 { #category : #'initialize-release' }
-ObjectBrowser >> openInWorld [
+OBLessonModel >> openInWorld [
 	window := OBLessonWindow show: self.
 	
 ]
 
 { #category : #showing }
-ObjectBrowser >> openWorkspace [
+OBLessonModel >> openWorkspace [
 	self selectedItem openInWorld
 ]
 
 { #category : #menues }
-ObjectBrowser >> orphanObjects [
+OBLessonModel >> orphanObjects [
 	^(self lesson dereferencedObjects) collect: [ :o | DereferencedObject newOn: o].
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> recoverObject [
+OBLessonModel >> recoverObject [
 	| variableName |
 	(self errorHandler
 		evaluate: [
@@ -465,25 +465,25 @@ ObjectBrowser >> recoverObject [
 ]
 
 { #category : #model }
-ObjectBrowser >> removeObject: anObject [
+OBLessonModel >> removeObject: anObject [
 	self objects remove: anObject.
 ]
 
 { #category : #showing }
-ObjectBrowser >> removeWorkspace [
+OBLessonModel >> removeWorkspace [
 	self confirmDeletion ifTrue: [self workspaces remove: self selectedItem].
 	self changed.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> request: aTitle default: aDefaultValue [
+OBLessonModel >> request: aTitle default: aDefaultValue [
 	^ UIManager default
 		request: aTitle
 		initialAnswer: aDefaultValue
 ]
 
 { #category : #testing }
-ObjectBrowser >> runAllTests [
+OBLessonModel >> runAllTests [
 	| results |
 	results := self lesson runAllTests.
 	(self dependants detect: [ :d | d isKindOf: OBLessonWindow ]) setTestsResults: results.
@@ -491,24 +491,24 @@ ObjectBrowser >> runAllTests [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> runAllTestsLabel [
+OBLessonModel >> runAllTestsLabel [
 	^'Probar Todos'
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> runGarbageCollector [
+OBLessonModel >> runGarbageCollector [
 	self lesson runGarbageCollector.
 	self changed .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> runTest [
+OBLessonModel >> runTest [
 	self selectedTest run.
 	self changed.
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
+OBLessonModel >> selectDereferencedObject: aDerreferencedObject [
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectMethod := NullOBMethod new.
 	selectedDerreferencedObject := aDerreferencedObject .
@@ -516,28 +516,28 @@ ObjectBrowser >> selectDereferencedObject: aDerreferencedObject [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedDerreferencedObject [
+OBLessonModel >> selectedDerreferencedObject [
 	^selectedDerreferencedObject  .
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedItem [
+OBLessonModel >> selectedItem [
 	^selectedItem
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedItem: anItem [
+OBLessonModel >> selectedItem: anItem [
 	selectedItem := anItem.
 	selectedItem ifNotNil: [ selectedItem makeSelectionOn: self. ].
 ]
 
 { #category : #menues }
-ObjectBrowser >> selectedItemMenu: aMenuMorph [ 
+OBLessonModel >> selectedItemMenu: aMenuMorph [ 
 	^self selectedItem ifNotNil: [ :item | item menu: aMenuMorph]
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedMethodCode [
+OBLessonModel >> selectedMethodCode [
 	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
 
 	^(self selectedObjectMethod isNil)
@@ -547,33 +547,33 @@ ObjectBrowser >> selectedMethodCode [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObject [
+OBLessonModel >> selectedObject [
 	^self selectedObjectBrowserVariable pointsTo
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectAttribute [
+OBLessonModel >> selectedObjectAttribute [
 	^selectedObjectAttribute
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectAttribute: anAttribute [
+OBLessonModel >> selectedObjectAttribute: anAttribute [
 	selectedObjectAttribute := anAttribute.
 	self changed.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectAttributes [
+OBLessonModel >> selectedObjectAttributes [
 	^self selectedObject attributes
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectBrowserVariable [
+OBLessonModel >> selectedObjectBrowserVariable [
 	^selectedObjectBrowserVariable
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
+OBLessonModel >> selectedObjectBrowserVariable: anOBVariable [
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := NullLessonVariable new.
 	selectedObjectMethod := NullOBMethod new.
@@ -583,60 +583,60 @@ ObjectBrowser >> selectedObjectBrowserVariable: anOBVariable [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectMethod [
+OBLessonModel >> selectedObjectMethod [
 	^selectedObjectMethod
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectMethod: aMethod [
+OBLessonModel >> selectedObjectMethod: aMethod [
 	selectedObjectMethod := aMethod.
 	self changed.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedObjectMethods [
+OBLessonModel >> selectedObjectMethods [
 	^self selectedObject methods" collect: [ :m | ShowingMethod object: self selectedObject method: m ]".
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedPage [
+OBLessonModel >> selectedPage [
 	^selectedPage ifNil: [ #objects ]
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedPage: aPageKey [
+OBLessonModel >> selectedPage: aPageKey [
 	selectedPage := aPageKey
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedTabIndex [
+OBLessonModel >> selectedTabIndex [
 	^ selectedTabIndex ifNil: [1].
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedTabIndex: anObject [
+OBLessonModel >> selectedTabIndex: anObject [
 	selectedTabIndex := anObject
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedTest [
+OBLessonModel >> selectedTest [
 	self lesson tests notEmpty & selectedTest ifNil: [ self selectedTest: self lesson tests asOrderedCollection first ].
 	^selectedTest
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedTest: aTest [
+OBLessonModel >> selectedTest: aTest [
 	selectedTest := aTest.
 	self changed.
 ]
 
 { #category : #accessing }
-ObjectBrowser >> selectedWorkspace: aWorkspace [
+OBLessonModel >> selectedWorkspace: aWorkspace [
 	selectedWorkspace := aWorkspace
 ]
 
 { #category : #showing }
-ObjectBrowser >> selectorListEmpyText [
+OBLessonModel >> selectorListEmpyText [
 	| string|
 
 	string := 'messageSelectorAndArgumentNames
@@ -650,7 +650,7 @@ ObjectBrowser >> selectorListEmpyText [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> subMenuCollections [
+OBLessonModel >> subMenuCollections [
 	| menuCrearColeccion |
 	self deprecated: 'esta en ObjectsOrganization'.
 	menuCrearColeccion := MenuMorph new target: self; yourself .
@@ -662,19 +662,19 @@ ObjectBrowser >> subMenuCollections [
 ]
 
 { #category : #accessing }
-ObjectBrowser >> subMenuCollectionsName [
+OBLessonModel >> subMenuCollectionsName [
 self deprecated: 'esta en ObjectsOrganization'.
 	^'Crear nuevo conjunto'
 ]
 
 { #category : #accessing }
-ObjectBrowser >> testCaseSelected: aTestCase [
+OBLessonModel >> testCaseSelected: aTestCase [
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 	self selectedTest: aTestCase.
 ]
 
 { #category : #menues }
-ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [ 
+OBLessonModel >> testListMenu: aMenu shifted: aBoolean [ 
 	aMenu addList: (OrderedCollection  with: (Array braceWith: 'borrar test' translated with: #deleteTest)
 										 with: (Array braceWith: 'exportar' translated with: #exportTest)
 										with: (Array braceWith: 'correr test' translated with: #runTest)) .
@@ -683,12 +683,12 @@ ObjectBrowser >> testListMenu: aMenu shifted: aBoolean [
 ]
 
 { #category : #menues }
-ObjectBrowser >> tests [
+OBLessonModel >> tests [
 	^self lesson tests
 ]
 
 { #category : #menues }
-ObjectBrowser >> testsOrganizationSelected [
+OBLessonModel >> testsOrganizationSelected [
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 	selectedPage := #tests.
 	self changed.
@@ -696,17 +696,17 @@ ObjectBrowser >> testsOrganizationSelected [
 ]
 
 { #category : #showing }
-ObjectBrowser >> title [
+OBLessonModel >> title [
 	 ^self lesson title
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> validateVariableName: aVariableNameString [
+OBLessonModel >> validateVariableName: aVariableNameString [
 	self validateVariableName: aVariableNameString  usingExistingVariables: self variables .
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> validateVariableName: aVariableNameString usingExistingVariables: variables [
+OBLessonModel >> validateVariableName: aVariableNameString usingExistingVariables: variables [
 	(aVariableNameString isNil or: [aVariableNameString isEmpty])
 		ifTrue:[ self error: 'El nombre de la variable no debe ser vacío'  translated ].
 	(aVariableNameString matchesRegex: '[a-z]+([a-z]|[A-Z]|[0-9])*')
@@ -716,27 +716,27 @@ ObjectBrowser >> validateVariableName: aVariableNameString usingExistingVariable
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowser >> variableNamed: aVariableNameString [
+OBLessonModel >> variableNamed: aVariableNameString [
 	^self lesson variableNamed: aVariableNameString.
 ]
 
 { #category : #ObjectBrowser }
-ObjectBrowser >> variables [
+OBLessonModel >> variables [
 	^self lesson variables
 ]
 
 { #category : #accessing }
-ObjectBrowser >> workspaceSelected: aWorkspace [
+OBLessonModel >> workspaceSelected: aWorkspace [
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 	self selectedWorkspace: aWorkspace.
 ]
 
 { #category : #menues }
-ObjectBrowser >> workspaces [
+OBLessonModel >> workspaces [
 	^self lesson workspaces
 ]
 
 { #category : #selection }
-ObjectBrowser >> workspacesOrganizationSelected [
+OBLessonModel >> workspacesOrganizationSelected [
 	self selectedObjectBrowserVariable: NullLessonVariable new.
 ]

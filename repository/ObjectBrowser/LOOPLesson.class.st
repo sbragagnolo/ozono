@@ -26,7 +26,7 @@ LOOPLesson class >> addLesson: lesson. [
 
 { #category : #accessing }
 LOOPLesson class >> browseLessons [ 
-	(LOOPBrowser on: self) openInWorld
+	(OBLessonBrowserModel on: self) openInWorld
 ]
 
 { #category : #accessing }
@@ -388,7 +388,7 @@ LOOPLesson >> objects: anObject [
 
 { #category : #showing }
 LOOPLesson >> openInWorld [
-	browser := (ObjectBrowser onLesson: self) openInWorld
+	browser := (OBLessonModel onLesson: self) openInWorld
 ]
 
 { #category : #accessing }

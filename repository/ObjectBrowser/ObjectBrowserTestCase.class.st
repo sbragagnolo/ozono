@@ -11,7 +11,7 @@ Class {
 ObjectBrowserTestCase >> testCreateDuplicatedVariable [
 	| variableName |
 	variableName :='pepita'.
-	ob := ObjectBrowser onLesson: currentLesson.
+	ob := OBLessonModel onLesson: currentLesson.
 	ob createVariable: variableName .
 	self should: [ob createVariable: variableName ] raise: Error
 ]
@@ -23,7 +23,7 @@ ObjectBrowserTestCase >> testCreateNonLowecaseVariable [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserTestCase >> testCreateNonValidVariableNamed: variableName [
-	ob := ObjectBrowser onLesson: currentLesson.
+	ob := OBLessonModel onLesson: currentLesson.
 	self should: [ob createVariable: variableName ] raise: Error.
 	self assert: (currentLesson hasVariableNamed: variableName) not
 ]
@@ -32,7 +32,7 @@ ObjectBrowserTestCase >> testCreateNonValidVariableNamed: variableName [
 ObjectBrowserTestCase >> testCreateVariable [
 	| variableName |
 	variableName :='pepita'.
-	ob := ObjectBrowser onLesson: currentLesson.
+	ob := OBLessonModel onLesson: currentLesson.
 	ob createVariable: variableName .
 	self assert: (ob variableNamed: variableName) pointsTo class = OBNormalMetaObject.
 ]

@@ -14,7 +14,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	
 	variableName :='pepita'.
 	anotherVariableName := 'popote'.
-	ob := ObjectBrowser onLesson: currentLesson.
+	ob := OBLessonModel onLesson: currentLesson.
 	
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
@@ -38,7 +38,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 GarbageCollectorTestCase >> testSimpleRunGarbageCollector [
 	| variableName variableToPepita pepita |
 	variableName :='pepita'.
-	ob := ObjectBrowser onLesson: currentLesson.
+	ob := OBLessonModel onLesson: currentLesson.
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
 	pepita := variableToPepita pointsTo.
