@@ -23,42 +23,51 @@ Class {
 	#category : #'ObjectBrowser-Lessons'
 }
 
-{ #category : #creation }
-OBLesson class >> addLesson: lesson. [
+{ #category : #accessing }
+OBLesson class >> addLesson: lesson [
+
 	self lessons add: lesson.
 ]
 
-{ #category : #accessing }
+{ #category : #show }
 OBLesson class >> browseLessons [ 
+
 	(OBLessonBrowserModel on: self) openInWorld
 ]
 
 { #category : #accessing }
 OBLesson class >> cleanAllLessons [
-	self lessons do: [ :lesson | lesson clean  ].
+
+	self lessons do: [ :lesson | lesson clean ]
 ]
 
-{ #category : #creation }
+{ #category : #'instance-creation' }
 OBLesson class >> createFreeLesson [
+
 	| lesson |
 	lesson := self newFreeLesson.
 	self addLesson: lesson.
 	^lesson.
 ]
 
-{ #category : #creation }
-OBLesson class >> createLessonNamed: title [ 
-	^self createFreeLesson title:  title; yourself .
+{ #category : #'instance-creation' }
+OBLesson class >> createLessonNamed: title [
+
+	^ self createFreeLesson
+			title: title;
+			yourself
 ]
 
 { #category : #accessing }
 OBLesson class >> deleteAllLessons [
-	self cleanAllLessons .
+
+	self cleanAllLessons.
 	lessons := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson class >> fileIn: aFileEntry [
+
 	| lessonImported inStream |
 	
 	Author fullName ifNil: [Author requestFullName].	
@@ -85,25 +94,27 @@ OBLesson class >> fileIn: aFileEntry [
 
 { #category : #accessing }
 OBLesson class >> lessons [
+
 	^lessons ifNil: [ lessons := OrderedCollection new ].
 ]
 
-{ #category : #accessing }
+{ #category : #'instance-creation' }
 OBLesson class >> newFreeLesson [
-	^self new title:'Free Lesson'
-	
+
+	^self new title: 'Nueva Leccion'
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson class >> select [
+	"asco para fileIn #3"
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson class >> selectFrom: start to: end [ 
 	"asco para fileIn #2"
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson class >> selectionInterval [
 	"asco para poder hacer fileins"
 	^1 to: 0
@@ -115,21 +126,21 @@ OBLesson class >> suspendAllWhile: aBlock [
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
-{ #category : #'object-handling' }
+{ #category : #objects }
 OBLesson >> addObject: anObject [
 	^self objects add: anObject.
 ]
 
-{ #category : #'reference-handling' }
+{ #category : #variables }
 OBLesson >> addVariable: aVariable [
 	self basicAddVariable: aVariable.
 	(aVariable pointsTo isKindOf: OBExternalObjectMetaObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
-{ #category : #'reference-handling' }
+{ #category : #variables }
 OBLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 	|aVariable|
-	aVariable :=	 (LessonVariable new)
+	aVariable :=	 (OBLessonVariable new)
 		name: theReferenceName ;
 		pointTo: anObject ;
 		yourself.
@@ -138,17 +149,17 @@ OBLesson >> addVariableNamed: theReferenceName pointingTo: anObject [
 
 ]
 
-{ #category : #accessing }
+{ #category : #workspaces }
 OBLesson >> addWorkspace: aWorkspace [
 	self workspaces add: aWorkspace 
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 OBLesson >> asString [
 	^self displayString copyReplaceAll: ' ' with: ''
 ]
 
-{ #category : #'reference-handling' }
+{ #category : #variables }
 OBLesson >> basicAddVariable: aVariable [
 	self variables add: aVariable.
 	self suspendAllWhile: [
@@ -165,13 +176,13 @@ OBLesson >> buildGraph [
 	^graph
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBLesson >> changed [
 	super changed .
 	browser changed .
 ]
 
-{ #category : #accessing }
+{ #category : #cleaning }
 OBLesson >> clean [
 	self objects removeAll.
 	self variables do:[:v | executionContext class removeFromSystem ].
@@ -180,7 +191,7 @@ OBLesson >> clean [
 	self class instVarNames do: [ :vn | self instVarNamed: vn put: nil].
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 OBLesson >> compileTest: aTestText [
 	| result newTest |
 	self suspendAllWhile: [
@@ -191,7 +202,7 @@ OBLesson >> compileTest: aTestText [
 	]
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 OBLesson >> createClass: aClassName subclassOf: aSuperClass [
 	self suspendAllWhile: [
 		^ClassBuilder new
@@ -206,7 +217,7 @@ OBLesson >> createClass: aClassName subclassOf: aSuperClass [
 	]
 ]
 
-{ #category : #'object-handling' }
+{ #category : #objects }
 OBLesson >> createObject [
 	| newObject |
 	newObject := OBMetaObject newOn: self.
@@ -215,7 +226,7 @@ OBLesson >> createObject [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #workspaces }
 OBLesson >> createWorkspace: workspaceLabel contents: someContents [
 	| workspace |
 	workspace := OBWorkspace new
@@ -228,17 +239,17 @@ OBLesson >> createWorkspace: workspaceLabel contents: someContents [
 	^workspace
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBLesson >> delete [
 	browser ifNotNil: [ :br | br delete ]
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> dereferencedObjects [
 	^self buildGraph dereferencedObjects
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 OBLesson >> displayString [
 	^self title
 ]
@@ -253,18 +264,17 @@ OBLesson >> exportDiagram [
 	self objectDiagram exportDiagram
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exporting }
 OBLesson >> exportTest: anOBTest [
 
 	|internalStream|
-
 	internalStream := (String new: 50) writeStream.
 	anOBTest writeYourOwnCodeOn:  internalStream lesson: self.
 	FileStream writeSourceCodeFrom: internalStream baseName: self lessonIdentification asFileName isSt: true.
 	
 ]
 
-{ #category : #exportation }
+{ #category : #importing }
 OBLesson >> fileIn: aFileName [
 	^Compiler new 
 			evaluate: aFileName readStream
@@ -275,24 +285,7 @@ OBLesson >> fileIn: aFileName [
 			logged: true.
 ]
 
-{ #category : #exportation }
-OBLesson >> fileInSomethingInFile: aFileName [
-	| lessonImported inStream |
-	
-	[ inStream := StandardFileStream fileNamed: aFileName.
-		lessonImported := Compiler new 
-			evaluate: inStream readStream
-			in: nil
-			to: self
-			notifying: self
-			ifFail: [FakeClassPool adopt: nil. ^ #failedDoit]
-			logged: true.
-		] ensure: [inStream close.].
-		lessonImported isNil ifTrue: [self error: 'Falló la importación'].
-		^ lessonImported.
-]
-
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> fileOut [
 
 	| internalStream |
@@ -306,29 +299,29 @@ OBLesson >> fileOut [
 	] ensure: [ internalStream close ]
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
 	(self realObjects anySatisfy: [:realObject | realObject == aRealObject])
 		ifTrue:  [ ^self objects detect: [ :o | o realObject == aRealObject ] ]
 		ifFalse: [ ^OBExternalObjectMetaObject for: aRealObject . ]
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> hasObject: anObject [
 	^objects includes: anObject.
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> hasReferencesTo: anObjectBrowserObject [
 	^self variables anySatisfy: [ :v | v hasReferencesTo: anObjectBrowserObject ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #variables }
 OBLesson >> hasVariable: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #variables }
 OBLesson >> hasVariableNamed: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
@@ -368,7 +361,7 @@ OBLesson >> lessonEnvironment [
 		 ].
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> lessonIdentification [
 	^self title asLegalSelector
 ]
@@ -384,10 +377,10 @@ OBLesson >> loopExecutionContextClass [
 	^loopExecutionContextClass ifNil: [ 
 		loopExecutionContextClass :=  
 			self createClass: #LessonExecutionContext 
-				subclassOf: LOOPExecutionContext. ]
+				subclassOf: OBExecutionContext. ]
 ]
 
-{ #category : #showing }
+{ #category : #'ui-actions' }
 OBLesson >> menuActions [
 ^OrderedCollection
 		with: (Array braceWith: 'abrir' translated with: #openSelectedLesson)
@@ -396,7 +389,7 @@ OBLesson >> menuActions [
 		with: (Array braceWith: 'exportar' translated with: #fileOutSelectedLesson)
 ]
 
-{ #category : #showing }
+{ #category : #objects }
 OBLesson >> objectBrowserObjectForRealObject: realObject [
 	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ OBExternalObjectMetaObject for: realObject ].
 ]
@@ -406,65 +399,60 @@ OBLesson >> objectDiagram [
 	^objectDiagram 
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> objects [
 	^objects ifNil: [objects := Set new].
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> objects: anObject [
 	objects := anObject
 ]
 
-{ #category : #showing }
+{ #category : #'ui-actions' }
 OBLesson >> openInWorld [
 	browser := (OBLessonModel onLesson: self) openInWorld
 ]
 
-{ #category : #accessing }
-OBLesson >> parseTestCodeFrom: stream [
-
-]
-
-{ #category : #accessing }
+{ #category : #printing }
 OBLesson >> printString [
 	^self title
 ]
 
-{ #category : #accessing }
+{ #category : #model }
 OBLesson >> realObjects [
 	^self objects collect: [ :o | o realObject ].
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> referencesObject: anObjectBrowserObject [
 	^self variables anySatisfy: [:v | v isPointingTo: anObjectBrowserObject ].
 ]
 
-{ #category : #accessing }
+{ #category : #objects }
 OBLesson >> removeDerrefencedObject: aDereferencedObject [ 
 	self deprecated: 'no se usa'.
 	self dereferencedObjects remove: aDereferencedObject .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #cleaning }
 OBLesson >> removeFromSystem [
 	self loopExecutionContextClass removeFromSystem.
 	self lessonEnvironment do: [ :c | c isBehavior ifTrue: [ c removeFromSystem ] ].
 	self lessonEnvironment removeAll.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #model }
 OBLesson >> removeObject: anObjectBrowserObject [ 
 	self objects remove: anObjectBrowserObject.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 OBLesson >> removeTest: aTest [
 	tests removeKey: aTest selector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #variables }
 OBLesson >> removeVariable: anOBVariable [ 
 	self variables remove: anOBVariable .
 	self suspendAllWhile: [
@@ -472,7 +460,7 @@ OBLesson >> removeVariable: anOBVariable [
 	]
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 OBLesson >> runAllTests [
 	| results result |
 	results := LOOPTestCaseResult new.
@@ -483,36 +471,36 @@ OBLesson >> runAllTests [
 
 ]
 
-{ #category : #accessing }
+{ #category : #'garbage-collection' }
 OBLesson >> runGarbageCollector [ 
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
 		self removeObject: o ].
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson >> selectFrom: start to: end [ 
 	"asco para poder hacer fileins"
 ]
 
-{ #category : #accessing }
+{ #category : #importing }
 OBLesson >> selectionInterval [
 	"asco para poder hacer fileins"
 	^1 to: 0
 ]
 
-{ #category : #'system-events' }
+{ #category : #'pharo-interaction' }
 OBLesson >> suspendAllWhile: aBlock [
 	"we suspend the system announcements"
 	self class suspendAllWhile: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 OBLesson >> testDictionary [
 	^tests ifNil: [ tests := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : #tests }
 OBLesson >> tests [
 	^self testDictionary values
 ]
@@ -532,27 +520,27 @@ OBLesson >> updateObjectDiagram [
 	objectDiagram update
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #variables }
 OBLesson >> variableNamed: aByteString [ 
 	^self variables detect:[ :var | var name = aByteString  ].
 ]
 
-{ #category : #accessing }
+{ #category : #variables }
 OBLesson >> variables [
 	^ variables ifNil:[variables := OrderedCollection new]
 ]
 
-{ #category : #accessing }
+{ #category : #variables }
 OBLesson >> variables: anObject [
 	variables := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #workspaces }
 OBLesson >> workspaces [
 	^ workspaces ifNil:[ workspaces := OrderedCollection new]
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> writeAddScriptToLessonOn: stream [
 	self variables
 		do: [ :variable | 
@@ -569,7 +557,7 @@ OBLesson >> writeAddScriptToLessonOn: stream [
 	stream cr
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> writeAllTheVariablesOn: stream [ 
 	
 	stream nextPutAll: '| '.
@@ -578,7 +566,7 @@ OBLesson >> writeAllTheVariablesOn: stream [
 	stream cr ; cr.
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> writeCreationScriptOver: stream [
 	
 	"primero la definicion de variables"
@@ -616,7 +604,7 @@ OBLesson >> writeCreationScriptOver: stream [
 	self writeAddScriptToLessonOn: stream .
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> writeLessonCreationOn: stream. [
 	stream nextPutAll: self lessonIdentification, ' := LOOPLesson new title: ''',self title ,'''.'.
 	stream cr.
@@ -624,7 +612,7 @@ OBLesson >> writeLessonCreationOn: stream. [
 	stream cr.
 ]
 
-{ #category : #exportation }
+{ #category : #exporting }
 OBLesson >> writeWorkspacesOn: stream [
 	
 	stream cr.

@@ -2,7 +2,7 @@
 I am a variable hold by the lesson.
 "
 Class {
-	#name : #LessonVariable,
+	#name : #OBLessonVariable,
 	#superclass : #Object,
 	#instVars : [
 		'reference',
@@ -11,55 +11,55 @@ Class {
 	#category : #'ObjectBrowser-Lessons'
 }
 
-{ #category : #creation }
-LessonVariable class >> newNamed: aNameString [
+{ #category : #'instance-creation' }
+OBLessonVariable class >> newNamed: aNameString [
 	^self new name: aNameString; yourself
 ]
 
 { #category : #printing }
-LessonVariable >> asString [
+OBLessonVariable >> asString [
 
 	^self name, ' - (' , self pointsTo displayString , ')'.
 ]
 
 { #category : #printing }
-LessonVariable >> asStringOrText [
+OBLessonVariable >> asStringOrText [
 
 	^self name
 ]
 
 { #category : #accessing }
-LessonVariable >> desreference [
+OBLessonVariable >> desreference [
 
 	self pointTo: (OBExternalObjectMetaObject new: nil).
 ]
 
 { #category : #references }
-LessonVariable >> hasReferencesTo: anObject [
+OBLessonVariable >> hasReferencesTo: anObject [
 
 	^(reference realObject == anObject realObject )
 ]
 
 { #category : #ui }
-LessonVariable >> icon [
+OBLessonVariable >> icon [
 
 	^OBIcons referenceIcon
 ]
 
 { #category : #references }
-LessonVariable >> isPointingTo: anObject [
+OBLessonVariable >> isPointingTo: anObject [
 
 	^reference = anObject
 ]
 
 { #category : #selection }
-LessonVariable >> makeSelectionOn: anObjectBrowser [
+OBLessonVariable >> makeSelectionOn: anObjectBrowser [
 
 	anObjectBrowser selectedObjectBrowserVariable: self.
 ]
 
 { #category : #ui }
-LessonVariable >> menu: aMenuMorph [ 
+OBLessonVariable >> menu: aMenuMorph [ 
 
 	|opcionEliminar|
 	opcionEliminar := Array braceWith: 'Eliminar referencia a este objeto' translated with: #deleteLessonVariable.
@@ -69,44 +69,44 @@ LessonVariable >> menu: aMenuMorph [
 ]
 
 { #category : #accessing }
-LessonVariable >> name [
+OBLessonVariable >> name [
 
 	 ^name
 ]
 
 { #category : #accessing }
-LessonVariable >> name: aName [
+OBLessonVariable >> name: aName [
 
 	 name := aName
 ]
 
 { #category : #selection }
-LessonVariable >> notifySelectionTo: anObserverCollection [
+OBLessonVariable >> notifySelectionTo: anObserverCollection [
 
 	anObserverCollection do: [ :o | o selectedClassOrMetaClass: self pointsTo realClass ]
 ]
 
 { #category : #accessing }
-LessonVariable >> pointTo: anObject [
+OBLessonVariable >> pointTo: anObject [
 
 	reference := anObject.
 	self changed.
 ]
 
 { #category : #references }
-LessonVariable >> pointsTo [
+OBLessonVariable >> pointsTo [
 
 	^reference
 ]
 
 { #category : #printing }
-LessonVariable >> printString [
+OBLessonVariable >> printString [
 
 	^self pointsTo printString
 ]
 
 { #category : #ui }
-LessonVariable >> treeContents [
+OBLessonVariable >> treeContents [
 
 	^#()
 ]

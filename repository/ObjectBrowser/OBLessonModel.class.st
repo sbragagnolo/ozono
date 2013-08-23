@@ -183,7 +183,7 @@ OBLessonModel >> createVariable: aVariableNameString referencingTo: anObjectBrow
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
-	newVariable := (LessonVariable newNamed: aVariableNameString)
+	newVariable := (OBLessonVariable newNamed: aVariableNameString)
 		pointTo: anObjectBrowserObject;
 		yourself.
 	self lesson addVariable: newVariable.
@@ -195,7 +195,7 @@ OBLessonModel >> createVariable: aVariableNameString toRecover: anObjectBrowserO
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
-	newVariable := (LessonVariable newNamed: aVariableNameString)
+	newVariable := (OBLessonVariable newNamed: aVariableNameString)
 		pointTo: anObjectBrowserObject;
 		yourself.
 	self lesson basicAddVariable: newVariable.

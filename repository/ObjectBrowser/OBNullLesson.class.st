@@ -2,13 +2,13 @@
 I am a null object representing the not existance of a lesson
 "
 Class {
-	#name : #NullLOOPLesson,
+	#name : #OBNullLesson,
 	#superclass : #Object,
 	#category : #'ObjectBrowser-Lessons'
 }
 
 { #category : #menues }
-NullLOOPLesson >> menuActions [
+OBNullLesson >> menuActions [
 	"Una NullLOOPLesson no tiene items en el menu desplegable"
 	^OrderedCollection new.
 ]

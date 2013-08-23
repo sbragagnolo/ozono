@@ -115,7 +115,7 @@ OBLessonBrowserModel >> importLessonLabel [
 { #category : #'initialize-release' }
 OBLessonBrowserModel >> initialize [
 
-	self selectedLesson: NullLOOPLesson new.
+	self selectedLesson: OBNullLesson new.
 ]
 
 { #category : #accessing }
