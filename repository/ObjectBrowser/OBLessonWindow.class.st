@@ -21,7 +21,7 @@ Class {
 		'pages',
 		'diagram'
 	],
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #showing }

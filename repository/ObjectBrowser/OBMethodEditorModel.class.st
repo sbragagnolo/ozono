@@ -7,7 +7,7 @@ Class {
 		'controller',
 		'selectedClassOrMetaClass'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #actions }

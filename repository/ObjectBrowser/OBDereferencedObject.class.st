@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'dereferencedObject'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'instance-creation' }

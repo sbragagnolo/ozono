@@ -18,7 +18,7 @@ Class {
 		'selectedPage',
 		'selectedObjectMethod'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #creation }

@@ -1,7 +1,10 @@
+"
+I represent the diagram item in the left pane of the lesson browser
+"
 Class {
 	#name : #OBDiagramTreeMenuNode,
 	#superclass : #OBTreeMenuModel,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }
@@ -9,29 +12,34 @@ OBDiagramTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-OBDiagramTreeMenuNode >> asString [
-	^'Diagrama' translated 
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBDiagramTreeMenuNode >> icon [
-	^OBIcons diagramsIcon
+
+	^self icons diagramsIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 OBDiagramTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
+
 	anObjectBrowser selectedPage: #diagram.
 	anObjectBrowser changed.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBDiagramTreeMenuNode >> menu: aMenu [
-	aMenu add: 'exportar' translated action: #exportDiagram.	
-^aMenu.
+
+	aMenu add: 'exportar' translated action: #exportDiagram.
+	^ aMenu
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+OBDiagramTreeMenuNode >> name [
+
+	^'Diagrama' translated 
+]
+
+{ #category : #accessing }
 OBDiagramTreeMenuNode >> treeContents [
+
 	^#()
 ]

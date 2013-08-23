@@ -1,7 +1,10 @@
+"
+I represent the recycle bin item in the left pane of the lesson browser
+"
 Class {
 	#name : #OBRecycleBinTreeMenuNode,
 	#superclass : #OBTreeMenuModel,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }
@@ -9,27 +12,31 @@ OBRecycleBinTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-OBRecycleBinTreeMenuNode >> asString [
-	^'Papelera' translated 
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBRecycleBinTreeMenuNode >> icon [
-	^OBIcons trashIcon
+
+	^self icons trashIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 OBRecycleBinTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBRecycleBinTreeMenuNode >> menu: aMenu [
+
 	^aMenu addList: (OrderedCollection with: (Array braceWith: 'Recolectar basura' translated with: #runGarbageCollector))
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+OBRecycleBinTreeMenuNode >> name [ 
+
+	^'Papelera' translated 
+]
+
+{ #category : #accessing }
 OBRecycleBinTreeMenuNode >> treeContents [
+
 	^objectBrowser orphanObjects collect: [ :o | OBListItemWrapper with: o model: o ]
 ]

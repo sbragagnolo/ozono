@@ -1,7 +1,7 @@
 Class {
 	#name : #OBNullMethod,
 	#superclass : #Object,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #testing }

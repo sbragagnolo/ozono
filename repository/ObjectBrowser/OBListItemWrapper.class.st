@@ -1,7 +1,7 @@
 Class {
 	#name : #OBListItemWrapper,
 	#superclass : #ListItemWrapper,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UI'
 }
 
 { #category : #'as yet unclassified' }

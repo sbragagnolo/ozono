@@ -1,7 +1,10 @@
+"
+I represent the tests item in the left pane of the lesson browser
+"
 Class {
 	#name : #OBTestsTreeMenuNode,
 	#superclass : #OBTreeMenuModel,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }
@@ -9,27 +12,32 @@ OBTestsTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself
 ]
 
-{ #category : #'as yet unclassified' }
-OBTestsTreeMenuNode >> asString [
-	^'Tests' translated 
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTestsTreeMenuNode >> icon [
-	^OBIcons testsIcon
+
+	^self icons testsIcon
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 OBTestsTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
+
 	anObjectBrowser testsOrganizationSelected.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBTestsTreeMenuNode >> menu: aMenu [
+
 	^aMenu addList: (OrderedCollection with: (Array braceWith: 'importar' translated with: #fileInTests)).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+OBTestsTreeMenuNode >> name [
+
+	^'Tests' translated 
+]
+
+{ #category : #accessing }
 OBTestsTreeMenuNode >> treeContents [ 
-	^OrderedCollection new
+
+	^#()
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'testEditorMorph'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }

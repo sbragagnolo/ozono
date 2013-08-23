@@ -8,7 +8,7 @@ Class {
 		'loopBrowser',
 		'window'
 	],
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-UILessonBrowser'
 }
 
 { #category : #showing }

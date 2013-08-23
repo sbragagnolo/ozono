@@ -6,7 +6,7 @@ Class {
 		'window',
 		'selectedLesson'
 	],
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILessonBrowser'
 }
 
 { #category : #'as yet unclassified' }

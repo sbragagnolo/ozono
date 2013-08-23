@@ -1,7 +1,7 @@
 Class {
 	#name : #OBMethodListModel,
 	#superclass : #OBListModel,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }

@@ -1,7 +1,10 @@
+"
+I represent the references item in the left pane of the lesson browser
+"
 Class {
 	#name : #OBObjectsTreeMenuNode,
 	#superclass : #OBTreeMenuModel,
-	#category : #'ObjectBrowser-UI-Model'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #'as yet unclassified' }
@@ -9,56 +12,66 @@ OBObjectsTreeMenuNode class >> for: anObjectBrowser [
 	^self new objectBrowser: anObjectBrowser; yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-OBObjectsTreeMenuNode >> asString [
-	^'Referencias' translated 
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #showing }
 OBObjectsTreeMenuNode >> createBag [
+
 	objectBrowser createBag.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #showing }
 OBObjectsTreeMenuNode >> createDictionary [
+
 	objectBrowser createDictionary.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #showing }
 OBObjectsTreeMenuNode >> createOrdered [
+
 	objectBrowser createOrdered.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #showing }
 OBObjectsTreeMenuNode >> createSet [
+
 	objectBrowser createSet.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #showing }
 OBObjectsTreeMenuNode >> createSorted [
+
 	objectBrowser createSorted.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBObjectsTreeMenuNode >> icon [
-	^OBIcons homeIcon
+
+	^self icons homeIcon
 ]
 
 { #category : #selection }
 OBObjectsTreeMenuNode >> makeSelectionOn: anObjectBrowser [ 
+
 	anObjectBrowser objectsOrganizationSelected.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'ui-actions' }
 OBObjectsTreeMenuNode >> menu: aMenu [
+
 	aMenu addList: (OrderedCollection with: (Array braceWith: 'crear nuevo objeto' translated with: #createObject)).
 	aMenu add: self subMenuCollectionsName subMenu: self subMenuCollections.
 	^aMenu
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+OBObjectsTreeMenuNode >> name [
+
+	^'Referencias' translated 
+]
+
+{ #category : #accessing }
 OBObjectsTreeMenuNode >> subMenuCollections [
+
 	| menuCrearColeccion |
 	menuCrearColeccion := MenuMorph new target: self; yourself .
 	menuCrearColeccion add:'set' action: #createSet.
@@ -69,12 +82,14 @@ OBObjectsTreeMenuNode >> subMenuCollections [
 	^menuCrearColeccion.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBObjectsTreeMenuNode >> subMenuCollectionsName [
+
 	^'Crear nuevo conjunto' translated 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBObjectsTreeMenuNode >> treeContents [
+
 	^objectBrowser variables collect:[:v | OBListItemWrapper with: v model: v ]
 ]

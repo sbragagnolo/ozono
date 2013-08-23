@@ -12,7 +12,7 @@ Class {
 		'label',
 		'window'
 	],
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-UILesson'
 }
 
 { #category : #accessing }
