@@ -12,30 +12,30 @@ Class {
 	#category : #'ObjectBrowser-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 OBLessonGraphReference class >> from: aRealObject to: objectReferenced named: referenceName [
 	^self new
 		from: aRealObject to: objectReferenced named: referenceName
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBLessonGraphReference >> from [
 	^from
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 OBLessonGraphReference >> from: aRealObject to: objectReferenced named: referenceName [
 	from := aRealObject.
 	to := objectReferenced.
 	name := referenceName.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBLessonGraphReference >> name [
 	^name
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBLessonGraphReference >> to [
 	^to
 ]

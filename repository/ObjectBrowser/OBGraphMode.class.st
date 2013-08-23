@@ -1,3 +1,6 @@
+"
+I am a mode to traverse the graph.
+"
 Class {
 	#name : #OBGraphMode,
 	#superclass : #Object,
