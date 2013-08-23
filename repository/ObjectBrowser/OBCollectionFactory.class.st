@@ -1,30 +1,25 @@
 Class {
 	#name : #OBCollectionFactory,
 	#superclass : #Object,
+	#instVars : [
+		'lesson'
+	],
 	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #'as yet unclassified' }
-OBCollectionFactory class >> initialize [
-	Smalltalk at:#bag put: (OBBagFactory new).
-	Smalltalk at:#set put: (OBSetFactory new).
-	Smalltalk at:#ordered put: (OBOrderedCollectionFactory new).
-	Smalltalk at:#orderedcollection put: (OBOrderedCollectionFactory new).
-	Smalltalk at:#sorted put: (OBSortedFactory new).
-	Smalltalk at:#sortedcollection put: (OBSortedFactory new).
-	Smalltalk at:#dictionary put: (OBDictionaryFactory new).
+OBCollectionFactory class >> newForLesson: aLesson [
+
+	^self new
+			lesson: aLesson;
+			yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-OBCollectionFactory class >> new [
-	^self basicNew.
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #cloning }
 OBCollectionFactory >> clone [
 	| col |
 	col := self createCollection.
-	self notifyCreationOf: col to: ObjectBrowserCollection.
+	lesson addObject: (self newObjectBrowserObjectWithRealObject: col).
 	^col
 ]
 
@@ -33,17 +28,21 @@ OBCollectionFactory >> isObjectBrowserLiteral [
 	^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+OBCollectionFactory >> lesson: aLesson [
+
+	lesson := aLesson
+]
+
+{ #category : #'instance-creation' }
 OBCollectionFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
-	^ObjectBrowserCollection newWithRealObject: aRealCollection.
+
+	^ObjectBrowserCollection
+			newWithRealObject: aRealCollection
+			inLesson: lesson.
 ]
 
-{ #category : #'as yet unclassified' }
-OBCollectionFactory >> notifyCreationOf: aCollection to: anObserver [
-	^anObserver notifyCollectionCreated: aCollection from: self
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBCollectionFactory >> printString [
 	^self displayString 
 ]

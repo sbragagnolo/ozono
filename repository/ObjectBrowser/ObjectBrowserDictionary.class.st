@@ -4,12 +4,13 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserDictionary >> addToGraph: aGraph [
-	aGraph addDictionary: self.
+{ #category : #visiting }
+ObjectBrowserDictionary >> accept: aVisitor [
+
+	aVisitor visitDictionary: self.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 ObjectBrowserDictionary >> hasReferencesTo: anOBObject [
 	^(self valuesReferenceTo: anOBObject) or: [ self keysReferenceTo: anOBObject ]
 ]
@@ -17,6 +18,11 @@ ObjectBrowserDictionary >> hasReferencesTo: anOBObject [
 { #category : #'as yet unclassified' }
 ObjectBrowserDictionary >> keysReferenceTo: anOBObject [
 	^self realObject keys anySatisfy: [:elem | elem == anOBObject realObject ]
+]
+
+{ #category : #printing }
+ObjectBrowserDictionary >> printString [
+	^'aDictionary'.
 ]
 
 { #category : #'as yet unclassified' }

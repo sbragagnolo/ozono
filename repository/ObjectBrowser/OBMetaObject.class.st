@@ -10,7 +10,7 @@ I provide reflective access to the object to treat it as it is inside a prototip
 I also provide some information of the actions that can be performed on me that is for usage of the UI.
 "
 Class {
-	#name : #OBNormalMetaObject,
+	#name : #OBMetaObject,
 	#superclass : #Object,
 	#instVars : [
 		'realObject',
@@ -26,7 +26,7 @@ Class {
 }
 
 { #category : #'instance-creation' }
-OBNormalMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson [
+OBMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson [
 	| objectBrowserClassNumber |
 	objectBrowserClassNumber := NextObjectBrowserClassNumber.
 	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
@@ -34,18 +34,18 @@ OBNormalMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aL
 ]
 
 { #category : #'instance-creation' }
-OBNormalMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
+OBMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
 	^self createNewObjectBrowserObjectClassFrom: OBRealObject in: aLesson.
 	
 ]
 
 { #category : #'class initialization' }
-OBNormalMetaObject class >> initialize [
+OBMetaObject class >> initialize [
 	NextObjectBrowserClassNumber := 1
 ]
 
 { #category : #'instance-creation' }
-OBNormalMetaObject class >> newFrom: anObo on: aLesson [
+OBMetaObject class >> newFrom: anObo on: aLesson [
 	| klass |
 	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
 	^super new
@@ -56,7 +56,7 @@ OBNormalMetaObject class >> newFrom: anObo on: aLesson [
 ]
 
 { #category : #'instance-creation' }
-OBNormalMetaObject class >> newOn: aLesson [
+OBMetaObject class >> newOn: aLesson [
 	| klass |
 	klass := self createNewObjectBrowserObjectClassIn: aLesson.
 	^super new
@@ -66,7 +66,7 @@ OBNormalMetaObject class >> newOn: aLesson [
 ]
 
 { #category : #'instance-creation' }
-OBNormalMetaObject class >> newOn: aLesson withRealObject: realObject [
+OBMetaObject class >> newOn: aLesson withRealObject: realObject [
 	^super new
 		realObject: realObject;
 		lesson: aLesson;
@@ -74,13 +74,19 @@ OBNormalMetaObject class >> newOn: aLesson withRealObject: realObject [
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> >> aSelector [
+OBMetaObject >> >> aSelector [
 
 	^methods at: aSelector.
 ]
 
+{ #category : #visiting }
+OBMetaObject >> accept: aVisitor [
+
+	aVisitor visitObject: self.
+]
+
 { #category : #'ui-actions' }
-OBNormalMetaObject >> actionsForAttributeListWith: selectedAttribute [
+OBMetaObject >> actionsForAttributeListWith: selectedAttribute [
 
 	| actions |
 	actions := OrderedCollection with: #('Crear nueva referencia' createAttribute).
@@ -89,13 +95,13 @@ OBNormalMetaObject >> actionsForAttributeListWith: selectedAttribute [
 ]
 
 { #category : #'ui-actions' }
-OBNormalMetaObject >> actionsForObjectBrowserReferencesList [
+OBMetaObject >> actionsForObjectBrowserReferencesList [
 
 	^#(#('Clonar objeto referenciado' #cloneObject)).
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> addAttributeNamed: attributeName [
+OBMetaObject >> addAttributeNamed: attributeName [
 
 	self realClass addInstVarNamed: attributeName.
 	self flushAttributesCache.
@@ -103,69 +109,72 @@ OBNormalMetaObject >> addAttributeNamed: attributeName [
 ]
 
 { #category : #references }
-OBNormalMetaObject >> addInversePrototypeRelationship: references [
+OBMetaObject >> addInversePrototypeRelationship: references [
 
 	references add: self realObject.
 ]
 
 { #category : #graph }
-OBNormalMetaObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aGraph [
+OBMetaObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aGraph [
 
-	self addToGraph: aGraph.
+	self accept: aGraph.
 	aGraph addReferenceFrom: anObjectBrowserObject to: self named: 'prototype'.
 ]
 
-{ #category : #graph }
-OBNormalMetaObject >> addToGraph: aGraph [
-
-	aGraph addObjectBrowserObject: self.
-]
-
 { #category : #attributes }
-OBNormalMetaObject >> allAttributeNames [
+OBMetaObject >> allAttributeNames [
 
 	^prototype allAttributeNames, self attributeNames.
 ]
 
+{ #category : #attributes }
+OBMetaObject >> allRelationships [
+	
+	"Returns all normal attributes plus special ones such as the prototype if available"
+	| prototypeRelationship |
+	prototypeRelationship := self prototype relationWith: self.
+	^prototypeRelationship withRelationships: self attributes
+]
+
 { #category : #printing }
-OBNormalMetaObject >> asString [
+OBMetaObject >> asString [
 
 	^self posibleName
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> attributeNamed: varName [
+OBMetaObject >> attributeNamed: varName [
 
 	^self attributes detect: [:v | v name = varName ].
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> attributeNamed: attributeNamed pointTo: anObject [
+OBMetaObject >> attributeNamed: attributeNamed pointTo: anObject [
 
 	self realObject instVarNamed: attributeNamed put: anObject realObject.
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> attributeNames [
+OBMetaObject >> attributeNames [
 
 	^attributes ifNil: [ attributes := self realClass instVarNames ].
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> attributes [
+OBMetaObject >> attributes [
 
-	^(self allAttributeNames collect: [ :var | OBAttribute newNamed: var owner: self ]) 
+	^(self allAttributeNames collect: [ :var | OBDirectAttribute newNamed: var owner: self ]) 
 		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
 { #category : #references }
-OBNormalMetaObject >> basicObjectAtAttributeNamed: attributeName [
+OBMetaObject >> basicObjectAtAttributeNamed: attributeName [
 
 	^realObject instVarNamed: attributeName
 ]
 
 { #category : #cloning }
-OBNormalMetaObject >> bePrototypeOf: clone [
+OBMetaObject >> bePrototypeOf: clone [
 
 	clone prototype: self.
 	self realClass
@@ -177,19 +186,19 @@ OBNormalMetaObject >> bePrototypeOf: clone [
 ]
 
 { #category : #cloning }
-OBNormalMetaObject >> clone [
+OBMetaObject >> clone [
 
 	^self class newFrom: self on: self lesson.
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> compileMethod: aMethod [
+OBMetaObject >> compileMethod: aMethod [
 
 	self compileMethod: aMethod notifying: nil 
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> compileMethod: aMethod notifying: someone [
+OBMetaObject >> compileMethod: aMethod notifying: someone [
 
 	| result obMethod |
 	self suspendAllWhile: [
@@ -207,13 +216,13 @@ OBNormalMetaObject >> compileMethod: aMethod notifying: someone [
 ]
 
 { #category : #printing }
-OBNormalMetaObject >> displayString [
+OBMetaObject >> displayString [
 
 	^self realObject displayString
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> fileOut [
+OBMetaObject >> fileOut [
 
 	| internalStream |
 	internalStream := (String new: 100) writeStream.
@@ -225,7 +234,7 @@ OBNormalMetaObject >> fileOut [
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> flushAttributesCache [
+OBMetaObject >> flushAttributesCache [
 
 	"We flush the cached attributed.
 	We keep a cache because we are not the only ones that can add attributes into an object, which can happen also e.g., in method compilation."
@@ -233,25 +242,25 @@ OBNormalMetaObject >> flushAttributesCache [
 ]
 
 { #category : #attributes }
-OBNormalMetaObject >> hasAttributeNamed: anAttributeName [
+OBMetaObject >> hasAttributeNamed: anAttributeName [
 
 	^self allAttributeNames includes: anAttributeName
 ]
 
 { #category : #references }
-OBNormalMetaObject >> hasReferencesTo: anOBObject [
+OBMetaObject >> hasReferencesTo: anOBObject [
 
 	^self referencedObjects includes: anOBObject realObject
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> includesSelector: aSelector [
+OBMetaObject >> includesSelector: aSelector [
 
 	^self methods anySatisfy: [ :m | m selector == aSelector ]
 ]
 
 { #category : #'initialize-release' }
-OBNormalMetaObject >> initialize [
+OBMetaObject >> initialize [
 
 	super initialize.
 	self realObject ifNotNil: [self realObject initialize].
@@ -262,38 +271,38 @@ OBNormalMetaObject >> initialize [
 ]
 
 { #category : #'pharo-interaction' }
-OBNormalMetaObject >> inspect [
+OBMetaObject >> inspect [
 
 	self realObject inspect
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> isRedefined: aSelector [
+OBMetaObject >> isRedefined: aSelector [
 
 	^self realClass allSubclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> lesson [
+OBMetaObject >> lesson [
 
 	^lesson
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> lesson: aLesson [
+OBMetaObject >> lesson: aLesson [
 
 	lesson := aLesson
 ]
 
 { #category : #'ui-actions' }
-OBNormalMetaObject >> menu: aMenuMorph [
+OBMetaObject >> menu: aMenuMorph [
 
 	aMenuMorph addLine.
 	^aMenuMorph addList: (self actionsForObjectBrowserReferencesList).
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> methods [
+OBMetaObject >> methods [
 
 	| allMethods dictionaryMethods |
 	dictionaryMethods := Dictionary new.
@@ -304,68 +313,68 @@ OBNormalMetaObject >> methods [
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> myNewScriptOn: aLesson [
+OBMetaObject >> myNewScriptOn: aLesson [
 
 	^self class name , ' newOn: ', aLesson lessonIdentification
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> object [
+OBMetaObject >> object [
 
 	self deprecated.
 	^self
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> posibleName [
+OBMetaObject >> posibleName [
 
 	^ (self realClass name, self realObject hash asString) asLowercase.
 ]
 
 { #category : #printing }
-OBNormalMetaObject >> printOn: aStream [
+OBMetaObject >> printOn: aStream [
 
 	self realObject printOn: aStream.
 ]
 
 { #category : #cloning }
-OBNormalMetaObject >> prototype [
+OBMetaObject >> prototype [
 
 	^prototype
 ]
 
 { #category : #cloning }
-OBNormalMetaObject >> prototype: anObject [
+OBMetaObject >> prototype: anObject [
 
 	prototype := anObject
 ]
 
 { #category : #'pharo-interaction' }
-OBNormalMetaObject >> realClass [
+OBMetaObject >> realClass [
 
 	^self realObject class
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> realObject [
+OBMetaObject >> realObject [
 
 	^ realObject
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> realObject: anObject [
+OBMetaObject >> realObject: anObject [
 
 	realObject := anObject
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> redefines: aSelector [
+OBMetaObject >> redefines: aSelector [
 
 	^self realClass allSuperclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
 ]
 
 { #category : #references }
-OBNormalMetaObject >> referencedObjects [
+OBMetaObject >> referencedObjects [
 
 	| refs |
 	refs := self attributes asBag collect: [:v | self basicObjectAtAttributeNamed:  v name ].
@@ -375,8 +384,17 @@ OBNormalMetaObject >> referencedObjects [
 
 ]
 
+{ #category : #cloning }
+OBMetaObject >> relationWith: aClone [
+	
+	^OBSpecialAttribute 
+		newNamed: 'prototype'
+		owner: aClone
+		pointingTo: self
+]
+
 { #category : #attributes }
-OBNormalMetaObject >> removeAttribute: anAttribute [
+OBMetaObject >> removeAttribute: anAttribute [
 
 	anAttribute removeFrom: self realClass.
 	self flushAttributesCache.
@@ -384,13 +402,13 @@ OBNormalMetaObject >> removeAttribute: anAttribute [
 ]
 
 { #category : #'pharo-interaction' }
-OBNormalMetaObject >> removeClassFromSystem [
+OBMetaObject >> removeClassFromSystem [
 
 	self realClass removeFromSystem
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> removeMethod: aMethod [
+OBMetaObject >> removeMethod: aMethod [
 
 	(self includesSelector: aMethod selector) ifFalse: [
 		self error: 'El método #', aMethod selector ,' pertenece a un prototipo, no puede eliminarse de este objeto'.
@@ -404,37 +422,31 @@ OBNormalMetaObject >> removeMethod: aMethod [
 ]
 
 { #category : #accessing }
-OBNormalMetaObject >> size [
+OBMetaObject >> size [
 
 	^self realObject size
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> sourceCodeAt: aMethod [
+OBMetaObject >> sourceCodeAt: aMethod [
 
 	^ aMethod code.
 ]
 
 { #category : #'pharo-interaction' }
-OBNormalMetaObject >> suspendAllWhile: aBlock [
+OBMetaObject >> suspendAllWhile: aBlock [
 
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
 { #category : #methods }
-OBNormalMetaObject >> understands: aSelector [
+OBMetaObject >> understands: aSelector [
 
 	^self realObject respondsTo: aSelector
 ]
 
-{ #category : #attributes }
-OBNormalMetaObject >> variableNames [
-
-	^self attributes collect: [:var | var name]
-]
-
 { #category : #exporting }
-OBNormalMetaObject >> writeAttributesOn: stream [
+OBMetaObject >> writeAttributesOn: stream [
 
 	self attributeNames asSet do:[ :v | 
 		stream
@@ -450,21 +462,21 @@ OBNormalMetaObject >> writeAttributesOn: stream [
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
+OBMetaObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
 
 	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
 	stream cr.
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeCreateObjectOn: stream lesson: aLesson [
+OBMetaObject >> writeCreateObjectOn: stream lesson: aLesson [
 
 	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
 	stream cr.
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeCreationScriptOver: stream [
+OBMetaObject >> writeCreationScriptOver: stream [
 
 	| objectVariable |
 	objectVariable := self posibleName.
@@ -478,7 +490,7 @@ OBNormalMetaObject >> writeCreationScriptOver: stream [
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeMethodsOn: stream [
+OBMetaObject >> writeMethodsOn: stream [
 	
 	methods do:[ :m |
 		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
@@ -488,7 +500,7 @@ OBNormalMetaObject >> writeMethodsOn: stream [
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
+OBMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 
 	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
 	self writeAttributesOn: stream .
@@ -498,7 +510,7 @@ OBNormalMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 ]
 
 { #category : #exporting }
-OBNormalMetaObject >> writeStateScriptOn: stream lesson: aLesson [
+OBMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 
 	"saves the state, all the variables values and relationships"
 	self attributes do:  [ :var | 

@@ -119,21 +119,23 @@ OBLessonModel >> createAttribute [
 
 { #category : #showing }
 OBLessonModel >> createBag [
-	self createCollection: (Smalltalk at:#bag).
+	self createCollection: (lesson literalNamed: #bag).
 ]
 
 { #category : #showing }
-OBLessonModel >> createCollection: type [
-		self createObject: [:collectionName |  
-			self createVariable: collectionName referencingTo: (ObjectBrowserCollection newWithRealObject: type clone) 
-			].
-	
+OBLessonModel >> createCollection: aCollectionFactory [
 
+	self createObject: [ :collectionName | | realClone obClone |
+		realClone := aCollectionFactory clone.
+		obClone := lesson objectBrowserObjectForRealObject: realClone.
+		self 
+			createVariable: collectionName 
+			referencingTo: obClone ]
 ]
 
 { #category : #showing }
 OBLessonModel >> createDictionary [  
-	self createCollection: (Smalltalk at:#dictionary).
+	self createCollection: (lesson literalNamed: #dictionary).
 ]
 
 { #category : #showing }
@@ -149,17 +151,17 @@ OBLessonModel >> createObject: creationBlock [
 
 { #category : #showing }
 OBLessonModel >> createOrdered [
-	self createCollection: (Smalltalk at:#ordered).
+	self createCollection: (lesson literalNamed: #ordered).
 ]
 
 { #category : #showing }
 OBLessonModel >> createSet [
-	self createCollection: (Smalltalk at:#set).
+	self createCollection: (lesson literalNamed: #set).
 ]
 
 { #category : #showing }
 OBLessonModel >> createSorted [ 
-	self createCollection: (Smalltalk at:#sorted).
+	self createCollection: (lesson literalNamed: #sorted).
 ]
 
 { #category : #menues }

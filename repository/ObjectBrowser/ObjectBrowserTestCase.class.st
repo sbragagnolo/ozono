@@ -34,7 +34,7 @@ ObjectBrowserTestCase >> testCreateVariable [
 	variableName :='pepita'.
 	ob := OBLessonModel onLesson: currentLesson.
 	ob createVariable: variableName .
-	self assert: (ob variableNamed: variableName) pointsTo class = OBNormalMetaObject.
+	self assert: (ob variableNamed: variableName) pointsTo class = OBMetaObject.
 ]
 
 { #category : #'as yet unclassified' }

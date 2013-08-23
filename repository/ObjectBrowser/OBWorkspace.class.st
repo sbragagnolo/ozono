@@ -25,7 +25,7 @@ OBWorkspace >> bindingOf: aString [
 	(self hasBindingOf: aString)
 		ifTrue:[
 			(self isLiteral: aString)
-				ifTrue:  [ ^aString-> (Smalltalk globals at: aString asSymbol) ]
+				ifTrue:  [ ^aString-> (lesson literalNamed: aString asSymbol) ]
 				ifFalse: [ ^aString -> (lesson variableNamed: aString) ]
 			]
 		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido' translated ].
@@ -86,8 +86,7 @@ OBWorkspace >> icon [
 
 { #category : #bindings }
 OBWorkspace >> isLiteral: aString [
-	^(Smalltalk globals includesKey: aString asSymbol)
-		and: [ (Smalltalk globals at: aString asSymbol) isObjectBrowserLiteral ]
+	^lesson includesLiteralNamed: aString asSymbol
 ]
 
 { #category : #accessing }

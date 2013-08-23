@@ -21,5 +21,8 @@ OBDictionaryFactory >> displayString [
 
 { #category : #'as yet unclassified' }
 OBDictionaryFactory >> newObjectBrowserObjectWithRealObject: aRealCollection [
-	^ObjectBrowserDictionary newWithRealObject: aRealCollection.
+
+	^ObjectBrowserDictionary
+			newWithRealObject: aRealCollection
+			inLesson: lesson.
 ]

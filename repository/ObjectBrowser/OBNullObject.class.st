@@ -69,6 +69,12 @@ OBNullObject >> methods [
 	^ OrderedCollection new
 ]
 
+{ #category : #cloning }
+OBNullObject >> relationWith: aClone [
+	
+	^OBNullAttribute new
+]
+
 { #category : #'pharo-interaction' }
 OBNullObject >> removeFromSystem [
 	"do nothing"

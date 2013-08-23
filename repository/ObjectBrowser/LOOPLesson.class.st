@@ -11,7 +11,8 @@ Class {
 		'lessonEnvironment',
 		'workspaces',
 		'tests',
-		'objectDiagram'
+		'objectDiagram',
+		'literals'
 	],
 	#classInstVars : [
 		'lessons'
@@ -205,7 +206,7 @@ LOOPLesson >> createClass: aClassName subclassOf: aSuperClass [
 { #category : #'object-handling' }
 LOOPLesson >> createObject [
 	| newObject |
-	newObject := OBNormalMetaObject newOn: self.
+	newObject := OBMetaObject newOn: self.
 	self addObject: newObject.
 	^newObject
 	
@@ -329,12 +330,32 @@ LOOPLesson >> hasVariableNamed: aVariableName [
 	^self variables anySatisfy: [:v | v name = aVariableName ].
 ]
 
-{ #category : #accessing }
+{ #category : #literals }
+LOOPLesson >> includesLiteralNamed: aLiteralName [
+	
+	^literals includesKey: aLiteralName 
+]
+
+{ #category : #'initialize-release' }
 LOOPLesson >> initialize [
 	executionContext := self loopExecutionContextClass new
 							lesson: self;
 							yourself.
 	objectDiagram := LOOPObjectDiagramFactory buildDiagram lesson: self; yourself.
+	self initializeLiterals.
+]
+
+{ #category : #literals }
+LOOPLesson >> initializeLiterals [
+	literals := Dictionary new.
+	
+	literals at:#bag put: (OBBagFactory newForLesson: self).
+	literals at:#set put: (OBSetFactory newForLesson: self).
+	literals at:#ordered put: (OBOrderedCollectionFactory newForLesson: self).
+	literals at:#orderedcollection put: (OBOrderedCollectionFactory newForLesson: self).
+	literals at:#sorted put: (OBSortedFactory newForLesson: self).
+	literals at:#sortedcollection put: (OBSortedFactory newForLesson: self).
+	literals at:#dictionary put: (OBDictionaryFactory newForLesson: self).
 ]
 
 { #category : #accessing }
@@ -347,6 +368,12 @@ LOOPLesson >> lessonEnvironment [
 { #category : #exportation }
 LOOPLesson >> lessonIdentification [
 	^self title asLegalSelector
+]
+
+{ #category : #literals }
+LOOPLesson >> literalNamed: aLiteralName [
+
+	^literals at: aLiteralName
 ]
 
 { #category : #accessing }

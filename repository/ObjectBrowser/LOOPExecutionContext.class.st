@@ -16,7 +16,6 @@ LOOPExecutionContext class >> evaluatorClass [
 LOOPExecutionContext >> commitChanges [
 	_lesson variables do:[:v | self getValueFromContext: v].
 	_lesson changed.
-	ObjectBrowserCollection removeCreationObserver: _lesson.
 ]
 
 { #category : #'as yet unclassified' }
@@ -34,7 +33,6 @@ LOOPExecutionContext >> lesson: aLesson [
 
 { #category : #'as yet unclassified' }
 LOOPExecutionContext >> prepare [
-	ObjectBrowserCollection addCreationObserver: _lesson.
 	_lesson variables do:[:v | self putInContext: v].
 ]
 

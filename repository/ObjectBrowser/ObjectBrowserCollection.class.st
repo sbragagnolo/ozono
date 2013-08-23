@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollection,
-	#superclass : #OBNormalMetaObject,
+	#superclass : #OBMetaObject,
 	#instVars : [
 		'posibleName'
 	],
@@ -10,11 +10,6 @@ Class {
 	],
 	#category : #'ObjectBrowser-Collections'
 }
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> addCreationObserver: observer [
-	self creationObservers add: observer 
-]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> basicNew [	
@@ -31,11 +26,6 @@ ObjectBrowserCollection class >> collectionClassNumber [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> creationObservers [
-	^CreationObservers ifNil: [ CreationObservers := Set new ].
-]
-
-{ #category : #'as yet unclassified' }
 ObjectBrowserCollection class >> new [
 	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
 ]
@@ -46,24 +36,20 @@ ObjectBrowserCollection class >> new: setName [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> newWithRealObject: realObject [
+ObjectBrowserCollection class >> newWithRealObject: realObject inLesson: aLesson [
 	^super new
 		realObject: realObject;
+		lesson: aLesson;
 		yourself.
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> notifyCollectionCreated: collection from: aFactory [
-	self creationObservers do: [ :o | o addObject: 
-		(aFactory newObjectBrowserObjectWithRealObject: collection) ].
+{ #category : #visiting }
+ObjectBrowserCollection >> accept: aVisitor [
+
+	aVisitor visitCollection: self.
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection class >> removeCreationObserver: observer [
-	self creationObservers remove: observer 
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 ObjectBrowserCollection >> add: anObj [
 	self realObject add: anObj realObject .
 ]
@@ -73,17 +59,32 @@ ObjectBrowserCollection >> addAttributeNamed: anAttributeName [
 	self signalNotModificableCollection
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollection >> addToGraph: aGraph [
-	aGraph addCollection: self.
+{ #category : #attributes }
+ObjectBrowserCollection >> allRelationships [
+	
+	"Returns all normal attributes plus special ones such as the prototype if available"
+	| prototypeRelationship |
+	prototypeRelationship := self prototype relationWith: self.
+	^prototypeRelationship withRelationships: self basicRelationships
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #attributes }
+ObjectBrowserCollection >> basicRelationships [
+	
+	^self realObject collect: [ :elem | 
+		OBSpecialAttribute 
+			newNamed: 'elemento'
+			owner: self
+			pointingTo: (lesson objectBrowserObjectForRealObject: elem)
+		]
+]
+
+{ #category : #methods }
 ObjectBrowserCollection >> compileMethod: aMethod  notifying: someone [
 	self signalNotModificableCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 ObjectBrowserCollection >> displayString [
 	| className prefix |
 	className := self realObject class name.
@@ -93,27 +94,27 @@ ObjectBrowserCollection >> displayString [
 	^(prefix, self realObject class name) asLegalSelector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #references }
 ObjectBrowserCollection >> hasReferencesTo: anOBObject [
 	^self realObject anySatisfy: [:elem | elem == anOBObject realObject ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserCollection >> icon [
 	^nil
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ObjectBrowserCollection >> isNull [
 	^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 ObjectBrowserCollection >> makeSelectionOn: anObjectBrowser [
 	anObjectBrowser selectedPage: #objects.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserCollection >> methods [
 	^ (self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]) asSortedCollection: [:obMethod1 :obMethod2 | obMethod1 selector < obMethod2 selector ].
 ]
@@ -128,12 +129,12 @@ ObjectBrowserCollection >> posibleName [
 	^ posibleName 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserCollection >> posibleName: aPosibleName [
 	posibleName := aPosibleName .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 ObjectBrowserCollection >> printString [
 	^'aCollection'.
 ]
@@ -144,33 +145,33 @@ ObjectBrowserCollection >> realObjectPosibleName [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #attributes }
 ObjectBrowserCollection >> removeAttribute: variableName [
 	self signalNotModificableCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'pharo-interaction' }
 ObjectBrowserCollection >> removeClassFromSystem [
 	"No hace nada, Sino eliminaria nuestra coleccion"
 	^ self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 ObjectBrowserCollection >> removeMethod: aSelector [
 	self signalNotModificableCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #signalling }
 ObjectBrowserCollection >> signalNotModificableCollection [
 	self error: 'las colecciones no son modificables'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #methods }
 ObjectBrowserCollection >> sourceCodeAt: aSelector [
 	^'Código mágico :O'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserCollection >> treeContents [
 	^OrderedCollection new.
 ]

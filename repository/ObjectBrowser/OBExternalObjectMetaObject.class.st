@@ -30,6 +30,12 @@ OBExternalObjectMetaObject >> = anotherObject [
 	^(self class == anotherObject class) and:[(self realObject == anotherObject realObject) ]
 ]
 
+{ #category : #'as yet unclassified' }
+OBExternalObjectMetaObject >> accept: aVisitor [
+
+	aVisitor visitOBExternalObject: self.
+]
+
 { #category : #'ui-actions' }
 OBExternalObjectMetaObject >> actionsForAttributeListWith: aNullOBVariable [ 
 	^#()
@@ -38,11 +44,6 @@ OBExternalObjectMetaObject >> actionsForAttributeListWith: aNullOBVariable [
 { #category : #'ui-actions' }
 OBExternalObjectMetaObject >> actionsForObjectBrowserReferencesList [
 	^OrderedCollection new.
-]
-
-{ #category : #graph }
-OBExternalObjectMetaObject >> addToGraph: aLessonGraph [ 
-	aLessonGraph addNoObjectBrowserObject: self.
 ]
 
 { #category : #printing }

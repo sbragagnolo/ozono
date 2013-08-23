@@ -12,61 +12,50 @@ Class {
 	#category : #'ObjectBrowser-Diagrams'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addAssociation: anAssociation from: anOBCollection [
-	| objectReferenced keyObject valueObject |
+	| keyObject valueObject |
 	(self includesObject: anAssociation)
 		ifFalse: [ self addNoObjectBrowserObject: anAssociation.
 				self addReferenceFrom: anOBCollection to: anAssociation named: 'asociacion'.
 				(self includesObject: anAssociation key) 
 					ifFalse: [
 						keyObject := (lesson objectBrowserObjectForRealObject: anAssociation key).
-						keyObject addToGraph: self.
+						keyObject accept: self.
 						].
 				(self includesObject: anAssociation value) 
 					ifFalse: [
 						valueObject := (lesson objectBrowserObjectForRealObject: anAssociation value).
-						valueObject addToGraph: self.
+						valueObject accept: self.
 						].
 					self addReferenceFrom: anAssociation to: keyObject named: 'clave'.
 					self addReferenceFrom: anAssociation to: valueObject named: 'valor'.
 				]
 ]
 
-{ #category : #'as yet unclassified' }
-LessonGraph >> addCollection: anObjectBrowserObject [
-	| objectReferenced referencedObjectBrowserObject |
-	(self includesObject: anObjectBrowserObject)
-		ifFalse: [ self addObject: anObjectBrowserObject.
-			  	 
-				anObjectBrowserObject realObject do: [ :e |
-						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: e).
-						referencedObjectBrowserObject addToGraph: self.
-						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: 'elemento'.
-					].
-				anObjectBrowserObject prototype addPrototypeRelationshipTo: anObjectBrowserObject in: self.
-				]
+{ #category : #adding }
+LessonGraph >> addCollection: aCollection [
+
+	self addObjectBrowserObject: aCollection
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addDictionary: anObjectBrowserObject [
-	| objectReferenced keyObject valueObject |
+
 	(self includesObject: anObjectBrowserObject)
-		ifFalse: [ self addObject: anObjectBrowserObject.
-			  	 
-				anObjectBrowserObject realObject associations do: [ :association |
-						self addAssociation: association from: anObjectBrowserObject.
-					]
-				]
+		ifTrue: [ ^ self ].
+	self addObject: anObjectBrowserObject.
+	anObjectBrowserObject realObject associations
+		do: [ :association | self addAssociation: association from: anObjectBrowserObject ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addLesson: aLesson [
 	self lesson: aLesson.
 	aLesson variables do: [ :v | 
 			self addVariable: v.
 			self addReferenceHolder: v pointsTo.
-			v pointsTo addToGraph: self.
+			v pointsTo accept: self.
 			self addReferenceFrom: aLesson to: v pointsTo named: v name.
 		 ]
 ]
@@ -76,39 +65,31 @@ LessonGraph >> addNoObjectBrowserObject: aNoObjectBrowserObject [
 	self addObject: aNoObjectBrowserObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addObject: aRealObject [
 	self objects add: aRealObject.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addObjectBrowserObject: anObjectBrowserObject [
-	| objectReferenced referencedObjectBrowserObject |
-	
+
 	(self includesObject: anObjectBrowserObject)
-		ifFalse: [ self addObject: anObjectBrowserObject.
-			  	 
-				anObjectBrowserObject attributes do: [ :v |
-						objectReferenced := anObjectBrowserObject basicObjectAtAttributeNamed: v name asSymbol.
-						referencedObjectBrowserObject := (lesson objectBrowserObjectForRealObject: objectReferenced).
-						referencedObjectBrowserObject addToGraph: self.
-						self addReferenceFrom: anObjectBrowserObject to: referencedObjectBrowserObject named: v name.
-					].
-				anObjectBrowserObject prototype addPrototypeRelationshipTo: anObjectBrowserObject in: self.
-				]
+		ifTrue: [ ^ self ].
+	self addObject: anObjectBrowserObject.
+	anObjectBrowserObject allRelationships do: [ :v | v accept: self ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addReferenceFrom: aRealObject to: objectReferenced named: referenceName [
 	^self references add: (LessonGraphReference from: aRealObject to: objectReferenced named: referenceName).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addReferenceHolder: referenceHolder [
 	self referenceHolders add: referenceHolder
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 LessonGraph >> addVariable: aVariable [
 	self variables add: aVariable.
 ]
@@ -116,10 +97,10 @@ LessonGraph >> addVariable: aVariable [
 { #category : #'as yet unclassified' }
 LessonGraph >> allTheObjects: allTheLessonObjects [
 	derreferencedObjects := allTheLessonObjects difference: objects .
-	allTheLessonObjects do: [ :o | o addToGraph: self ].
+	allTheLessonObjects do: [ :o | o accept: self ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> dereferencedObjects [
 "	^self objectBrowserObjects reject: [ :o |
 			self referenceHolders anySatisfy: [ :h | h hasReferencesTo: o ]
@@ -132,7 +113,7 @@ LessonGraph >> includesObject: aRealObject [
 	^self objects includes: aRealObject 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 LessonGraph >> initialize [ 
 	super initialize .
 	 objects := Set new.
@@ -143,7 +124,7 @@ LessonGraph >> lesson [
 	^lesson
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> lesson: aLesson [
 	lesson := aLesson.
 	self addReferenceHolder: aLesson.
@@ -154,7 +135,7 @@ LessonGraph >> objectBrowserObjects [
 	^(self objects union: derreferencedObjects ).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> objects [
 	^objects ifNil: [ objects := Bag new ].
 ]
@@ -164,17 +145,62 @@ LessonGraph >> objectsWithLesson [
 	^self objects copyWith: lesson
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> referenceHolders [
 	^ referenceHolders ifNil: [ referenceHolders := Set new ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> references [
 	^references ifNil: [ references := Set new ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LessonGraph >> variables [
 	^variables ifNil: [ variables := Set new ].
+]
+
+{ #category : #visiting }
+LessonGraph >> visitAttribute: anAttribute [
+
+	| referencedObjectBrowserObject |
+	referencedObjectBrowserObject := lesson objectBrowserObjectForRealObject: anAttribute pointsTo.
+	referencedObjectBrowserObject accept: self.
+	self addReferenceFrom: anAttribute owner to: referencedObjectBrowserObject named: anAttribute name
+]
+
+{ #category : #visiting }
+LessonGraph >> visitCollection: aCollection [
+
+	self addCollection: aCollection
+]
+
+{ #category : #visiting }
+LessonGraph >> visitDictionary: aCollection [
+
+	self addDictionary: aCollection
+]
+
+{ #category : #visiting }
+LessonGraph >> visitDirectAttribute: anAttribute [
+
+	self visitAttribute: anAttribute.
+]
+
+{ #category : #visiting }
+LessonGraph >> visitOBExternalObject: anExternalObject [
+
+	self addNoObjectBrowserObject: anExternalObject.
+]
+
+{ #category : #visiting }
+LessonGraph >> visitObject: anObject [
+
+	self addObjectBrowserObject: anObject
+]
+
+{ #category : #visiting }
+LessonGraph >> visitSpecialAttribute: anAttribute [
+
+	self visitAttribute: anAttribute.
 ]
