@@ -1,3 +1,6 @@
+"
+I am an abstract model for lists.
+"
 Class {
 	#name : #OBListModel,
 	#superclass : #OBAbstractModel,

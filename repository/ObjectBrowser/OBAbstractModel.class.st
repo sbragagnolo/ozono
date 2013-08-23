@@ -1,3 +1,6 @@
+"
+I am an abstract model for the object browser. Probably Guille wants to remove me
+"
 Class {
 	#name : #OBAbstractModel,
 	#superclass : #Object,

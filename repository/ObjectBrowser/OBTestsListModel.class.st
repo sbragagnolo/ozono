@@ -1,3 +1,6 @@
+"
+I am the model of the test list in the lesson window.
+"
 Class {
 	#name : #OBTestsListModel,
 	#superclass : #OBListModel,

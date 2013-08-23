@@ -1,3 +1,6 @@
+"
+I am an abstract model for a list item.
+"
 Class {
 	#name : #OBListItemWrapper,
 	#superclass : #ListItemWrapper,

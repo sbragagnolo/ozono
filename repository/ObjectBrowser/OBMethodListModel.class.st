@@ -1,3 +1,6 @@
+"
+I am the model of the method list in the lesson window.
+"
 Class {
 	#name : #OBMethodListModel,
 	#superclass : #OBListModel,

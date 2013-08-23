@@ -8,7 +8,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'obObject'
+		'owner'
 	],
 	#category : #'ObjectBrowser-Objects'
 }
@@ -17,7 +17,7 @@ Class {
 OBAttribute class >> newNamed: aNameString owner: obObjectOwnerWhereTheVariableBelongs [
 	^self new 
 		name: aNameString;
-		obObject: obObjectOwnerWhereTheVariableBelongs   ; 
+		owner: obObjectOwnerWhereTheVariableBelongs   ; 
 		yourself
 ]
 
@@ -53,19 +53,19 @@ OBAttribute >> name: aName [
 	name := aName
 ]
 
-{ #category : #accessing }
-OBAttribute >> obObject [
-	^obObject 
-]
-
-{ #category : #accessing }
-OBAttribute >> obObject: owner [
-	obObject := owner.
-]
-
 { #category : #reference }
 OBAttribute >> objectPointed [
-	^self obObject basicObjectAtAttributeNamed: self name.
+	^self owner basicObjectAtAttributeNamed: self name.
+]
+
+{ #category : #accessing }
+OBAttribute >> owner [
+	^owner
+]
+
+{ #category : #accessing }
+OBAttribute >> owner: anOwnerObject [
+	owner := anOwnerObject.
 ]
 
 { #category : #reference }

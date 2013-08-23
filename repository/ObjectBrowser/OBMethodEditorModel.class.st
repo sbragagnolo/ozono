@@ -1,3 +1,6 @@
+"
+I am the model of the method editor in the lesson window.
+"
 Class {
 	#name : #OBMethodEditorModel,
 	#superclass : #OBAbstractModel,

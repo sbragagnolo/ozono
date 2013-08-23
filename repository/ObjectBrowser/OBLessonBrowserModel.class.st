@@ -1,3 +1,6 @@
+"
+I am the model of the lesson browser window
+"
 Class {
 	#name : #OBLessonBrowserModel,
 	#superclass : #Object,
@@ -52,13 +55,15 @@ OBLessonBrowserModel class >> on: aLOOPLessonContainer [
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : #labels }
 OBLessonBrowserModel >> aboutText [
-	^'LOOP version: ', (ConfigurationOfObjectBrowser project version:#stable) versionString
+
+	^'LOOP version: ', (ConfigurationOfObjectBrowser project version: #stable) versionString
 ]
 
-{ #category : #importing }
+{ #category : #private }
 OBLessonBrowserModel >> chooseLessonFile. [
+
 	^ UITheme current
 		chooseFileIn: World
 		title: 'Selecciona la leccion a importar' translated
@@ -67,26 +72,9 @@ OBLessonBrowserModel >> chooseLessonFile. [
 		preview: nil.
 ]
 
-{ #category : #creation }
-OBLessonBrowserModel >> chooseTheFile. [
-	^ UITheme current
-		chooseFileIn: self 
-		title: 'Selecciona la leccion a importar'
-		extensions: #('*.st') 
-		path: nil
-		preview: nil.
-]
-
-{ #category : #creation }
-OBLessonBrowserModel >> createFreeLesson [
-	| lesson |
-	lesson := lessonContainer createFreeLesson.
-	lesson openInWorld.
-
-]
-
-{ #category : #creation }
+{ #category : #actions }
 OBLessonBrowserModel >> createNewFreeLesson [
+
 	| lesson lessonName |
 	lessonName :=self obtainLessonName.
 	lessonName ifNotNil:[
@@ -96,58 +84,61 @@ OBLessonBrowserModel >> createNewFreeLesson [
 	]
 ]
 
-{ #category : #export }
+{ #category : #actions }
 OBLessonBrowserModel >> fileOutSelectedLesson [
+
 	self selectedLesson fileOut.
 	UIManager inform: 'La lección se exportó correctamente!'.
 ]
 
-{ #category : #importing }
+{ #category : #actions }
 OBLessonBrowserModel >> importLesson [
+
 	self chooseLessonFile ifNotNil: [ :fileEntry | ^self importLesson: fileEntry ]
 ]
 
-{ #category : #importing }
+{ #category : #actions }
 OBLessonBrowserModel >> importLesson: aFileEntry [
-	"LOOPImportFileList open. - > esto abre el browser con el boton importar que esta ahora"
-	| lesson lessonName |
+
+	| lesson |
 	lesson := LOOPLesson fileIn: aFileEntry.
 	lesson openInWorld.
 	self changed.
 ]
 
-{ #category : #importing }
+{ #category : #labels }
 OBLessonBrowserModel >> importLessonLabel [
+
 	^'Importar Leccion'
 ]
 
-{ #category : #accessing }
+{ #category : #'initialize-release' }
 OBLessonBrowserModel >> initialize [
+
 	self selectedLesson: NullLOOPLesson new.
 ]
 
-{ #category : #creation }
+{ #category : #accessing }
 OBLessonBrowserModel >> lessonContainer: aLessonContainer [
+
 	lessonContainer := aLessonContainer
 ]
 
-{ #category : #showing }
-OBLessonBrowserModel >> lessonListMenu: aMenu shifted: shifted [
-	^aMenu addList: self selectedLesson menuActions.
-]
-
-{ #category : #creation }
+{ #category : #accessing }
 OBLessonBrowserModel >> lessons [
+
 	^lessonContainer lessons
 ]
 
-{ #category : #accessing }
+{ #category : #labels }
 OBLessonBrowserModel >> newFreeLessonLabel [
+
 	^'Nueva Leccion' translated 
 ]
 
-{ #category : #creation }
+{ #category : #private }
 OBLessonBrowserModel >> obtainLessonName [
+
 	| lessonName |
 	lessonName := self request: 'Nombre de la leccion' translated  default: 'Free Lesson'.
 	^ lessonName
@@ -155,16 +146,19 @@ OBLessonBrowserModel >> obtainLessonName [
 
 { #category : #showing }
 OBLessonBrowserModel >> openInWorld [
+
 	window := OBLessonBrowserWindow show: self.
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 OBLessonBrowserModel >> openSelectedLesson [
+
 	self selectedLesson openInWorld
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 OBLessonBrowserModel >> removeSelectedLesson [
+
 	| lesson |
 	lesson := self selectedLesson.
 	lesson delete.
@@ -173,17 +167,20 @@ OBLessonBrowserModel >> removeSelectedLesson [
 	self changed.
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 OBLessonBrowserModel >> renameSelectedLesson [
-	|newTitle|
-	
+
+	| newTitle |
 	newTitle := self obtainLessonName.
-	(newTitle notNil and: [newTitle notEmpty]) 
-		ifTrue: [self selectedLesson title: newTitle.	self changed ].
+	(newTitle notNil and: [ newTitle notEmpty ])
+		ifTrue: [ 
+			self selectedLesson title: newTitle.
+			self changed ]
 ]
 
-{ #category : #creation }
+{ #category : #private }
 OBLessonBrowserModel >> request: aTitle default: aDefaultValue [
+
 	^ UIManager default
 		request: aTitle
 		initialAnswer: aDefaultValue
@@ -191,16 +188,19 @@ OBLessonBrowserModel >> request: aTitle default: aDefaultValue [
 
 { #category : #accessing }
 OBLessonBrowserModel >> selectedLesson [
+
 	^selectedLesson
 ]
 
 { #category : #accessing }
 OBLessonBrowserModel >> selectedLesson: aLOOPLesson [ 
+
 	selectedLesson := aLOOPLesson.
 ]
 
-{ #category : #creation }
+{ #category : #updating }
 OBLessonBrowserModel >> updateLOOP [
+
 	[
 		Gofer it
 			url: 'http://www.smalltalkhub.com/mc/Guille/LOOP/main';
@@ -211,7 +211,8 @@ OBLessonBrowserModel >> updateLOOP [
 	] on: Warning do: [ :w | w resume ]
 ]
 
-{ #category : #creation }
+{ #category : #updating }
 OBLessonBrowserModel >> updateLOOPLabel [
+
 	^'Actualizar Software!' translated 
 ]

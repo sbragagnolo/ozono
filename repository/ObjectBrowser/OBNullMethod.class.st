@@ -1,3 +1,6 @@
+"
+I am a null object implying that no method is selected.
+"
 Class {
 	#name : #OBNullMethod,
 	#superclass : #Object,
