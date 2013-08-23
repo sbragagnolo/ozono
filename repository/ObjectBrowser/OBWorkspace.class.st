@@ -76,7 +76,7 @@ OBWorkspace >> export [
 
 { #category : #bindings }
 OBWorkspace >> hasBindingOf: aString [ 
-	^(lesson hasVariable: aString) or: [ self isLiteral: aString ].
+	^(lesson hasVariableNamed: aString) or: [ self isLiteral: aString ].
 ]
 
 { #category : #accessing }

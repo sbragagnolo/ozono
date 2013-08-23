@@ -188,7 +188,10 @@ OBMetaObject >> bePrototypeOf: clone [
 { #category : #cloning }
 OBMetaObject >> clone [
 
-	^self class newFrom: self on: self lesson.
+	| clone |
+	clone := self class newFrom: self on: self lesson.
+	self lesson addObject: clone.
+	^ clone
 ]
 
 { #category : #methods }

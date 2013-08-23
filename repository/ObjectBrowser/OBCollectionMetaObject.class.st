@@ -135,7 +135,7 @@ OBCollectionMetaObject >> methods [
 { #category : #exporting }
 OBCollectionMetaObject >> myNewScriptOn: aLesson [
 
-	^ '(', aLesson lessonIdentification , ' literalNamed: ', self realObject class name asLowercase , ') basicClone'
+	^ '(', aLesson lessonIdentification , ' literalNamed: ''', self realObject class name asLowercase , ''') basicClone'
 	
 ]
 

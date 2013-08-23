@@ -21,6 +21,11 @@ OBDictionaryMetaObject >> accept: aVisitor [
 	aVisitor visitDictionary: self.
 ]
 
+{ #category : #adding }
+OBDictionaryMetaObject >> at: aKey put: aValue [
+	self realObject at: aKey realObject put: aValue realObject
+]
+
 { #category : #attributes }
 OBDictionaryMetaObject >> basicRelationships [
 	

@@ -58,12 +58,6 @@ OBLessonModel >> attributeListMenu: aMenu shifted: shifted [
 ]
 
 { #category : #ObjectBrowser }
-OBLessonModel >> canDelete: anObjectBrowserObject [
-
-	^self objects allSatisfy: [ :anOBObject | (anOBObject hasReferencesTo: anObjectBrowserObject) not ]
-]
-
-{ #category : #ObjectBrowser }
 OBLessonModel >> changed [
 	super changed.
 	self dependants do: [ :d | d refresh ].
@@ -179,27 +173,21 @@ OBLessonModel >> createVariable: aVariableNameString [
 ]
 
 { #category : #'as yet unclassified' }
-OBLessonModel >> createVariable: aVariableNameString referencingTo: anObjectBrowserObject [
+OBLessonModel >> createVariable: aVariableNameString referencingTo: anObject [
+
 	| newVariable |
 	self validateVariableName: aVariableNameString.
 	
-	newVariable := (OBLessonVariable newNamed: aVariableNameString)
-		pointTo: anObjectBrowserObject;
-		yourself.
-	self lesson addVariable: newVariable.
+	newVariable := self lesson
+							createVariableNamed: aVariableNameString
+							pointingTo: anObject.
 	self selectedItem: newVariable.
 ]
 
 { #category : #'as yet unclassified' }
-OBLessonModel >> createVariable: aVariableNameString toRecover: anObjectBrowserObject [
-	| newVariable |
-	self validateVariableName: aVariableNameString.
-	
-	newVariable := (OBLessonVariable newNamed: aVariableNameString)
-		pointTo: anObjectBrowserObject;
-		yourself.
-	self lesson basicAddVariable: newVariable.
-	self selectedItem: newVariable.
+OBLessonModel >> createVariable: aVariableNameString toRecover: anObject [
+
+	self createVariable: aVariableNameString referencingTo: anObject
 ]
 
 { #category : #showing }
@@ -319,7 +307,7 @@ OBLessonModel >> exportDiagram [
 
 { #category : #export }
 OBLessonModel >> exportTest [
-	self lesson exportTest: self selectedTest.
+	self selectedTest fileOut.
 ]
 
 { #category : #accessing }

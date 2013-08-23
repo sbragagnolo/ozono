@@ -22,6 +22,21 @@ OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]
 
+{ #category : #exporting }
+OBTest >> fileOut [
+
+	| internalStream |
+	[internalStream := (String new: 50) writeStream.
+	
+	self writeYourOwnCodeOn: internalStream.
+	
+	FileStream
+		writeSourceCodeFrom: internalStream
+		baseName: (lesson lessonIdentification , '_' , self name) asFileName
+		isSt: true
+	] ensure: [ internalStream close ]
+]
+
 { #category : #'as yet unclassified' }
 OBTest >> icon [
 	^result icon.
@@ -43,6 +58,12 @@ OBTest >> makeSelectionOn: anObjectBrowser [
 ]
 
 { #category : #'as yet unclassified' }
+OBTest >> name [
+
+	^ selector
+]
+
+{ #category : #'as yet unclassified' }
 OBTest >> printString [
 	^selector 
 ]
@@ -54,8 +75,11 @@ OBTest >> run [
 	context := lesson executionContext.
 	context prepare.
 	context setTestSelector: self selector.
-	[ ^ result := self runContext: context ]
-		ensure: [ context commitChanges ]
+	[ ^ result := self runContext: context ] ensure: [
+		"We restore the lesson in the context because the test framework wipes all the variables in it and puts a nil in them"
+		context lesson: lesson.
+		context commitChanges.
+	]
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,9 +115,9 @@ OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 ]
 
 { #category : #'as yet unclassified' }
-OBTest >> writeYourOwnCodeOn: stream  lesson: aLesson [
+OBTest >> writeYourOwnCodeOn: stream [
 	stream
-		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
+		nextPutAll: (self code copyReplaceAll: '''' with: '''''');
 		nextPutAll: '.';
 		cr.
 ]

@@ -9,8 +9,8 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 	| pepita rosario|
 	pepita := self createPepitaObObject: lesson .
 	rosario := self createRosarioObObject: lesson .
-	lesson addVariableNamed: 'pepita' pointingTo: pepita.
-	lesson addVariableNamed: 'rosario' pointingTo: rosario .
+	lesson createVariableNamed: 'pepita' pointingTo: pepita.
+	lesson createVariableNamed: 'rosario' pointingTo: rosario .
 	^lesson.
 ]
 
@@ -110,8 +110,8 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	lesson := OBLesson new title: self lessonWithStateTitle.
 	pepita := self createPepitaObObject: lesson .
 	rosario := self createRosarioObObject: lesson .
-	lesson addVariableNamed: 'pepita' pointingTo: pepita.
-	lesson addVariableNamed: 'rosario' pointingTo: rosario .
+	lesson createVariableNamed: 'pepita' pointingTo: pepita.
+	lesson createVariableNamed: 'rosario' pointingTo: rosario .
 	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
 	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).

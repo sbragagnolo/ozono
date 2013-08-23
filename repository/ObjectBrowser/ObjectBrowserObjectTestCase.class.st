@@ -20,7 +20,7 @@ ObjectBrowserObjectTestCase >> testAddDuplicatedVariable [
 	| varName |
 	varName := 'energia'.
 	obo addAttributeNamed: varName .
-	self should: [obo addVariable: varName] raise:Error.
+	self should: [obo addAttributeNamed: varName] raise:Error.
 	self assert: obo attributes size = 1.
 ]
 

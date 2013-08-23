@@ -35,14 +35,13 @@ OBExecutionContext >> getValueFromContext: anOBVariable [
 
 	| value |
 	value := self instVarNamed: anOBVariable name.
-	anOBVariable pointTo: (_lesson getObjectBrowserObjectFromRealObject: value).
-	
+	anOBVariable pointTo: (_lesson objectBrowserObjectForRealObject: value).
 ]
 
 { #category : #accessing }
 OBExecutionContext >> lesson: aLesson [
 
-	_lesson := aLesson.
+	_lesson := aLesson
 ]
 
 { #category : #execution }
