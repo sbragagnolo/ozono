@@ -1,5 +1,8 @@
+"
+I gather the results of a test case run
+"
 Class {
-	#name : #LOOPTestCaseResult,
+	#name : #OBTestCaseResult,
 	#superclass : #Object,
 	#instVars : [
 		'results'
@@ -8,12 +11,12 @@ Class {
 }
 
 { #category : #accessing }
-LOOPTestCaseResult >> add: aResult [
+OBTestCaseResult >> add: aResult [
 	self results add: aResult
 ]
 
-{ #category : #accessing }
-LOOPTestCaseResult >> color [
+{ #category : #ui }
+OBTestCaseResult >> color [
 	self hasErrors 
 		ifTrue: [ ^ Color red ].
 	self hasFailures 
@@ -22,27 +25,27 @@ LOOPTestCaseResult >> color [
 ]
 
 { #category : #accessing }
-LOOPTestCaseResult >> errors [
+OBTestCaseResult >> errors [
 	^self results select: [ :r | r isError ].
 ]
 
 { #category : #accessing }
-LOOPTestCaseResult >> failures [
+OBTestCaseResult >> failures [
 	^self results select: [ :r | r isFailure ].
 ]
 
-{ #category : #accessing }
-LOOPTestCaseResult >> hasErrors [
+{ #category : #testing }
+OBTestCaseResult >> hasErrors [
 	^self results anySatisfy: [ :r | r isError ].
 ]
 
-{ #category : #accessing }
-LOOPTestCaseResult >> hasFailures [
+{ #category : #testing }
+OBTestCaseResult >> hasFailures [
 	^self results anySatisfy: [ :r | r isFailure ].
 ]
 
-{ #category : #accessing }
-LOOPTestCaseResult >> printString [
+{ #category : #printing }
+OBTestCaseResult >> printString [
 	^'Errores: ' translated , 
 		self errors size printString, 
 		' Fallas: ' translated , 
@@ -52,11 +55,11 @@ LOOPTestCaseResult >> printString [
 ]
 
 { #category : #accessing }
-LOOPTestCaseResult >> results [
+OBTestCaseResult >> results [
 	^results ifNil: [ results := Set new ].
 ]
 
 { #category : #accessing }
-LOOPTestCaseResult >> succeededTests [
+OBTestCaseResult >> succeededTests [
 	^self results select: [ :r | r isSuccess ].
 ]

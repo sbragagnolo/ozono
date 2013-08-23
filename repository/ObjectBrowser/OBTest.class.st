@@ -1,3 +1,6 @@
+"
+I am a test of the object browser. I run using the variables of the lesson.
+"
 Class {
 	#name : #OBTest,
 	#superclass : #Object,
@@ -9,15 +12,15 @@ Class {
 	#category : #'ObjectBrowser-TestFramework'
 }
 
-{ #category : #'as yet unclassified' }
-OBTest class >> newText: aTestSelector onLesson: aLesson [
+{ #category : #'instance-creation' }
+OBTest class >> newWithSelector: aTestSelector onLesson: aLesson [
 	^self new
 		selector: aTestSelector;
 		lesson: aLesson;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]
@@ -37,38 +40,40 @@ OBTest >> fileOut [
 	] ensure: [ internalStream close ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #ui }
 OBTest >> icon [
 	^result icon.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 OBTest >> initialize [
-	result := LOOPTestNotRan new.
+
+	super initialize.
+	result := OBTestNotRun new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTest >> lesson: aLesson [
 	lesson := aLesson
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #selection }
 OBTest >> makeSelectionOn: anObjectBrowser [
 	anObjectBrowser testCaseSelected: self.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTest >> name [
 
 	^ selector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 OBTest >> printString [
 	^selector 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 OBTest >> run [
 
 	| context |
@@ -82,28 +87,28 @@ OBTest >> run [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 OBTest >> runContext: aPreparedContext [
 	[ 
 	[ aPreparedContext runCase ]
 		on: TestFailure
-		do: [ :signal | ^ LOOPTestFailure new: signal ] ]
+		do: [ :signal | ^ OBTestFailure new: signal ] ]
 		on: Error
-		do: [ :signal | ^ LOOPTestError new: signal ].
-	^ LOOPTestSuccess new
+		do: [ :signal | ^ OBTestError new: signal ].
+	^ OBTestSuccess new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTest >> selector [
 	^selector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBTest >> selector: aTestSelector [
 	selector := aTestSelector
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exporting }
 OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 	stream
 		nextPutAll: aLesson lessonIdentification;
@@ -114,7 +119,7 @@ OBTest >> writeExportScriptOn: stream  lesson: aLesson [
 		cr.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #exporting }
 OBTest >> writeYourOwnCodeOn: stream [
 	stream
 		nextPutAll: (self code copyReplaceAll: '''' with: '''''');

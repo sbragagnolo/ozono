@@ -185,7 +185,7 @@ OBLesson >> compileTest: aTestText [
 	| result newTest |
 	self suspendAllWhile: [
 		result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
-		newTest := (OBTest newText: result onLesson: self).
+		newTest := (OBTest newWithSelector: result onLesson: self).
 		self testDictionary at: result put: newTest.
 		^newTest
 	]
@@ -423,7 +423,7 @@ OBLesson >> removeVariable: anOBVariable [
 OBLesson >> runAllTests [
 
 	| results |
-	results := LOOPTestCaseResult new.
+	results := OBTestCaseResult new.
 	self tests do: [ :t | 
 		results add:( t run ).
 		].
