@@ -1,38 +1,41 @@
+"
+I am a reference in the graph of the lesson
+"
 Class {
-	#name : #LessonGraphReference,
+	#name : #OBLessonGraphReference,
 	#superclass : #Object,
 	#instVars : [
 		'from',
 		'to',
 		'name'
 	],
-	#category : #'ObjectBrowser-Diagrams'
+	#category : #'ObjectBrowser-Graph'
 }
 
 { #category : #'as yet unclassified' }
-LessonGraphReference class >> from: aRealObject to: objectReferenced named: referenceName [
+OBLessonGraphReference class >> from: aRealObject to: objectReferenced named: referenceName [
 	^self new
 		from: aRealObject to: objectReferenced named: referenceName
 ]
 
 { #category : #'as yet unclassified' }
-LessonGraphReference >> from [
+OBLessonGraphReference >> from [
 	^from
 ]
 
 { #category : #'as yet unclassified' }
-LessonGraphReference >> from: aRealObject to: objectReferenced named: referenceName [
+OBLessonGraphReference >> from: aRealObject to: objectReferenced named: referenceName [
 	from := aRealObject.
 	to := objectReferenced.
 	name := referenceName.
 ]
 
 { #category : #'as yet unclassified' }
-LessonGraphReference >> name [
+OBLessonGraphReference >> name [
 	^name
 ]
 
 { #category : #'as yet unclassified' }
-LessonGraphReference >> to [
+OBLessonGraphReference >> to [
 	^to
 ]

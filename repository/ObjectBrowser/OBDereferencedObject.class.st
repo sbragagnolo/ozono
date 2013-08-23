@@ -61,6 +61,7 @@ OBDereferencedObject >> menu: aMenuBuilder [
 
 { #category : #accessing }
 OBDereferencedObject >> realObject [
+
 	^dereferencedObject.
 ]
 

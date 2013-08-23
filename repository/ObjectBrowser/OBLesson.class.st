@@ -125,6 +125,12 @@ OBLesson class >> suspendAllWhile: aBlock [
 	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
 ]
 
+{ #category : #visiting }
+OBLesson >> accept: aVisitor [
+
+	aVisitor visitLesson: self
+]
+
 { #category : #objects }
 OBLesson >> addObject: anObject [
 
@@ -155,9 +161,8 @@ OBLesson >> asString [
 OBLesson >> buildGraph [
 
 	| graph |
-	graph := LessonGraph new.
-	graph addLesson: self.
-	graph allTheObjects: self objects.
+	graph := OBLessonGraph new.
+	self accept: graph.
 	^ graph
 ]
 
@@ -224,6 +229,7 @@ OBLesson >> createVariableNamed: aVariableName pointingTo: anObject [
 		pointTo: anObject;
 		yourself.
 	self addVariable: newVariable.
+	^newVariable
 ]
 
 { #category : #workspaces }
@@ -500,7 +506,7 @@ OBLesson >> writeAddScriptToLessonOn: stream [
 		do: [ :variable | 
 			stream
 				nextPutAll:
-					self lessonIdentification , ' addVariableNamed: ''' , variable name , ''' pointingTo: ' , variable pointsTo posibleName
+					self lessonIdentification , ' ', (self class>>#createVariableNamed:pointingTo:) selector separateKeywords substrings first ,' ''' , variable name , ''' ', (self class >> #createVariableNamed:pointingTo:) selector separateKeywords substrings second ,' ' , variable pointsTo posibleName
 						, '.'.
 			stream cr ].
 	self objects

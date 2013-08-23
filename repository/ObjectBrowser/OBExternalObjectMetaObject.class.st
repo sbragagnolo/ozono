@@ -117,6 +117,7 @@ OBExternalObjectMetaObject >> realClass [
 
 { #category : #accessing }
 OBExternalObjectMetaObject >> realObject [
+
 	^realObject
 ]
 

@@ -16,6 +16,12 @@ OBLessonVariable class >> newNamed: aNameString [
 	^self new name: aNameString; yourself
 ]
 
+{ #category : #visiting }
+OBLessonVariable >> accept: aVisitor [
+
+	aVisitor visitLessonVariable: self.
+]
+
 { #category : #printing }
 OBLessonVariable >> asString [
 
