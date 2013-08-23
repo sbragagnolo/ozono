@@ -16,5 +16,5 @@ NullLessonVariable >> notifySelectionTo: anObjectBrowser [
 
 { #category : #references }
 NullLessonVariable >> pointsTo [
-	^NullObjectBrowserObject new.
+	^OBNullObject new.
 ]

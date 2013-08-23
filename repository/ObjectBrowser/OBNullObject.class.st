@@ -2,85 +2,85 @@
 I am a null-object representing the absense of an OBMetaObject inside the object browser. I keep polymorphic with the OBMetaObject.
 "
 Class {
-	#name : #NullObjectBrowserObject,
+	#name : #OBNullObject,
 	#superclass : #Object,
 	#category : #'ObjectBrowser-Objects'
 }
 
 { #category : #'ui-actions' }
-NullObjectBrowserObject >> actionsForAttributeListWith: selectedAttribute [
+OBNullObject >> actionsForAttributeListWith: selectedAttribute [
 	^#()
 ]
 
 { #category : #'ui-actions' }
-NullObjectBrowserObject >> actionsForObjectBrowserReferencesList [
+OBNullObject >> actionsForObjectBrowserReferencesList [
 	^#(#('eliminar' #deleteLessonVariable))
 ]
 
 { #category : #attributes }
-NullObjectBrowserObject >> addAttributeNamed: anAttributeName [
+OBNullObject >> addAttributeNamed: anAttributeName [
 	self error: 'Debes seleccionar un objeto para crearle un atributo'.
 ]
 
 { #category : #references }
-NullObjectBrowserObject >> addInversePrototypeRelationship: referencesCollection [
+OBNullObject >> addInversePrototypeRelationship: referencesCollection [
 	"El NullObjectBrowserObject no debe agregarse a la coleccion de objetos"
 	^self
 ]
 
 { #category : #graph }
-NullObjectBrowserObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
+OBNullObject >> addPrototypeRelationshipTo: anObjectBrowserObject in: aLessonGraph [ 
 	"Nothing"
 ]
 
 { #category : #attributes }
-NullObjectBrowserObject >> allAttributeNames [
+OBNullObject >> allAttributeNames [
 	^OrderedCollection new
 ]
 
 { #category : #attributes }
-NullObjectBrowserObject >> attributes [
+OBNullObject >> attributes [
 	
 	^ #()
 ]
 
 { #category : #methods }
-NullObjectBrowserObject >> compileMethod: aText notifying: someone [
+OBNullObject >> compileMethod: aText notifying: someone [
 	^self error: 'Debe seleccionar un objeto para este metodo'.
 ]
 
 { #category : #methods }
-NullObjectBrowserObject >> includesSelector: aSelector [
+OBNullObject >> includesSelector: aSelector [
 	^false
 ]
 
 { #category : #testing }
-NullObjectBrowserObject >> isNil [
+OBNullObject >> isNil [
 	^true
 ]
 
 { #category : #'ui-actions' }
-NullObjectBrowserObject >> menu: aMenuMorph [ 
+OBNullObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
 
 { #category : #methods }
-NullObjectBrowserObject >> methods [
+OBNullObject >> methods [
 	^ OrderedCollection new
 ]
 
 { #category : #'pharo-interaction' }
-NullObjectBrowserObject >> removeFromSystem [
+OBNullObject >> removeFromSystem [
 	"do nothing"
 	^self
 ]
 
 { #category : #methods }
-NullObjectBrowserObject >> sourceCodeAt: aSelector [ 
+OBNullObject >> sourceCodeAt: aSelector [ 
 	^''
 ]
 
 { #category : #exporting }
-NullObjectBrowserObject >> writeCloneScriptOn: aWriteStream for: anObjectBrowserObject lesson: aLOOPLesson [ 
+OBNullObject >> writeCloneScriptOn: aWriteStream for: anObjectBrowserObject lesson: aLOOPLesson [ 
 	"Un null ob onject no tiene prototipo"
 ]

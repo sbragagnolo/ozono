@@ -121,7 +121,7 @@ LOOPLesson >> addObject: anObject [
 { #category : #'reference-handling' }
 LOOPLesson >> addVariable: aVariable [
 	self basicAddVariable: aVariable.
-	(aVariable pointsTo isKindOf: NoObjectBrowserObject) ifFalse: [self addObject: aVariable pointsTo.].
+	(aVariable pointsTo isKindOf: OBExternalObjectMetaObject) ifFalse: [self addObject: aVariable pointsTo.].
 ]
 
 { #category : #'reference-handling' }
@@ -308,7 +308,7 @@ LOOPLesson >> fileOut [
 LOOPLesson >> getObjectBrowserObjectFromRealObject: aRealObject [
 	(self realObjects anySatisfy: [:realObject | realObject == aRealObject])
 		ifTrue:  [ ^self objects detect: [ :o | o realObject == aRealObject ] ]
-		ifFalse: [ ^NoObjectBrowserObject for: aRealObject . ]
+		ifFalse: [ ^OBExternalObjectMetaObject for: aRealObject . ]
 ]
 
 { #category : #accessing }
@@ -370,7 +370,7 @@ LOOPLesson >> menuActions [
 
 { #category : #showing }
 LOOPLesson >> objectBrowserObjectForRealObject: realObject [
-	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ NoObjectBrowserObject for: realObject ].
+	^self objects detect: [ :o | o realObject == realObject ] ifNone: [ OBExternalObjectMetaObject for: realObject ].
 ]
 
 { #category : #diagram }

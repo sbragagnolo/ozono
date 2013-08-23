@@ -4,7 +4,7 @@ I am a meta-object representing an object that is not from the object browser bu
 I do not support all the same operations as an OBMetaObject, but mostly introspection.
 "
 Class {
-	#name : #NoObjectBrowserObject,
+	#name : #OBExternalObjectMetaObject,
 	#superclass : #Object,
 	#instVars : [
 		'realObject',
@@ -14,152 +14,152 @@ Class {
 }
 
 { #category : #'instance-creation' }
-NoObjectBrowserObject class >> for: anObject [
+OBExternalObjectMetaObject class >> for: anObject [
 	^((anObject isKindOf: Collection) and: [ (anObject isKindOf: String) not ])
 		ifTrue: [ ObjectBrowserCollection newWithRealObject: anObject ]
 		ifFalse: [ self new: anObject ].
 ]
 
 { #category : #'instance-creation' }
-NoObjectBrowserObject class >> new: anObject [
+OBExternalObjectMetaObject class >> new: anObject [
 	^self new realObject: anObject; yourself.
 ]
 
 { #category : #comparing }
-NoObjectBrowserObject >> = anotherObject [
+OBExternalObjectMetaObject >> = anotherObject [
 	^(self class == anotherObject class) and:[(self realObject == anotherObject realObject) ]
 ]
 
 { #category : #'ui-actions' }
-NoObjectBrowserObject >> actionsForAttributeListWith: aNullOBVariable [ 
+OBExternalObjectMetaObject >> actionsForAttributeListWith: aNullOBVariable [ 
 	^#()
 ]
 
 { #category : #'ui-actions' }
-NoObjectBrowserObject >> actionsForObjectBrowserReferencesList [
+OBExternalObjectMetaObject >> actionsForObjectBrowserReferencesList [
 	^OrderedCollection new.
 ]
 
 { #category : #graph }
-NoObjectBrowserObject >> addToGraph: aLessonGraph [ 
+OBExternalObjectMetaObject >> addToGraph: aLessonGraph [ 
 	aLessonGraph addNoObjectBrowserObject: self.
 ]
 
 { #category : #printing }
-NoObjectBrowserObject >> asString [
+OBExternalObjectMetaObject >> asString [
 	^self displayString 
 ]
 
 { #category : #attributes }
-NoObjectBrowserObject >> attributes [
+OBExternalObjectMetaObject >> attributes [
 
 	^#()
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> compileMethod: aText notifying: someone [
+OBExternalObjectMetaObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
 ]
 
 { #category : #printing }
-NoObjectBrowserObject >> displayString [
+OBExternalObjectMetaObject >> displayString [
 	^self object printString
 ]
 
 { #category : #references }
-NoObjectBrowserObject >> hasReferencesTo: anObject [
+OBExternalObjectMetaObject >> hasReferencesTo: anObject [
 	^false
 ]
 
 { #category : #comparing }
-NoObjectBrowserObject >> hash [
+OBExternalObjectMetaObject >> hash [
 	^self realObject hash
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> isRedefined: aSelector [
+OBExternalObjectMetaObject >> isRedefined: aSelector [
 	^false
 ]
 
 { #category : #'ui-actions' }
-NoObjectBrowserObject >> menu: aMenuMorph [ 
+OBExternalObjectMetaObject >> menu: aMenuMorph [ 
 	^aMenuMorph
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> methods [
+OBExternalObjectMetaObject >> methods [
 	^methods ifNil: [ methods := realObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> myClassHasMethod: aSelector [
+OBExternalObjectMetaObject >> myClassHasMethod: aSelector [
 
 	^true
 ]
 
 { #category : #accessing }
-NoObjectBrowserObject >> posibleName [
+OBExternalObjectMetaObject >> posibleName [
 	^'(NoObjectBrowserObject new: ', self realObject printString, ')'
 
 
 ]
 
 { #category : #printing }
-NoObjectBrowserObject >> printString [
+OBExternalObjectMetaObject >> printString [
 	^self object printString
 ]
 
 { #category : #'pharo-interaction' }
-NoObjectBrowserObject >> realClass [
+OBExternalObjectMetaObject >> realClass [
 	^realObject class
 ]
 
 { #category : #accessing }
-NoObjectBrowserObject >> realObject [
+OBExternalObjectMetaObject >> realObject [
 	^realObject
 ]
 
 { #category : #accessing }
-NoObjectBrowserObject >> realObject: anObject [ 
+OBExternalObjectMetaObject >> realObject: anObject [ 
 	realObject := anObject.
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> redefines: aSelector [
+OBExternalObjectMetaObject >> redefines: aSelector [
 	^false
 ]
 
 { #category : #'pharo-interaction' }
-NoObjectBrowserObject >> removeClassFromSystem [
+OBExternalObjectMetaObject >> removeClassFromSystem [
 	"Shouldn't remove anything'"
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> sourceCodeAt: anOBMethod [ 
+OBExternalObjectMetaObject >> sourceCodeAt: anOBMethod [ 
 	^anOBMethod code
 ]
 
 { #category : #methods }
-NoObjectBrowserObject >> understands: aSelector [
+OBExternalObjectMetaObject >> understands: aSelector [
 	^self object respondsTo: aSelector asSymbol 
 ]
 
 { #category : #attributes }
-NoObjectBrowserObject >> variables [
+OBExternalObjectMetaObject >> variables [
 	^OrderedCollection new.
 ]
 
 { #category : #exporting }
-NoObjectBrowserObject >> writeCreateObjectOn: stream lesson: aLesson [
+OBExternalObjectMetaObject >> writeCreateObjectOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]
 
 { #category : #exporting }
-NoObjectBrowserObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
+OBExternalObjectMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]
 
 { #category : #exporting }
-NoObjectBrowserObject >> writeStateScriptOn: stream lesson: aLesson [
+OBExternalObjectMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 	"Un NoObjectBrowserObject no se escribe"
 ]

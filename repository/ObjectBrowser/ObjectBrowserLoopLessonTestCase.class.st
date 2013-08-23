@@ -114,7 +114,7 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	lesson addVariableNamed: 'rosario' pointingTo: rosario .
 	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
-	pepita attributeNamed: 'energia' pointTo: (NoObjectBrowserObject for: nil).
+	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).
 	
 	^lesson.
 ]

@@ -25,7 +25,7 @@ LessonVariable >> asStringOrText [
 
 { #category : #'as yet unclassified' }
 LessonVariable >> desreference [
-	self pointTo: (NoObjectBrowserObject new: nil).
+	self pointTo: (OBExternalObjectMetaObject new: nil).
 ]
 
 { #category : #'as yet unclassified' }

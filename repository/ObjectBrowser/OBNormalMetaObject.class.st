@@ -255,7 +255,7 @@ OBNormalMetaObject >> initialize [
 
 	super initialize.
 	self realObject ifNotNil: [self realObject initialize].
-	prototype ifNil: [ prototype := NullObjectBrowserObject new].
+	prototype ifNil: [ prototype := OBNullObject new].
 	attributes := Set new.
 	methods := Dictionary new.
 	^self
