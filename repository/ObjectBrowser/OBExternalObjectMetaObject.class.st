@@ -30,7 +30,7 @@ OBExternalObjectMetaObject >> = anotherObject [
 	^(self class == anotherObject class) and:[(self concreteObject == anotherObject concreteObject) ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visiting }
 OBExternalObjectMetaObject >> accept: aVisitor [
 
 	aVisitor visitOBExternalObject: self.
@@ -55,6 +55,12 @@ OBExternalObjectMetaObject >> asString [
 OBExternalObjectMetaObject >> attributes [
 
 	^#()
+]
+
+{ #category : #cloning }
+OBExternalObjectMetaObject >> clone [
+
+	^self class for: self concreteObject.
 ]
 
 { #category : #methods }
