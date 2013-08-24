@@ -43,7 +43,7 @@ OBLessonVariable >> desreference [
 { #category : #references }
 OBLessonVariable >> hasReferencesTo: anObject [
 
-	^(reference realObject == anObject realObject )
+	^(reference concreteObject == anObject concreteObject )
 ]
 
 { #category : #ui }

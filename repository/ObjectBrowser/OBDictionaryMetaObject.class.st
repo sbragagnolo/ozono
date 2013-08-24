@@ -23,17 +23,17 @@ OBDictionaryMetaObject >> accept: aVisitor [
 
 { #category : #adding }
 OBDictionaryMetaObject >> at: aKey put: aValue [
-	self realObject at: aKey realObject put: aValue realObject
+	self concreteObject at: aKey concreteObject put: aValue concreteObject
 ]
 
 { #category : #attributes }
 OBDictionaryMetaObject >> basicRelationships [
 	
-	^self realObject associations collect: [ :elem | 
+	^self concreteObject associations collect: [ :elem | 
 		OBAssociationAttribute 
 			newNamed: 'associacion'
 			owner: self
-			pointingTo: (lesson objectBrowserObjectForRealObject: elem)
+			pointingTo: elem metaObject
 		]
 ]
 
@@ -46,7 +46,7 @@ OBDictionaryMetaObject >> hasReferencesTo: anOBObject [
 { #category : #references }
 OBDictionaryMetaObject >> keysReferenceTo: anOBObject [
 
-	^self realObject includesKey: anOBObject realObject
+	^self concreteObject includesKey: anOBObject concreteObject
 ]
 
 { #category : #printing }
@@ -57,18 +57,18 @@ OBDictionaryMetaObject >> printString [
 { #category : #references }
 OBDictionaryMetaObject >> valuesReferenceTo: anOBObject [
 
-	^self realObject includes: anOBObject realObject
+	^self concreteObject includes: anOBObject concreteObject
 ]
 
 { #category : #exporting }
 OBDictionaryMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 	"saves the state, all the variables values and relationships"
-	self realObject keysAndValuesDo:  [ :key :value | 
+	self concreteObject keysAndValuesDo:  [ :key :value | 
 			stream nextPutAll: self posibleName.
 			stream nextPutAll: ' at: '.
-			stream nextPutAll:  (aLesson objectBrowserObjectForRealObject: key) posibleName.
+			stream nextPutAll:  key metaObject posibleName.
 			stream nextPutAll: ' put: '.
-			stream nextPutAll:  (aLesson objectBrowserObjectForRealObject: value) posibleName.
+			stream nextPutAll:  value metaObject posibleName.
 			stream nextPutAll: '.'.
 			stream cr].
 

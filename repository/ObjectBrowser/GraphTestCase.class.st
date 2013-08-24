@@ -32,8 +32,8 @@ GraphTestCase >> testComplicatedGraph [
 	
 	self assert: (graph references anySatisfy: [ :r | r from = obj & r to = obj2 & r name = 'var1']).
 	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to = obj & r name = 'var1']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = 2 & r name = 'var2']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to realObject = nil & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = 2 & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to concreteObject = nil & r name = 'var2']).
 ]
 
 { #category : #'as yet unclassified' }
@@ -71,11 +71,11 @@ GraphTestCase >> testObjectWithVariables [
 	self assert: (graph references size = 2).
 	
 	self assert: (graph objects includes: obj).
-	self assert: (graph objects anySatisfy: [ :o | o realObject = 2 ]).
-	self assert: (graph objects anySatisfy: [ :o | o realObject = nil ]).
+	self assert: (graph objects anySatisfy: [ :o | o concreteObject = 2 ]).
+	self assert: (graph objects anySatisfy: [ :o | o concreteObject = nil ]).
 	
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = 2 & r name = 'var1']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = nil & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = 2 & r name = 'var1']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = nil & r name = 'var2']).
 ]
 
 { #category : #'as yet unclassified' }

@@ -7,8 +7,8 @@ Class {
 	#name : #OBExternalObjectMetaObject,
 	#superclass : #Object,
 	#instVars : [
-		'realObject',
-		'methods'
+		'methods',
+		'concreteObject'
 	],
 	#category : #'ObjectBrowser-Objects'
 }
@@ -22,12 +22,12 @@ OBExternalObjectMetaObject class >> for: anObject [
 
 { #category : #'instance-creation' }
 OBExternalObjectMetaObject class >> new: anObject [
-	^self new realObject: anObject; yourself.
+	^self new concreteObject: anObject; yourself.
 ]
 
 { #category : #comparing }
 OBExternalObjectMetaObject >> = anotherObject [
-	^(self class == anotherObject class) and:[(self realObject == anotherObject realObject) ]
+	^(self class == anotherObject class) and:[(self concreteObject == anotherObject concreteObject) ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,9 +62,20 @@ OBExternalObjectMetaObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
 ]
 
+{ #category : #accessing }
+OBExternalObjectMetaObject >> concreteObject [
+
+	^concreteObject
+]
+
+{ #category : #accessing }
+OBExternalObjectMetaObject >> concreteObject: anObject [ 
+	concreteObject := anObject.
+]
+
 { #category : #printing }
 OBExternalObjectMetaObject >> displayString [
-	^self realObject printString
+	^self concreteObject printString
 ]
 
 { #category : #references }
@@ -74,7 +85,7 @@ OBExternalObjectMetaObject >> hasReferencesTo: anObject [
 
 { #category : #comparing }
 OBExternalObjectMetaObject >> hash [
-	^self realObject hash
+	^self concreteObject hash
 ]
 
 { #category : #methods }
@@ -89,7 +100,7 @@ OBExternalObjectMetaObject >> menu: aMenuMorph [
 
 { #category : #methods }
 OBExternalObjectMetaObject >> methods [
-	^methods ifNil: [ methods := realObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
+	^methods ifNil: [ methods := concreteObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
 ]
 
 { #category : #methods }
@@ -100,30 +111,19 @@ OBExternalObjectMetaObject >> myClassHasMethod: aSelector [
 
 { #category : #accessing }
 OBExternalObjectMetaObject >> posibleName [
-	^'(',self class name,' new: ', self realObject printString, ')'
+	^'(',self class name,' new: ', self concreteObject printString, ')'
 
 
 ]
 
 { #category : #printing }
 OBExternalObjectMetaObject >> printString [
-	^self realObject printString
+	^self concreteObject printString
 ]
 
 { #category : #'pharo-interaction' }
 OBExternalObjectMetaObject >> realClass [
-	^realObject class
-]
-
-{ #category : #accessing }
-OBExternalObjectMetaObject >> realObject [
-
-	^realObject
-]
-
-{ #category : #accessing }
-OBExternalObjectMetaObject >> realObject: anObject [ 
-	realObject := anObject.
+	^concreteObject class
 ]
 
 { #category : #methods }

@@ -14,7 +14,7 @@ OBDictionaryFactory >> collectionTypeName [
 
 { #category : #cloning }
 OBDictionaryFactory >> createRealCollection [
-	^Dictionary new.
+	^OBDictionary new.
 ]
 
 { #category : #printing }
@@ -25,7 +25,10 @@ OBDictionaryFactory >> displayString [
 { #category : #'instance-creation' }
 OBDictionaryFactory >> newMetaObjectForCollection: aRealCollection [
 
-	^OBDictionaryMetaObject
-			newWithRealObject: aRealCollection
-			inLesson: lesson.
+	| metaCollection |
+	metaCollection := OBDictionaryMetaObject
+						newWithRealObject: aRealCollection
+						inLesson: lesson.
+	aRealCollection metaObject: metaCollection.
+	^metaCollection.
 ]

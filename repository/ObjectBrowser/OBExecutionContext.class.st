@@ -35,7 +35,7 @@ OBExecutionContext >> getValueFromContext: anOBVariable [
 
 	| value |
 	value := self instVarNamed: anOBVariable name.
-	anOBVariable pointTo: (_lesson objectBrowserObjectForRealObject: value).
+	anOBVariable pointTo: value metaObject.
 ]
 
 { #category : #accessing }
@@ -55,5 +55,5 @@ OBExecutionContext >> putInContext: anOBVariable [
 
 	self
 		instVarNamed: anOBVariable name
-		put: anOBVariable pointsTo realObject.
+		put: anOBVariable pointsTo concreteObject.
 ]

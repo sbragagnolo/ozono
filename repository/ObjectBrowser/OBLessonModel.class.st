@@ -121,7 +121,7 @@ OBLessonModel >> createCollection: aCollectionFactory [
 
 	self createObject: [ :collectionName | | realClone obClone |
 		realClone := aCollectionFactory clone.
-		obClone := lesson objectBrowserObjectForRealObject: realClone.
+		obClone := realClone metaObject.
 		self 
 			createVariable: collectionName 
 			referencingTo: obClone ]
@@ -451,7 +451,7 @@ OBLessonModel >> recoverObject [
 		evaluate: [
 			variableName := self request: 'Nombre de la referencia' default: 'recuperadoDeLaPapelera'.
 			variableName ifNotNil: [ 
-				self createVariable: variableName toRecover: self selectedDerreferencedObject realObject.
+				self createVariable: variableName toRecover: self selectedDerreferencedObject concreteObject.
 				]
 		]).
 	self changed
@@ -567,6 +567,7 @@ OBLessonModel >> selectedObjectBrowserVariable [
 
 { #category : #selection }
 OBLessonModel >> selectedObjectBrowserVariable: anOBVariable [
+
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := OBNullLessonVariable new.
 	selectedObjectMethod := OBNullMethod new.

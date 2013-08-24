@@ -21,7 +21,7 @@ OBDereferencedObject class >> newOn: anObject [
 
 { #category : #comparing }
 OBDereferencedObject >> = anObject [
-	^(anObject isKindOf: OBDereferencedObject) and: [ anObject realObject = self realObject  ]
+	^(anObject isKindOf: OBDereferencedObject) and: [ anObject concreteObject = self concreteObject  ]
 ]
 
 { #category : #'ui-actions' }
@@ -35,13 +35,19 @@ OBDereferencedObject >> asString [
 ]
 
 { #category : #accessing }
+OBDereferencedObject >> concreteObject [
+
+	^dereferencedObject.
+]
+
+{ #category : #accessing }
 OBDereferencedObject >> dereferencedObject: anObject [
 	dereferencedObject := anObject
 ]
 
 { #category : #comparing }
 OBDereferencedObject >> hash [
-	^self realObject hash
+	^self concreteObject hash
 ]
 
 { #category : #'ui-actions' }
@@ -57,12 +63,6 @@ OBDereferencedObject >> makeSelectionOn: aBrowser [
 { #category : #'ui-actions' }
 OBDereferencedObject >> menu: aMenuBuilder [
 	^aMenuBuilder addList: self actions
-]
-
-{ #category : #accessing }
-OBDereferencedObject >> realObject [
-
-	^dereferencedObject.
 ]
 
 { #category : #'ui-actions' }

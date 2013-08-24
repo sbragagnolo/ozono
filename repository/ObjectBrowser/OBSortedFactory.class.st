@@ -14,7 +14,7 @@ OBSortedFactory >> collectionTypeName [
 
 { #category : #cloning }
 OBSortedFactory >> createRealCollection [
-	^SortedCollection new.
+	^OBSortedCollection new.
 ]
 
 { #category : #printing }

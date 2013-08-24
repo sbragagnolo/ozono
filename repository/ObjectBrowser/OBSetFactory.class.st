@@ -14,7 +14,7 @@ OBSetFactory >> collectionTypeName [
 
 { #category : #cloning }
 OBSetFactory >> createRealCollection [
-	^Set new.
+	^OBSet new.
 ]
 
 { #category : #printing }

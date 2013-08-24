@@ -40,7 +40,7 @@ OBSpecialAttribute >> objectPointed: anObject [
 
 { #category : #reference }
 OBSpecialAttribute >> pointsTo [
-	^self objectPointed realObject
+	^self objectPointed concreteObject
 ]
 
 { #category : #printing }

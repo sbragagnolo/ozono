@@ -13,11 +13,11 @@ Class {
 	#name : #OBMetaObject,
 	#superclass : #Object,
 	#instVars : [
-		'realObject',
 		'prototype',
 		'methods',
 		'lesson',
-		'attributes'
+		'attributes',
+		'concreteObject'
 	],
 	#classVars : [
 		'NextObjectBrowserClassNumber'
@@ -35,7 +35,7 @@ OBMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson 
 
 { #category : #'instance-creation' }
 OBMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
-	^self createNewObjectBrowserObjectClassFrom: OBRealObject in: aLesson.
+	^self createNewObjectBrowserObjectClassFrom: OBObject in: aLesson.
 	
 ]
 
@@ -46,10 +46,16 @@ OBMetaObject class >> initialize [
 
 { #category : #'instance-creation' }
 OBMetaObject class >> newFrom: anObo on: aLesson [
-	| klass |
-	klass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
-	^super new
-		realObject: klass new;
+	
+	| concreteClass concreteObject metaObject |
+	metaObject := self new.
+	
+	concreteClass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
+	concreteObject := concreteClass new.
+	concreteObject metaObject: metaObject.
+
+	^metaObject
+		concreteObject: concreteObject;
 		prototype: anObo;
 		lesson: aLesson;
 		yourself.
@@ -57,18 +63,15 @@ OBMetaObject class >> newFrom: anObo on: aLesson [
 
 { #category : #'instance-creation' }
 OBMetaObject class >> newOn: aLesson [
-	| klass |
-	klass := self createNewObjectBrowserObjectClassIn: aLesson.
-	^super new
-		realObject: (klass new);
-		lesson: aLesson;
-		yourself.
-]
-
-{ #category : #'instance-creation' }
-OBMetaObject class >> newOn: aLesson withRealObject: realObject [
-	^super new
-		realObject: realObject;
+	| concreteClass concreteObject metaObject |
+	metaObject := self new.
+	
+	concreteClass := self createNewObjectBrowserObjectClassIn: aLesson.
+	concreteObject := concreteClass new.
+	concreteObject metaObject: metaObject.
+	
+	^ metaObject
+		concreteObject: concreteObject;
 		lesson: aLesson;
 		yourself.
 ]
@@ -111,7 +114,7 @@ OBMetaObject >> addAttributeNamed: attributeName [
 { #category : #references }
 OBMetaObject >> addInversePrototypeRelationship: references [
 
-	references add: self realObject.
+	references add: self concreteObject.
 ]
 
 { #category : #graph }
@@ -151,7 +154,7 @@ OBMetaObject >> attributeNamed: varName [
 { #category : #attributes }
 OBMetaObject >> attributeNamed: attributeNamed pointTo: anObject [
 
-	self realObject instVarNamed: attributeNamed put: anObject realObject.
+	self concreteObject instVarNamed: attributeNamed put: anObject concreteObject.
 ]
 
 { #category : #attributes }
@@ -170,7 +173,7 @@ OBMetaObject >> attributes [
 { #category : #references }
 OBMetaObject >> basicObjectAtAttributeNamed: attributeName [
 
-	^realObject instVarNamed: attributeName
+	^concreteObject instVarNamed: attributeName
 ]
 
 { #category : #cloning }
@@ -206,7 +209,7 @@ OBMetaObject >> compileMethod: aMethod notifying: someone [
 	| result obMethod |
 	self suspendAllWhile: [
 		result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
-		result ifNil: [ ^self ].
+		result ifNil: [ ^OBNullMethod new ].
 		obMethod := OBMethod new 
 			selector: result;
 			object: self;
@@ -218,10 +221,22 @@ OBMetaObject >> compileMethod: aMethod notifying: someone [
 	]
 ]
 
+{ #category : #accessing }
+OBMetaObject >> concreteObject [
+
+	^ concreteObject
+]
+
+{ #category : #accessing }
+OBMetaObject >> concreteObject: anObject [
+
+	concreteObject := anObject
+]
+
 { #category : #printing }
 OBMetaObject >> displayString [
 
-	^self realObject displayString
+	^self concreteObject displayString
 ]
 
 { #category : #exporting }
@@ -253,7 +268,7 @@ OBMetaObject >> hasAttributeNamed: anAttributeName [
 { #category : #references }
 OBMetaObject >> hasReferencesTo: anOBObject [
 
-	^self referencedObjects includes: anOBObject realObject
+	^self referencedObjects includes: anOBObject concreteObject
 ]
 
 { #category : #methods }
@@ -266,7 +281,7 @@ OBMetaObject >> includesSelector: aSelector [
 OBMetaObject >> initialize [
 
 	super initialize.
-	self realObject ifNotNil: [self realObject initialize].
+	self concreteObject ifNotNil: [self concreteObject initialize].
 	prototype ifNil: [ prototype := OBNullObject new].
 	attributes := Set new.
 	methods := Dictionary new.
@@ -276,7 +291,7 @@ OBMetaObject >> initialize [
 { #category : #'pharo-interaction' }
 OBMetaObject >> inspect [
 
-	self realObject inspect
+	self concreteObject inspect
 ]
 
 { #category : #methods }
@@ -331,13 +346,13 @@ OBMetaObject >> object [
 { #category : #accessing }
 OBMetaObject >> posibleName [
 
-	^ (self realClass name, self realObject hash asString) asLowercase.
+	^ (self realClass name, self concreteObject hash asString) asLowercase.
 ]
 
 { #category : #printing }
 OBMetaObject >> printOn: aStream [
 
-	self realObject printOn: aStream.
+	self concreteObject printOn: aStream.
 ]
 
 { #category : #cloning }
@@ -355,19 +370,7 @@ OBMetaObject >> prototype: anObject [
 { #category : #'pharo-interaction' }
 OBMetaObject >> realClass [
 
-	^self realObject class
-]
-
-{ #category : #accessing }
-OBMetaObject >> realObject [
-
-	^ realObject
-]
-
-{ #category : #accessing }
-OBMetaObject >> realObject: anObject [
-
-	realObject := anObject
+	^self concreteObject class
 ]
 
 { #category : #methods }
@@ -427,7 +430,7 @@ OBMetaObject >> removeMethod: aMethod [
 { #category : #accessing }
 OBMetaObject >> size [
 
-	^self realObject size
+	^self concreteObject size
 ]
 
 { #category : #methods }
@@ -445,7 +448,7 @@ OBMetaObject >> suspendAllWhile: aBlock [
 { #category : #methods }
 OBMetaObject >> understands: aSelector [
 
-	^self realObject respondsTo: aSelector
+	^self concreteObject respondsTo: aSelector
 ]
 
 { #category : #exporting }
@@ -517,6 +520,6 @@ OBMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 
 	"saves the state, all the variables values and relationships"
 	self attributes do:  [ :var | 
-			stream nextPutAll: self posibleName , ' attributeNamed: ''',var name,''' pointTo: ', (lesson objectBrowserObjectForRealObject: (self basicObjectAtAttributeNamed: var name)) posibleName, '.'. 
+			stream nextPutAll: self posibleName , ' attributeNamed: ''',var name,''' pointTo: ', (self basicObjectAtAttributeNamed: var name) metaObject posibleName, '.'. 
 			stream cr].
 ]

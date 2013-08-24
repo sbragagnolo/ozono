@@ -49,7 +49,7 @@ OBCollectionMetaObject class >> new: setName [
 { #category : #'as yet unclassified' }
 OBCollectionMetaObject class >> newWithRealObject: realObject inLesson: aLesson [
 	^super new
-		realObject: realObject;
+		concreteObject: realObject;
 		lesson: aLesson;
 		yourself.
 ]
@@ -63,7 +63,7 @@ OBCollectionMetaObject >> accept: aVisitor [
 { #category : #adding }
 OBCollectionMetaObject >> add: anObj [
 
-	self realObject add: anObj realObject.
+	self concreteObject add: anObj concreteObject.
 ]
 
 { #category : #attributes }
@@ -84,11 +84,11 @@ OBCollectionMetaObject >> allRelationships [
 { #category : #attributes }
 OBCollectionMetaObject >> basicRelationships [
 	
-	^self realObject collect: [ :elem | 
+	^self concreteObject collect: [ :elem | 
 		OBSpecialAttribute 
 			newNamed: 'elemento'
 			owner: self
-			pointingTo: (lesson objectBrowserObjectForRealObject: elem)
+			pointingTo: elem metaObject
 		]
 ]
 
@@ -102,17 +102,17 @@ OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
 OBCollectionMetaObject >> displayString [
 
 	| className prefix |
-	className := self realObject class name.
+	className := self concreteObject class name.
 	className first isVowel 
 		ifTrue: [ prefix := 'an'. ]
 		ifFalse: [ prefix:= 'a' ].
-	^(prefix, self realObject class name) asLegalSelector
+	^(prefix, self concreteObject class name) asLegalSelector
 ]
 
 { #category : #references }
 OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 
-	^self realObject includes: anOBObject realObject
+	^self concreteObject includes: anOBObject concreteObject
 ]
 
 { #category : #'ui-actions' }
@@ -129,13 +129,13 @@ OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 { #category : #methods }
 OBCollectionMetaObject >> methods [
 
-	^ self realObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
+	^ self concreteObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
 ]
 
 { #category : #exporting }
 OBCollectionMetaObject >> myNewScriptOn: aLesson [
 
-	^ '(', aLesson lessonIdentification , ' literalNamed: ''', self realObject class name asLowercase , ''') basicClone'
+	^ '(', aLesson lessonIdentification , ' literalNamed: ''', self concreteObject class name asLowercase , ''') basicClone'
 	
 ]
 
@@ -215,8 +215,8 @@ OBCollectionMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson
 { #category : #exporting }
 OBCollectionMetaObject >> writeStateScriptOn: stream lesson: aLesson [
 
-	self realObject do:  [ :obj | 
-			stream nextPutAll: self posibleName , ' add: ' , (aLesson objectBrowserObjectForRealObject: obj) posibleName, '.'. 
+	self concreteObject do:  [ :obj | 
+			stream nextPutAll: self posibleName , ' add: ' , obj metaObject posibleName, '.'. 
 			stream cr].
 
 ]

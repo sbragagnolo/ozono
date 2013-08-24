@@ -30,7 +30,7 @@ OBCollectionFactory >> basicClone [
 { #category : #cloning }
 OBCollectionFactory >> clone [
 
-	^self basicClone realObject
+	^self basicClone concreteObject
 ]
 
 { #category : #printing }
@@ -54,9 +54,12 @@ OBCollectionFactory >> lesson: aLesson [
 { #category : #'instance-creation' }
 OBCollectionFactory >> newMetaObjectForCollection: aRealCollection [
 
-	^OBCollectionMetaObject
-			newWithRealObject: aRealCollection
-			inLesson: lesson.
+	| metaCollection |
+	metaCollection := OBCollectionMetaObject
+						newWithRealObject: aRealCollection
+						inLesson: lesson.
+	aRealCollection metaObject: metaCollection.
+	^metaCollection.
 ]
 
 { #category : #printing }

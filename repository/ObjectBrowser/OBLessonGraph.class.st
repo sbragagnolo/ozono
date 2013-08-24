@@ -125,7 +125,7 @@ OBLessonGraph >> visitAssociationAttribute: anAttribute [
 OBLessonGraph >> visitAttribute: anAttribute [
 
 	| referencedObjectBrowserObject |
-	referencedObjectBrowserObject := lesson objectBrowserObjectForRealObject: anAttribute pointsTo.
+	referencedObjectBrowserObject := anAttribute pointsTo metaObject.
 	referencedObjectBrowserObject accept: self.
 	self addReferenceFrom: anAttribute owner to: referencedObjectBrowserObject named: anAttribute name
 ]

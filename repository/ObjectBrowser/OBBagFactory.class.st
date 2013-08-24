@@ -14,7 +14,7 @@ OBBagFactory >> collectionTypeName [
 
 { #category : #cloning }
 OBBagFactory >> createRealCollection [
-	^Bag new.
+	^OBBag new.
 ]
 
 { #category : #printing }

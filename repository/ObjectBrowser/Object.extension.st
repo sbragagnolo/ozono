@@ -1,6 +1,6 @@
 Extension { #name : #Object }
 
-{ #category : #'*ObjectBrowser' }
-Object >> isObjectBrowserLiteral [
-	^false
+{ #category : #'*ObjectBrowser-Objects' }
+Object >> metaObject [
+	^OBExternalObjectMetaObject for: self
 ]

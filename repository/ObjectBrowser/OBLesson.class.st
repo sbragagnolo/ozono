@@ -364,14 +364,6 @@ OBLesson >> menuActions [
 		with: { 'exportar' translated 	. #fileOutSelectedLesson }
 ]
 
-{ #category : #objects }
-OBLesson >> objectBrowserObjectForRealObject: realObject [
-	
-	^ self objects
-			detect: [ :o | o realObject == realObject ]
-			ifNone: [ OBExternalObjectMetaObject for: realObject ].
-]
-
 { #category : #diagram }
 OBLesson >> objectDiagram [
 
