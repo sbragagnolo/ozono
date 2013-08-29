@@ -11,11 +11,17 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ObjectBrowserSimpleCollectionTestCase class >> isAbstract [
+
+	^ true
+]
+
+{ #category : #requirements }
 ObjectBrowserSimpleCollectionTestCase >> collection [ 
 	^ collection .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserSimpleCollectionTestCase >> collection: col [
 	collection := col.
 ]

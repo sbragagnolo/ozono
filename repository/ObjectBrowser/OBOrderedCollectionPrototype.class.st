@@ -12,12 +12,13 @@ OBOrderedCollectionPrototype >> baseDisplayString [
 	^'anOrderedCollection'
 ]
 
-{ #category : #printing }
-OBOrderedCollectionPrototype >> collectionTypeName [
-	^'OrderedCollection'
-]
-
 { #category : #cloning }
 OBOrderedCollectionPrototype >> createRealCollection [
 	^OBOrderedCollection new.
+]
+
+{ #category : #accessing }
+OBOrderedCollectionPrototype >> id [
+
+	^ #ordered
 ]

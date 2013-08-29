@@ -12,12 +12,13 @@ OBSetPrototype >> basDisplayString [
 	^ 'aSet'
 ]
 
-{ #category : #printing }
-OBSetPrototype >> collectionTypeName [
-	^'Set'
-]
-
 { #category : #cloning }
 OBSetPrototype >> createRealCollection [
 	^OBSet new.
+]
+
+{ #category : #accessing }
+OBSetPrototype >> id [
+
+	^ #set
 ]

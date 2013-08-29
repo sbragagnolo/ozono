@@ -23,10 +23,9 @@ OBFileOutV3 >> export: anObject [
 	internalStream := (String new: 100) writeStream.
 	anObject accept: self.
 	
-	FileStream
-		writeSourceCodeFrom: internalStream
-		baseName: anObject name asFileName
-		isSt: true
+	(FileStream fileNamed: (anObject name asLegalSelector, '.ob'))
+			nextPutAll: internalStream contents;
+			close.
 	] ensure: [ internalStream close ]
 ]
 
@@ -87,8 +86,8 @@ OBFileOutV3 >> visitCollectionForCreation: anObject [
 	self write:  ' := '.
 	self write: '('.
 	self write:  self lessonIdentification.
-	self write: ' literalNamed: '''.
-	self write: self concreteObject class name asLowercase.
+	self write: ' literalNamed: #'''.
+	self write: anObject prototype id.
 	self write: ''') basicClone'.
 	self write: '.'.
 	self cr.

@@ -12,12 +12,13 @@ OBSortedPrototype >> baseDisplayString [
 	^ 'aSorted'
 ]
 
-{ #category : #printing }
-OBSortedPrototype >> collectionTypeName [
-	^'Sorted'
-]
-
 { #category : #cloning }
 OBSortedPrototype >> createRealCollection [
 	^OBSortedCollection new.
+]
+
+{ #category : #accessing }
+OBSortedPrototype >> id [
+
+	^ #sorted
 ]

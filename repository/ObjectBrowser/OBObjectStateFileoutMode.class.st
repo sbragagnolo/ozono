@@ -11,6 +11,12 @@ OBObjectStateFileoutMode >> visitCollection: anObject inFileoutFormat: aFormat [
 ]
 
 { #category : #visiting }
+OBObjectStateFileoutMode >> visitDictionary: anObject inFileoutFormat: aFormat [
+
+	aFormat visitDictionaryForState: anObject
+]
+
+{ #category : #visiting }
 OBObjectStateFileoutMode >> visitObject: anObject inFileoutFormat: aFormat [
 
 	aFormat visitObjectForState: anObject

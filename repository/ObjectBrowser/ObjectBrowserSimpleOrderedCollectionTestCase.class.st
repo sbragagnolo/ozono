@@ -24,7 +24,7 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> setUp [
 	self collection: (currentLesson literalNamed: #ordered) clone.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAddAfter [
 	self putSomeElements.
 	self assert: 6 equals: (self collection at: 2).
@@ -32,7 +32,7 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> testAddAfter [
 	self assert: 666 equals: (self collection at: 2).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAddAfterIndex [
 	self putSomeElements.
 	self assert: 8 equals: (self collection at: 3).
@@ -40,7 +40,7 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> testAddAfterIndex [
 	self assert: 666 equals: (self collection at: 3).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAddBefore [
 	self putSomeElements.
 	self assert: 6 equals: (self collection at: 2).
@@ -48,7 +48,7 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> testAddBefore [
 	self assert: 666 equals: (self collection at: 2).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAddBeforeIndex [
 	self putSomeElements.
 	self assert: 6 equals: (self collection at: 2).
@@ -56,14 +56,14 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> testAddBeforeIndex [
 	self assert: 666 equals: (self collection at: 2).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAt [
 	self putSomeElements.
 	self assert: 6 equals: (self collection at: 2).
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testAtPut [
 	self putSomeElements.
 	self assert: 5 equals: (self collection at: 1).
@@ -72,19 +72,19 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> testAtPut [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testFirst [
 	self putSomeElements.
 	self assert: 5 equals: self collection first .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testLast [
 	self putSomeElements.
 	self assert: 8 equals: self collection last.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserSimpleOrderedCollectionTestCase >> testRemoveAt [
 	self putSomeElements.
 	self assert: 5 equals: (self collection at: 1).

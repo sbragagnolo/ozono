@@ -18,6 +18,12 @@ OBCollectionPrototype class >> newForLesson: aLesson [
 			yourself.
 ]
 
+{ #category : #attributes }
+OBCollectionPrototype >> allAttributeNames [
+
+	^ #()
+]
+
 { #category : #printing }
 OBCollectionPrototype >> baseDisplayString [
 
@@ -39,12 +45,6 @@ OBCollectionPrototype >> clone [
 	^self basicClone concreteObject
 ]
 
-{ #category : #printing }
-OBCollectionPrototype >> collectionTypeName [
-
-	self subclassResponsibility
-]
-
 { #category : #cloning }
 OBCollectionPrototype >> createRealCollection [
 
@@ -63,13 +63,20 @@ OBCollectionPrototype >> lesson: aLesson [
 	lesson := aLesson
 ]
 
+{ #category : #methods }
+OBCollectionPrototype >> methods [
+
+	^ #()
+]
+
 { #category : #'instance-creation' }
 OBCollectionPrototype >> newMetaObjectForCollection: aRealCollection [
 
 	| metaCollection |
 	metaCollection := OBCollectionMetaObject
 						newWithRealObject: aRealCollection
-						inLesson: lesson.
+						inLesson: lesson
+						prototype: self.
 	aRealCollection metaObject: metaCollection.
 	^metaCollection.
 ]

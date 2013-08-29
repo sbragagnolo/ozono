@@ -4,7 +4,7 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testComplicatedGraph [
 	| obj graph obj2 noObo1 noObo2 |
 	obj := currentLesson createObject.
@@ -36,7 +36,7 @@ GraphTestCase >> testComplicatedGraph [
 	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to concreteObject = nil & r name = 'var2']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testLoopGraph [
 	| obj graph obj2 |
 	obj := currentLesson createObject.
@@ -57,7 +57,7 @@ GraphTestCase >> testLoopGraph [
 	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to = obj & r name = 'var1']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testObjectWithVariables [
 	| obj graph |
 	obj := currentLesson createObject.
@@ -78,7 +78,7 @@ GraphTestCase >> testObjectWithVariables [
 	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = nil & r name = 'var2']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testSimpleObjectGraph [
 	| obj graph |
 	obj := currentLesson createObject.

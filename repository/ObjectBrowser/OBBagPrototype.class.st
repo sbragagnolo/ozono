@@ -21,3 +21,9 @@ OBBagPrototype >> collectionTypeName [
 OBBagPrototype >> createRealCollection [
 	^OBBag new.
 ]
+
+{ #category : #accessing }
+OBBagPrototype >> id [
+
+	^#bag
+]

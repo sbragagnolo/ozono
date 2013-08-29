@@ -11,7 +11,7 @@ ObjectBrowserCollectionTestCase >> agregarRepetidos: coleccion [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 	|miBolsa|
 	miBolsa := (currentLesson literalNamed: #bag) clone.
@@ -21,7 +21,7 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	|sinRepetidos|	
 	sinRepetidos := (currentLesson literalNamed: #set) clone.
@@ -30,28 +30,28 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateBagCollection [
 	|miConjunto |
 	miConjunto:= (currentLesson literalNamed: #bag) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateOrderedCollection [
 	|miConjunto |
 	miConjunto:= (currentLesson literalNamed: #ordered) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateSetCollection [
 	|miConjunto |
 	miConjunto:= (currentLesson literalNamed: #set) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testObtainFirst [
 	|miConjunto |
 	miConjunto:= (currentLesson literalNamed: #ordered) clone.

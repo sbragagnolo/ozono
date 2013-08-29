@@ -12,14 +12,14 @@ OBDictionaryPrototype >> baseDisplayString [
 	^ 'aDictionary'
 ]
 
-{ #category : #printing }
-OBDictionaryPrototype >> collectionTypeName [
-	^'Dictionary'
-]
-
 { #category : #cloning }
 OBDictionaryPrototype >> createRealCollection [
 	^OBDictionary new.
+]
+
+{ #category : #accessing }
+OBDictionaryPrototype >> id [
+	^#dictionary
 ]
 
 { #category : #'instance-creation' }
@@ -28,7 +28,8 @@ OBDictionaryPrototype >> newMetaObjectForCollection: aRealCollection [
 	| metaCollection |
 	metaCollection := OBDictionaryMetaObject
 						newWithRealObject: aRealCollection
-						inLesson: lesson.
+						inLesson: lesson
+						prototype: self.
 	aRealCollection metaObject: metaCollection.
 	^metaCollection.
 ]

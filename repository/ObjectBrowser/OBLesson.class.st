@@ -67,28 +67,7 @@ OBLesson class >> deleteAllLessons [
 { #category : #importing }
 OBLesson class >> fileIn: aFileEntry [
 
-	| lessonImported inStream |
-	
-	Author fullName ifNil: [Author requestFullName].	
-	self suspendAllWhile: [
-		[ [
-			ClassBuilder beSilent: true.
-			inStream := aFileEntry readStream.
-			lessonImported := Compiler new 
-				evaluate: inStream
-				in: nil
-				to: self
-				notifying: nil
-				ifFail: [ ^nil ]
-				logged: true.
-			] valueSuppressingAllMessages.
-		] ensure: [ 
-			ClassBuilder beSilent: false.
-			inStream ifNotNilDo: [ :s | s close ]
-		].
-		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
-		^ lessonImported.
-	]
+	^ OBFileinV3 new fileIn: aFileEntry
 ]
 
 { #category : #accessing }

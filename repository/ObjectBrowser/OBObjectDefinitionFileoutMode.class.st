@@ -11,6 +11,12 @@ OBObjectDefinitionFileoutMode >> visitCollection: anObject inFileoutFormat: aFor
 ]
 
 { #category : #visiting }
+OBObjectDefinitionFileoutMode >> visitDictionary: anObject inFileoutFormat: aFormat [
+
+	aFormat visitDictionaryForDefinition: anObject
+]
+
+{ #category : #visiting }
 OBObjectDefinitionFileoutMode >> visitObject: anObject inFileoutFormat: aFormat [
 
 	aFormat visitObjectForDefinition: anObject

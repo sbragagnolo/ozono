@@ -22,7 +22,7 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 OBCollectionMetaObject class >> basicNew [	
 	^super basicNew posibleName: self name asLowercase , self collectionClassNumber asString ; yourself 
 ]
@@ -36,21 +36,22 @@ OBCollectionMetaObject class >> collectionClassNumber [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 OBCollectionMetaObject class >> new [
 	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 OBCollectionMetaObject class >> new: setName [
 	^self error: 'Siempre hay que decir que sabor de coleccion queremos'
 ]
 
-{ #category : #'as yet unclassified' }
-OBCollectionMetaObject class >> newWithRealObject: realObject inLesson: aLesson [
+{ #category : #'instance creation' }
+OBCollectionMetaObject class >> newWithRealObject: realObject inLesson: aLesson prototype: aPrototypeObject [
 	^super new
 		concreteObject: realObject;
 		lesson: aLesson;
+		prototype: aPrototypeObject;
 		yourself.
 ]
 

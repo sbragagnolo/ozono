@@ -7,7 +7,7 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserTestCase >> testCreateDuplicatedVariable [
 	| variableName |
 	variableName :='pepita'.
@@ -16,19 +16,19 @@ ObjectBrowserTestCase >> testCreateDuplicatedVariable [
 	self should: [ob createVariable: variableName ] raise: Error
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserTestCase >> testCreateNonLowecaseVariable [
 	self testCreateNonValidVariableNamed: 'Pepita'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserTestCase >> testCreateNonValidVariableNamed: variableName [
 	ob := OBLessonModel onLesson: currentLesson.
 	self should: [ob createVariable: variableName ] raise: Error.
 	self assert: (currentLesson hasVariableNamed: variableName) not
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserTestCase >> testCreateVariable [
 	| variableName |
 	variableName :='pepita'.
@@ -37,7 +37,7 @@ ObjectBrowserTestCase >> testCreateVariable [
 	self assert: (ob variableNamed: variableName) pointsTo class = OBMetaObject.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserTestCase >> testCreateWrongCharVariable [
 	' ,¡!¿?|%&()$#"''' do: [ :c |
 			self testCreateNonValidVariableNamed: 'Pepita', c asString

@@ -7,7 +7,7 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	| variableName variableToPepita pepita anotherVariableName anotherVariable popote |
 	"En este test feo se crean 2 objetos y uno pasa a conocer al otro (pepita conoce a popote).  Luego desreferencio a popote y corro el garbage collector. "
@@ -34,7 +34,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	self assert:(ob objects includes: popote)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GarbageCollectorTestCase >> testSimpleRunGarbageCollector [
 	| variableName variableToPepita pepita |
 	variableName :='pepita'.
