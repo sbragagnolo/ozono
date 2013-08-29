@@ -132,13 +132,6 @@ OBCollectionMetaObject >> methods [
 	^ self concreteObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
 ]
 
-{ #category : #exporting }
-OBCollectionMetaObject >> myNewScriptOn: aLesson [
-
-	^ '(', aLesson lessonIdentification , ' literalNamed: ''', self concreteObject class name asLowercase , ''') basicClone'
-	
-]
-
 { #category : #accessing }
 OBCollectionMetaObject >> posibleName [
 
@@ -155,13 +148,6 @@ OBCollectionMetaObject >> posibleName: aPosibleName [
 OBCollectionMetaObject >> printString [
 
 	^'aCollection'.
-]
-
-{ #category : #accessing }
-OBCollectionMetaObject >> realObjectPosibleName [
-
-	^ self posibleName , '_conj'
-
 ]
 
 { #category : #attributes }
@@ -203,20 +189,4 @@ OBCollectionMetaObject >> treeContents [
 OBCollectionMetaObject >> variables [
 
 	^ #()
-]
-
-{ #category : #exporting }
-OBCollectionMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
-
-	self writeCreateObjectOn: stream lesson: aLesson.
-
-]
-
-{ #category : #exporting }
-OBCollectionMetaObject >> writeStateScriptOn: stream lesson: aLesson [
-
-	self concreteObject do:  [ :obj | 
-			stream nextPutAll: self posibleName , ' add: ' , obj metaObject posibleName, '.'. 
-			stream cr].
-
 ]

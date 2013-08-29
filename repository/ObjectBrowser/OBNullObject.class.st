@@ -7,6 +7,12 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
+{ #category : #visiting }
+OBNullObject >> accept: aVisitor [
+
+	aVisitor visitNullObject: self.
+]
+
 { #category : #'ui-actions' }
 OBNullObject >> actionsForAttributeListWith: selectedAttribute [
 	^#()
@@ -84,9 +90,4 @@ OBNullObject >> removeFromSystem [
 { #category : #methods }
 OBNullObject >> sourceCodeAt: aSelector [ 
 	^''
-]
-
-{ #category : #exporting }
-OBNullObject >> writeCloneScriptOn: aWriteStream for: anObjectBrowserObject lesson: aLOOPLesson [ 
-	"Un null ob onject no tiene prototipo"
 ]

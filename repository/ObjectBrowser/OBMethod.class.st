@@ -13,6 +13,12 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
+{ #category : #visiting }
+OBMethod >> accept: aVisitor [
+
+	aVisitor visitMethod: self
+]
+
 { #category : #accessing }
 OBMethod >> code [
 

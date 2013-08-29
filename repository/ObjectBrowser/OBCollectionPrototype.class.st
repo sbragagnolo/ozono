@@ -1,8 +1,8 @@
 "
-I am an abstract collection factory. My sub instances can create collections and are used as prototypes in the lesson workspace.
+I am an abstract collection prototype. My sub instances can create collections and are used as prototypes in the lesson workspace.
 "
 Class {
-	#name : #OBCollectionFactory,
+	#name : #OBCollectionPrototype,
 	#superclass : #Object,
 	#instVars : [
 		'lesson'
@@ -11,15 +11,21 @@ Class {
 }
 
 { #category : #'instance-creation' }
-OBCollectionFactory class >> newForLesson: aLesson [
+OBCollectionPrototype class >> newForLesson: aLesson [
 
 	^self new
 			lesson: aLesson;
 			yourself.
 ]
 
+{ #category : #printing }
+OBCollectionPrototype >> baseDisplayString [
+
+	self subclassResponsibility
+]
+
 { #category : #cloning }
-OBCollectionFactory >> basicClone [
+OBCollectionPrototype >> basicClone [
 
 	| collection |
 	collection := self newMetaObjectForCollection: self createRealCollection.
@@ -28,31 +34,37 @@ OBCollectionFactory >> basicClone [
 ]
 
 { #category : #cloning }
-OBCollectionFactory >> clone [
+OBCollectionPrototype >> clone [
 
 	^self basicClone concreteObject
 ]
 
 { #category : #printing }
-OBCollectionFactory >> collectionTypeName [
+OBCollectionPrototype >> collectionTypeName [
 
 	self subclassResponsibility
 ]
 
 { #category : #cloning }
-OBCollectionFactory >> createRealCollection [
+OBCollectionPrototype >> createRealCollection [
 
 	self subclassResponsibility
 ]
 
+{ #category : #printing }
+OBCollectionPrototype >> displayString [
+
+	^ self baseDisplayString , 'Prototype'
+]
+
 { #category : #accessing }
-OBCollectionFactory >> lesson: aLesson [
+OBCollectionPrototype >> lesson: aLesson [
 
 	lesson := aLesson
 ]
 
 { #category : #'instance-creation' }
-OBCollectionFactory >> newMetaObjectForCollection: aRealCollection [
+OBCollectionPrototype >> newMetaObjectForCollection: aRealCollection [
 
 	| metaCollection |
 	metaCollection := OBCollectionMetaObject
@@ -63,7 +75,7 @@ OBCollectionFactory >> newMetaObjectForCollection: aRealCollection [
 ]
 
 { #category : #printing }
-OBCollectionFactory >> printString [
+OBCollectionPrototype >> printString [
 
 	^self displayString 
 ]

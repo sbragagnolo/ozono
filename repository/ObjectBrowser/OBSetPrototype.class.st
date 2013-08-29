@@ -2,22 +2,22 @@
 I am a set factory. My instances can create sets and are used as prototypes in the lesson workspace.
 "
 Class {
-	#name : #OBSetFactory,
-	#superclass : #OBCollectionFactory,
+	#name : #OBSetPrototype,
+	#superclass : #OBCollectionPrototype,
 	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #printing }
-OBSetFactory >> collectionTypeName [
+OBSetPrototype >> basDisplayString [
+	^ 'aSet'
+]
+
+{ #category : #printing }
+OBSetPrototype >> collectionTypeName [
 	^'Set'
 ]
 
 { #category : #cloning }
-OBSetFactory >> createRealCollection [
+OBSetPrototype >> createRealCollection [
 	^OBSet new.
-]
-
-{ #category : #printing }
-OBSetFactory >> displayString [
-	^ 'aSet'
 ]

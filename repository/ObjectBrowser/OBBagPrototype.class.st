@@ -2,22 +2,22 @@
 I am a bag factory. My instances can create bags and are used as prototypes in the lesson workspace.
 "
 Class {
-	#name : #OBBagFactory,
-	#superclass : #OBCollectionFactory,
+	#name : #OBBagPrototype,
+	#superclass : #OBCollectionPrototype,
 	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #printing }
-OBBagFactory >> collectionTypeName [
+OBBagPrototype >> baseDisplayString [
+	^'aBag'
+]
+
+{ #category : #printing }
+OBBagPrototype >> collectionTypeName [
 	^'Bag'
 ]
 
 { #category : #cloning }
-OBBagFactory >> createRealCollection [
+OBBagPrototype >> createRealCollection [
 	^OBBag new.
-]
-
-{ #category : #printing }
-OBBagFactory >> displayString [
-	^'aBag'
 ]

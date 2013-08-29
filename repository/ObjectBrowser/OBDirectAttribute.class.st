@@ -17,21 +17,25 @@ OBDirectAttribute >> accept: aVisitor [
 
 { #category : #ui }
 OBDirectAttribute >> actionsForAttributeList [
+
 	^#(('Eliminar referencia'		deleteVariable))
 ]
 
 { #category : #ui }
 OBDirectAttribute >> icon [
+
 	^OBIcons referenceIcon
 ]
 
 { #category : #reference }
 OBDirectAttribute >> objectPointed [
+
 	^self owner basicObjectAtAttributeNamed: self name.
 ]
 
 { #category : #printing }
 OBDirectAttribute >> printOn: aStream [
+
 	aStream
 		nextPutAll: self name;
 		nextPutAll: '(';
@@ -41,5 +45,6 @@ OBDirectAttribute >> printOn: aStream [
 
 { #category : #removing }
 OBDirectAttribute >> removeFrom: aRealClass [
+
 	aRealClass removeInstVarNamed: name.
 ]

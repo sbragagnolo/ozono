@@ -276,18 +276,10 @@ OBLesson >> exportDiagram [
 	self objectDiagram exportDiagram
 ]
 
-{ #category : #exporting }
+{ #category : #'*ObjectBrowser-Fileout' }
 OBLesson >> fileOut [
-	| internalStream |
-	[internalStream := (String new: 100) writeStream.
-	
-	self writeCreationScriptOver: internalStream.
-	
-	FileStream
-		writeSourceCodeFrom: internalStream
-		baseName: self lessonIdentification asFileName
-		isSt: true
-	] ensure: [ internalStream close ]
+
+	self accept: OBFileOutV3 new.
 ]
 
 { #category : #'lesson-variables' }
@@ -327,25 +319,19 @@ OBLesson >> initialize [
 OBLesson >> initializeLiterals [
 	literals := Dictionary new.
 	
-	literals at:#bag put: (OBBagFactory newForLesson: self).
-	literals at:#set put: (OBSetFactory newForLesson: self).
-	literals at:#ordered put: (OBOrderedCollectionFactory newForLesson: self).
-	literals at:#orderedcollection put: (OBOrderedCollectionFactory newForLesson: self).
-	literals at:#sorted put: (OBSortedFactory newForLesson: self).
-	literals at:#sortedcollection put: (OBSortedFactory newForLesson: self).
-	literals at:#dictionary put: (OBDictionaryFactory newForLesson: self).
+	literals at:#bag put: (OBBagPrototype newForLesson: self).
+	literals at:#set put: (OBSetPrototype newForLesson: self).
+	literals at:#ordered put: (OBOrderedCollectionPrototype newForLesson: self).
+	literals at:#orderedcollection put: (OBOrderedCollectionPrototype newForLesson: self).
+	literals at:#sorted put: (OBSortedPrototype newForLesson: self).
+	literals at:#sortedcollection put: (OBSortedPrototype newForLesson: self).
+	literals at:#dictionary put: (OBDictionaryPrototype newForLesson: self).
 ]
 
 { #category : #accessing }
 OBLesson >> lessonEnvironment [
 
 	^ lessonEnvironment
-]
-
-{ #category : #exporting }
-OBLesson >> lessonIdentification [
-
-	^self title asLegalSelector
 ]
 
 { #category : #literals }
@@ -489,90 +475,4 @@ OBLesson >> variables [
 OBLesson >> workspaces [
 
 	^ workspaces
-]
-
-{ #category : #exporting }
-OBLesson >> writeAddScriptToLessonOn: stream [
-
-	self variables
-		do: [ :variable | 
-			stream
-				nextPutAll:
-					self lessonIdentification , ' ', (self class>>#createVariableNamed:pointingTo:) selector separateKeywords substrings first ,' ''' , variable name , ''' ', (self class >> #createVariableNamed:pointingTo:) selector separateKeywords substrings second ,' ' , variable pointsTo posibleName
-						, '.'.
-			stream cr ].
-	self objects
-		do: [ :object | 
-			stream nextPutAll: self lessonIdentification , ' addObject: ' , object posibleName , '.'.
-			stream cr ].
-	stream nextPutAll: '^ ' , self lessonIdentification , '.'.
-	stream cr
-]
-
-{ #category : #exporting }
-OBLesson >> writeAllTheVariablesOn: stream [ 
-	
-	stream nextPutAll: '| '.
-	self objects do:[ :anObject | stream nextPutAll:  anObject posibleName , ' ' ] .
-	stream nextPutAll: self lessonIdentification,' |'.
-	stream cr ; cr.
-]
-
-{ #category : #exporting }
-OBLesson >> writeCreationScriptOver: stream [
-	
-	"primero la definicion de variables"
-	self writeAllTheVariablesOn: stream .
-	
-	stream cr.
-	
-	"ahora la definicion de la leccion"
-	self writeLessonCreationOn: stream.
-	
-	stream cr.
-	
-	"la creacion del objeto"
-	self objects do:[ :anObject | anObject writeCreateObjectOn: stream lesson: self].
-	
-	"despues la descripcion del objeto: variables, metodos y prototipo"
-	self objects do:[ :anObject | anObject writeObjectDescriptionScriptOn: stream lesson: self].
-	
-	stream cr.
-	
-	"despues el estado"
-	self objects do:[ :anObject | anObject writeStateScriptOn: stream lesson: self.] .
-	
-	stream cr.
-	
-	self writeWorkspacesOn: stream.
-	
-	stream cr.
-	
-	self tests do: [ :aTest | aTest writeExportScriptOn: stream  lesson: self. ].
-	
-	stream cr.
-	
-	"despues la incorporacion a la lesson"
-	self writeAddScriptToLessonOn: stream .
-]
-
-{ #category : #exporting }
-OBLesson >> writeLessonCreationOn: stream. [
-
-	stream nextPutAll: self lessonIdentification, ' := ', self class name ,' new title: ''',self title ,'''.'.
-	stream cr.
-	stream nextPutAll: 'self addLesson: ', self lessonIdentification , '.'.
-	stream cr.
-]
-
-{ #category : #exporting }
-OBLesson >> writeWorkspacesOn: stream [
-	
-	stream cr.
-	stream nextPutAll: '"Workspaces exported"'.
-	self workspaces do:[ :aWorkspace | 
-		stream cr.
-		aWorkspace writeOn: stream withLessonIdentification: self lessonIdentification.
-		] .
-	stream cr.
 ]

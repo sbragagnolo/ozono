@@ -15,6 +15,12 @@ Class {
 	#category : #'ObjectBrowser-UILesson'
 }
 
+{ #category : #visiting }
+OBWorkspace >> accept: aVisitor [
+
+	^ aVisitor visitWorkspace: self
+]
+
 { #category : #accessing }
 OBWorkspace >> asString [
 	^self label

@@ -20,6 +20,12 @@ OBTest class >> newWithSelector: aTestSelector onLesson: aLesson [
 		yourself
 ]
 
+{ #category : #visiting }
+OBTest >> accept: aVisitor [
+
+	^ aVisitor visitTest: self
+]
+
 { #category : #accessing }
 OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
@@ -31,8 +37,10 @@ OBTest >> fileOut [
 	| internalStream |
 	[internalStream := (String new: 50) writeStream.
 	
-	self writeYourOwnCodeOn: internalStream.
-	
+	internalStream
+		nextPutAll: self code printString;
+		cr.
+
 	FileStream
 		writeSourceCodeFrom: internalStream
 		baseName: (lesson lessonIdentification , '_' , self name) asFileName
@@ -106,23 +114,4 @@ OBTest >> selector [
 { #category : #accessing }
 OBTest >> selector: aTestSelector [
 	selector := aTestSelector
-]
-
-{ #category : #exporting }
-OBTest >> writeExportScriptOn: stream  lesson: aLesson [
-	stream
-		nextPutAll: aLesson lessonIdentification;
-		nextPutAll: ' compileTest: ';
-		nextPutAll: '''';
-		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
-		nextPutAll: '''.';
-		cr.
-]
-
-{ #category : #exporting }
-OBTest >> writeYourOwnCodeOn: stream [
-	stream
-		nextPutAll: (self code copyReplaceAll: '''' with: '''''');
-		nextPutAll: '.';
-		cr.
 ]

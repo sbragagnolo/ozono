@@ -239,18 +239,6 @@ OBMetaObject >> displayString [
 	^self concreteObject displayString
 ]
 
-{ #category : #exporting }
-OBMetaObject >> fileOut [
-
-	| internalStream |
-	internalStream := (String new: 100) writeStream.
-
-	self writeCreationScriptOver: internalStream.
-
-	internalStream trailer.
-	FileStream writeSourceCodeFrom: internalStream baseName: 'fileOut' isSt: true.
-]
-
 { #category : #attributes }
 OBMetaObject >> flushAttributesCache [
 
@@ -328,12 +316,6 @@ OBMetaObject >> methods [
 	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
 	methods do: [:method | dictionaryMethods at: method selector put: method ].
 	^ dictionaryMethods values
-]
-
-{ #category : #exporting }
-OBMetaObject >> myNewScriptOn: aLesson [
-
-	^self class name , ' newOn: ', aLesson lessonIdentification
 ]
 
 { #category : #accessing }
@@ -449,77 +431,4 @@ OBMetaObject >> suspendAllWhile: aBlock [
 OBMetaObject >> understands: aSelector [
 
 	^self concreteObject respondsTo: aSelector
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeAttributesOn: stream [
-
-	self attributeNames asSet do:[ :v | 
-		stream
-			nextPutAll: self posibleName;
-			space;
-			nextPutAll: (self class>>#addAttributeNamed:) selector;
-			space;
-			nextPutAll: '''';
-			nextPutAll: v asString;
-			nextPutAll: '''.';
-			cr.
-		].
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeCloneScriptOn: stream for: clone lesson: aLesson [
-
-	stream nextPutAll: self posibleName , ' bePrototypeOf: ', clone posibleName, '.'. 
-	stream cr.
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeCreateObjectOn: stream lesson: aLesson [
-
-	stream nextPutAll: self posibleName ,  ' := ', (self myNewScriptOn: aLesson) , '.' .
-	stream cr.
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeCreationScriptOver: stream [
-
-	| objectVariable |
-	objectVariable := self posibleName.
-	
-	stream nextPutAll: '| ', objectVariable , '|'.
-	
-	self writeObjectDescriptionScriptOn:  stream .
-
-	stream nextPutAll: 'self addObject: ', objectVariable, '.'.
-	stream cr.
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeMethodsOn: stream [
-	
-	methods do:[ :m |
-		stream nextPutAll: self posibleName  , ' compileMethod: ''' , (m code copyReplaceAll: $' asString with: $' asString,$' asString ), '''.'.
-		stream cr.
-		].
-
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
-
-	self prototype writeCloneScriptOn: stream for: self lesson: aLesson .
-	self writeAttributesOn: stream .
-	self writeMethodsOn: stream .
-	
-
-]
-
-{ #category : #exporting }
-OBMetaObject >> writeStateScriptOn: stream lesson: aLesson [
-
-	"saves the state, all the variables values and relationships"
-	self attributes do:  [ :var | 
-			stream nextPutAll: self posibleName , ' attributeNamed: ''',var name,''' pointTo: ', (self basicObjectAtAttributeNamed: var name) metaObject posibleName, '.'. 
-			stream cr].
 ]

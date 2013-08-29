@@ -2,22 +2,22 @@
 I am a ordered collection factory. My instances can create ordered collections and are used as prototypes in the lesson workspace.
 "
 Class {
-	#name : #OBOrderedCollectionFactory,
-	#superclass : #OBCollectionFactory,
+	#name : #OBOrderedCollectionPrototype,
+	#superclass : #OBCollectionPrototype,
 	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #printing }
-OBOrderedCollectionFactory >> collectionTypeName [
+OBOrderedCollectionPrototype >> baseDisplayString [
+	^'anOrderedCollection'
+]
+
+{ #category : #printing }
+OBOrderedCollectionPrototype >> collectionTypeName [
 	^'OrderedCollection'
 ]
 
 { #category : #cloning }
-OBOrderedCollectionFactory >> createRealCollection [
+OBOrderedCollectionPrototype >> createRealCollection [
 	^OBOrderedCollection new.
-]
-
-{ #category : #printing }
-OBOrderedCollectionFactory >> displayString [
-	^'anOrderedCollection'
 ]

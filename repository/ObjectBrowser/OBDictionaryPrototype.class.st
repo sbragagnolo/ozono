@@ -2,28 +2,28 @@
 I am a dictionary factory. My instances can create dictionaries and are used as prototypes in the lesson workspace.
 "
 Class {
-	#name : #OBDictionaryFactory,
-	#superclass : #OBCollectionFactory,
+	#name : #OBDictionaryPrototype,
+	#superclass : #OBCollectionPrototype,
 	#category : #'ObjectBrowser-Collections'
 }
 
 { #category : #printing }
-OBDictionaryFactory >> collectionTypeName [
+OBDictionaryPrototype >> baseDisplayString [
+	^ 'aDictionary'
+]
+
+{ #category : #printing }
+OBDictionaryPrototype >> collectionTypeName [
 	^'Dictionary'
 ]
 
 { #category : #cloning }
-OBDictionaryFactory >> createRealCollection [
+OBDictionaryPrototype >> createRealCollection [
 	^OBDictionary new.
 ]
 
-{ #category : #printing }
-OBDictionaryFactory >> displayString [
-	^ 'aDictionary'
-]
-
 { #category : #'instance-creation' }
-OBDictionaryFactory >> newMetaObjectForCollection: aRealCollection [
+OBDictionaryPrototype >> newMetaObjectForCollection: aRealCollection [
 
 	| metaCollection |
 	metaCollection := OBDictionaryMetaObject

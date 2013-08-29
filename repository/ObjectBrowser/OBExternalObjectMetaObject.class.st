@@ -156,18 +156,3 @@ OBExternalObjectMetaObject >> understands: aSelector [
 OBExternalObjectMetaObject >> variables [
 	^OrderedCollection new.
 ]
-
-{ #category : #exporting }
-OBExternalObjectMetaObject >> writeCreateObjectOn: stream lesson: aLesson [
-	"Un NoObjectBrowserObject no se escribe"
-]
-
-{ #category : #exporting }
-OBExternalObjectMetaObject >> writeObjectDescriptionScriptOn: stream lesson: aLesson [
-	"Un NoObjectBrowserObject no se escribe"
-]
-
-{ #category : #exporting }
-OBExternalObjectMetaObject >> writeStateScriptOn: stream lesson: aLesson [
-	"Un NoObjectBrowserObject no se escribe"
-]

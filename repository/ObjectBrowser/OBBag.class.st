@@ -1,6 +1,12 @@
+"
+The Object Browser implementation of the Bag collection.
+It has the metaObject.
+"
 Class {
 	#name : #OBBag,
 	#superclass : #Bag,
+	#traits : 'TOBCollection',
+	#classTraits : 'TOBCollection classTrait',
 	#instVars : [
 		'_metaObject'
 	],

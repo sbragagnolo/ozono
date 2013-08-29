@@ -59,17 +59,3 @@ OBDictionaryMetaObject >> valuesReferenceTo: anOBObject [
 
 	^self concreteObject includes: anOBObject concreteObject
 ]
-
-{ #category : #exporting }
-OBDictionaryMetaObject >> writeStateScriptOn: stream lesson: aLesson [
-	"saves the state, all the variables values and relationships"
-	self concreteObject keysAndValuesDo:  [ :key :value | 
-			stream nextPutAll: self posibleName.
-			stream nextPutAll: ' at: '.
-			stream nextPutAll:  key metaObject posibleName.
-			stream nextPutAll: ' put: '.
-			stream nextPutAll:  value metaObject posibleName.
-			stream nextPutAll: '.'.
-			stream cr].
-
-]
