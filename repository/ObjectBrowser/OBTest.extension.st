@@ -1,7 +1,7 @@
-Extension { #name : #OBLesson }
+Extension { #name : #OBTest }
 
 { #category : #'*ObjectBrowser-Fileout' }
-OBLesson >> fileOut [
+OBTest >> fileOut [
 
 	OBFileOutV3 new export: self.
 ]

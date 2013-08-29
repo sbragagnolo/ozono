@@ -279,7 +279,7 @@ OBLesson >> exportDiagram [
 { #category : #'*ObjectBrowser-Fileout' }
 OBLesson >> fileOut [
 
-	self accept: OBFileOutV3 new.
+	OBFileOutV3 new export: self.
 ]
 
 { #category : #'lesson-variables' }
@@ -348,6 +348,12 @@ OBLesson >> menuActions [
 		with: { 'eliminar' translated 		. #removeSelectedLesson }
 		with: { 'renombrar' translated 	. #renameSelectedLesson }
 		with: { 'exportar' translated 	. #fileOutSelectedLesson }
+]
+
+{ #category : #accessing }
+OBLesson >> name [
+
+	^ self title
 ]
 
 { #category : #diagram }

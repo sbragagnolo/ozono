@@ -16,6 +16,20 @@ OBFileOutV3 >> cr [
 	internalStream cr.
 ]
 
+{ #category : #exporting }
+OBFileOutV3 >> export: anObject [
+	
+	[
+	internalStream := (String new: 100) writeStream.
+	anObject accept: self.
+	
+	FileStream
+		writeSourceCodeFrom: internalStream
+		baseName: anObject name asFileName
+		isSt: true
+	] ensure: [ internalStream close ]
+]
+
 { #category : #template }
 OBFileOutV3 >> lessonIdentification [
 
@@ -46,7 +60,7 @@ OBFileOutV3 >> modePrototypeDefinition [
 	mode := OBObjectPrototypeDefinitionFileoutMode new.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitAttribute: anAttribute [
 
 	self write: currentObject posibleName.
@@ -58,7 +72,7 @@ OBFileOutV3 >> visitAttribute: anAttribute [
 
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitCollection: anObject [
 
 	mode
@@ -66,7 +80,7 @@ OBFileOutV3 >> visitCollection: anObject [
 		inFileoutFormat: self
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitCollectionForCreation: anObject [
 
 	self write: anObject posibleName.
@@ -80,13 +94,13 @@ OBFileOutV3 >> visitCollectionForCreation: anObject [
 	self cr.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitCollectionForDefinition: aCollection [
 
 	"Do nothing"
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitCollectionForState: aCollection [
 
 	aCollection concreteObject do:  [ :each | 
@@ -98,7 +112,7 @@ OBFileOutV3 >> visitCollectionForState: aCollection [
 			]
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitDictionary: anObject [
 
 	mode
@@ -106,19 +120,19 @@ OBFileOutV3 >> visitDictionary: anObject [
 		inFileoutFormat: self
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitDictionaryForCreation: anObject [
 
 	self visitCollectionForCreation: anObject
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitDictionaryForDefinition: anObject [
 
 	self visitCollectionForDefinition: anObject
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitDictionaryForState: aDictionary [
 
 	aDictionary concreteObject keysAndValuesDo:  [ :key :value | 
@@ -137,22 +151,14 @@ OBFileOutV3 >> visitDirectAttribute: anAttribute [
 	self visitAttribute: anAttribute
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitLesson: aLesson [
 
 	lesson := aLesson.	
-	[internalStream := (String new: 100) writeStream.
-	
 	self writeLessonTemplateScript.
-	
-	FileStream
-		writeSourceCodeFrom: internalStream
-		baseName: self lessonIdentification asFileName
-		isSt: true
-	] ensure: [ internalStream close ]
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitLessonVariable: aVariable [
 
 	self write: self lessonIdentification.
@@ -164,7 +170,7 @@ OBFileOutV3 >> visitLessonVariable: aVariable [
 	self cr.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitMethod: aMethod [
 
 	self write: currentObject posibleName.
@@ -180,7 +186,7 @@ OBFileOutV3 >> visitNullObject: aNullObject [
 	"Do nothing with him"
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitObject: anObject [
 
 	mode
@@ -188,7 +194,7 @@ OBFileOutV3 >> visitObject: anObject [
 		inFileoutFormat: self
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitObjectForCreation: anObject [
 
 	self write: anObject posibleName.
@@ -200,7 +206,7 @@ OBFileOutV3 >> visitObjectForCreation: anObject [
 	self cr.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitObjectForDefinition: anObject [
 
 	currentObject := anObject.
@@ -211,7 +217,7 @@ OBFileOutV3 >> visitObjectForDefinition: anObject [
 	anObject methods do: [ :aMethod | aMethod accept: self ]
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitObjectForState: anObject [
 
 	anObject attributes do: [ :var | 
@@ -224,7 +230,7 @@ OBFileOutV3 >> visitObjectForState: anObject [
 			self cr].
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitPrototype: aPrototype [
 
 	self write: self posibleName.
@@ -234,17 +240,13 @@ OBFileOutV3 >> visitPrototype: aPrototype [
 	self cr.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitTest: aTest [
 
-	self write: self lessonIdentification.
-	self write: ' compileTest: '.
 	self write: aTest code printString.
-	self write: '.'.
-	self cr.
 ]
 
-{ #category : #visitor }
+{ #category : #visiting }
 OBFileOutV3 >> visitWorkspace: aWorkspace [
 
 	aWorkspace writeOn: internalStream withLessonIdentification: self lessonIdentification.
@@ -339,7 +341,13 @@ OBFileOutV3 >> writeScriptHeader [
 { #category : #template }
 OBFileOutV3 >> writeTests [
 
-	lesson tests do: [ :aTest | aTest accept: self ].
+	lesson tests do: [ :aTest | 
+		self write: self lessonIdentification.
+		self write: ' compileTest: '.
+		aTest accept: self.
+		self write: '.'.
+		self cr.
+		 ].
 ]
 
 { #category : #template }

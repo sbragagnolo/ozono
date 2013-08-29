@@ -31,21 +31,10 @@ OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]
 
-{ #category : #exporting }
+{ #category : #'*ObjectBrowser-Fileout' }
 OBTest >> fileOut [
 
-	| internalStream |
-	[internalStream := (String new: 50) writeStream.
-	
-	internalStream
-		nextPutAll: self code printString;
-		cr.
-
-	FileStream
-		writeSourceCodeFrom: internalStream
-		baseName: (lesson lessonIdentification , '_' , self name) asFileName
-		isSt: true
-	] ensure: [ internalStream close ]
+	OBFileOutV3 new export: self.
 ]
 
 { #category : #ui }
