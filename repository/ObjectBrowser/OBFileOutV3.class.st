@@ -328,6 +328,7 @@ OBFileOutV3 >> writeObjectState [
 { #category : #template }
 OBFileOutV3 >> writeScriptHeader [
 
+	self write: '"!FILEOUTVERSION: 3"'.
 	self write: '| '.
 	
 	self write: (' ' join: (lesson objects collect: #posibleName)).
