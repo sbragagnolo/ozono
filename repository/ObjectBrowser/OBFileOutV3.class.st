@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #accessing }
-OBFileOutV3 class >> fileOutVersionHeader [
+OBFileOutV3 class >> fileOutVersionHeader3 [
 
 	^ '"!FILEOUTVERSION: 3"'
 ]
@@ -333,7 +333,7 @@ OBFileOutV3 >> writeObjectState [
 { #category : #template }
 OBFileOutV3 >> writeScriptHeader [
 
-	self write: self class fileoutVersionHeader.
+	self write: self class fileOutVersionHeader3.
 	self cr.
 	self write: '| '.
 	

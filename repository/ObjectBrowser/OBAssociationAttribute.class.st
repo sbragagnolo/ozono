@@ -18,7 +18,7 @@ OBAssociationAttribute >> keyAttribute [
 	^OBSpecialAttribute 
 			newNamed: 'clave'
 			owner: self objectPointed
-			pointingTo: (self objectPointed concreteObject metaObject)
+			pointingTo: (self objectPointed concreteObject key metaObject)
 ]
 
 { #category : #references }

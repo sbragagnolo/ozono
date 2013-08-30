@@ -28,7 +28,7 @@ OBFileinV3 >> fileIn: aFileEntry [
 	fileContents := stream contents.
 	stream close.
 	
-	(fileContents beginsWith: OBFileOutV3 fileOutVersionHeader)
+	(fileContents beginsWith: OBFileOutV3 fileOutVersionHeader3)
 		ifFalse: [ self beOldVersion ].
 	
 	Author fullName ifNil: [Author requestFullName].	

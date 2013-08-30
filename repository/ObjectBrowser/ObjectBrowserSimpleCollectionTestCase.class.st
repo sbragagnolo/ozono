@@ -10,12 +10,6 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserSimpleCollectionTestCase class >> isAbstract [
-
-	^ true
-]
-
 { #category : #requirements }
 ObjectBrowserSimpleCollectionTestCase >> collection [ 
 	^ collection .
