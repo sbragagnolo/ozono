@@ -28,9 +28,9 @@ OBTestEditorModel >> errorHandler [
 
 { #category : #'code completion' }
 OBTestEditorModel >> guessTypeForName: aString [
-	| binding |
+
 	(model lesson hasVariableNamed: aString) ifTrue: [
-		^(model lesson variableNamed: aString) pointsTo realClass.
+		^OBPharoReflection uniqueInstance classOf: (model lesson variableNamed: aString) pointsTo concreteObject.
 	] ifFalse: [
 		^nil.
 	].

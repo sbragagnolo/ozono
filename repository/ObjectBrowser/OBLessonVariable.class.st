@@ -89,7 +89,7 @@ OBLessonVariable >> name: aName [
 { #category : #selection }
 OBLessonVariable >> notifySelectionTo: anObserverCollection [
 
-	anObserverCollection do: [ :o | o selectedClassOrMetaClass: self pointsTo realClass ]
+	anObserverCollection do: [ :o | o selectedClassOrMetaClass: (OBPharoReflection uniqueInstance classOf: self pointsTo concreteObject) ]
 ]
 
 { #category : #accessing }

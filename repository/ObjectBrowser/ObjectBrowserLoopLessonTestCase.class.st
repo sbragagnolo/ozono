@@ -66,6 +66,12 @@ ObjectBrowserLoopLessonTestCase >> lessonEmptyTitle [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> lessonWithCollectionTitle [
+	
+	^'Lesson With Collections'.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> lessonWithObjectsTitle [
 	
 	^'Lesson Without State'.
@@ -95,9 +101,9 @@ ObjectBrowserLoopLessonTestCase >> prepareLesson [
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
 	| lesson pepita rosario fileEntry theSet theDictionary |
-	fileEntry := self lessonWithStateTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry := self lessonWithCollectionTitle asLegalSelector asFileName asFileReference, '.st'.
 	fileEntry ensureDeleted.
-	lesson := OBLesson new title: self lessonWithStateTitle.
+	lesson := OBLesson new title: self lessonWithCollectionTitle.
 	pepita := self createPepitaObObject: lesson .
 	rosario := self createRosarioObObject: lesson .
 	lesson createVariableNamed: 'pepita' pointingTo: pepita.
@@ -136,9 +142,10 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 
 { #category : #running }
 ObjectBrowserLoopLessonTestCase >> tearDown [
-	(self lessonEmptyTitle) asFileReference ensureDeleted.
-	(self lessonWithObjectsTitle) asFileReference ensureDeleted.
-	(self lessonWithStateTitle) asFileReference ensureDeleted.
+	{ 	self lessonEmptyTitle.
+		self lessonWithObjectsTitle .
+		self lessonWithStateTitle .
+		self lessonWithCollectionTitle } do: [ :each | (self fileName: each) asFileReference ensureDeleted ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -191,7 +198,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsNoStateSucce
 		self tearDownLesson: lesson.
 	] ensure: [ 
 		lesson clean.
-		lessonImported clean.
+		lessonImported ifNotNilDo: #clean.
 	]
 ]
 

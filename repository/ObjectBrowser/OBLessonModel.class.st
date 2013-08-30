@@ -536,7 +536,7 @@ OBLessonModel >> selectedMethodCode [
 	^(self selectedObjectMethod isNil)
 			ifTrue: [self selectorListEmpyText]
 			ifFalse: [
-				(self selectedObject sourceCodeAt: self selectedObjectMethod) ]
+				self selectedObjectMethod code ]
 ]
 
 { #category : #accessing }

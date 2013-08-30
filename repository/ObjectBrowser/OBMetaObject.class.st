@@ -26,17 +26,10 @@ Class {
 }
 
 { #category : #'instance-creation' }
-OBMetaObject class >> createNewObjectBrowserObjectClassFrom: aClass in: aLesson [
-	| objectBrowserClassNumber |
-	objectBrowserClassNumber := NextObjectBrowserClassNumber.
-	NextObjectBrowserClassNumber := NextObjectBrowserClassNumber + 1.
-	^aLesson createClass: ('ObjectBrowserObject',  objectBrowserClassNumber printString) asSymbol subclassOf: aClass			
-]
-
-{ #category : #'instance-creation' }
 OBMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
-	^self createNewObjectBrowserObjectClassFrom: OBObject in: aLesson.
-	
+	^ aLesson
+		createClass: (OBObject name, self takeSequencialNumber asString) asSymbol
+		subclassOf: OBObject
 ]
 
 { #category : #'class initialization' }
@@ -47,18 +40,10 @@ OBMetaObject class >> initialize [
 { #category : #'instance-creation' }
 OBMetaObject class >> newFrom: anObo on: aLesson [
 	
-	| concreteClass concreteObject metaObject |
-	metaObject := self new.
-	
-	concreteClass := self createNewObjectBrowserObjectClassFrom: anObo realClass in: aLesson.
-	concreteObject := concreteClass new.
-	concreteObject metaObject: metaObject.
-
+	| metaObject |
+	metaObject := self newOn: aLesson.
+	anObo bePrototypeOf: metaObject.
 	^metaObject
-		concreteObject: concreteObject;
-		prototype: anObo;
-		lesson: aLesson;
-		yourself.
 ]
 
 { #category : #'instance-creation' }
@@ -74,6 +59,15 @@ OBMetaObject class >> newOn: aLesson [
 		concreteObject: concreteObject;
 		lesson: aLesson;
 		yourself.
+]
+
+{ #category : #'instance-creation' }
+OBMetaObject class >> takeSequencialNumber [
+
+	NextObjectBrowserClassNumber in: [ :next | 
+		NextObjectBrowserClassNumber := next + 1.
+		^next
+	]
 ]
 
 { #category : #methods }
@@ -106,7 +100,10 @@ OBMetaObject >> actionsForObjectBrowserReferencesList [
 { #category : #attributes }
 OBMetaObject >> addAttributeNamed: attributeName [
 
-	self realClass addInstVarNamed: attributeName.
+	OBPharoReflection uniqueInstance
+		addInstanceVariable: attributeName
+		toClassOfObject: self concreteObject.
+
 	self flushAttributesCache.
 	self changed.
 ]
@@ -152,15 +149,18 @@ OBMetaObject >> attributeNamed: varName [
 ]
 
 { #category : #attributes }
-OBMetaObject >> attributeNamed: attributeNamed pointTo: anObject [
+OBMetaObject >> attributeNamed: attributeName pointTo: anObject [
 
-	self concreteObject instVarNamed: attributeNamed put: anObject concreteObject.
+	OBPharoReflection uniqueInstance
+		inObject: self concreteObject
+		setInstanceVariable: attributeName
+		withValue: anObject concreteObject.
 ]
 
 { #category : #attributes }
 OBMetaObject >> attributeNames [
 
-	^attributes ifNil: [ attributes := self realClass instVarNames ].
+	^attributes ifNil: [ attributes := OBPharoReflection uniqueInstance instanceVariablesOfObject: self concreteObject ].
 ]
 
 { #category : #attributes }
@@ -173,19 +173,15 @@ OBMetaObject >> attributes [
 { #category : #references }
 OBMetaObject >> basicObjectAtAttributeNamed: attributeName [
 
-	^concreteObject instVarNamed: attributeName
+	^OBPharoReflection uniqueInstance inObject: concreteObject getInstanceVariable: attributeName
 ]
 
 { #category : #cloning }
 OBMetaObject >> bePrototypeOf: clone [
 
 	clone prototype: self.
-	self realClass
-		subclass: clone realClass name asSymbol
-		instanceVariableNames: (clone realClass instVarNames inject: '' into:[:v :tot| tot,' ',v])
-		classVariableNames: (clone realClass classVarNames inject: '' into:[:v :tot| tot,' ',v])
-		poolDictionaries: clone realClass sharedPoolsString 
-		category: clone realClass category.
+	OBPharoReflection uniqueInstance
+		makeClass: (OBPharoReflection uniqueInstance classOf: clone concreteObject) subclassOf: (OBPharoReflection uniqueInstance classOf: self concreteObject).
 ]
 
 { #category : #cloning }
@@ -204,21 +200,23 @@ OBMetaObject >> compileMethod: aMethod [
 ]
 
 { #category : #methods }
-OBMetaObject >> compileMethod: aMethod notifying: someone [
+OBMetaObject >> compileMethod: aMethodCode notifying: someone [
 
-	| result obMethod |
-	self suspendAllWhile: [
-		result := self realClass compile: aMethod classified: #'object browser'  notifying: someone.
-		result ifNil: [ ^OBNullMethod new ].
-		obMethod := OBMethod new 
-			selector: result;
-			object: self;
-			yourself.
-		methods at: result put: obMethod.
-		self flushAttributesCache.
-		self changed.
-		^obMethod
-	]
+	| selector obMethod |
+	selector := OBPharoReflection uniqueInstance
+		compile: aMethodCode
+		inClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		notifying: someone.
+	selector ifNil: [ ^ OBNullMethod new ].
+	
+	obMethod := OBMethod new
+		selector: selector;
+		object: self;
+		yourself.
+	methods at: selector put: obMethod.
+	self flushAttributesCache.
+	self changed.
+	^ obMethod
 ]
 
 { #category : #accessing }
@@ -253,12 +251,6 @@ OBMetaObject >> hasAttributeNamed: anAttributeName [
 	^self allAttributeNames includes: anAttributeName
 ]
 
-{ #category : #references }
-OBMetaObject >> hasReferencesTo: anOBObject [
-
-	^self referencedObjects includes: anOBObject concreteObject
-]
-
 { #category : #methods }
 OBMetaObject >> includesSelector: aSelector [
 
@@ -269,11 +261,9 @@ OBMetaObject >> includesSelector: aSelector [
 OBMetaObject >> initialize [
 
 	super initialize.
-	self concreteObject ifNotNil: [self concreteObject initialize].
-	prototype ifNil: [ prototype := OBNullObject new].
+	prototype := OBNullObject new.
 	attributes := Set new.
 	methods := Dictionary new.
-	^self
 ]
 
 { #category : #'pharo-interaction' }
@@ -285,7 +275,9 @@ OBMetaObject >> inspect [
 { #category : #methods }
 OBMetaObject >> isRedefined: aSelector [
 
-	^self realClass allSubclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
+	^OBPharoReflection uniqueInstance
+		inSubclassesOfClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		isRedefined: aSelector
 ]
 
 { #category : #accessing }
@@ -312,23 +304,16 @@ OBMetaObject >> methods [
 
 	| allMethods dictionaryMethods |
 	dictionaryMethods := Dictionary new.
-	allMethods:= prototype methods .
+	allMethods:= prototype methods.
 	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
 	methods do: [:method | dictionaryMethods at: method selector put: method ].
 	^ dictionaryMethods values
 ]
 
 { #category : #accessing }
-OBMetaObject >> object [
-
-	self deprecated.
-	^self
-]
-
-{ #category : #accessing }
 OBMetaObject >> posibleName [
 
-	^ (self realClass name, self concreteObject hash asString) asLowercase.
+	^ ((OBPharoReflection uniqueInstance classNameOfObject: self concreteObject), self concreteObject hash asString) asLowercase.
 ]
 
 { #category : #printing }
@@ -349,27 +334,12 @@ OBMetaObject >> prototype: anObject [
 	prototype := anObject
 ]
 
-{ #category : #'pharo-interaction' }
-OBMetaObject >> realClass [
-
-	^self concreteObject class
-]
-
 { #category : #methods }
 OBMetaObject >> redefines: aSelector [
 
-	^self realClass allSuperclasses anySatisfy: [ :sc | sc includesSelector: aSelector ]
-]
-
-{ #category : #references }
-OBMetaObject >> referencedObjects [
-
-	| refs |
-	refs := self attributes asBag collect: [:v | self basicObjectAtAttributeNamed:  v name ].
-	prototype addInversePrototypeRelationship: refs.
-	^refs.
-	
-
+	^OBPharoReflection uniqueInstance
+		inClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		isRedefined: aSelector
 ]
 
 { #category : #cloning }
@@ -384,7 +354,7 @@ OBMetaObject >> relationWith: aClone [
 { #category : #attributes }
 OBMetaObject >> removeAttribute: anAttribute [
 
-	anAttribute removeFrom: self realClass.
+	anAttribute removeFrom: (OBPharoReflection uniqueInstance classOf: self concreteObject).
 	self flushAttributesCache.
 	self changed.
 ]
@@ -392,7 +362,7 @@ OBMetaObject >> removeAttribute: anAttribute [
 { #category : #'pharo-interaction' }
 OBMetaObject >> removeClassFromSystem [
 
-	self realClass removeFromSystem
+	OBPharoReflection uniqueInstance destroyClassOf: self concreteObject
 ]
 
 { #category : #methods }
@@ -402,11 +372,9 @@ OBMetaObject >> removeMethod: aMethod [
 		self error: 'El método #', aMethod selector ,' pertenece a un prototipo, no puede eliminarse de este objeto'.
 	].
 
-	self suspendAllWhile: [
-		self realClass removeSelector: aMethod selector.
-		methods removeKey: aMethod selector.
-		self changed.
-	]
+	OBPharoReflection uniqueInstance inClassOf: self concreteObject removeMethodWithSelector: aMethod selector.
+	methods removeKey: aMethod selector.
+	self changed.
 ]
 
 { #category : #accessing }
@@ -416,19 +384,7 @@ OBMetaObject >> size [
 ]
 
 { #category : #methods }
-OBMetaObject >> sourceCodeAt: aMethod [
-
-	^ aMethod code.
-]
-
-{ #category : #'pharo-interaction' }
-OBMetaObject >> suspendAllWhile: aBlock [
-
-	SystemAnnouncer uniqueInstance suspendAllWhile: aBlock
-]
-
-{ #category : #methods }
 OBMetaObject >> understands: aSelector [
 
-	^self concreteObject respondsTo: aSelector
+	^OBPharoReflection uniqueInstance doesObject: self concreteObject undertandMessageSelector: aSelector
 ]

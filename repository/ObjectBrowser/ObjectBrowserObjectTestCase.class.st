@@ -52,13 +52,13 @@ ObjectBrowserObjectTestCase >> testAddVariable [
 { #category : #'clone-tests' }
 ObjectBrowserObjectTestCase >> testCloneClassName [
 	otroObo := obo clone.
-	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
+	self assert: ((OBPharoReflection uniqueInstance classNameOfObject: obo concreteObject) beginsWith: OBObject name).
 ]
 
 { #category : #'clone-tests' }
 ObjectBrowserObjectTestCase >> testCloneHasDifferentClass [
 	otroObo := obo clone.
-	self assert: (obo realClass ~= otroObo realClass).
+	self assert: ((OBPharoReflection uniqueInstance classOf: obo concreteObject) ~= (OBPharoReflection uniqueInstance classOf: otroObo concreteObject)).
 ]
 
 { #category : #'clone-tests' }
@@ -69,7 +69,7 @@ ObjectBrowserObjectTestCase >> testClonePrototype [
 
 { #category : #'realClass-tests' }
 ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectClass [
-	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
+	self assert: ((OBPharoReflection uniqueInstance classNameOfObject: obo concreteObject) beginsWith: OBObject name).
 ]
 
 { #category : #'method-tests' }
@@ -92,5 +92,5 @@ ObjectBrowserObjectTestCase >> testRemoveMethod [
 	
 	self assert: obo methods size = 0.
 	self assert: (obo includesSelector: #unMetodo) not.
-	self assert: (obo realClass includesSelector: method selector) not
+	self assert: ((OBPharoReflection uniqueInstance classOf: obo concreteObject) includesSelector: method selector) not
 ]

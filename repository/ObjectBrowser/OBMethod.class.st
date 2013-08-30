@@ -22,7 +22,7 @@ OBMethod >> accept: aVisitor [
 { #category : #accessing }
 OBMethod >> code [
 
-	^object realClass sourceCodeAt: self selector
+	^ OBPharoReflection uniqueInstance inClassOfObject: object concreteObject sourceCodeOfMethodWithSelector: self selector
 ]
 
 { #category : #ui }

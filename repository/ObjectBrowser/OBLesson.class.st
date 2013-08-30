@@ -178,17 +178,10 @@ OBLesson >> compileTest: aTestText [
 { #category : #tests }
 OBLesson >> createClass: aClassName subclassOf: aSuperClass [
 
-	self suspendAllWhile: [
-		^ClassBuilder new
-			name: aClassName
-			inEnvironment: self lessonEnvironment
-			subclassOf: aSuperClass
-			type: aSuperClass typeOfClass
-			instanceVariableNames: ''
-			classVariableNames: ''
-			poolDictionaries: ''
-			category: 'Useless'.
-	]
+	^ OBPharoReflection uniqueInstance
+		createClassNamed: aClassName
+		subclassOf: aSuperClass
+		inEnvironment: self lessonEnvironment.
 ]
 
 { #category : #objects }
