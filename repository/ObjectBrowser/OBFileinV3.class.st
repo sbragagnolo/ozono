@@ -1,32 +1,59 @@
 Class {
 	#name : #OBFileinV3,
 	#superclass : #Object,
+	#instVars : [
+		'bindingScope'
+	],
 	#category : #'ObjectBrowser-Filein'
 }
+
+{ #category : #bindings }
+OBFileinV3 >> beOldVersion [
+
+	bindingScope := OBBindingsV2AndBelow new
+]
+
+{ #category : #bindings }
+OBFileinV3 >> bindingScope [
+
+	^ bindingScope
+]
 
 { #category : #filein }
 OBFileinV3 >> fileIn: aFileEntry [
 
-	| lessonImported inStream |
+	| lessonImported fileContents stream |
+	
+	stream := aFileEntry readStream.
+	fileContents := stream contents.
+	stream close.
+	
+	(fileContents beginsWith: OBFileOutV3 fileOutVersionHeader)
+		ifFalse: [ self beOldVersion ].
 	
 	Author fullName ifNil: [Author requestFullName].	
 	SystemAnnouncer uniqueInstance suspendAllWhile: [
 		[ [
 			ClassBuilder beSilent: true.
-			inStream := aFileEntry readStream.
 			lessonImported := Compiler new 
-				evaluate: inStream
+				evaluate: fileContents
 				in: nil
-				to: OBLesson
+				to: self bindingScope
 				notifying: nil
 				ifFail: [ ^nil ]
 				logged: true.
+			lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
+			^ lessonImported.
 			] valueSuppressingAllMessages.
 		] ensure: [ 
 			ClassBuilder beSilent: false.
-			inStream ifNotNilDo: [ :s | s close ]
 		].
-		lessonImported isNil ifTrue: [self error: 'La Lección no pudo ser importada'].
-		^ lessonImported.
 	]
+]
+
+{ #category : #'initialize-release' }
+OBFileinV3 >> initialize [
+
+	super initialize.
+	bindingScope := OBLesson.
 ]

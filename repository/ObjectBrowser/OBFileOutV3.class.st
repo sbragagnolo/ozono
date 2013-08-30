@@ -10,6 +10,12 @@ Class {
 	#category : #'ObjectBrowser-Fileout'
 }
 
+{ #category : #accessing }
+OBFileOutV3 class >> fileOutVersionHeader [
+
+	^ '"!FILEOUTVERSION: 3"'
+]
+
 { #category : #writing }
 OBFileOutV3 >> cr [
 
@@ -327,7 +333,8 @@ OBFileOutV3 >> writeObjectState [
 { #category : #template }
 OBFileOutV3 >> writeScriptHeader [
 
-	self write: '"!FILEOUTVERSION: 3"'.
+	self write: self class fileoutVersionHeader.
+	self cr.
 	self write: '| '.
 	
 	self write: (' ' join: (lesson objects collect: #posibleName)).

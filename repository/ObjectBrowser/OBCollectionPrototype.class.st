@@ -86,3 +86,9 @@ OBCollectionPrototype >> printString [
 
 	^self displayString 
 ]
+
+{ #category : #cloning }
+OBCollectionPrototype >> relationWith: aClone [
+	
+	^OBNullAttribute new
+]

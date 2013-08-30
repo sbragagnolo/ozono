@@ -76,6 +76,7 @@ OBExternalObjectMetaObject >> concreteObject [
 
 { #category : #accessing }
 OBExternalObjectMetaObject >> concreteObject: anObject [ 
+
 	concreteObject := anObject.
 ]
 
