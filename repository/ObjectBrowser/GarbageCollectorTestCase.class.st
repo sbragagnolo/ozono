@@ -7,14 +7,14 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	| variableName variableToPepita pepita anotherVariableName anotherVariable popote |
 	"En este test feo se crean 2 objetos y uno pasa a conocer al otro (pepita conoce a popote).  Luego desreferencio a popote y corro el garbage collector. "
 	
 	variableName :='pepita'.
 	anotherVariableName := 'popote'.
-	ob := OBLessonModel onLesson: currentLesson.
+	ob := ObjectBrowser onLesson: currentLesson.
 	
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
@@ -24,21 +24,21 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	anotherVariable := ob variableNamed: anotherVariableName.
 	popote := anotherVariable pointsTo.
 	
-	pepita addAttributeNamed: 'alguien'.
+	pepita addVariable: 'alguien'.
 	pepita compileMethod: 'a: a alguien := a'.
 	
-	pepita concreteObject a: popote concreteObject.
+	pepita realObject a: popote realObject.
 	anotherVariable desreference.
 	
 	ob runGarbageCollector.
 	self assert:(ob objects includes: popote)
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 GarbageCollectorTestCase >> testSimpleRunGarbageCollector [
 	| variableName variableToPepita pepita |
 	variableName :='pepita'.
-	ob := OBLessonModel onLesson: currentLesson.
+	ob := ObjectBrowser onLesson: currentLesson.
 	ob createVariable: variableName .
 	variableToPepita := ob variableNamed: variableName.
 	pepita := variableToPepita pointsTo.

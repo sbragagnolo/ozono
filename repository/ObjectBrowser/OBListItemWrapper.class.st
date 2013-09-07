@@ -1,10 +1,7 @@
-"
-I am an abstract model for a list item.
-"
 Class {
 	#name : #OBListItemWrapper,
 	#superclass : #ListItemWrapper,
-	#category : #'ObjectBrowser-UI'
+	#category : #'ObjectBrowser-UI-Model'
 }
 
 { #category : #'as yet unclassified' }

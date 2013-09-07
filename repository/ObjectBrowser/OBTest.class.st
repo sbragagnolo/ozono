@@ -1,6 +1,3 @@
-"
-I am a test of the object browser. I run using the variables of the lesson.
-"
 Class {
 	#name : #OBTest,
 	#superclass : #Object,
@@ -12,95 +9,89 @@ Class {
 	#category : #'ObjectBrowser-TestFramework'
 }
 
-{ #category : #'instance-creation' }
-OBTest class >> newWithSelector: aTestSelector onLesson: aLesson [
+{ #category : #'as yet unclassified' }
+OBTest class >> newText: aTestSelector onLesson: aLesson [
 	^self new
 		selector: aTestSelector;
 		lesson: aLesson;
 		yourself
 ]
 
-{ #category : #visiting }
-OBTest >> accept: aVisitor [
-
-	^ aVisitor visitTest: self
+{ #category : #'as yet unclassified' }
+OBTest >> clickIcon [
+	'click all you want it is gona be ok'
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]
 
-{ #category : #'*ObjectBrowser-Fileout' }
-OBTest >> fileOut [
-
-	OBFileOutV3 new export: self.
-]
-
-{ #category : #ui }
+{ #category : #'as yet unclassified' }
 OBTest >> icon [
 	^result icon.
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #'as yet unclassified' }
 OBTest >> initialize [
-
-	super initialize.
-	result := OBTestNotRun new.
+	result := LOOPTestNotRan new.
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBTest >> lesson: aLesson [
 	lesson := aLesson
 ]
 
-{ #category : #selection }
+{ #category : #'as yet unclassified' }
 OBTest >> makeSelectionOn: anObjectBrowser [
 	anObjectBrowser testCaseSelected: self.
 ]
 
-{ #category : #accessing }
-OBTest >> name [
-
-	^ selector
-]
-
-{ #category : #printing }
+{ #category : #'as yet unclassified' }
 OBTest >> printString [
 	^selector 
 ]
 
-{ #category : #running }
+{ #category : #'as yet unclassified' }
 OBTest >> run [
-
 	| context |
 	context := lesson executionContext.
 	context prepare.
 	context setTestSelector: self selector.
-	[ ^ result := self runContext: context ] ensure: [
-		"We restore the lesson in the context because the test framework wipes all the variables in it and puts a nil in them"
-		context lesson: lesson.
-		context commitChanges.
-	]
+	^result := self runContext: context.
 ]
 
-{ #category : #running }
+{ #category : #'as yet unclassified' }
 OBTest >> runContext: aPreparedContext [
-	[ 
-	[ aPreparedContext runCase ]
-		on: TestFailure
-		do: [ :signal | ^ OBTestFailure new: signal ] ]
-		on: Error
-		do: [ :signal | ^ OBTestError new: signal ].
-	^ OBTestSuccess new
+	[[aPreparedContext runCase] on: TestFailure do: [ :signal | ^LOOPTestFailure new: signal ]] on: Error do: [ :signal | ^LOOPTestError new: signal ].
+	^LOOPTestSuccess new
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBTest >> selector [
 	^selector
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBTest >> selector: aTestSelector [
 	selector := aTestSelector
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> writeExportScriptOn: stream  lesson: aLesson [
+	stream
+		nextPutAll: aLesson lessonIdentification;
+		nextPutAll: ' compileTest: ';
+		nextPutAll: '''';
+		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
+		nextPutAll: '''.';
+		cr.
+]
+
+{ #category : #'as yet unclassified' }
+OBTest >> writeYourOwnCodeOn: stream  lesson: aLesson [
+	stream
+		nextPutAll: ((aLesson executionContext class sourceCodeAt: self selector asSymbol) copyReplaceAll: '''' with: '''''');
+		nextPutAll: '.';
+		cr.
 ]

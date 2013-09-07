@@ -1,8 +1,3 @@
-"
-I am a meta-object representing a method inside the object browser. I implement mostly accessors for the method data such as selector and code.
-
-I also implement some UI related stuff such as the icon and menu items.
-"
 Class {
 	#name : #OBMethod,
 	#superclass : #Object,
@@ -13,62 +8,49 @@ Class {
 	#category : #'ObjectBrowser-Objects'
 }
 
-{ #category : #visiting }
-OBMethod >> accept: aVisitor [
-
-	aVisitor visitMethod: self
-]
-
 { #category : #accessing }
 OBMethod >> code [
-
-	^ OBPharoReflection uniqueInstance inClassOfObject: object concreteObject sourceCodeOfMethodWithSelector: self selector
+	^object realClass sourceCodeAt: self selector
 ]
 
-{ #category : #ui }
+{ #category : #'as yet unclassified' }
 OBMethod >> icon [
-
 	^self iconFor: object
 ]
 
-{ #category : #ui }
+{ #category : #'as yet unclassified' }
 OBMethod >> iconFor: anObject [
-
-	| redefines isRedefined |
+	| redefines isRedefined iHaveMethod |
 	redefines := anObject redefines: self selector.
 	isRedefined := anObject isRedefined: self selector.
-	redefines & isRedefined ifTrue: [ ^OBIcons arrowUpAndDown ].
-	redefines ifTrue: [ ^OBIcons arrowUp ].
-	isRedefined ifTrue: [ ^OBIcons arrowDown ].
+	"(anObject myClassHasMethod: self) ifTrue: [ ^ObjectBrowserIcons prototype ]."
+	redefines & isRedefined ifTrue: [ ^ObjectBrowserIcons arrowUpAndDown ].
+	redefines ifTrue: [ ^ObjectBrowserIcons arrowUp ].
+	isRedefined ifTrue: [ ^ObjectBrowserIcons arrowDown ].
 	^nil
 ]
 
-{ #category : #ui }
+{ #category : #'as yet unclassified' }
 OBMethod >> menuItems [
-
 	^#(('borrar metodo'			deleteMethod))
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBMethod >> object: anOBO [
-
 	^object := anOBO.
 ]
 
-{ #category : #printing }
+{ #category : #'as yet unclassified' }
 OBMethod >> printString [
-
 	^selector asString.
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBMethod >> selector [
-
 	^selector
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 OBMethod >> selector: aByteSymbol [ 
-
 	selector := aByteSymbol 
 ]

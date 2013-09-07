@@ -7,14 +7,14 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #running }
+{ #category : #'as yet unclassified' }
 LoopTestCase >> setUp [
 	"LOOPLesson currentLesson: LOOPLesson freeLesson."
-	currentLesson := OBLesson new.
+	currentLesson := LOOPLesson new.
 ]
 
-{ #category : #running }
+{ #category : #'as yet unclassified' }
 LoopTestCase >> tearDown [ 
 	currentLesson clean.
-	OBLesson lessons removeAll.
+	LOOPLesson lessons removeAll.
 ]

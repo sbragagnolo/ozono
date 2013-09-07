@@ -15,7 +15,7 @@ OBSimpleCollectionTrait >> putSomeElements [
 	self collection add: 8.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testAdd [
 	self assert: 0 equals: self collection size.
 	self collection add: 1.
@@ -24,21 +24,21 @@ OBSimpleCollectionTrait >> testAdd [
 	
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testAllSatisfy [
 	self putSomeElements.
 	self assert:  (self collection allSatisfy: [:num|num>3]).
 	self assert:  (self collection allSatisfy: [:num|num>100]) not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testAnySatisfy [
 	self putSomeElements.
 	self assert:  (self collection anySatisfy: [:num|num>7]).
 	self assert:  (self collection anySatisfy: [:num|num>100]) not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testCollect [
 	|expected collectionCollected|
 	
@@ -50,7 +50,7 @@ OBSimpleCollectionTrait >> testCollect [
 	
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testDo [
 	|total|
 	self putSomeElements.
@@ -59,26 +59,26 @@ OBSimpleCollectionTrait >> testDo [
 	self assert: 19 equals: total.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testIncludes [
 	self putSomeElements.
 	self assert: (self collection includes: 5).
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testInjectInto [
 	self putSomeElements.
 	self assert: 19 equals: (self collection inject: 0 into:[:tot :e | tot+e] ).
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testIsEmpty [
 	self assert: self collection isEmpty.
 	self putSomeElements .
 	self assert: self collection isEmpty not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testRemove [
 	self putSomeElements .
 	self assert: (self collection includes: 5).
@@ -86,14 +86,14 @@ OBSimpleCollectionTrait >> testRemove [
 	self assert: (self collection includes: 5) not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testSelect [
 	self putSomeElements .
 	self assert: (self collection  includes: 5).
 	self assert: ((self collection  select: [:e| e >5]) includes: 5) not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testSize [
 	self assert: 0 equals: self collection size.
 	self putSomeElements .

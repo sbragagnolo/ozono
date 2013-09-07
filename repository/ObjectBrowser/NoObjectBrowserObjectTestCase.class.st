@@ -4,7 +4,7 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 NoObjectBrowserObjectTestCase >> testEqualityBetweenNoObjectBrowserObjects [
-	self assert:(OBExternalObjectMetaObject new: nil ) = (OBExternalObjectMetaObject new:nil).
+	self assert:(NoObjectBrowserObject new: nil ) = (NoObjectBrowserObject new:nil).
 ]
