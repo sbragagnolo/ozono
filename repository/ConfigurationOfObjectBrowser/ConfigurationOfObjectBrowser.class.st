@@ -254,7 +254,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	| latest |
-	latest := '2.0.1'.
+	latest := '2.0.2'.
 	
 	"Default"
 	spec for: #'common' version: latest.
@@ -440,6 +440,19 @@ ConfigurationOfObjectBrowser >> version201: spec [
 	spec for: #common do:[
 		spec blessing: #development.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.462'.
+
+		spec project: 'smallUML' with: '1.1.4'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
+	].
+]
+
+{ #category : #versions }
+ConfigurationOfObjectBrowser >> version202: spec [ 
+    <version: '2.0.2' imports: #('2.0-baseline')>
+	spec for: #common do:[
+		spec blessing: #development.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.462.1'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
