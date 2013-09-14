@@ -478,10 +478,10 @@ ConfigurationOfObjectBrowser >> version30: spec [
     <version: '3.0' imports: #('2.0-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.487'.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
 
 		spec project: 'smallUML' with: '1.1.4'.
 				
-		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.22'.
 	].
 ]
