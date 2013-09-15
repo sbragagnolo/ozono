@@ -4,22 +4,22 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testComplicatedGraph [
 	| obj graph obj2 noObo1 noObo2 |
-	obj := currentLesson addNewObject.
-	obj2 := currentLesson addNewObject.
-	currentLesson addObject: (noObo1 := NoObjectBrowserObject for: 2).
-	currentLesson addObject: (noObo2 := NoObjectBrowserObject for: nil).
+	obj := currentLesson createObject.
+	obj2 := currentLesson createObject.
+	currentLesson addObject: (noObo1 := OBExternalObjectMetaObject for: 2).
+	currentLesson addObject: (noObo2 := OBExternalObjectMetaObject for: nil).
 	
-	obj addVariable: 'var1'.
-	obj variable: 'var1' pointTo: obj2.
-	obj addVariable: 'var2'.
-	obj variable: 'var2' pointTo: (NoObjectBrowserObject for: 2).
+	obj addAttributeNamed: 'var1'.
+	obj attributeNamed: 'var1' pointTo: obj2.
+	obj addAttributeNamed: 'var2'.
+	obj attributeNamed: 'var2' pointTo: (OBExternalObjectMetaObject for: 2).
 	
-	obj2 addVariable: 'var1'.
-	obj2 variable: 'var1' pointTo: obj.
-	obj2 addVariable: 'var2'.
+	obj2 addAttributeNamed: 'var1'.
+	obj2 attributeNamed: 'var1' pointTo: obj.
+	obj2 addAttributeNamed: 'var2'.
 
 	graph := currentLesson buildGraph.
 	
@@ -32,21 +32,21 @@ GraphTestCase >> testComplicatedGraph [
 	
 	self assert: (graph references anySatisfy: [ :r | r from = obj & r to = obj2 & r name = 'var1']).
 	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to = obj & r name = 'var1']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = 2 & r name = 'var2']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to realObject = nil & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = 2 & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to concreteObject = nil & r name = 'var2']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testLoopGraph [
 	| obj graph obj2 |
-	obj := currentLesson addNewObject.
-	obj2 := currentLesson addNewObject.
+	obj := currentLesson createObject.
+	obj2 := currentLesson createObject.
 	
-	obj addVariable: 'var1'.
-	obj variable: 'var1' pointTo: obj2.
+	obj addAttributeNamed: 'var1'.
+	obj attributeNamed: 'var1' pointTo: obj2.
 	
-	obj2 addVariable: 'var1'.
-	obj2 variable: 'var1' pointTo: obj.
+	obj2 addAttributeNamed: 'var1'.
+	obj2 attributeNamed: 'var1' pointTo: obj.
 
 	graph := currentLesson buildGraph.
 	
@@ -57,31 +57,31 @@ GraphTestCase >> testLoopGraph [
 	self assert: (graph references anySatisfy: [ :r | r from = obj2 & r to = obj & r name = 'var1']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testObjectWithVariables [
 	| obj graph |
-	obj := currentLesson addNewObject.
-	obj addVariable: 'var1'.
-	obj variable: 'var1' pointTo: (NoObjectBrowserObject for: 2).
+	obj := currentLesson createObject.
+	obj addAttributeNamed: 'var1'.
+	obj attributeNamed: 'var1' pointTo: (OBExternalObjectMetaObject for: 2).
 	
-	obj addVariable: 'var2'.
+	obj addAttributeNamed: 'var2'.
 	
 	graph := currentLesson buildGraph.
 	
 	self assert: (graph references size = 2).
 	
 	self assert: (graph objects includes: obj).
-	self assert: (graph objects anySatisfy: [ :o | o realObject = 2 ]).
-	self assert: (graph objects anySatisfy: [ :o | o realObject = nil ]).
+	self assert: (graph objects anySatisfy: [ :o | o concreteObject = 2 ]).
+	self assert: (graph objects anySatisfy: [ :o | o concreteObject = nil ]).
 	
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = 2 & r name = 'var1']).
-	self assert: (graph references anySatisfy: [ :r | r from = obj & r to realObject = nil & r name = 'var2']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = 2 & r name = 'var1']).
+	self assert: (graph references anySatisfy: [ :r | r from = obj & r to concreteObject = nil & r name = 'var2']).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 GraphTestCase >> testSimpleObjectGraph [
 	| obj graph |
-	obj := currentLesson addNewObject.
+	obj := currentLesson createObject.
 	graph := currentLesson buildGraph.
 	
 	self assert: (graph objects includes: obj).

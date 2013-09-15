@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserSimpleCollectionTestCase,
-	#superclass : #TestCase,
+	#superclass : #LoopTestCase,
 	#instVars : [
 		'colection'
 	],
@@ -10,17 +10,12 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #requirements }
 ObjectBrowserSimpleCollectionTestCase >> collection [ 
 	^ collection .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ObjectBrowserSimpleCollectionTestCase >> collection: col [
 	collection := col.
-]
-
-{ #category : #'as yet unclassified' }
-ObjectBrowserSimpleCollectionTestCase >> setUp [
-	OBCollectionFactory initialize.
 ]

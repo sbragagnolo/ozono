@@ -10,20 +10,20 @@ Class {
 { #category : #'as yet unclassified' }
 ObjectBrowserVariableTestCase >> setUp [
 	super setUp.
-	variable := LessonVariable newNamed: 'pepita'.
+	variable := OBLessonVariable newNamed: 'pepita'.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserVariableTestCase >> testDesreferenciarVariable [
 	| anObject |
 	anObject := 2.
 	variable pointTo: anObject.
 	self assert: variable pointsTo == anObject .
 	variable desreference.
-	self assert: variable pointsTo object == nil.
+	self assert: variable pointsTo concreteObject == nil.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserVariableTestCase >> testNewVariableName [
 	| varName |
 	varName := 'pepita'.
@@ -31,12 +31,12 @@ ObjectBrowserVariableTestCase >> testNewVariableName [
 	self assert: variable name = varName.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserVariableTestCase >> testNewVariablePointsToNil [
 	self assert: variable pointsTo == nil.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserVariableTestCase >> testPointVariableToObject [
 	| anObject |
 	anObject := 2.

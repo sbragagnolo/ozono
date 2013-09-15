@@ -11,56 +11,50 @@ ObjectBrowserCollectionTestCase >> agregarRepetidos: coleccion [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-ObjectBrowserCollectionTestCase >> setUp [
-	super setUp.
-	OBCollectionFactory initialize.
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesBag [
 	|miBolsa|
-	miBolsa := (Smalltalk at:#bag) clone.
+	miBolsa := (currentLesson literalNamed: #bag) clone.
 	self assert: 0 equals: miBolsa size.
 	self agregarRepetidos: miBolsa .
 	self assert: 2 equals: miBolsa size.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 	|sinRepetidos|	
-	sinRepetidos := (Smalltalk at:#set) clone.
+	sinRepetidos := (currentLesson literalNamed: #set) clone.
 	self agregarRepetidos: sinRepetidos .
 	self assert: 1 equals: sinRepetidos size.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateBagCollection [
 	|miConjunto |
-	miConjunto:= (Smalltalk at:#bag) clone.
+	miConjunto:= (currentLesson literalNamed: #bag) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateOrderedCollection [
 	|miConjunto |
-	miConjunto:= (Smalltalk at:#ordered) clone.
+	miConjunto:= (currentLesson literalNamed: #ordered) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateSetCollection [
 	|miConjunto |
-	miConjunto:= (Smalltalk at:#set) clone.
+	miConjunto:= (currentLesson literalNamed: #set) clone.
 	self assert: 0 equals: miConjunto size.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testObtainFirst [
 	|miConjunto |
-	miConjunto:= (Smalltalk at:#ordered) clone.
+	miConjunto:= (currentLesson literalNamed: #ordered) clone.
 	miConjunto add: 1.
 	miConjunto add: 2.
 	self assert: 1 equals: miConjunto first .

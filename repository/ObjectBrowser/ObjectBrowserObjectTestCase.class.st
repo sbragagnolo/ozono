@@ -12,16 +12,16 @@ Class {
 { #category : #running }
 ObjectBrowserObjectTestCase >> setUp [
 	super setUp.
-	obo := ObjectBrowserObject newOn: currentLesson.
+	obo := currentLesson createObject.
 ]
 
 { #category : #'attribute-tests' }
 ObjectBrowserObjectTestCase >> testAddDuplicatedVariable [
 	| varName |
 	varName := 'energia'.
-	obo addVariable: varName .
-	self should: [obo addVariable: varName] raise:Error.
-	self assert: obo variables size = 1.
+	obo addAttributeNamed: varName .
+	self should: [obo addAttributeNamed: varName] raise:Error.
+	self assert: obo attributes size = 1.
 ]
 
 { #category : #'method-tests' }
@@ -30,7 +30,7 @@ ObjectBrowserObjectTestCase >> testAddMethod [
 	method := 'unMetodo ^2'.
 	obo compileMethod: method.
 	self assert: obo methods size = 1.
-	self assert: (obo hasMethod: #unMetodo).
+	self assert: (obo includesSelector: #unMetodo).
 ]
 
 { #category : #'method-tests' }
@@ -44,21 +44,21 @@ ObjectBrowserObjectTestCase >> testAddSintacticBadMethod [
 ObjectBrowserObjectTestCase >> testAddVariable [
 	| varName |
 	varName := 'energia'.
-	obo addVariable: varName .
-	self assert: obo variables size = 1.
-	self assert: (obo hasVariable: varName).
+	obo addAttributeNamed: varName .
+	self assert: obo attributes size = 1.
+	self assert: (obo hasAttributeNamed: varName).
 ]
 
 { #category : #'clone-tests' }
 ObjectBrowserObjectTestCase >> testCloneClassName [
 	otroObo := obo clone.
-	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
+	self assert: ((OBPharoReflection uniqueInstance classNameOfObject: obo concreteObject) beginsWith: OBObject name).
 ]
 
 { #category : #'clone-tests' }
 ObjectBrowserObjectTestCase >> testCloneHasDifferentClass [
 	otroObo := obo clone.
-	self assert: (obo realClass ~= otroObo realClass).
+	self assert: ((OBPharoReflection uniqueInstance classOf: obo concreteObject) ~= (OBPharoReflection uniqueInstance classOf: otroObo concreteObject)).
 ]
 
 { #category : #'clone-tests' }
@@ -69,7 +69,7 @@ ObjectBrowserObjectTestCase >> testClonePrototype [
 
 { #category : #'realClass-tests' }
 ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectClass [
-	self assert: (obo realClass name beginsWith: 'ObjectBrowserObject').
+	self assert: ((OBPharoReflection uniqueInstance classNameOfObject: obo concreteObject) beginsWith: OBObject name).
 ]
 
 { #category : #'method-tests' }
@@ -79,7 +79,7 @@ ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectMethods [
 
 { #category : #'attribute-tests' }
 ObjectBrowserObjectTestCase >> testNewObjectBrowserObjectVariables [
-	self assert: (obo variables isEmpty).
+	self assert: (obo attributes isEmpty).
 ]
 
 { #category : #'method-tests' }
@@ -87,10 +87,10 @@ ObjectBrowserObjectTestCase >> testRemoveMethod [
 	| methodString method |
 	methodString := 'unMetodo ^2'.
 	obo compileMethod: methodString.
-	method := obo methodOfSelector: #unMetodo.
+	method := obo >> #unMetodo.
 	obo removeMethod: method.
 	
 	self assert: obo methods size = 0.
-	self assert: (obo hasMethod: #unMetodo) not.
-	self assert: (obo realClass includesSelector: method selector) not
+	self assert: (obo includesSelector: #unMetodo) not.
+	self assert: ((OBPharoReflection uniqueInstance classOf: obo concreteObject) includesSelector: method selector) not
 ]
