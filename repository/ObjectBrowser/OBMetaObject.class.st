@@ -102,7 +102,7 @@ OBMetaObject >> addAttributeNamed: attributeName [
 
 	OBPharoReflection uniqueInstance
 		addInstanceVariable: attributeName
-		toClassOfObject: self concreteObject.
+		toClassOfObject: self baseObject.
 
 	self flushAttributesCache.
 	self changed.
@@ -111,7 +111,7 @@ OBMetaObject >> addAttributeNamed: attributeName [
 { #category : #references }
 OBMetaObject >> addInversePrototypeRelationship: references [
 
-	references add: self concreteObject.
+	references add: self baseObject.
 ]
 
 { #category : #graph }
@@ -152,15 +152,15 @@ OBMetaObject >> attributeNamed: varName [
 OBMetaObject >> attributeNamed: attributeName pointTo: anObject [
 
 	OBPharoReflection uniqueInstance
-		inObject: self concreteObject
+		inObject: self baseObject
 		setInstanceVariable: attributeName
-		withValue: anObject concreteObject.
+		withValue: anObject baseObject.
 ]
 
 { #category : #attributes }
 OBMetaObject >> attributeNames [
 
-	^attributes ifNil: [ attributes := OBPharoReflection uniqueInstance instanceVariablesOfObject: self concreteObject ].
+	^attributes ifNil: [ attributes := OBPharoReflection uniqueInstance instanceVariablesOfObject: self baseObject ].
 ]
 
 { #category : #attributes }
@@ -168,6 +168,12 @@ OBMetaObject >> attributes [
 
 	^(self allAttributeNames collect: [ :var | OBDirectAttribute newNamed: var owner: self ]) 
 		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
+]
+
+{ #category : #accessing }
+OBMetaObject >> baseObject [
+
+	^ concreteObject
 ]
 
 { #category : #references }
@@ -181,7 +187,7 @@ OBMetaObject >> bePrototypeOf: clone [
 
 	clone prototype: self.
 	OBPharoReflection uniqueInstance
-		makeClass: (OBPharoReflection uniqueInstance classOf: clone concreteObject) subclassOf: (OBPharoReflection uniqueInstance classOf: self concreteObject).
+		makeClass: (OBPharoReflection uniqueInstance classOf: clone baseObject) subclassOf: (OBPharoReflection uniqueInstance classOf: self baseObject).
 ]
 
 { #category : #cloning }
@@ -205,7 +211,8 @@ OBMetaObject >> compileMethod: aMethodCode notifying: someone [
 	| selector obMethod |
 	selector := OBPharoReflection uniqueInstance
 		compile: aMethodCode
-		inClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		inLesson: self lesson
+		inClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
 		notifying: someone.
 	selector ifNil: [ ^ OBNullMethod new ].
 	
@@ -220,12 +227,6 @@ OBMetaObject >> compileMethod: aMethodCode notifying: someone [
 ]
 
 { #category : #accessing }
-OBMetaObject >> concreteObject [
-
-	^ concreteObject
-]
-
-{ #category : #accessing }
 OBMetaObject >> concreteObject: anObject [
 
 	concreteObject := anObject
@@ -234,7 +235,7 @@ OBMetaObject >> concreteObject: anObject [
 { #category : #printing }
 OBMetaObject >> displayString [
 
-	^self concreteObject displayString
+	^self baseObject displayString
 ]
 
 { #category : #attributes }
@@ -269,14 +270,14 @@ OBMetaObject >> initialize [
 { #category : #'pharo-interaction' }
 OBMetaObject >> inspect [
 
-	self concreteObject inspect
+	self baseObject inspect
 ]
 
 { #category : #methods }
 OBMetaObject >> isRedefined: aSelector [
 
 	^OBPharoReflection uniqueInstance
-		inSubclassesOfClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		inSubclassesOfClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
 		isRedefined: aSelector
 ]
 
@@ -313,13 +314,13 @@ OBMetaObject >> methods [
 { #category : #accessing }
 OBMetaObject >> posibleName [
 
-	^ ((OBPharoReflection uniqueInstance classNameOfObject: self concreteObject), self concreteObject hash asString) asLowercase.
+	^ ((OBPharoReflection uniqueInstance classNameOfObject: self baseObject), self baseObject hash asString) asLowercase.
 ]
 
 { #category : #printing }
 OBMetaObject >> printOn: aStream [
 
-	self concreteObject printOn: aStream.
+	self baseObject printOn: aStream.
 ]
 
 { #category : #cloning }
@@ -338,7 +339,7 @@ OBMetaObject >> prototype: anObject [
 OBMetaObject >> redefines: aSelector [
 
 	^OBPharoReflection uniqueInstance
-		inClass: (OBPharoReflection uniqueInstance classOf: self concreteObject)
+		inClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
 		isRedefined: aSelector
 ]
 
@@ -354,7 +355,7 @@ OBMetaObject >> relationWith: aClone [
 { #category : #attributes }
 OBMetaObject >> removeAttribute: anAttribute [
 
-	anAttribute removeFrom: (OBPharoReflection uniqueInstance classOf: self concreteObject).
+	anAttribute removeFrom: (OBPharoReflection uniqueInstance classOf: self baseObject).
 	self flushAttributesCache.
 	self changed.
 ]
@@ -362,7 +363,7 @@ OBMetaObject >> removeAttribute: anAttribute [
 { #category : #'pharo-interaction' }
 OBMetaObject >> removeClassFromSystem [
 
-	OBPharoReflection uniqueInstance destroyClassOf: self concreteObject
+	OBPharoReflection uniqueInstance destroyClassOf: self baseObject
 ]
 
 { #category : #methods }
@@ -372,7 +373,7 @@ OBMetaObject >> removeMethod: aMethod [
 		self error: 'El método #', aMethod selector ,' pertenece a un prototipo, no puede eliminarse de este objeto'.
 	].
 
-	OBPharoReflection uniqueInstance inClassOf: self concreteObject removeMethodWithSelector: aMethod selector.
+	OBPharoReflection uniqueInstance inClassOf: self baseObject removeMethodWithSelector: aMethod selector.
 	methods removeKey: aMethod selector.
 	self changed.
 ]
@@ -380,11 +381,11 @@ OBMetaObject >> removeMethod: aMethod [
 { #category : #accessing }
 OBMetaObject >> size [
 
-	^self concreteObject size
+	^self baseObject size
 ]
 
 { #category : #methods }
 OBMetaObject >> understands: aSelector [
 
-	^OBPharoReflection uniqueInstance doesObject: self concreteObject undertandMessageSelector: aSelector
+	^OBPharoReflection uniqueInstance doesObject: self baseObject undertandMessageSelector: aSelector
 ]

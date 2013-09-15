@@ -42,7 +42,7 @@ OBCollectionPrototype >> basicClone [
 { #category : #cloning }
 OBCollectionPrototype >> clone [
 
-	^self basicClone concreteObject
+	^self basicClone baseObject
 ]
 
 { #category : #cloning }

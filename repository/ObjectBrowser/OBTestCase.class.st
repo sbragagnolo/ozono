@@ -1,5 +1,5 @@
 Class {
-	#name : #LoopTestCase,
+	#name : #OBTestCase,
 	#superclass : #TestCase,
 	#instVars : [
 		'currentLesson'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #running }
-LoopTestCase >> setUp [
+OBTestCase >> setUp [
 	"LOOPLesson currentLesson: LOOPLesson freeLesson."
 	currentLesson := OBLesson new.
 ]
 
 { #category : #running }
-LoopTestCase >> tearDown [ 
+OBTestCase >> tearDown [ 
 	currentLesson clean.
 	OBLesson lessons removeAll.
 ]

@@ -27,7 +27,7 @@ OBExternalObjectMetaObject class >> new: anObject [
 
 { #category : #comparing }
 OBExternalObjectMetaObject >> = anotherObject [
-	^(self class == anotherObject class) and:[(self concreteObject == anotherObject concreteObject) ]
+	^(self class == anotherObject class) and:[(self baseObject == anotherObject baseObject) ]
 ]
 
 { #category : #visiting }
@@ -57,21 +57,21 @@ OBExternalObjectMetaObject >> attributes [
 	^#()
 ]
 
+{ #category : #accessing }
+OBExternalObjectMetaObject >> baseObject [
+
+	^ concreteObject
+]
+
 { #category : #cloning }
 OBExternalObjectMetaObject >> clone [
 
-	^self class for: self concreteObject.
+	^self class for: self baseObject.
 ]
 
 { #category : #methods }
 OBExternalObjectMetaObject >> compileMethod: aText notifying: someone [
 	self error: 'No puede modificarse este objeto'
-]
-
-{ #category : #accessing }
-OBExternalObjectMetaObject >> concreteObject [
-
-	^concreteObject
 ]
 
 { #category : #accessing }
@@ -82,7 +82,7 @@ OBExternalObjectMetaObject >> concreteObject: anObject [
 
 { #category : #printing }
 OBExternalObjectMetaObject >> displayString [
-	^self concreteObject printString
+	^self baseObject printString
 ]
 
 { #category : #references }
@@ -92,7 +92,7 @@ OBExternalObjectMetaObject >> hasReferencesTo: anObject [
 
 { #category : #comparing }
 OBExternalObjectMetaObject >> hash [
-	^self concreteObject hash
+	^self baseObject hash
 ]
 
 { #category : #methods }
@@ -118,14 +118,14 @@ OBExternalObjectMetaObject >> myClassHasMethod: aSelector [
 
 { #category : #accessing }
 OBExternalObjectMetaObject >> posibleName [
-	^'(',self class name,' new: ', self concreteObject printString, ')'
+	^'(',self class name,' new: ', self baseObject printString, ')'
 
 
 ]
 
 { #category : #printing }
 OBExternalObjectMetaObject >> printString [
-	^self concreteObject printString
+	^self baseObject printString
 ]
 
 { #category : #'pharo-interaction' }

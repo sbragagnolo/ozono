@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserTestCase,
-	#superclass : #LoopTestCase,
+	#superclass : #OBTestCase,
 	#instVars : [
 		'ob'
 	],

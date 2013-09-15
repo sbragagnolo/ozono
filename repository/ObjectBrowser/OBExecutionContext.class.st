@@ -55,5 +55,5 @@ OBExecutionContext >> putInContext: anOBVariable [
 
 	self
 		instVarNamed: anOBVariable name
-		put: anOBVariable pointsTo concreteObject.
+		put: anOBVariable pointsTo baseObject.
 ]

@@ -43,7 +43,7 @@ OBLessonVariable >> desreference [
 { #category : #references }
 OBLessonVariable >> hasReferencesTo: anObject [
 
-	^(reference concreteObject == anObject concreteObject )
+	^(reference baseObject == anObject baseObject )
 ]
 
 { #category : #ui }
@@ -89,7 +89,7 @@ OBLessonVariable >> name: aName [
 { #category : #selection }
 OBLessonVariable >> notifySelectionTo: anObserverCollection [
 
-	anObserverCollection do: [ :o | o selectedClassOrMetaClass: (OBPharoReflection uniqueInstance classOf: self pointsTo concreteObject) ]
+	anObserverCollection do: [ :o | o selectedClassOrMetaClass: (OBPharoReflection uniqueInstance classOf: self pointsTo baseObject) ]
 ]
 
 { #category : #accessing }

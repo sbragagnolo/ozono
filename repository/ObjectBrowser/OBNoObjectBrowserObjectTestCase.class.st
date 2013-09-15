@@ -1,10 +1,10 @@
 Class {
-	#name : #NoObjectBrowserObjectTestCase,
-	#superclass : #TestCase,
+	#name : #OBNoObjectBrowserObjectTestCase,
+	#superclass : #OBTestCase,
 	#category : #'ObjectBrowser-Tests'
 }
 
 { #category : #tests }
-NoObjectBrowserObjectTestCase >> testEqualityBetweenNoObjectBrowserObjects [
+OBNoObjectBrowserObjectTestCase >> testEqualityBetweenNoObjectBrowserObjects [
 	self assert:(OBExternalObjectMetaObject new: nil ) = (OBExternalObjectMetaObject new:nil).
 ]

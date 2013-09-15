@@ -18,7 +18,7 @@ OBAssociationAttribute >> keyAttribute [
 	^OBSpecialAttribute 
 			newNamed: 'clave'
 			owner: self objectPointed
-			pointingTo: (self objectPointed concreteObject key metaObject)
+			pointingTo: (self objectPointed baseObject key metaObject)
 ]
 
 { #category : #references }
@@ -26,5 +26,5 @@ OBAssociationAttribute >> valueAttribute [
 	^OBSpecialAttribute 
 			newNamed: 'valor'
 			owner: self objectPointed
-			pointingTo: (self objectPointed concreteObject value metaObject)
+			pointingTo: (self objectPointed baseObject value metaObject)
 ]

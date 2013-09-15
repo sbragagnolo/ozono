@@ -2,7 +2,7 @@ Extension { #name : #Object }
 
 { #category : #'*ObjectBrowser-Objects' }
 Object >> clone [
-	^ self metaObject clone concreteObject
+	^ self metaObject clone baseObject
 ]
 
 { #category : #'*ObjectBrowser-Objects' }

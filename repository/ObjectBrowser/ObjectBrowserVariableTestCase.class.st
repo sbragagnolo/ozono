@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserVariableTestCase,
-	#superclass : #LoopTestCase,
+	#superclass : #OBTestCase,
 	#instVars : [
 		'variable'
 	],
@@ -20,7 +20,7 @@ ObjectBrowserVariableTestCase >> testDesreferenciarVariable [
 	variable pointTo: anObject.
 	self assert: variable pointsTo == anObject .
 	variable desreference.
-	self assert: variable pointsTo concreteObject == nil.
+	self assert: variable pointsTo baseObject == nil.
 ]
 
 { #category : #tests }

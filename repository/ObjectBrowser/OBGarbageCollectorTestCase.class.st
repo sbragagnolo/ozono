@@ -1,6 +1,6 @@
 Class {
-	#name : #GarbageCollectorTestCase,
-	#superclass : #LoopTestCase,
+	#name : #OBGarbageCollectorTestCase,
+	#superclass : #OBTestCase,
 	#instVars : [
 		'ob'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #tests }
-GarbageCollectorTestCase >> testComplexRunGarbageCollector [
+OBGarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	| variableName variableToPepita pepita anotherVariableName anotherVariable popote |
 	"En este test feo se crean 2 objetos y uno pasa a conocer al otro (pepita conoce a popote).  Luego desreferencio a popote y corro el garbage collector. "
 	
@@ -27,7 +27,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 	pepita addAttributeNamed: 'alguien'.
 	pepita compileMethod: 'a: a alguien := a'.
 	
-	pepita concreteObject a: popote concreteObject.
+	pepita baseObject a: popote baseObject.
 	anotherVariable desreference.
 	
 	ob runGarbageCollector.
@@ -35,7 +35,7 @@ GarbageCollectorTestCase >> testComplexRunGarbageCollector [
 ]
 
 { #category : #tests }
-GarbageCollectorTestCase >> testSimpleRunGarbageCollector [
+OBGarbageCollectorTestCase >> testSimpleRunGarbageCollector [
 	| variableName variableToPepita pepita |
 	variableName :='pepita'.
 	ob := OBLessonModel onLesson: currentLesson.

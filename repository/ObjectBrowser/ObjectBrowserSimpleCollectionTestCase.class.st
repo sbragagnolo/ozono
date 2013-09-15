@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserSimpleCollectionTestCase,
-	#superclass : #LoopTestCase,
+	#superclass : #OBTestCase,
 	#instVars : [
 		'colection'
 	],

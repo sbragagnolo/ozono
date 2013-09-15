@@ -451,7 +451,7 @@ OBLessonModel >> recoverObject [
 		evaluate: [
 			variableName := self request: 'Nombre de la referencia' default: 'recuperadoDeLaPapelera'.
 			variableName ifNotNil: [ 
-				self createVariable: variableName toRecover: self selectedDerreferencedObject concreteObject.
+				self createVariable: variableName toRecover: self selectedDerreferencedObject baseObject.
 				]
 		]).
 	self changed

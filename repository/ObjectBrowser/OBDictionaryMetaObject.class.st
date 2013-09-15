@@ -23,13 +23,13 @@ OBDictionaryMetaObject >> accept: aVisitor [
 
 { #category : #adding }
 OBDictionaryMetaObject >> at: aKey put: aValue [
-	self concreteObject at: aKey concreteObject put: aValue concreteObject
+	self baseObject at: aKey baseObject put: aValue baseObject
 ]
 
 { #category : #attributes }
 OBDictionaryMetaObject >> basicRelationships [
 	
-	^self concreteObject associations collect: [ :elem | 
+	^self baseObject associations collect: [ :elem | 
 		OBAssociationAttribute 
 			newNamed: 'associacion'
 			owner: self
@@ -46,7 +46,7 @@ OBDictionaryMetaObject >> hasReferencesTo: anOBObject [
 { #category : #references }
 OBDictionaryMetaObject >> keysReferenceTo: anOBObject [
 
-	^self concreteObject includesKey: anOBObject concreteObject
+	^self baseObject includesKey: anOBObject baseObject
 ]
 
 { #category : #printing }
@@ -57,5 +57,5 @@ OBDictionaryMetaObject >> printString [
 { #category : #references }
 OBDictionaryMetaObject >> valuesReferenceTo: anOBObject [
 
-	^self concreteObject includes: anOBObject concreteObject
+	^self baseObject includes: anOBObject baseObject
 ]

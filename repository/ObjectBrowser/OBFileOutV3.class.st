@@ -108,7 +108,7 @@ OBFileOutV3 >> visitCollectionForDefinition: aCollection [
 { #category : #visiting }
 OBFileOutV3 >> visitCollectionForState: aCollection [
 
-	aCollection concreteObject do:  [ :each | 
+	aCollection baseObject do:  [ :each | 
 			self write: aCollection posibleName.
 			self write: ' add: '.
 			self write: each metaObject posibleName.
@@ -140,7 +140,7 @@ OBFileOutV3 >> visitDictionaryForDefinition: anObject [
 { #category : #visiting }
 OBFileOutV3 >> visitDictionaryForState: aDictionary [
 
-	aDictionary concreteObject keysAndValuesDo:  [ :key :value | 
+	aDictionary baseObject keysAndValuesDo:  [ :key :value | 
 			self write: aDictionary posibleName.
 			self write: ' at: '.
 			self write: key metaObject posibleName.

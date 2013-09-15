@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserLoopLessonTestCase,
-	#superclass : #TestCase,
+	#superclass : #OBTestCase,
 	#category : #'ObjectBrowser-Tests'
 }
 
@@ -109,13 +109,13 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
 	lesson createVariableNamed: 'pepita' pointingTo: pepita.
 	lesson createVariableNamed: 'rosario' pointingTo: rosario .
 	theSet := (lesson literalNamed: #set) clone.
-	theSet add: pepita concreteObject.
-	theSet add: rosario concreteObject.
+	theSet add: pepita baseObject.
+	theSet add: rosario baseObject.
 	
 	theDictionary := (lesson literalNamed: #dictionary) clone.
-	theDictionary at: pepita concreteObject put: rosario concreteObject.
+	theDictionary at: pepita baseObject put: rosario baseObject.
 	theDictionary at: 1 put: 'hola'.
-	theDictionary at: 1 put: pepita concreteObject.
+	theDictionary at: 1 put: pepita baseObject.
 	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
 	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).

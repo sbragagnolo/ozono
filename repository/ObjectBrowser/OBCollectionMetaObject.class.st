@@ -64,7 +64,7 @@ OBCollectionMetaObject >> accept: aVisitor [
 { #category : #adding }
 OBCollectionMetaObject >> add: anObj [
 
-	self concreteObject add: anObj concreteObject.
+	self baseObject add: anObj baseObject.
 ]
 
 { #category : #attributes }
@@ -85,7 +85,7 @@ OBCollectionMetaObject >> allRelationships [
 { #category : #attributes }
 OBCollectionMetaObject >> basicRelationships [
 	
-	^self concreteObject collect: [ :elem | 
+	^self baseObject collect: [ :elem | 
 		OBSpecialAttribute 
 			newNamed: 'elemento'
 			owner: self
@@ -103,17 +103,17 @@ OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
 OBCollectionMetaObject >> displayString [
 
 	| className prefix |
-	className := self concreteObject class name.
+	className := self baseObject class name.
 	className first isVowel 
 		ifTrue: [ prefix := 'an'. ]
 		ifFalse: [ prefix:= 'a' ].
-	^(prefix, self concreteObject class name) asLegalSelector
+	^(prefix, self baseObject class name) asLegalSelector
 ]
 
 { #category : #references }
 OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 
-	^self concreteObject includes: anOBObject concreteObject
+	^self baseObject includes: anOBObject baseObject
 ]
 
 { #category : #'ui-actions' }
@@ -130,7 +130,7 @@ OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 { #category : #methods }
 OBCollectionMetaObject >> methods [
 
-	^ self concreteObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
+	^ self baseObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
 ]
 
 { #category : #accessing }

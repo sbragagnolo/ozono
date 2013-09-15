@@ -21,7 +21,7 @@ OBDereferencedObject class >> newOn: anObject [
 
 { #category : #comparing }
 OBDereferencedObject >> = anObject [
-	^(anObject isKindOf: OBDereferencedObject) and: [ anObject concreteObject = self concreteObject  ]
+	^(anObject isKindOf: OBDereferencedObject) and: [ anObject baseObject = self baseObject  ]
 ]
 
 { #category : #'ui-actions' }
@@ -35,9 +35,9 @@ OBDereferencedObject >> asString [
 ]
 
 { #category : #accessing }
-OBDereferencedObject >> concreteObject [
+OBDereferencedObject >> baseObject [
 
-	^dereferencedObject.
+	^ dereferencedObject.
 ]
 
 { #category : #accessing }
@@ -47,7 +47,7 @@ OBDereferencedObject >> dereferencedObject: anObject [
 
 { #category : #comparing }
 OBDereferencedObject >> hash [
-	^self concreteObject hash
+	^self baseObject hash
 ]
 
 { #category : #'ui-actions' }

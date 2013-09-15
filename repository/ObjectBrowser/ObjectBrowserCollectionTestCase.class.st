@@ -1,6 +1,6 @@
 Class {
 	#name : #ObjectBrowserCollectionTestCase,
-	#superclass : #LoopTestCase,
+	#superclass : #OBTestCase,
 	#category : #'ObjectBrowser-Tests'
 }
 
