@@ -136,6 +136,14 @@ OBLesson >> asString [
 	^self displayString copyReplaceAll: ' ' with: ''
 ]
 
+{ #category : #literals }
+OBLesson >> bindingOf: aName [ 
+
+	^(self includesLiteralNamed: aName)
+		ifTrue: [ aName -> (self literalNamed: aName) ]
+		ifFalse: [ nil ]
+]
+
 { #category : #diagram }
 OBLesson >> buildGraph [
 

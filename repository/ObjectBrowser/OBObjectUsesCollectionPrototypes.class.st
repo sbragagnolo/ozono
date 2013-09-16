@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #tests }
+OBObjectUsesCollectionPrototypes >> setUp [ 
+	super setUp.
+	pepita := currentLesson createObject.
+]
+
+{ #category : #tests }
 OBObjectUsesCollectionPrototypes >> testObjectUsesBagPrototypeAndGetsABag [
 
 	| bag |
