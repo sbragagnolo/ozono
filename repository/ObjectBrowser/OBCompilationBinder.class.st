@@ -16,3 +16,9 @@ OBCompilationBinder class >> onLesson: aLesson forClass: aClass [
 			class: aClass;
 			yourself
 ]
+
+{ #category : #compiling }
+OBCompilationBinder >> allInstVarNames [
+
+	^ class allInstVarNames
+]
