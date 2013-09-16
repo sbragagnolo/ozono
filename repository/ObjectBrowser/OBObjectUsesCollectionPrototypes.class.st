@@ -1,14 +1,16 @@
 Class {
 	#name : #OBObjectUsesCollectionPrototypes,
 	#superclass : #OBTestCase,
+	#instVars : [
+		'pepita'
+	],
 	#category : #'ObjectBrowser-Tests'
 }
 
 { #category : #tests }
 OBObjectUsesCollectionPrototypes >> testObjectUsesSetPrototypeAndGetsASet [
 
-	| pepita set |
-	pepita := currentLesson createObject.
+	| set |
 	pepita compileMethod: 'createSet ^set clone'.
 	set := pepita baseObject createSet.
 	set
