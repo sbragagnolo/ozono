@@ -35,37 +35,6 @@ OBPharoReflection >> classOf: anObject [
 ]
 
 { #category : #methods }
-OBPharoReflection >> compile: code inClass: aClass notifying: anObserver [
-
-	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
-		| methodNode methodAndNode |
-		"Compile the method"
-		methodNode  := aClass compilerClass new
-				compile: code
-				in: aClass
-				classified: #'object browser'
-				notifying: anObserver
-				ifFail: [ nil ].
-		
-		"Put the sourcecode in the changes file"
-		methodAndNode := CompiledMethodWithNode 
-			generateMethodFromNode: methodNode trailer: aClass defaultMethodTrailer.
-		methodAndNode method 
-			putSource: code 
-			fromParseNode: methodAndNode node 
-			inFile: 2
-			withPreamble: [:f | f cr; nextPut: $!; nextChunkPut: 'Behavior method'; cr].
-		
-		"Install the method in the class"
-		aClass
-			addSelector: methodAndNode selector
-			withMethod: methodAndNode method 
-			notifying: anObserver.
-		^ methodAndNode method selector
-	]
-]
-
-{ #category : #methods }
 OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: anObserver [
 
 	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
@@ -82,7 +51,7 @@ OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: 
 		methodAndNode := CompiledMethodWithNode 
 			generateMethodFromNode: methodNode trailer: aClass defaultMethodTrailer.
 		methodAndNode method 
-			putSource: code 
+			putSource: anObserver text asString
 			fromParseNode: methodAndNode node 
 			inFile: 2
 			withPreamble: [:f | f cr; nextPut: $!; nextChunkPut: 'Behavior method'; cr].
