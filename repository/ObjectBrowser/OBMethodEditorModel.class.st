@@ -18,7 +18,9 @@ OBMethodEditorModel >> acceptCode: unText notifying: someone [
 	
 	self errorHandler evaluate: [
 		[self model compileMethod: unText notifying: someone.
-		^true
+			self model selectedObjectMethod isNil 
+				ifTrue: [ methodEditorMorph hasUnacceptedEdits:true . ^false. ]
+				ifFalse: [ ^true. ]
 		] 
 		on: SyntaxErrorNotification
 		do:[ :notification | 

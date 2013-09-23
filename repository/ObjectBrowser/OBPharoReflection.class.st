@@ -45,7 +45,7 @@ OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: 
 				in: (OBCompilationBinder onLesson: aLesson forClass: aClass)
 				classified: #'object browser'
 				notifying: anObserver
-				ifFail: [ self error ].
+				ifFail: [ ^nil. "self error" ].
 		
 		"Put the sourcecode in the changes file"
 		methodAndNode := CompiledMethodWithNode 

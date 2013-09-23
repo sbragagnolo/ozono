@@ -533,10 +533,7 @@ OBLessonModel >> selectedItemMenu: aMenuMorph [
 OBLessonModel >> selectedMethodCode [
 	"el codigo del metodo que esta seleccionado, Text vacio si no hay metodo seleccionado"
 
-	^(self selectedObjectMethod isNil)
-			ifTrue: [self selectorListEmpyText]
-			ifFalse: [
-				self selectedObjectMethod code ]
+	^self selectedObjectMethod code.
 ]
 
 { #category : #accessing }
@@ -627,20 +624,6 @@ OBLessonModel >> selectedTest: aTest [
 { #category : #accessing }
 OBLessonModel >> selectedWorkspace: aWorkspace [
 	selectedWorkspace := aWorkspace
-]
-
-{ #category : #showing }
-OBLessonModel >> selectorListEmpyText [
-	| string|
-
-	string := 'messageSelectorAndArgumentNames
-	"comment stating purpose of message"
-
-	| temporary variable names |
-	statements'.
-
-	^ (Text fromString: string) makeSelectorBold 
-	
 ]
 
 { #category : #accessing }

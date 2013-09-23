@@ -207,14 +207,18 @@ OBMetaObject >> compileMethod: aMethod [
 
 { #category : #methods }
 OBMetaObject >> compileMethod: aMethodCode notifying: someone [
-
 	| selector obMethod |
+	
 	selector := OBPharoReflection uniqueInstance
 		compile: aMethodCode
 		inLesson: self lesson
 		inClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
 		notifying: someone.
-	selector ifNil: [ ^ OBNullMethod new ].
+	selector ifNil: [ 
+			obMethod:= OBNullMethod new.
+			obMethod code: aMethodCode.
+			^ obMethod.
+		 ].
 	
 	obMethod := OBMethod new
 		selector: selector;
