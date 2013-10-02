@@ -78,19 +78,16 @@ OBLessonModel >> closeWorkspaces [
 { #category : #accessing }
 OBLessonModel >> compileMethod: aText notifying: someone [
 
-	self errorHandler
-		evaluate: [
-			| method |
-			method := self selectedObject compileMethod: aText notifying: someone.  self changed.
-			self selectedObjectMethod: method.
-			]
+	| method |
+	method := self selectedObject compileMethod: aText notifying: someone.
+	self changed.
+	self selectedObjectMethod: method.
 ]
 
 { #category : #accessing }
-OBLessonModel >> compileTest: aText [ 
-	self errorHandler
-		evaluate: [	self selectedTest: (self lesson compileTest: aText).
-					self changed]
+OBLessonModel >> compileTest: aText notifying: someone [
+	self selectedTest: (self lesson compileTest: aText notifying: someone).
+	self changed
 ]
 
 { #category : #'as yet unclassified' }
@@ -161,7 +158,7 @@ OBLessonModel >> createSorted [
 { #category : #menues }
 OBLessonModel >> createTest: testLabel contents: someContents [
 	| testCase |
-	testCase := self lesson compileTest: someContents.
+	testCase := self lesson compileTest: someContents notifying: nil.
 	self selectedItem: testCase.
 	self changed.
 	^testCase

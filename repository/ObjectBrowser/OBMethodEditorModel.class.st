@@ -15,20 +15,14 @@ Class {
 
 { #category : #actions }
 OBMethodEditorModel >> acceptCode: unText notifying: someone [
-	
-	self errorHandler evaluate: [
-		[self model compileMethod: unText notifying: someone.
-			self model selectedObjectMethod isNil 
-				ifTrue: [ methodEditorMorph hasUnacceptedEdits:true . ^false. ]
-				ifFalse: [ ^true. ]
-		] 
-		on: SyntaxErrorNotification
-		do:[ :notification | 
-			methodEditorMorph editString: notification errorCode. 
-			^false 
-		]
-	]
 
+	self errorHandler evaluate: [ [ [ 
+		self model compileMethod: unText notifying: someone.
+		] on: UndeclaredVariable
+		do: [ :warn | warn asOBUndeclaredVariable signal ]
+		] on: SyntaxErrorNotification
+		do: [ :notification | methodEditorMorph editString: notification errorCode. ]
+	]
 ]
 
 { #category : #actions }

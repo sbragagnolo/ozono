@@ -51,7 +51,7 @@ OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: 
 		methodAndNode := CompiledMethodWithNode 
 			generateMethodFromNode: methodNode trailer: aClass defaultMethodTrailer.
 		methodAndNode method 
-			putSource: anObserver text asString
+			putSource: (anObserver ifNil: [ code ] ifNotNilDo: [ :observer | observer text asString ])
 			fromParseNode: methodAndNode node 
 			inFile: 2
 			withPreamble: [:f | f cr; nextPut: $!; nextChunkPut: 'Behavior method'; cr].
