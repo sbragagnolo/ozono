@@ -92,7 +92,8 @@ OBLessonWindow >> buildObjectBrowserTree [
 		list: #lessonOrganization
 		selected: #selectedItem
 		changeSelected: #selectedItem:
-		menu: #selectedItemMenu:)
+		menu: #selectedItemMenu:
+		keystroke: nil)
 			
 ]
 
