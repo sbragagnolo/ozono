@@ -43,7 +43,7 @@ OBLessonBrowserModel class >> menuCommandOn: aBuilder [
 		order: 0.1;
 		target: self;
 		icon: UITheme current homeIcon.
-	(aBuilder item: #'Lesson Browser')
+	(aBuilder item: #'Ozono')
 		parent: #'PdeP Software';  
 		action: [OBLesson browseLessons];
 		icon: self icon.

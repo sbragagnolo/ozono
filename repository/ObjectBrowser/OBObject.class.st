@@ -26,7 +26,7 @@ OBObject >> clone [
 { #category : #printing }
 OBObject >> displayString [
 
-	^'anObject'
+	^'unObjeto'
 ]
 
 { #category : #accessing }
