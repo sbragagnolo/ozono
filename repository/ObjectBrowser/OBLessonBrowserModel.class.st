@@ -58,7 +58,7 @@ OBLessonBrowserModel class >> on: aLOOPLessonContainer [
 { #category : #labels }
 OBLessonBrowserModel >> aboutText [
 
-	^'LOOP version: ', (ConfigurationOfObjectBrowser project currentVersion) versionString
+	^'Ozono version: ', (ConfigurationOfObjectBrowser project currentVersion) versionString
 ]
 
 { #category : #private }

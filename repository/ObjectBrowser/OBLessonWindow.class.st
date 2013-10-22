@@ -200,7 +200,7 @@ OBLessonWindow >> createTestRunnerTab [
 OBLessonWindow >> createView [
 	| window |
 	self createGroupTab.
-	window := (SystemWindow labelled: self objectBrowser title, ' - Object Browser') 
+	window := (SystemWindow labelled: self objectBrowser title, ' - Ozono') 
 		model: self objectBrowser;
 		addMorph: self buildObjectBrowserTree
 			frame: (0@0 corner: 0.2@1).
