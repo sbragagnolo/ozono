@@ -210,12 +210,13 @@ ConfigurationOfObjectBrowser >> baseline20: spec [
     <version: '2.0-baseline'>
 	spec for: #common do: [
 		spec blessing: #baseline.
-		spec repository: 'http://smalltalkhub.com/mc/Guille/LOOP/main'.
+		spec repository: 'http://smalltalkhub.com/mc/Uqbar/Ozono/main'.
 		spec
 			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
 											loads: #('default' );
 											file: 'ConfigurationOfSmallUML';
-											repository: 'http://smalltalkhub.com/mc/Guille/SmallUml/main'. ];
+											versionString: '1.2';
+											repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main'. ];
 			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel') ].
 			
 		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
@@ -480,8 +481,6 @@ ConfigurationOfObjectBrowser >> version30: spec [
 		spec blessing: #development.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
 
-		spec project: 'smallUML' with: '1.1.4'.
-				
-		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.22'.
+		spec project: 'smallUML' with: '1.2'.
 	].
 ]
