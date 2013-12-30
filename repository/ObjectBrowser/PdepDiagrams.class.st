@@ -1,6 +1,6 @@
 Class {
 	#name : #PdepDiagrams,
-	#superclass : #CategoryDiagramsHolder,
+	#superclass : #DiagramsHolder,
 	#category : #'ObjectBrowser-Diagrams'
 }
 
@@ -32,6 +32,6 @@ PdepDiagrams class >> menuCommandOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #'Diagrama de Clases')
 		parent: #'PdeP Software';  
-		action: [PdepDiagrams openDiagramBrowser];
+		action: [ PdepDiagrams openDiagramBrowser ];
 		icon: self icon.
 ]
