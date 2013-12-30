@@ -28,8 +28,8 @@ OBCompilationWithNotifier >> testWrittenUknownVariableAndAddedOnTheFlyAsInstance
 
 	[
 		pepita compileMethod: code notifying: self.
-	] on: UndeclaredVariable do: [ :notification |
-		notification declareInstVariable.
+	] on: OCUndeclaredVariableWarning do: [ :notification |
+		notification declareInstVar: notification node name.
 	].
 	self assert: (pepita baseObject class instVarNames includes: self unknownVariableName).
 ]
@@ -39,8 +39,8 @@ OBCompilationWithNotifier >> testWrittenUknownVariableAndAddedOnTheFlyAsTemp [
 
 	[
 		pepita compileMethod: code notifying: self.
-	] on: UndeclaredVariable do: [ :notification |
-		notification declareTempVariable.
+	] on: OCUndeclaredVariableWarning do: [ :notification |
+		notification declareTempAndPaste: notification node name.
 	].
 	self deny: (pepita baseObject class instVarNames includes: self unknownVariableName).
 ]

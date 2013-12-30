@@ -34,7 +34,6 @@ OBFileinV3 >> fileIn: aFileEntry [
 	Author fullName ifNil: [Author requestFullName].	
 	SystemAnnouncer uniqueInstance suspendAllWhile: [
 		[ [
-			ClassBuilder beSilent: true.
 			lessonImported := Compiler new 
 				evaluate: fileContents
 				in: nil
@@ -46,7 +45,6 @@ OBFileinV3 >> fileIn: aFileEntry [
 			^ lessonImported.
 			] valueSuppressingAllMessages.
 		] ensure: [ 
-			ClassBuilder beSilent: false.
 		].
 	]
 ]

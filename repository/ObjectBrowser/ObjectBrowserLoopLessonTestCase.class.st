@@ -145,7 +145,7 @@ ObjectBrowserLoopLessonTestCase >> tearDown [
 	{ 	self lessonEmptyTitle.
 		self lessonWithObjectsTitle .
 		self lessonWithStateTitle .
-		self lessonWithCollectionTitle } do: [ :each | (self fileName: each) asFileReference ensureDeleted ]
+		self lessonWithCollectionTitle } do: [ :each | (self fileName: each) asFileReference ensureDelete ]
 ]
 
 { #category : #'as yet unclassified' }

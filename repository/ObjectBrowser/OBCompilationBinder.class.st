@@ -30,6 +30,12 @@ OBCompilationBinder >> allInstVarNames [
 ]
 
 { #category : #compiling }
+OBCompilationBinder >> binding [
+
+	^ class binding
+]
+
+{ #category : #compiling }
 OBCompilationBinder >> bindingOf: aName [ 
 
 	^ lesson bindingOf: aName
