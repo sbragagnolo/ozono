@@ -224,6 +224,24 @@ ConfigurationOfObjectBrowser >> baseline20: spec [
 		].
 ]
 
+{ #category : #baselines }
+ConfigurationOfObjectBrowser >> baseline30: spec [ 
+    <version: '3.0-baseline'>
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec repository: 'http://smalltalkhub.com/mc/Uqbar/Ozono/main'.
+		spec
+			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
+											loads: #('default' );
+											file: 'ConfigurationOfSmallUML';
+											versionString: '1.2';
+											repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main'. ];
+			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' ) ].
+			
+		spec group: 'default' with: #( 'ObjectBrowser' ).
+		].
+]
+
 { #category : #symbolic }
 ConfigurationOfObjectBrowser >> development: spec [ 
 	<symbolicVersion: #development>
@@ -476,7 +494,7 @@ ConfigurationOfObjectBrowser >> version20: spec [
 
 { #category : #versions }
 ConfigurationOfObjectBrowser >> version30: spec [ 
-    <version: '3.0' imports: #('2.0-baseline')>
+    <version: '3.0' imports: #('3.0-baseline')>
 	spec for: #common do:[
 		spec blessing: #development.
 		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
