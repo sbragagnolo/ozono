@@ -32,7 +32,7 @@ OBWorkspace >> bindingOf: aString [
 		ifTrue:[
 			(self isLiteral: aString)
 				ifTrue:  [ ^aString-> (lesson literalNamed: aString asSymbol) ]
-				ifFalse: [ ^aString -> (lesson variableNamed: aString) ]
+				ifFalse: [ ^aString -> (lesson variableNamed: aString) pointsTo baseObject ]
 			]
 		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido' translated ].
 	

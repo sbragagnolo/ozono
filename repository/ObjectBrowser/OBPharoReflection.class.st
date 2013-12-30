@@ -37,31 +37,28 @@ OBPharoReflection >> classOf: anObject [
 { #category : #methods }
 OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: anObserver [
 
+	"We use the direct compiler API because we want to change the class by a compilation binder object. That way we can control easily how names are binded in Ozono"
 	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
-		| methodNode methodAndNode |
+		| method |
+
 		"Compile the method"
-		methodNode  := aClass compilerClass new
-				compile: code
-				in: (OBCompilationBinder onLesson: aLesson forClass: aClass)
-				classified: #'object browser'
-				notifying: anObserver
-				ifFail: [ ^nil. "self error" ].
-		
-		"Put the sourcecode in the changes file"
-		methodAndNode := CompiledMethodWithNode 
-			generateMethodFromNode: methodNode trailer: aClass defaultMethodTrailer.
-		methodAndNode method 
-			putSource: (anObserver ifNil: [ code ] ifNotNilDo: [ :observer | observer text asString ])
-			fromParseNode: methodAndNode node 
-			inFile: 2
-			withPreamble: [:f | f cr; nextPut: $!; nextChunkPut: 'Behavior method'; cr].
-		
+		method  := OpalCompiler new
+			environment: aClass environment;
+			class: (OBCompilationBinder onLesson: aLesson forClass: aClass);
+			category: #'object browser';
+			source: code;
+			requestor: anObserver;
+			failBlock: [ ^nil ];
+			compile.
+
+		"Put the sourcecode in the changes file"	
+		method putSource: code inFile: 2
+				withPreamble: [:f | f cr; nextPut: $!; nextChunkPut: 'Behavior method'; cr].
+				
 		"Install the method in the class"
-		aClass
-			addSelector: methodAndNode selector
-			withMethod: methodAndNode method 
-			notifying: anObserver.
-		^ methodAndNode method selector
+		aClass addSelector: method selector withMethod: method notifying: anObserver.
+		
+		^ method selector
 	]
 ]
 
@@ -69,7 +66,7 @@ OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: 
 OBPharoReflection >> createClassNamed: aClassName subclassOf: aSuperclass inEnvironment: anEnvironment [
 
 	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
-		^ClassBuilder new
+		^OldClassBuilderAdapter new
 			name: aClassName
 			inEnvironment: anEnvironment
 			subclassOf: aSuperclass

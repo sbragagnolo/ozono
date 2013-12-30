@@ -42,7 +42,7 @@ OBLessonBrowserModel class >> menuCommandOn: aBuilder [
 	(aBuilder item: #'PdeP Software')
 		order: 0.1;
 		target: self;
-		icon: UITheme current homeIcon.
+		icon: Smalltalk ui icons homeIcon.
 	(aBuilder item: #'Ozono')
 		parent: #'PdeP Software';  
 		action: [OBLesson browseLessons];

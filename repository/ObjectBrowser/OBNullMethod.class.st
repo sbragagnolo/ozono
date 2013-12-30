@@ -22,16 +22,12 @@ OBNullMethod >> code: aText [
 
 { #category : #testing }
 OBNullMethod >> emptyCode [
-	| string|
-
-	string := 'messageSelectorAndArgumentNames
+	
+	^ 'messageSelectorAndArgumentNames
 	"comment stating purpose of message"
 
 	| temporary variable names |
-	statements'.
-
-	^ (Text fromString: string) makeSelectorBold 
-	
+	statements'
 ]
 
 { #category : #testing }

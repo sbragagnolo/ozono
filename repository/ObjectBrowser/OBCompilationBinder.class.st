@@ -74,7 +74,7 @@ OBCompilationBinder >> literalScannedAs: anObject notifying: anEncoderForV3PlusC
 { #category : #compiling }
 OBCompilationBinder >> parserClass [
 
-	^ self class parserClass.
+	^ class parserClass.
 ]
 
 { #category : #compiling }
