@@ -82,6 +82,12 @@ OBCollectionMetaObject >> allRelationships [
 	^prototypeRelationship withRelationships: self basicRelationships
 ]
 
+{ #category : #printing }
+OBCollectionMetaObject >> baseDisplayString [
+
+	^ prototype baseDisplayString
+]
+
 { #category : #attributes }
 OBCollectionMetaObject >> basicRelationships [
 	

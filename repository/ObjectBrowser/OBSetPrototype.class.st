@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #printing }
-OBSetPrototype >> basDisplayString [
+OBSetPrototype >> baseDisplayString [
 	^ 'aSet'
 ]
 
