@@ -171,11 +171,11 @@ OBLesson >> clean [
 ]
 
 { #category : #tests }
-OBLesson >> compileTest: aTestText [
+OBLesson >> compileTest: aTestText notifying: someone [
 
 	| result newTest |
 	self suspendAllWhile: [
-		result := self executionContext class compile: aTestText classified: #'tests'  notifying: nil.
+		result := self executionContext class compile: aTestText classified: #'tests' notifying: someone.
 		newTest := (OBTest newWithSelector: result onLesson: self).
 		self testDictionary at: result put: newTest.
 		^newTest
