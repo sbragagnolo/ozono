@@ -219,9 +219,10 @@ ConfigurationOfObjectBrowser >> baseline20: spec [
 											repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main'. ];
 			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' 'SUML-ObjectDiagramModel') ].
 			
-		spec package: 'SUML-ObjectDiagramModel' with: [ spec requires: #( 'smallUML' ) ].
+		spec package: 'SUML-ObjectDiagramModel' with: [ spec repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main'.
+			spec requires: #( 'smallUML' ) ].
 		spec group: 'default' with: #( 'ObjectBrowser' ).
-		].
+		]..
 ]
 
 { #category : #baselines }
