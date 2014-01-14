@@ -203,7 +203,7 @@ OBLessonBrowserModel >> updateLOOP [
 
 	[
 		Gofer it
-			url: 'http://www.smalltalkhub.com/mc/Guille/LOOP/main';
+			url: 'http://www.smalltalkhub.com/mc/Uqbar/Ozono/main';
 			package: 'ConfigurationOfObjectBrowser';
 			load.
 		(ConfigurationOfObjectBrowser project version: #stable) load.
