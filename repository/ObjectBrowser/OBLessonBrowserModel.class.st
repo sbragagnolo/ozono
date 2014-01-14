@@ -208,7 +208,7 @@ OBLessonBrowserModel >> updateLOOP [
 			load.
 		(ConfigurationOfObjectBrowser project version: #stable) load.
 		self changed: #aboutText.
-	] on: Warning do: [ :w | w resume ]
+	] on: Warning do: [ :w | w resume  ]
 ]
 
 { #category : #updating }
