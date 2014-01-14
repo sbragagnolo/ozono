@@ -50,6 +50,16 @@ ObjectBrowserObjectTestCase >> testAddVariable [
 ]
 
 { #category : #'clone-tests' }
+ObjectBrowserObjectTestCase >> testCloneAnObjectWithAnAttribute [
+	| varName |
+	varName := 'energia'.
+	obo addAttributeNamed: varName .
+	otroObo := obo clone.
+	self assert: (otroObo hasAttributeNamed: varName).
+	self assert: (otroObo basicObjectAtAttributeNamed: varName) equals: nil. 
+]
+
+{ #category : #'clone-tests' }
 ObjectBrowserObjectTestCase >> testCloneClassName [
 	otroObo := obo clone.
 	self assert: ((OBPharoReflection uniqueInstance classNameOfObject: obo baseObject) beginsWith: OBObject name).
@@ -65,6 +75,16 @@ ObjectBrowserObjectTestCase >> testCloneHasDifferentClass [
 ObjectBrowserObjectTestCase >> testClonePrototype [
 	otroObo := obo clone.
 	self assert: (obo == otroObo prototype).
+]
+
+{ #category : #'clone-tests' }
+ObjectBrowserObjectTestCase >> testCloneUnderstandsItsPrototypesMessage [
+	| method |
+	method := 'unMetodo ^2'.
+	obo compileMethod: method.
+	otroObo := obo clone.
+	self assert: (otroObo includesSelector: #unMetodo).
+	self assert: otroObo baseObject unMetodo equals: 2
 ]
 
 { #category : #'realClass-tests' }

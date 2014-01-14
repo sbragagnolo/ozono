@@ -137,7 +137,7 @@ OBPharoReflection >> instanceVariablesOfObject: anObject [
 ]
 
 { #category : #classes }
-OBPharoReflection >> makeClass: aSuperclass subclassOf: aSubclass [
+OBPharoReflection >> makeClass: aSubclass subclassOf: aSuperclass [
 
 	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
 		aSuperclass subclass: aSubclass name asSymbol
@@ -145,5 +145,5 @@ OBPharoReflection >> makeClass: aSuperclass subclassOf: aSubclass [
 			classVariableNames: aSubclass classVariablesString
 			poolDictionaries: aSubclass sharedPoolsString 
 			category: aSubclass category.
-	]
+	] 
 ]
