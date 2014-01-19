@@ -17,8 +17,8 @@ ObjectBrowserVariableTestCase >> setUp [
 ObjectBrowserVariableTestCase >> testDesreferenciarVariable [
 	| anObject |
 	anObject := 2.
-	variable pointTo: anObject.
-	self assert: variable pointsTo == anObject .
+	variable pointTo: anObject metaObject.
+	self assert: variable pointsTo baseObject == anObject .
 	variable desreference.
 	self assert: variable pointsTo baseObject == nil.
 ]
@@ -33,13 +33,13 @@ ObjectBrowserVariableTestCase >> testNewVariableName [
 
 { #category : #tests }
 ObjectBrowserVariableTestCase >> testNewVariablePointsToNil [
-	self assert: variable pointsTo == nil.
+	self assert: variable pointsTo baseObject == nil.
 ]
 
 { #category : #tests }
 ObjectBrowserVariableTestCase >> testPointVariableToObject [
 	| anObject |
 	anObject := 2.
-	variable pointTo: anObject.
-	self assert: variable pointsTo  = anObject .
+	variable pointTo: anObject metaObject.
+	self assert: variable pointsTo baseObject  = anObject .
 ]
