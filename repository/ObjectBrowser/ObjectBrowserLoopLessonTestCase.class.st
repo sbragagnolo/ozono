@@ -15,7 +15,7 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 ]
 
 { #category : #'as yet unclassified' }
-ObjectBrowserLoopLessonTestCase >> contentPOintedTo: anObjectBrowserObject byAtribute: atributeName [
+ObjectBrowserLoopLessonTestCase >> contentPointedTo: anObjectBrowserObject byAtribute: atributeName [
 	^(anObjectBrowserObject attributeNamed: atributeName ) objectPointed.
 ]
 
@@ -178,7 +178,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithCollections [
 		lessonImported := self importLesson: lesson.
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
+		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]]).
 		self tearDownLesson: lesson.
 	] ensure: [ 
 		lesson clean.
@@ -211,10 +211,21 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess
 		lessonImported := self importLesson: lesson.
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPOintedTo: obj byAtribute: 'energia') isNil ]]).
+		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]]).
+		self assert: (self variablesFrom: lesson equalVariablesFrom: lessonImported).
 		self tearDownLesson: lesson.
 	] ensure: [ 
 		lesson clean.
 		lessonImported ifNotNilDo: #clean.
 	]
+]
+
+{ #category : #tests }
+ObjectBrowserLoopLessonTestCase >> variablesFrom: lesson equalVariablesFrom: lessonImported [
+	lesson variables
+		with: lessonImported variables
+		do: [ :v1 :v2 | 
+			v1 pointsTo class = v2 pointsTo class
+				ifFalse: [ ^ false ] ].
+	^ true
 ]

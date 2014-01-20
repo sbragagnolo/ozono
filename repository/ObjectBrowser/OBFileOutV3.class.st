@@ -169,9 +169,9 @@ OBFileOutV3 >> visitLessonVariable: aVariable [
 	self write: self lessonIdentification.
 	self write: ' createVariableNamed: '''.
 	self write: aVariable name.
-	self write: ''' pointingTo: '''.
+	self write: ''' pointingTo: '.
 	self write: aVariable pointsTo posibleName.
-	self write: '''.'.
+	self write: '.'.
 	self cr.
 ]
 
@@ -364,5 +364,6 @@ OBFileOutV3 >> writeWorkspaces [
 	lesson workspaces
 		do: [ :aWorkspace | 
 			self cr.
-			aWorkspace accept: self ]
+			aWorkspace accept: self ].
+	self cr.
 ]
