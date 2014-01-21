@@ -73,6 +73,28 @@ OBCollectionMetaObject >> addAttributeNamed: anAttributeName [
 	self signalNotModificableCollection
 ]
 
+{ #category : #methods }
+OBCollectionMetaObject >> addMethodsFrom: aClass to: allMethods [
+	allMethods
+		addAll:
+			(aClass methodDictionary keys
+				reject: [ :aSelector | allMethods anySatisfy: [ :aMethod | aMethod selector = aSelector ] ]
+				thenCollect: [ :m | 
+					OBMethod new
+						selector: m;
+						object: self;
+						yourself ])
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> allClassesMethods [
+	^ self classesWithMethodsToConsider
+		inject: OrderedCollection new
+		into: [ :allMethods :aClass | 
+			self addMethodsFrom: aClass to: allMethods.
+			allMethods ]
+]
+
 { #category : #attributes }
 OBCollectionMetaObject >> allRelationships [
 	
@@ -97,6 +119,11 @@ OBCollectionMetaObject >> basicRelationships [
 			owner: self
 			pointingTo: elem metaObject
 		]
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> classesWithMethodsToConsider [
+	^ self baseObject class allSuperclassesIncluding: Collection
 ]
 
 { #category : #methods }
@@ -135,8 +162,7 @@ OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 
 { #category : #methods }
 OBCollectionMetaObject >> methods [
-
-	^ self baseObject class methodDictionary keys collect: [:m | OBMethod new selector: m ; object: self; yourself ]
+	^ self allClassesMethods asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ]
 ]
 
 { #category : #accessing }

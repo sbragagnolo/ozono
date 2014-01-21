@@ -20,7 +20,7 @@ OBMethodListModel >> iconAt: aMethod [
 
 { #category : #'as yet unclassified' }
 OBMethodListModel >> listModel [
-	^self selectors asOrderedCollection 
+	^self selectors asOrderedCollection
 ]
 
 { #category : #'as yet unclassified' }

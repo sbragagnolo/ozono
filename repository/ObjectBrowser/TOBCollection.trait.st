@@ -8,6 +8,11 @@ Trait {
 	#category : #'ObjectBrowser-Collections'
 }
 
+{ #category : #methods }
+TOBCollection classSide >> sourceCodeAt: aSelector [
+	^ 'Código mágico :O'
+]
+
 { #category : #cloning }
 TOBCollection >> clone [
 
