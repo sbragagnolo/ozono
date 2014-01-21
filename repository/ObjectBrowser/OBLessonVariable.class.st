@@ -1,12 +1,12 @@
 "
 I am a variable hold by the lesson.
+
 "
 Class {
 	#name : #OBLessonVariable,
 	#superclass : #Object,
 	#instVars : [
-		'reference',
-		'name'
+		'baseObjectBinding'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
@@ -34,6 +34,18 @@ OBLessonVariable >> asStringOrText [
 	^self name
 ]
 
+{ #category : #references }
+OBLessonVariable >> baseObjectBinding [
+
+	^baseObjectBinding
+]
+
+{ #category : #references }
+OBLessonVariable >> baseObjectBinding: aAssotiation [
+
+	^baseObjectBinding := aAssotiation
+]
+
 { #category : #accessing }
 OBLessonVariable >> desreference [
 
@@ -43,7 +55,7 @@ OBLessonVariable >> desreference [
 { #category : #references }
 OBLessonVariable >> hasReferencesTo: anObject [
 
-	^(reference baseObject == anObject baseObject )
+	^(baseObjectBinding value baseObject == anObject baseObject )
 ]
 
 { #category : #ui }
@@ -52,17 +64,17 @@ OBLessonVariable >> icon [
 	^OBIcons referenceIcon
 ]
 
-{ #category : #accessing }
-OBLessonVariable >> initialize. [
-	super initialize.
-	self desreference.
+{ #category : #printing }
+OBLessonVariable >> initialize [
 
+	super initialize.
+	self baseObjectBinding: (Association key: nil value: nil)
 ]
 
 { #category : #references }
 OBLessonVariable >> isPointingTo: anObject [
 
-	^reference = anObject
+	^baseObjectBinding value = anObject
 ]
 
 { #category : #selection }
@@ -84,13 +96,13 @@ OBLessonVariable >> menu: aMenuMorph [
 { #category : #accessing }
 OBLessonVariable >> name [
 
-	 ^name
+	^ baseObjectBinding key
 ]
 
 { #category : #accessing }
 OBLessonVariable >> name: aName [
 
-	 name := aName
+	baseObjectBinding key: aName
 ]
 
 { #category : #selection }
@@ -100,16 +112,16 @@ OBLessonVariable >> notifySelectionTo: anObserverCollection [
 ]
 
 { #category : #accessing }
-OBLessonVariable >> pointTo: anObject [
+OBLessonVariable >> pointTo: anMetaObject [
 
-	reference := anObject.
+	baseObjectBinding value: anMetaObject baseObject.
 	self changed.
 ]
 
 { #category : #references }
 OBLessonVariable >> pointsTo [
 
-	^reference
+	^baseObjectBinding value metaObject.
 ]
 
 { #category : #printing }

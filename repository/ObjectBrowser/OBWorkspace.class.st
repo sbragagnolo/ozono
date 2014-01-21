@@ -27,15 +27,13 @@ OBWorkspace >> asString [
 ]
 
 { #category : #bindings }
-OBWorkspace >> bindingOf: aString [ 
+OBWorkspace >> bindingOf: aString [
 	(self hasBindingOf: aString)
-		ifTrue:[
+		ifTrue: [ 
 			(self isLiteral: aString)
-				ifTrue:  [ ^aString-> (lesson literalNamed: aString asSymbol) ]
-				ifFalse: [ ^aString -> (lesson variableNamed: aString) pointsTo baseObject ]
-			]
-		ifFalse: [self error: aString, ' no es una variable definida ni un literal válido' translated ].
-	
+				ifTrue: [ ^ aString -> (lesson literalNamed: aString asSymbol) ]
+				ifFalse: [ ^ (lesson variableNamed: aString) baseObjectBinding ] ]
+		ifFalse: [ self error: aString , ' no es una variable definida ni un literal válido' translated ]
 ]
 
 { #category : #bindings }
