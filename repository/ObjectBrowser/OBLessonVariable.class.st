@@ -52,6 +52,13 @@ OBLessonVariable >> icon [
 	^OBIcons referenceIcon
 ]
 
+{ #category : #accessing }
+OBLessonVariable >> initialize. [
+	super initialize.
+	self desreference.
+
+]
+
 { #category : #references }
 OBLessonVariable >> isPointingTo: anObject [
 

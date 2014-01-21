@@ -7,7 +7,7 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #fixture }
 ObjectBrowserVariableTestCase >> setUp [
 	super setUp.
 	variable := OBLessonVariable newNamed: 'pepita'.

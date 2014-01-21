@@ -3,7 +3,8 @@ Class {
 	#superclass : #OBTestCase,
 	#instVars : [
 		'pepita',
-		'code'
+		'code',
+		'textEditor'
 	],
 	#category : #'ObjectBrowser-Tests'
 }
@@ -15,6 +16,7 @@ OBCompilationWithNotifier >> setUp [
 	code := 'createOrdered 
 		{var} := nil.
 		^{var}.' format: { 'var' -> self unknownVariableName} asDictionary.
+
 ]
 
 { #category : #tests }
