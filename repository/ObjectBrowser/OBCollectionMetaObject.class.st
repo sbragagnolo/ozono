@@ -13,7 +13,8 @@ Class {
 	#name : #OBCollectionMetaObject,
 	#superclass : #OBMetaObject,
 	#instVars : [
-		'posibleName'
+		'posibleName',
+		'allClassesMethods'
 	],
 	#classVars : [
 		'CreationObservers',
@@ -162,7 +163,8 @@ OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 
 { #category : #methods }
 OBCollectionMetaObject >> methods [
-	^ self allClassesMethods asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ]
+	^ allClassesMethods
+		ifNil: [ allClassesMethods := self allClassesMethods asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ] ]
 ]
 
 { #category : #accessing }

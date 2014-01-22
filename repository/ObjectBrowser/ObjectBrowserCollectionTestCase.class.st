@@ -41,6 +41,22 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 ]
 
 { #category : #tests }
+ObjectBrowserCollectionTestCase >> testConstantMethodList [
+	self testConstantMethodListsForLiteral: #set.
+	self testConstantMethodListsForLiteral: #ordered.
+	self testConstantMethodListsForLiteral: #dictionary.
+	self testConstantMethodListsForLiteral: #sorted.
+	self testConstantMethodListsForLiteral: #bag.
+]
+
+{ #category : #tests }
+ObjectBrowserCollectionTestCase >> testConstantMethodListsForLiteral: aSymbol [
+	| aCollection |
+	aCollection := (currentLesson literalNamed: aSymbol) clone.
+	self assert: aCollection metaObject methods == aCollection metaObject methods
+]
+
+{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testCreateBagCollection [
 	|miConjunto |
 	miConjunto:= (currentLesson literalNamed: #bag) clone.
