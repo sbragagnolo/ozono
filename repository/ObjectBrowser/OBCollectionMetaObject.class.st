@@ -75,25 +75,9 @@ OBCollectionMetaObject >> addAttributeNamed: anAttributeName [
 ]
 
 { #category : #methods }
-OBCollectionMetaObject >> addMethodsFrom: aClass to: allMethods [
-	allMethods
-		addAll:
-			(aClass methodDictionary keys
-				reject: [ :aSelector | allMethods anySatisfy: [ :aMethod | aMethod selector = aSelector ] ]
-				thenCollect: [ :m | 
-					OBMethod new
-						selector: m;
-						object: self;
-						yourself ])
-]
-
-{ #category : #methods }
 OBCollectionMetaObject >> allClassesMethods [
-	^ self classesWithMethodsToConsider
-		inject: OrderedCollection new
-		into: [ :allMethods :aClass | 
-			self addMethodsFrom: aClass to: allMethods.
-			allMethods ]
+	^ (self baseObject class allSelectorsAboveUntil: Collection)
+		collect: [ :aSelector | self createMethodWithSelector: aSelector ]
 ]
 
 { #category : #attributes }
@@ -123,14 +107,17 @@ OBCollectionMetaObject >> basicRelationships [
 ]
 
 { #category : #methods }
-OBCollectionMetaObject >> classesWithMethodsToConsider [
-	^ self baseObject class allSuperclassesIncluding: Collection
-]
-
-{ #category : #methods }
 OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
 
 	self signalNotModificableCollection
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> createMethodWithSelector: aSelector [
+	^ OBMethod new
+		selector: aSelector;
+		object: self;
+		yourself
 ]
 
 { #category : #printing }
