@@ -9,6 +9,13 @@ Class {
 	#category : #'ObjectBrowser-Tests'
 }
 
+{ #category : #tests }
+OBCompilationWithNotifier >> mockNotifier [
+	^OBNotifierMock new test:self;
+	code: code;
+	yourself.
+]
+
 { #category : #running }
 OBCompilationWithNotifier >> setUp [
 	super setUp.
@@ -29,7 +36,7 @@ OBCompilationWithNotifier >> testUknownVariableIsUnknown [
 OBCompilationWithNotifier >> testWrittenUknownVariableAndAddedOnTheFlyAsInstance [
 
 	[
-		pepita compileMethod: code notifying: self.
+		pepita compileMethod: code notifying: self mockNotifier.
 	] on: OCUndeclaredVariableWarning do: [ :notification |
 		notification declareInstVar: notification node name.
 	].
@@ -40,7 +47,7 @@ OBCompilationWithNotifier >> testWrittenUknownVariableAndAddedOnTheFlyAsInstance
 OBCompilationWithNotifier >> testWrittenUknownVariableAndAddedOnTheFlyAsTemp [
 
 	[
-		pepita compileMethod: code notifying: self.
+		pepita compileMethod: code notifying: self mockNotifier.
 	] on: OCUndeclaredVariableWarning do: [ :notification |
 		notification declareTempAndPaste: notification node name.
 	].
