@@ -12,6 +12,11 @@ OBBagPrototype >> baseDisplayString [
 	^'aBag'
 ]
 
+{ #category : #'as yet unclassified' }
+OBBagPrototype >> collectionMetaObjectClass [
+	^ OBBagMetaObject
+]
+
 { #category : #printing }
 OBBagPrototype >> collectionTypeName [
 	^'Bag'

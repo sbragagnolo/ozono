@@ -74,12 +74,6 @@ OBCollectionMetaObject >> addAttributeNamed: anAttributeName [
 	self signalNotModificableCollection
 ]
 
-{ #category : #methods }
-OBCollectionMetaObject >> allClassesMethods [
-	^ (self baseObject class allSelectorsAboveUntil: Collection)
-		collect: [ :aSelector | self createMethodWithSelector: aSelector ]
-]
-
 { #category : #attributes }
 OBCollectionMetaObject >> allRelationships [
 	
@@ -150,8 +144,15 @@ OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 
 { #category : #methods }
 OBCollectionMetaObject >> methods [
-	^ allClassesMethods
-		ifNil: [ allClassesMethods := self allClassesMethods asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ] ]
+	^ methodsToDisplay
+		ifNil: [ methodsToDisplay := self methodsToDisplay asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ] ]
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> methodsToDisplay [
+	"(self baseObject class allSelectorsAboveUntil: Collection) collect:..."
+
+	^ self selectorsToDispay collect: [ :aSelector | self createMethodWithSelector: aSelector ]
 ]
 
 { #category : #accessing }
@@ -189,6 +190,11 @@ OBCollectionMetaObject >> removeClassFromSystem [
 OBCollectionMetaObject >> removeMethod: aSelector [
 
 	self signalNotModificableCollection
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> selectorsToDispay [
+	^ #(#allSatisfy: #anySatisfy: #asBag #asOrderedCollection #asSet #asSortedCollection: #collect: #count: #detect:ifNone: #detectMax: #detectMin: #do: #gather: #includes: #inject:into: #isEmpty #occurrencesOf: #reject: #select: #size #sum:)
 ]
 
 { #category : #accessing }

@@ -12,6 +12,11 @@ OBSetPrototype >> baseDisplayString [
 	^ 'aSet'
 ]
 
+{ #category : #'as yet unclassified' }
+OBSetPrototype >> collectionMetaObjectClass [
+	^ OBSetMetaObject
+]
+
 { #category : #cloning }
 OBSetPrototype >> createRealCollection [
 	^OBSet new.

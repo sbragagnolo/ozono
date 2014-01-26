@@ -54,6 +54,11 @@ OBDictionaryMetaObject >> printString [
 	^'aDictionary'.
 ]
 
+{ #category : #methods }
+OBDictionaryMetaObject >> selectorsToDispay [
+	^ super selectorsToDispay , #(#at: #at:put:)
+]
+
 { #category : #references }
 OBDictionaryMetaObject >> valuesReferenceTo: anOBObject [
 

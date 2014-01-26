@@ -12,6 +12,11 @@ OBSortedPrototype >> baseDisplayString [
 	^ 'aSorted'
 ]
 
+{ #category : #'as yet unclassified' }
+OBSortedPrototype >> collectionMetaObjectClass [
+	^ OBSortedMetaObject
+]
+
 { #category : #cloning }
 OBSortedPrototype >> createRealCollection [
 	^OBSortedCollection new.

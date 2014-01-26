@@ -45,6 +45,11 @@ OBCollectionPrototype >> clone [
 	^self basicClone baseObject
 ]
 
+{ #category : #'instance-creation' }
+OBCollectionPrototype >> collectionMetaObjectClass [
+	^ self subclassResponsibility
+]
+
 { #category : #cloning }
 OBCollectionPrototype >> createRealCollection [
 
@@ -73,7 +78,7 @@ OBCollectionPrototype >> methods [
 OBCollectionPrototype >> newMetaObjectForCollection: aRealCollection [
 
 	| metaCollection |
-	metaCollection := OBCollectionMetaObject
+	metaCollection := self collectionMetaObjectClass
 						newWithRealObject: aRealCollection
 						inLesson: lesson
 						prototype: self.
