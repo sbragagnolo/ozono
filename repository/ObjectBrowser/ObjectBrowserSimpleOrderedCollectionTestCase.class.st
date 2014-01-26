@@ -19,6 +19,11 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> expectedOnCollect [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserSimpleOrderedCollectionTestCase >> expectedPrintString [
+	^'anOrderedCollection'.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserSimpleOrderedCollectionTestCase >> setUp [ 
 	super setUp .
 	self collection: (currentLesson literalNamed: #ordered) clone.

@@ -20,6 +20,11 @@ ObjectBrowserSimpleSetCollectionTestCase >> expectedOnCollect [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserSimpleSetCollectionTestCase >> expectedPrintString [
+	^'aSet' 
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserSimpleSetCollectionTestCase >> setUp [ 
 	super setUp.
 	self collection: (currentLesson literalNamed: #set) clone.

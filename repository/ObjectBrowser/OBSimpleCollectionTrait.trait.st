@@ -9,6 +9,11 @@ OBSimpleCollectionTrait >> expectedOnCollect [
 ]
 
 { #category : #'as yet unclassified' }
+OBSimpleCollectionTrait >> expectedPrintString [
+	^self subclassResponsibility 
+]
+
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> putSomeElements [
 	self collection add: 5.
 	self collection add: 6.
@@ -78,6 +83,12 @@ OBSimpleCollectionTrait >> testIsEmpty [
 	self assert: self collection isEmpty not.
 ]
 
+{ #category : #'as yet unclassified' }
+OBSimpleCollectionTrait >> testPrintString. [
+	self putSomeElements .
+	self assert:self collection printString = self expectedPrintString.
+]
+
 { #category : #tests }
 OBSimpleCollectionTrait >> testRemove [
 	self putSomeElements .
@@ -86,7 +97,7 @@ OBSimpleCollectionTrait >> testRemove [
 	self assert: (self collection includes: 5) not.
 ]
 
-{ #category : #tests }
+{ #category : #'as yet unclassified' }
 OBSimpleCollectionTrait >> testSelect [
 	self putSomeElements .
 	self assert: (self collection  includes: 5).

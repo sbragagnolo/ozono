@@ -1,7 +1,7 @@
 Class {
 	#name : #ObjectBrowserSimpleBagCollectionTestCase,
 	#superclass : #ObjectBrowserSimpleCollectionTestCase,
-	#traits : 'OBSimpleCollectionTrait',
+	#traits : 'OBSimpleCollectionTrait - {#testPrintString}',
 	#classTraits : 'OBSimpleCollectionTrait classTrait',
 	#category : #'ObjectBrowser-Tests'
 }
@@ -17,6 +17,11 @@ ObjectBrowserSimpleBagCollectionTestCase >> expectedOnCollect [
 	expected := (currentLesson literalNamed: #bag) clone.
 	^expected add: 7; add: 8;add: 10;yourself. 
 	
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserSimpleBagCollectionTestCase >> expectedPrintString [
+	^'aBag'. 
 ]
 
 { #category : #'as yet unclassified' }
