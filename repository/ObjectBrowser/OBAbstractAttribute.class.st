@@ -39,6 +39,11 @@ OBAbstractAttribute >> actionsForAttributeList [
 	self subclassResponsibility
 ]
 
+{ #category : #ui }
+OBAbstractAttribute >> deleteConfirmationMessage [
+	^ '¿Está seguro de eliminar el atributo? El objeto referenciado aparecerá en la papelera si no tiene otras referencias.' translated
+]
+
 { #category : #comparing }
 OBAbstractAttribute >> hash [
 	^self name hash raisedTo: self objectPointed hash \\ 100

@@ -31,6 +31,11 @@ OBTest >> code [
 	^lesson executionContext class sourceCodeAt: selector
 ]
 
+{ #category : #ui }
+OBTest >> deleteConfirmationMessage [
+	^ '¿Está seguro de eliminar el test?' translated
+]
+
 { #category : #'*ObjectBrowser-Fileout' }
 OBTest >> fileOut [
 

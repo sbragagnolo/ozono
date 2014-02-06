@@ -46,6 +46,11 @@ OBWorkspace >> closeYourself [
 	window delete.
 ]
 
+{ #category : #ui }
+OBWorkspace >> deleteConfirmationMessage [
+	^'¿Está seguro de eliminar el Workspace?' translated
+]
+
 { #category : #evaluation }
 OBWorkspace >> doItContext [
 	^nil

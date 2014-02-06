@@ -91,8 +91,8 @@ OBLessonModel >> compileTest: aText notifying: someone [
 ]
 
 { #category : #'as yet unclassified' }
-OBLessonModel >> confirmDeletion [ 
-	^UIManager default confirm: '¿Esta seguro de eliminar la referencia a este objeto?  El objeto aparecerá en la papelera si no tiene referencias' trueChoice: 'Si' falseChoice: 'No' .
+OBLessonModel >> confirmDeletionOf: anObject [
+	^ UIManager default confirm: anObject deleteConfirmationMessage trueChoice: 'Si' falseChoice: 'No'
 ]
 
 { #category : #'as yet unclassified' }
@@ -221,41 +221,35 @@ OBLessonModel >> delete [
 { #category : #'as yet unclassified' }
 OBLessonModel >> deleteLessonVariable [
 	self errorHandler
-		evaluate: [
-			self selectedObject
-				ifNil: [self error: 'No hay ninguna referencia elegida'].
-			self confirmDeletion ifTrue: [
-				self doDeleteLessonVariable.
-				self selectedObjectBrowserVariable: OBNullLessonVariable new.
-				].
-			].
+		evaluate: [ 
+			self selectedObject ifNil: [ self error: 'No hay ninguna referencia elegida' ].
+			(self confirmDeletionOf: self selectedObject)
+				ifTrue: [ 
+					self doDeleteLessonVariable.
+					self selectedObjectBrowserVariable: OBNullLessonVariable new ] ].
 	self changed
 ]
 
 { #category : #deleting }
 OBLessonModel >> deleteMethod [
-	self errorHandler evaluate: [self selectedObject removeMethod: self selectedObjectMethod ].
-	self selectedObjectMethod: OBNullMethod new.
-	self changed.
+	(self confirmDeletionOf: self selectedObjectMethod)
+		ifTrue: [ self doDeleteMethod ]
 ]
 
 { #category : #deleting }
 OBLessonModel >> deleteTest [
-	self errorHandler evaluate: [self lesson removeTest: self selectedTest  ].
-	self selectedTest: nil.
-	self changed.
+	(self confirmDeletionOf: self selectedTest)
+		ifTrue: [ self doDeleteTest ]
 ]
 
 { #category : #'as yet unclassified' }
 OBLessonModel >> deleteVariable [
 	self errorHandler
-		evaluate: [
-			self selectedObjectAttribute
-				ifNil: [self error: 'No hay ninguna variable elegida'].
-			self confirmDeletion ifTrue:[self doDeleteVariable].
-			].
-	self changed.
-	
+		evaluate: [ 
+			self selectedObjectAttribute ifNil: [ self error: 'No hay ninguna variable elegida' ].
+			(self confirmDeletionOf: self selectedObjectAttribute)
+				ifTrue: [ self doDeleteVariable ] ].
+	self changed
 ]
 
 { #category : #ObjectBrowser }
@@ -283,6 +277,20 @@ OBLessonModel >> deselectVariables [
 { #category : #'as yet unclassified' }
 OBLessonModel >> doDeleteLessonVariable [
 	self lesson removeVariable: self selectedObjectBrowserVariable .
+]
+
+{ #category : #deleting }
+OBLessonModel >> doDeleteMethod [
+	self errorHandler evaluate: [ self selectedObject removeMethod: self selectedObjectMethod ].
+	self selectedObjectMethod: OBNullMethod new.
+	self changed
+]
+
+{ #category : #deleting }
+OBLessonModel >> doDeleteTest [
+	self errorHandler evaluate: [ self lesson removeTest: self selectedTest ].
+	self selectedTest: nil.
+	self changed
 ]
 
 { #category : #'as yet unclassified' }
@@ -461,7 +469,7 @@ OBLessonModel >> removeObject: anObject [
 
 { #category : #showing }
 OBLessonModel >> removeWorkspace [
-	self confirmDeletion ifTrue: [self workspaces remove: self selectedItem].
+	(self confirmDeletionOf: self selectedItem) ifTrue: [self workspaces remove: self selectedItem].
 	self changed.
 ]
 

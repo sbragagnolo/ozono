@@ -26,6 +26,11 @@ OBMethod >> code [
 ]
 
 { #category : #ui }
+OBMethod >> deleteConfirmationMessage [
+	^ '¿Está seguro de eliminar el método?' translated
+]
+
+{ #category : #ui }
 OBMethod >> icon [
 
 	^self iconFor: object
