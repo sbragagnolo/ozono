@@ -157,6 +157,16 @@ OBLessonBrowserModel >> openSelectedLesson [
 ]
 
 { #category : #actions }
+OBLessonBrowserModel >> pdfSelectedLesson [
+	(OBGeneratePDFWindow newOnLesson:selectedLesson) openInWorld.
+]
+
+{ #category : #labels }
+OBLessonBrowserModel >> printLessonLabel [
+	^'Imprimir Leccion'
+]
+
+{ #category : #actions }
 OBLessonBrowserModel >> removeSelectedLesson [
 
 	| lesson |
