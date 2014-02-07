@@ -252,8 +252,7 @@ ConfigurationOfObjectBrowser >> baseline30: spec [
 								repository: 'http://smalltalkhub.com/mc/RMoD/Artefact/main' ];
 				package: 'ObjectBrowser'
 					with: [ 
-							spec requires: #('smallUML').
-							spec requires: #('artefact') ].
+							spec requires: #('smallUML'. 'artefact'). ].
 			spec group: 'default' with: #('ObjectBrowser') ]
 ]
 
