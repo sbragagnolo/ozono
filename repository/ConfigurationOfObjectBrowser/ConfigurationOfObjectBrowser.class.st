@@ -226,21 +226,35 @@ ConfigurationOfObjectBrowser >> baseline20: spec [
 ]
 
 { #category : #baselines }
-ConfigurationOfObjectBrowser >> baseline30: spec [ 
-    <version: '3.0-baseline'>
-	spec for: #common do: [
-		spec blessing: #baseline.
-		spec repository: 'http://smalltalkhub.com/mc/Uqbar/Ozono/main'.
-		spec
-			project: 'smallUML' with: [ spec className: 'ConfigurationOfSmallUML'; 
-											loads: #('default' );
-											file: 'ConfigurationOfSmallUML';
-											versionString: '1.2';
-											repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main'. ];
-			package: 'ObjectBrowser' with: [ spec requires: #( 'smallUML' ) ].
-			
-		spec group: 'default' with: #( 'ObjectBrowser' ).
-		].
+ConfigurationOfObjectBrowser >> baseline30: spec [
+	<version: '3.0-baseline'>
+	spec
+		for: #common
+		do: [ 
+			spec blessing: #baseline.
+			spec repository: 'http://smalltalkhub.com/mc/Uqbar/Ozono/main'.
+			spec
+				project: 'smallUML'
+					with: [ 
+							spec
+								className: 'ConfigurationOfSmallUML';
+								loads: #('default');
+								file: 'ConfigurationOfSmallUML';
+								versionString: '1.2';
+								repository: 'http://smalltalkhub.com/mc/Uqbar/SmallUml/main' ];
+				project: 'artefact'
+					with: [ 
+							spec
+								className: 'ConfigurationOfArtefact';
+								loads: #('default');
+								file: 'ConfigurationOfArtefact';
+								versionString: '1.3';
+								repository: 'http://smalltalkhub.com/mc/RMoD/Artefact/main' ];
+				package: 'ObjectBrowser'
+					with: [ 
+							spec requires: #('smallUML').
+							spec requires: #('artefact') ].
+			spec group: 'default' with: #('ObjectBrowser') ]
 ]
 
 { #category : #symbolic }
@@ -494,12 +508,13 @@ ConfigurationOfObjectBrowser >> version20: spec [
 ]
 
 { #category : #versions }
-ConfigurationOfObjectBrowser >> version30: spec [ 
-    <version: '3.0' imports: #('3.0-baseline')>
-	spec for: #common do:[
-		spec blessing: #development.
-		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
-
-		spec project: 'smallUML' with: '1.2'.
-	].
+ConfigurationOfObjectBrowser >> version30: spec [
+	<version: '3.0' imports: #('3.0-baseline')>
+	spec
+		for: #common
+		do: [ 
+			spec blessing: #development.
+			spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
+			spec project: 'smallUML' with: '1.2'.
+			spec project: 'artefact' with: '1.3' ]
 ]
