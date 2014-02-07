@@ -25,7 +25,8 @@ OBLessonToPDF class >> newOnLesson:aLesson [
 
 { #category : #builder }
 OBLessonToPDF >> addPagesTo: pdfDoc [
-	(OBTitlePageTemplate newFor:self) buildOn:pdfDoc.
+	(OBTitlePageTemplate newFor:self pageNumber:1) buildOn:pdfDoc.
+	(OBInfoPageTemplate newFor:self pageNumber:2) buildOn:pdfDoc.
 ]
 
 { #category : #accessing }
@@ -64,6 +65,13 @@ OBLessonToPDF >> buildPDFDocument [
 { #category : #labels }
 OBLessonToPDF >> cancelLabel [
 	^'Cancelar' translated.
+]
+
+{ #category : #calculated }
+OBLessonToPDF >> controlCode [
+	| seed |
+	seed := self formattedDate , '-' , self author , '-' , self lesson title.
+	^ seed base64Encoded
 ]
 
 { #category : #accessing }
