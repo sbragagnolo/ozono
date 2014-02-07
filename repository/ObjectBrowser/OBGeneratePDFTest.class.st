@@ -12,7 +12,7 @@ Class {
 
 { #category : #asserts }
 OBGeneratePDFTest >> asserts: aPDFPage containsAParagraphWith: aString [ 
-	aPDFPage elements anySatisfy: [ :e | e text = aString ]
+	self assert:(aPDFPage elements anySatisfy: [ :e | e text = aString ])
 ]
 
 { #category : #utils }
@@ -49,6 +49,20 @@ OBGeneratePDFTest >> testControlCode [
 	|  expectedValue |
 	expectedValue := self formattedDate , '-anAuthor-A Test Lesson'.	
 	self assert:lessonToPDF controlCode base64Decoded = expectedValue.
+]
+
+{ #category : #tests }
+OBGeneratePDFTest >> testInfoPage [
+	| pdfDoc infoPage|
+	pdfDoc := lessonToPDF buildPDFDocument.
+
+	infoPage := pdfDoc pages at:2.
+
+	self asserts:infoPage containsAParagraphWith:lessonToPDF operatingSystem.
+	self asserts:infoPage containsAParagraphWith:lessonToPDF date asString.
+	self asserts:infoPage containsAParagraphWith:lessonToPDF pharoVersion.
+	self asserts:infoPage containsAParagraphWith:lessonToPDF ozonoVersion.
+	self asserts:infoPage containsAParagraphWith:lessonToPDF vmVersion.
 ]
 
 { #category : #tests }
