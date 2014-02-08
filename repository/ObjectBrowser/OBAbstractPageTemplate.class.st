@@ -2,16 +2,17 @@ Class {
 	#name : #OBAbstractPageTemplate,
 	#superclass : #Object,
 	#instVars : [
-		'lessonToPDF',
+		'model',
 		'page',
+		'doc',
 		'pageNumber'
 	],
 	#category : #'ObjectBrowser-PDFGeneration'
 }
 
 { #category : #'instance creation' }
-OBAbstractPageTemplate class >> newFor: lessonToPDF pageNumber: pageNumber. [
-	^ self new lessonToPDF: lessonToPDF; pageNumber:pageNumber.
+OBAbstractPageTemplate class >> newFor: lessonToPDF [
+	^ self new model: lessonToPDF.
 ]
 
 { #category : #margins }
@@ -21,7 +22,16 @@ OBAbstractPageTemplate >> bottomMargin [
 
 { #category : #builder }
 OBAbstractPageTemplate >> buildOn: aPDFDoc. [
-	self subclassResponsibility.
+	page := PDFPage new.	
+	doc := aPDFDoc.
+	doc add:page.
+	
+	self buildPage.
+]
+
+{ #category : #builder }
+OBAbstractPageTemplate >> buildPage [
+	^self subclassResponsibility.
 ]
 
 { #category : #tools }
@@ -76,28 +86,20 @@ OBAbstractPageTemplate >> leftMargin [
 ]
 
 { #category : #accessing }
-OBAbstractPageTemplate >> lessonToPDF [
-	^ lessonToPDF
+OBAbstractPageTemplate >> model [
+	^model.
+
 ]
 
 { #category : #accessing }
-OBAbstractPageTemplate >> lessonToPDF:aValue [
-	lessonToPDF := aValue.
+OBAbstractPageTemplate >> model:aValue [
+	model := aValue.
+
 ]
 
 { #category : #'calculated properties' }
 OBAbstractPageTemplate >> pageHeight [
 	^(page format height convertTo: Unit mm) value floor.
-]
-
-{ #category : #accessing }
-OBAbstractPageTemplate >> pageNumber [
-	^pageNumber
-]
-
-{ #category : #accessing }
-OBAbstractPageTemplate >> pageNumber: aValue [
-	pageNumber := aValue.
 ]
 
 { #category : #'calculated properties' }

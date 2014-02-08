@@ -5,10 +5,7 @@ Class {
 }
 
 { #category : #builder }
-OBCommonPageTemplate >> buildOn: aPDFDoc. [
-	page := PDFPage new.	
-	aPDFDoc add: page.
-	
+OBCommonPageTemplate >> buildPage. [	
 	self createHeader.
 	self createFooter.
 	self createContent.
@@ -22,6 +19,10 @@ OBCommonPageTemplate >> createContent [
 
 { #category : #builder }
 OBCommonPageTemplate >> createFooter [
+	| from to |
+	from := self leftMargin mm @ (self pageHeight - self bottomMargin + 2) mm.
+	to :=  (self pageWidth - self rightMargin) mm @ (self pageHeight - self bottomMargin + 2) mm.
+	page add: (PDFLineElement from:  from to:to ).
 ]
 
 { #category : #builder }

@@ -25,8 +25,8 @@ OBLessonToPDF class >> newOnLesson:aLesson [
 
 { #category : #builder }
 OBLessonToPDF >> addPagesTo: pdfDoc [
-	(OBTitlePageTemplate newFor:self pageNumber:1) buildOn:pdfDoc.
-	(OBInfoPageTemplate newFor:self pageNumber:2) buildOn:pdfDoc.
+	(OBTitlePageTemplate newFor:self) buildOn:pdfDoc.
+	(OBInfoPageTemplate newFor:self) buildOn:pdfDoc.
 ]
 
 { #category : #accessing }
@@ -102,6 +102,17 @@ OBLessonToPDF >> filename [
 { #category : #accessing }
 OBLessonToPDF >> filename: anObject [
 	filename := anObject
+]
+
+{ #category : #calculated }
+OBLessonToPDF >> formattedControlCode [
+	| r |
+	r:=''.
+	self controlCode withIndexDo: [ :e :i |
+		( i \\ 16 = 0) ifTrue:[ r := r , ' ' ].
+		r := r , e asString.
+	].
+	^r.
 ]
 
 { #category : #accessing }

@@ -178,6 +178,8 @@ OBLessonModel >> createVariable: aVariableNameString referencingTo: anObject [
 	newVariable := self lesson
 							createVariableNamed: aVariableNameString
 							pointingTo: anObject.
+							
+	self dependants do:[ :d | d expandReferences].						
 	self selectedItem: newVariable.
 ]
 

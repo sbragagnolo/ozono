@@ -8,15 +8,12 @@ Class {
 }
 
 { #category : #builder }
-OBTitlePageTemplate >> buildOn: pdfDoc [
-	page := PDFPage new.	
-	pdfDoc add: page.
-	
+OBTitlePageTemplate >> buildPage. [	
 	self createTitle. 
-	self createLabel: 'Autor:' translated withText: (self lessonToPDF author)  withHeight: 15 onTop: 120. 
-	self createLabel: 'Curso:' translated withText: (self lessonToPDF course)  withHeight: 15 onTop: 135.
-	self createLabel: 'Profesor:' translated withText: (self lessonToPDF teacher)  withHeight: 15 onTop: 150.
-	self createLabel: 'Fecha:' translated withText: (self lessonToPDF formattedDate)  withHeight: 15 onTop: 165.
+	self createLabel: 'Autor:' translated withText: (self model author)  withHeight: 15 onTop: 120. 
+	self createLabel: 'Curso:' translated withText: (self model course)  withHeight: 15 onTop: 135.
+	self createLabel: 'Profesor:' translated withText: (self model teacher)  withHeight: 15 onTop: 150.
+	self createLabel: 'Fecha:' translated withText: (self model formattedDate)  withHeight: 15 onTop: 165.
 
 ]
 
@@ -32,7 +29,7 @@ OBTitlePageTemplate >> createTitle [
 				styleSheet: self titleStyleSheet;
 				dimension: self usableWidth mm @ height mm;
 				from: self leftMargin mm @ top mm;
-				text: self lessonToPDF lesson title)
+				text: self model lesson title)
 ]
 
 { #category : #styles }

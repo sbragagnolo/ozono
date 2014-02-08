@@ -12,7 +12,9 @@ Class {
 
 { #category : #asserts }
 OBGeneratePDFTest >> asserts: aPDFPage containsAParagraphWith: aString [ 
-	self assert:(aPDFPage elements anySatisfy: [ :e | e text = aString ])
+	| paragraphElements |
+	paragraphElements := aPDFPage elements select: [ :e | e isKindOf: PDFCompositeText ].
+	self assert:(paragraphElements anySatisfy: [ :e | e text = aString ])
 ]
 
 { #category : #utils }
@@ -60,7 +62,7 @@ OBGeneratePDFTest >> testInfoPage [
 	self asserts: infoPage containsAParagraphWith: lessonToPDF pharoVersion.
 	self asserts: infoPage containsAParagraphWith: lessonToPDF ozonoVersion.
 	self asserts: infoPage containsAParagraphWith: lessonToPDF vmVersion.
-	self asserts: infoPage containsAParagraphWith: lessonToPDF controlCode
+	self asserts: infoPage containsAParagraphWith: lessonToPDF formattedControlCode.
 ]
 
 { #category : #tests }

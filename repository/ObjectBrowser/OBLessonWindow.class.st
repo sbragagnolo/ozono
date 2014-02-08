@@ -218,6 +218,14 @@ OBLessonWindow >> createView [
 	^window.
 ]
 
+{ #category : #'as yet unclassified' }
+OBLessonWindow >> expandReferences [
+	(objectBrowserTree allItems at: 1) isExpanded
+		ifFalse: [ 
+			(objectBrowserTree allItems at: 1) toggleExpandedState.
+			objectBrowserTree adjustSubmorphPositions ]
+]
+
 { #category : #'initialize-release' }
 OBLessonWindow >> initialize [
 	pages := Dictionary new.
@@ -246,18 +254,10 @@ OBLessonWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 OBLessonWindow >> refresh [
-	| selection |
-
 	objectBrowserTree ifNotNil: [ objectBrowserTree list: self objectBrowser lessonOrganization ].
 
-	selection := self objectBrowser selectedItem. "We keep the selection because expandNodeAt: deselects the selected node."
-
-	(self objectBrowser selectedPage = #objects
-		and: [ objectBrowserTree isNotNil and: [ selection isNotNil ] ])
-		ifTrue: [ objectBrowserTree expandNodeAt:1. ].
-
 	objectBrowserTree ifNotNil: [ 
-		objectBrowserTree selection: selection ].
+		objectBrowserTree selection: self objectBrowser selectedItem ].
 
 	pages keysAndValuesDo: [ :k :v | v visible: k == self objectBrowser selectedPage ].
 
