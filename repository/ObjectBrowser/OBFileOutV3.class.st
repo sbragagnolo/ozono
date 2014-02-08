@@ -238,7 +238,7 @@ OBFileOutV3 >> visitObjectForState: anObject [
 { #category : #visiting }
 OBFileOutV3 >> visitPrototype: aPrototype [
 
-	self write: self posibleName.
+	self write: aPrototype posibleName.
 	self write: ' bePrototypeOf: '.
 	self write: currentObject posibleName.
 	self write: '.'.
