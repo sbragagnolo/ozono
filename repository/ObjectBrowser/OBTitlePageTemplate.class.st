@@ -13,31 +13,11 @@ OBTitlePageTemplate >> buildOn: pdfDoc [
 	pdfDoc add: page.
 	
 	self createTitle. 
-	self createAuthor. 
-	self createCourse.
-	self createTeacher.
-	self createDate.
+	self createLabel: 'Autor:' translated withText: (self lessonToPDF author)  withHeight: 15 onTop: 120. 
+	self createLabel: 'Curso:' translated withText: (self lessonToPDF course)  withHeight: 15 onTop: 135.
+	self createLabel: 'Profesor:' translated withText: (self lessonToPDF teacher)  withHeight: 15 onTop: 150.
+	self createLabel: 'Fecha:' translated withText: (self lessonToPDF formattedDate)  withHeight: 15 onTop: 165.
 
-]
-
-{ #category : #builder }
-OBTitlePageTemplate >> createAuthor [
-	self createLabel: 'Autor:' withText: (self lessonToPDF author)  withHeight: 15 onTop: 120.
-]
-
-{ #category : #builder }
-OBTitlePageTemplate >> createCourse [
-	self createLabel: 'Curso:' withText: (self lessonToPDF course)  withHeight: 15 onTop: 135.
-]
-
-{ #category : #builder }
-OBTitlePageTemplate >> createDate [
-	self createLabel: 'Fecha:' withText: (self lessonToPDF formattedDate)  withHeight: 15 onTop: 165.
-]
-
-{ #category : #builder }
-OBTitlePageTemplate >> createTeacher [
-	self createLabel: 'Profesor:' withText: (self lessonToPDF teacher)  withHeight: 15 onTop: 150.
 ]
 
 { #category : #builder }
