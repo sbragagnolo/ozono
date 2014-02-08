@@ -569,7 +569,6 @@ OBLessonModel >> selectedObjectBrowserVariable [
 
 { #category : #selection }
 OBLessonModel >> selectedObjectBrowserVariable: anOBVariable [
-
 	selectedObjectBrowserVariable  := anOBVariable.
 	selectedObjectAttribute := OBNullLessonVariable new.
 	selectedObjectMethod := OBNullMethod new.

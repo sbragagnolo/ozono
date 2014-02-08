@@ -246,13 +246,24 @@ OBLessonWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 OBLessonWindow >> refresh [
+	| selection |
+
 	objectBrowserTree ifNotNil: [ objectBrowserTree list: self objectBrowser lessonOrganization ].
-	objectBrowserTree ifNotNil: [objectBrowserTree selection: self objectBrowser selectedItem].
-	
-	pages keysAndValuesDo: [:k :v |
-			v visible: (k == self objectBrowser selectedPage)
-		].
-	self objectBrowser selectedPage = #diagram ifTrue: [diagram update]
+
+	selection := self objectBrowser selectedItem. "We keep the selection because expandNodeAt: deselects the selected node."
+
+	(self objectBrowser selectedPage = #objects
+		and: [ objectBrowserTree isNotNil and: [ selection isNotNil ] ])
+		ifTrue: [ objectBrowserTree expandNodeAt:1. ].
+
+	objectBrowserTree ifNotNil: [ 
+		objectBrowserTree selection: selection ].
+
+	pages keysAndValuesDo: [ :k :v | v visible: k == self objectBrowser selectedPage ].
+
+	self objectBrowser selectedPage = #diagram
+		ifTrue: [ diagram update ].
+
 ]
 
 { #category : #accessing }
