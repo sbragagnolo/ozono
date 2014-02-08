@@ -11,6 +11,7 @@ OBInfoPageTemplate >> createContent. [
 	self createLabel: 'Fecha y Hora:' withText: lessonToPDF date asString withHeight: 15 onTop: 35.
 	self createLabel: 'Pharo:' withText: lessonToPDF pharoVersion withHeight: 15 onTop: 50.
 	self createLabel: 'Ozono:' withText: lessonToPDF ozonoVersion withHeight: 15 onTop: 65.
-	self createLabel: 'VM:' withText: lessonToPDF vmVersion withHeight: 80 onTop: 80.
+	self createLabel: 'Codigo Control:' withText: lessonToPDF controlCode withHeight: 15 onTop: 80.
+	self createLabel: 'VM:' withText: lessonToPDF vmVersion withHeight: 80 onTop: 95.
 
 ]

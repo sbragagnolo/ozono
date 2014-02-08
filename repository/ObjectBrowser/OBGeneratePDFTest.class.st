@@ -53,16 +53,14 @@ OBGeneratePDFTest >> testControlCode [
 
 { #category : #tests }
 OBGeneratePDFTest >> testInfoPage [
-	| pdfDoc infoPage|
+	| pdfDoc infoPage |
 	pdfDoc := lessonToPDF buildPDFDocument.
-
-	infoPage := pdfDoc pages at:2.
-
-	self asserts:infoPage containsAParagraphWith:lessonToPDF operatingSystem.
-	self asserts:infoPage containsAParagraphWith:lessonToPDF date asString.
-	self asserts:infoPage containsAParagraphWith:lessonToPDF pharoVersion.
-	self asserts:infoPage containsAParagraphWith:lessonToPDF ozonoVersion.
-	self asserts:infoPage containsAParagraphWith:lessonToPDF vmVersion.
+	infoPage := pdfDoc pages at: 2.
+	self asserts: infoPage containsAParagraphWith: lessonToPDF operatingSystem.
+	self asserts: infoPage containsAParagraphWith: lessonToPDF pharoVersion.
+	self asserts: infoPage containsAParagraphWith: lessonToPDF ozonoVersion.
+	self asserts: infoPage containsAParagraphWith: lessonToPDF vmVersion.
+	self asserts: infoPage containsAParagraphWith: lessonToPDF controlCode
 ]
 
 { #category : #tests }
