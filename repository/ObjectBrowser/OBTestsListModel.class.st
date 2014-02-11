@@ -9,14 +9,16 @@ Class {
 
 { #category : #'as yet unclassified' }
 OBTestsListModel >> iconAt: aTest [
-
-	^IconicButton new 
-		target: self model;
-		actionSelector: #runTest ;
-		labelGraphic: aTest icon;
-		color: Color transparent;
-		helpText: 'probar el test';
-		borderWidth: 0
+	^ (aTest name beginsWith: 'test')
+		ifTrue: [ 
+			IconicButton new
+				target: self model;
+				actionSelector: #runTest;
+				labelGraphic: aTest icon;
+				color: Color transparent;
+				helpText: 'probar el test';
+				borderWidth: 0 ]
+		ifFalse: [ nil ]
 ]
 
 { #category : #'as yet unclassified' }
