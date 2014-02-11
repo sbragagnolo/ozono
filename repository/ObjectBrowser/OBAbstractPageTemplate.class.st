@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'model',
 		'page',
-		'doc',
-		'pageNumber'
+		'doc'
 	],
 	#category : #'ObjectBrowser-PDFGeneration'
 }
@@ -100,6 +99,11 @@ OBAbstractPageTemplate >> model:aValue [
 { #category : #'calculated properties' }
 OBAbstractPageTemplate >> pageHeight [
 	^(page format height convertTo: Unit mm) value floor.
+]
+
+{ #category : #'calculated properties' }
+OBAbstractPageTemplate >> pageNumber [
+	^doc pages indexOf: page.
 ]
 
 { #category : #'calculated properties' }

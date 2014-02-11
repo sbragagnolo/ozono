@@ -391,14 +391,10 @@ OBLesson >> removeVariable: anOBVariable [
 
 { #category : #tests }
 OBLesson >> runAllTests [
-
 	| results |
 	results := OBTestCaseResult new.
-	self tests do: [ :t | 
-		results add:( t run ).
-		].
-	^results
-
+	self runnableTests do: [ :t | results add: t run ].
+	^ results
 ]
 
 { #category : #'garbage-collection' }
@@ -406,6 +402,11 @@ OBLesson >> runGarbageCollector [
 	self dereferencedObjects do: [:o | 
 		o removeClassFromSystem.
 		self removeObject: o ].
+]
+
+{ #category : #tests }
+OBLesson >> runnableTests [
+	^ self tests select: [ :aTest | aTest selector beginsWith: 'test' ]
 ]
 
 { #category : #'pharo-interaction' }
@@ -424,7 +425,7 @@ OBLesson >> testDictionary [
 { #category : #tests }
 OBLesson >> tests [
 
-	^self testDictionary values
+	^self testDictionary values 
 ]
 
 { #category : #accessing }
