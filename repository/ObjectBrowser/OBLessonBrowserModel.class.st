@@ -62,12 +62,12 @@ OBLessonBrowserModel >> aboutText [
 ]
 
 { #category : #private }
-OBLessonBrowserModel >> chooseLessonFile [
+OBLessonBrowserModel >> chooseLessonFile. [
 
 	^ UITheme current
 		chooseFileIn: World
 		title: 'Selecciona la leccion a importar' translated
-		extensions: #('st', 'ob', 'o3') 
+		extensions: #('st', 'ob') 
 		path: nil
 		preview: nil.
 ]
