@@ -44,8 +44,6 @@ OBLessonWindow >> buildMethodEditor [
 		readSelection: nil
 		menu: #menu:) setNameTo: #textoMetodo.
 	methodEditor styled: true.
-	methodEditor styler workspace: self lesson.
-	
 	self objectBrowser addObjectSelectionInterested: methodEditor.
 	self objectBrowser addObjectSelectionInterested: model.
 	model methodEditorMorph: methodEditor.
@@ -152,9 +150,6 @@ OBLessonWindow >> createTestRunnerTab [
 		setNameTo: #textoTest;
 		color: Color white;
 		yourself.
-		
-	testEditor styler workspace: self lesson.
-	
 	testEditor styled: true.
 	self objectBrowser addTestSelectionInterested: testEditor.
 	testEditorModel testEditorMorph: methodEditor.

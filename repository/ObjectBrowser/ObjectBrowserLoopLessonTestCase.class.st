@@ -1,6 +1,10 @@
 Class {
 	#name : #ObjectBrowserLoopLessonTestCase,
 	#superclass : #OBTestCase,
+	#instVars : [
+		'lesson',
+		'lessonImported'
+	],
 	#category : #'ObjectBrowser-Tests'
 }
 
@@ -84,6 +88,12 @@ ObjectBrowserLoopLessonTestCase >> lessonWithStateTitle [
 ]
 
 { #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> lessonWithTestTitle [
+	
+	^'LessonWithTest'.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareEmptyLesson [
 	^ OBLesson new title: self lessonEmptyTitle.
 
@@ -100,19 +110,19 @@ ObjectBrowserLoopLessonTestCase >> prepareLesson [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
-	| lesson pepita rosario fileEntry theSet theDictionary |
+	| aLesson pepita rosario fileEntry theSet theDictionary |
 	fileEntry := self lessonWithCollectionTitle asLegalSelector asFileName asFileReference, '.st'.
-	fileEntry ensureDeleted.
-	lesson := OBLesson new title: self lessonWithCollectionTitle.
-	pepita := self createPepitaObObject: lesson .
-	rosario := self createRosarioObObject: lesson .
-	lesson createVariableNamed: 'pepita' pointingTo: pepita.
-	lesson createVariableNamed: 'rosario' pointingTo: rosario .
-	theSet := (lesson literalNamed: #set) clone.
+	fileEntry ensureDelete.
+	aLesson := OBLesson new title: self lessonWithCollectionTitle.
+	pepita := self createPepitaObObject: aLesson .
+	rosario := self createRosarioObObject: aLesson .
+	aLesson createVariableNamed: 'pepita' pointingTo: pepita.
+	aLesson createVariableNamed: 'rosario' pointingTo: rosario .
+	theSet := (aLesson literalNamed: #set) clone.
 	theSet add: pepita baseObject.
 	theSet add: rosario baseObject.
 	
-	theDictionary := (lesson literalNamed: #dictionary) clone.
+	theDictionary := (aLesson literalNamed: #dictionary) clone.
 	theDictionary at: pepita baseObject put: rosario baseObject.
 	theDictionary at: 1 put: 'hola'.
 	theDictionary at: 1 put: pepita baseObject.
@@ -120,107 +130,122 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
 	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).
 	
-	^lesson.
+	^ aLesson
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
-	| lesson pepita rosario fileEntry |
+	|  aLesson pepita rosario fileEntry |
 	fileEntry := self lessonWithStateTitle asLegalSelector asFileName asFileReference, '.st'.
-	fileEntry ensureDeleted.
-	lesson := OBLesson new title: self lessonWithStateTitle.
-	pepita := self createPepitaObObject: lesson .
-	rosario := self createRosarioObObject: lesson .
-	lesson createVariableNamed: 'pepita' pointingTo: pepita.
-	lesson createVariableNamed: 'rosario' pointingTo: rosario .
+	fileEntry ensureDelete.
+	aLesson := OBLesson new title: self lessonWithStateTitle.
+	pepita := self createPepitaObObject: aLesson .
+	rosario := self createRosarioObObject: aLesson .
+	aLesson createVariableNamed: 'pepita' pointingTo: pepita.
+	aLesson createVariableNamed: 'rosario' pointingTo: rosario .
 	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
 	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).
 	
-	^lesson.
+	^ aLesson
 ]
 
-{ #category : #running }
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> prepareLessonWithTest [
+	|  aLesson fileEntry |
+	fileEntry := self lessonWithTestTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry ensureDelete.
+	aLesson := OBLesson new title: self lessonWithTestTitle.
+
+	aLesson compileTest: 'testSomething ^''all is cool'''.
+		
+	^ aLesson
+]
+
+{ #category : #tests }
+ObjectBrowserLoopLessonTestCase >> setUp [
+
+	lesson := nil.
+	lessonImported := nil.
+
+]
+
+{ #category : #tests }
 ObjectBrowserLoopLessonTestCase >> tearDown [
-	{ 	self lessonEmptyTitle.
-		self lessonWithObjectsTitle .
-		self lessonWithStateTitle .
-		self lessonWithCollectionTitle } do: [ :each | (self fileName: each) asFileReference ensureDelete ]
+
+	lesson ifNotNilDo: [:l | self tearDownLesson: l. l clean].
+	lessonImported ifNotNilDo: #clean.
+
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> tearDownLesson: lessonTitle [
-	(self fileName: lessonTitle name) asFileReference ensureDeleted
+	(self fileName: lessonTitle name) asFileReference ensureDelete
 ]
 
 { #category : #tests }
 ObjectBrowserLoopLessonTestCase >> testExportImportEmptyLessonSuccess [
-	| lesson lessonImported |
-	[
-		lesson := self prepareEmptyLesson.
-		lesson fileOut .
-		lessonImported := self importLesson: lesson.
-		self assert: lesson title equals:  lessonImported title.
-		self assert: 0 equals:  lessonImported objects size.
-		self tearDownLesson: lesson.
-	] ensure: [ 
-		lesson clean.
-		lessonImported clean.
-	]
+
+	lesson := self prepareEmptyLesson.
+	lesson fileOut .
+	lessonImported := self importLesson: lesson.
+	
+	self assert: lesson title equals:  lessonImported title.
+	self assert: 0 equals:  lessonImported objects size.
 ]
 
 { #category : #tests }
 ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithCollections [
-	| lesson lessonImported |
-	[
-		lesson := self prepareLessonWithCollections.
-		lesson fileOut .
-		lessonImported := self importLesson: lesson.
-		self assert: lesson title equals:  lessonImported title.
-		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]]).
-		self tearDownLesson: lesson.
-	] ensure: [ 
-		lesson clean.
-		lessonImported clean.
-	]
+
+	lesson := self prepareLessonWithCollections.
+	lesson fileOut .
+	lessonImported := self importLesson: lesson.
+	
+	self assert: lesson title equals:  lessonImported title.
+	self assert: lesson objects size equals:  lessonImported objects size.
+	self assert: (lessonImported objects anySatisfy: [ :obj |
+		(obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]
+	])
 ]
 
 { #category : #tests }
 ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsNoStateSuccess [
-	| lesson lessonImported |
-	[
-		lesson := self prepareLesson.
-		lesson fileOut.
-		lessonImported := self importLesson: lesson.
-		self assert: lesson title equals:  lessonImported title.
-		self assert: lesson objects size equals:  lessonImported objects size.
-		self tearDownLesson: lesson.
-	] ensure: [ 
-		lesson clean.
-		lessonImported ifNotNilDo: #clean.
-	]
+
+	lesson := self prepareLesson.
+	lesson fileOut.
+	lessonImported := self importLesson: lesson.
+	
+	self assert: lesson title equals:  lessonImported title.
+	self assert: lesson objects size equals:  lessonImported objects size
 ]
 
 { #category : #tests }
 ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess [
-	| lesson lessonImported |
-	[
+
 		lesson := self prepareLessonWithState.
 		lesson fileOut.
 		lessonImported := self importLesson: lesson.
+		
 		self assert: lesson title equals:  lessonImported title.
 		self assert: lesson objects size equals:  lessonImported objects size.
-		self assert: (lessonImported objects anySatisfy: [ :obj |  (obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]]).
-		self assert: (self variablesFrom: lesson equalVariablesFrom: lessonImported).
-		self tearDownLesson: lesson.
-	] ensure: [ 
-		lesson clean.
-		lessonImported ifNotNilDo: #clean.
-	]
+		self assert: (lessonImported objects anySatisfy: [ :obj |
+			(obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]
+		]).
+		self assert: (self variablesFrom: lesson equalVariablesFrom: lessonImported)
 ]
 
 { #category : #tests }
+ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithTestSuccess [
+
+		lesson := self prepareLessonWithTest.
+		lesson fileOut.
+		lessonImported := self importLesson: lesson.
+		
+		self assert: lesson title equals:  lessonImported title.
+		self assert: lesson tests size equals:  lessonImported tests size.
+]
+
+{ #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> variablesFrom: lesson equalVariablesFrom: lessonImported [
 	lesson variables
 		with: lessonImported variables
