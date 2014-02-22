@@ -51,7 +51,7 @@ OBMethod >> iconFor: anObject [
 { #category : #ui }
 OBMethod >> menuItems [
 
-	^#(('borrar metodo'			deleteMethod))
+	^#(('Eliminar Metodo' deleteMethod))
 ]
 
 { #category : #accessing }

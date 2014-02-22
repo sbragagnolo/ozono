@@ -41,7 +41,8 @@ OBAbstractAttribute >> actionsForAttributeList [
 
 { #category : #ui }
 OBAbstractAttribute >> deleteConfirmationMessage [
-	^ '¿Está seguro de eliminar el atributo? El objeto referenciado aparecerá en la papelera si no tiene otras referencias.' translated
+	^ '¿Está seguro de eliminar la referencia ''', name, '''? 
+	El objeto referenciado aparecerá en la papelera si no tiene otras referencias.' translated
 ]
 
 { #category : #comparing }
