@@ -24,15 +24,50 @@ OBFileOutV3 >> cr [
 
 { #category : #exporting }
 OBFileOutV3 >> export: anObject [
-	
-	[
+	[ 
 	internalStream := (String new: 100) writeStream.
 	anObject accept: self.
-	
-	(FileStream fileNamed: (anObject name asLegalSelector, '.ob'))
-			nextPutAll: internalStream contents;
-			close.
-	] ensure: [ internalStream close ]
+	(self fileNamedAfter: anObject)
+		nextPutAll: internalStream contents;
+		close ]
+		ensure: [ internalStream close ]
+]
+
+{ #category : #exporting }
+OBFileOutV3 >> fileCreationIsConfirmed [
+	^ (CustomQuestionDialogWindow new
+		textFont: UITheme current textFont;
+		title: self fileExistsMessage;
+		text: self overwriteQuestionMessage;
+		yesText: 'Sí' translated help: nil;
+		noText: 'No' translated help: nil;
+		openModal;
+		answer) ifNil: [ false ]
+]
+
+{ #category : #exporting }
+OBFileOutV3 >> fileExistsMessage [
+		^ 'Ya existe un archivo con el mismo nombre' translated
+]
+
+{ #category : #'as yet unclassified' }
+OBFileOutV3 >> fileExtension [
+	^ '.ob'
+]
+
+{ #category : #exporting }
+OBFileOutV3 >> fileNameFor: anObject [
+	^ anObject name asLegalSelector , self fileExtension
+]
+
+{ #category : #exporting }
+OBFileOutV3 >> fileNamedAfter: anObject [
+	^ [ FileStream newFileNamed: (self fileNameFor: anObject) ]
+		on: FileExistsException
+		do: [ :anException | 
+			self fileCreationIsConfirmed
+				ifTrue: [ FileStream fileNamed: (self fileNameFor: anObject) ]
+				ifFalse: [ anException pass ] ]
 ]
 
 { #category : #template }
@@ -63,6 +98,11 @@ OBFileOutV3 >> modeObjectState [
 OBFileOutV3 >> modePrototypeDefinition [
 
 	mode := OBObjectPrototypeDefinitionFileoutMode new.
+]
+
+{ #category : #exporting }
+OBFileOutV3 >> overwriteQuestionMessage [
+		^ '¿Desea sobreescribir el archivo existente?' translated
 ]
 
 { #category : #visiting }

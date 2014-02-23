@@ -138,7 +138,6 @@ OBLesson >> asString [
 
 { #category : #literals }
 OBLesson >> bindingOf: aName [ 
-
 	^(self includesLiteralNamed: aName)
 		ifTrue: [ aName -> (self literalNamed: aName) ]
 		ifFalse: [ nil ]
@@ -178,14 +177,19 @@ OBLesson >> compileTest: aTestText [
 
 { #category : #tests }
 OBLesson >> compileTest: aTestText notifying: someone [
-
 	| result newTest |
-	self suspendAllWhile: [
-		result := self executionContext class compile: aTestText classified: #'tests' notifying: someone.
-		newTest := (OBTest newWithSelector: result onLesson: self).
-		self testDictionary at: result put: newTest.
-		^newTest
-	]
+	result := OBPharoReflection uniqueInstance
+		compile: aTestText
+		inLesson: self
+		inClass: self executionContext class
+		notifying: someone
+		withCategory: #tests.
+	result isNotNil
+		ifTrue: [ 
+			newTest := OBTest newWithSelector: result onLesson: self.
+			self testDictionary at: result put: newTest.
+			^ newTest ].
+		^nil.
 ]
 
 { #category : #tests }
@@ -265,6 +269,16 @@ OBLesson >> exportDiagram [
 OBLesson >> fileOut [
 
 	OBFileOutV3 new export: self.
+]
+
+{ #category : #bindings }
+OBLesson >> hasBindingOf: aName [ 
+	^self includesLiteralNamed: aName
+]
+
+{ #category : #binding }
+OBLesson >> hasBindingThatBeginsWith: aString [ 
+	^ literals keys anySatisfy: [ :n | n beginsWith: aString ]
 ]
 
 { #category : #'lesson-variables' }

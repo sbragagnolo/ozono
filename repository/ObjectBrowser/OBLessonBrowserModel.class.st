@@ -86,9 +86,11 @@ OBLessonBrowserModel >> createNewFreeLesson [
 
 { #category : #actions }
 OBLessonBrowserModel >> fileOutSelectedLesson [
-
+	[ 
 	self selectedLesson fileOut.
-	UIManager inform: 'La lección se exportó correctamente!'.
+	UIManager inform: self lessonExportedMessage ]
+		on: FileExistsException
+		do: [ UIManager inform: self lessonExportErrorMessage ]
 ]
 
 { #category : #actions }
@@ -124,6 +126,16 @@ OBLessonBrowserModel >> lessonContainer: aLessonContainer [
 	lessonContainer := aLessonContainer
 ]
 
+{ #category : #actions }
+OBLessonBrowserModel >> lessonExportErrorMessage [ 
+	^ 'No se pudo exportar la lección' translated
+]
+
+{ #category : #actions }
+OBLessonBrowserModel >> lessonExportedMessage [ 
+	^ '¡La lección se exportó correctamente!' translated
+]
+
 { #category : #accessing }
 OBLessonBrowserModel >> lessons [
 
@@ -133,7 +145,7 @@ OBLessonBrowserModel >> lessons [
 { #category : #labels }
 OBLessonBrowserModel >> newFreeLessonLabel [
 
-	^'Nueva Leccion' translated 
+	^'Nueva Lección' translated 
 ]
 
 { #category : #private }

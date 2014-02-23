@@ -36,6 +36,12 @@ OBPharoReflection >> classOf: anObject [
 
 { #category : #methods }
 OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: anObserver [
+	^ self compile: code inLesson: aLesson inClass: aClass notifying: anObserver withCategory: #'object browser'.
+
+]
+
+{ #category : #methods }
+OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: anObserver withCategory:aCategory [
 
 	"We use the direct compiler API because we want to change the class by a compilation binder object. That way we can control easily how names are binded in Ozono"
 	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
@@ -45,7 +51,7 @@ OBPharoReflection >> compile: code inLesson: aLesson inClass: aClass notifying: 
 		method  := OpalCompiler new
 			environment: aClass environment;
 			class: (OBCompilationBinder onLesson: aLesson forClass: aClass);
-			category: #'object browser';
+			category: aCategory;
 			source: code;
 			requestor: anObserver;
 			failBlock: [ ^nil ];
