@@ -48,6 +48,7 @@ OBLessonBrowserWindow >> buildLessonList [
 		 borderWidth: 0;
 		 enableDragNDrop: false;
 		 autoDeselect: true;
+		wrapSelector: #displayString;
 		 yourself
 ]
 
