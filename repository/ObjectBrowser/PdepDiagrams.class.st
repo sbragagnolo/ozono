@@ -26,12 +26,3 @@ wTIgekLgyk5niiXM3LgoHNPGsXj6RApzs/B1dqKwSE1OGL2DnDQ7ze5mVrjK8Qf6mZ0UQ9HO
 lcTF2vF6Ozl6+hrFZ+tIiIaFsyb+/QotL9y619DEk6YOfF/9SBEm28aQnjKVjLSZpCxIM/7r
 Gb8DeEs6z/3CU5IAAAAASUVORK5CYII='
 ]
-
-{ #category : #'as yet unclassified' }
-PdepDiagrams class >> menuCommandOn: aBuilder [ 
-	<worldMenu>
-	(aBuilder item: #'Diagrama de Clases')
-		parent: #'PdeP Software';  
-		action: [ PdepDiagrams openDiagramBrowser ];
-		icon: self icon.
-]

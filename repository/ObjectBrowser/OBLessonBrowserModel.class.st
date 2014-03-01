@@ -37,16 +37,12 @@ DOAO3NFQbH//2Q=='
 ]
 
 { #category : #'as yet unclassified' }
-OBLessonBrowserModel class >> menuCommandOn: aBuilder [ 
+OBLessonBrowserModel class >> menuCommandOn: aBuilder [
 	<worldMenu>
-	(aBuilder item: #'PdeP Software')
+	(aBuilder item: #Ozono)
 		order: 0.1;
-		target: self;
-		icon: Smalltalk ui icons homeIcon.
-	(aBuilder item: #'Ozono')
-		parent: #'PdeP Software';  
-		action: [OBLesson browseLessons];
-		icon: self icon.
+		action: [ OBLesson browseLessons ];
+		icon: self icon
 ]
 
 { #category : #'as yet unclassified' }
