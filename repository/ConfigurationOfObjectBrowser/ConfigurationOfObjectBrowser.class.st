@@ -287,7 +287,7 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	<symbolicVersion: #stable>
 	
 	| latest |
-	latest := '2.0.2'.
+	latest := '3.0'.
 	
 	"Default"
 	spec for: #'common' version: latest.
@@ -296,7 +296,8 @@ ConfigurationOfObjectBrowser >> stable: spec [
 	spec for: #'pharo1.2.x' version: '1.3'.
 	spec for: #'pharo1.3.x' version: '1.3.1'.
 	spec for: #'pharo1.4.x' version: '1.4.5'.
-	spec for: #'pharo2.0.x' version: latest.
+	spec for: #'pharo2.0.x' version: '2.0.3'.
+	spec for: #'pharo3.0.x' version: latest.
 ]
 
 { #category : #versions }
@@ -494,6 +495,19 @@ ConfigurationOfObjectBrowser >> version202: spec [
 ]
 
 { #category : #versions }
+ConfigurationOfObjectBrowser >> version203: spec [ 
+    <version: '2.0.3' imports: #('2.0-baseline')>
+	spec for: #common do:[
+		spec blessing: #release.
+		spec package: 'ObjectBrowser' with: 'ObjectBrowser-GiselaDecuzzi.506'. 
+
+		spec project: 'smallUML' with: '1.1.4'.
+				
+		spec package: 'SUML-ObjectDiagramModel' with: 'SUML-ObjectDiagramModel-GuillermoPolito.21'.
+	].
+]
+
+{ #category : #versions }
 ConfigurationOfObjectBrowser >> version20: spec [ 
     <version: '2.0' imports: #('2.0-baseline')>
 	spec for: #common do:[
@@ -513,7 +527,7 @@ ConfigurationOfObjectBrowser >> version30: spec [
 		for: #common
 		do: [ 
 			spec blessing: #development.
-			spec package: 'ObjectBrowser' with: 'ObjectBrowser-GuillermoPolito.494'.
+			spec package: 'ObjectBrowser' with: 'ObjectBrowser-NicolasScarcella.550'. "Actualizar cuando termine Verano 2014"
 			spec project: 'smallUML' with: '1.2'.
 			spec project: 'artefact' with: '1.3' ]
 ]
