@@ -15,7 +15,7 @@ Class {
 	#category : #'ObjectBrowser-Collections'
 }
 
-{ #category : #methods }
-OBSortedMetaObject >> selectorsToDispay [
-	^ super selectorsToDispay , #(#add: #addAll: #allButLast #at: #at:put: #beginsWith: #copyFrom:to: #first #first: #gather: #includes: #indexOf: #inject:into: #intersection: #last #last: #remove: #removeAll #removeAll: #removeAllSuchThat: #union:)
+{ #category : #'as yet unclassified' }
+OBSortedMetaObject >> classSelectorsToDisplay [
+	^ #(#add: #addAll: #intersection: #remove: #removeAll #removeAll: #removeAllSuchThat: #union:)
 ]

@@ -14,7 +14,8 @@ Class {
 	#superclass : #OBMetaObject,
 	#instVars : [
 		'posibleName',
-		'allClassesMethods'
+		'allClassesMethods',
+		'selectorsToDisplay'
 	],
 	#classVars : [
 		'CreationObservers',
@@ -101,6 +102,11 @@ OBCollectionMetaObject >> basicRelationships [
 ]
 
 { #category : #methods }
+OBCollectionMetaObject >> classSelectorsToDisplay [
+	^ #(#allSatisfy: #anySatisfy: #asBag #asOrderedCollection #asSet #asSortedCollection: #collect: #count: #detect:ifNone: #detectMax: #detectMin: #do: #gather: #includes: #inject:into: #isEmpty #occurrencesOf: #reject: #select: #size #sum:)
+]
+
+{ #category : #methods }
 OBCollectionMetaObject >> compileMethod: aMethod  notifying: someone [
 
 	self signalNotModificableCollection
@@ -136,23 +142,16 @@ OBCollectionMetaObject >> icon [
 	^nil
 ]
 
+{ #category : #methods }
+OBCollectionMetaObject >> initialize [
+	super initialize.
+	selectorsToDisplay := self classSelectorsToDisplay
+]
+
 { #category : #'ui-actions' }
 OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 
 	anObjectBrowser selectedPage: #objects.
-]
-
-{ #category : #methods }
-OBCollectionMetaObject >> methods [
-	^ methodsToDisplay
-		ifNil: [ methodsToDisplay := self methodsToDisplay asSortedCollection: [ :m1 :m2 | m1 selector < m2 selector ] ]
-]
-
-{ #category : #methods }
-OBCollectionMetaObject >> methodsToDisplay [
-	"(self baseObject class allSelectorsAboveUntil: Collection) collect:..."
-
-	^ self selectorsToDispay collect: [ :aSelector | self createMethodWithSelector: aSelector ]
 ]
 
 { #category : #accessing }
@@ -193,8 +192,8 @@ OBCollectionMetaObject >> removeMethod: aSelector [
 ]
 
 { #category : #methods }
-OBCollectionMetaObject >> selectorsToDispay [
-	^ #(#allSatisfy: #anySatisfy: #asBag #asOrderedCollection #asSet #asSortedCollection: #collect: #count: #detect:ifNone: #detectMax: #detectMin: #do: #gather: #includes: #inject:into: #isEmpty #occurrencesOf: #reject: #select: #size #sum:)
+OBCollectionMetaObject >> selectorsToDisplay [
+	^ selectorsToDisplay
 ]
 
 { #category : #accessing }

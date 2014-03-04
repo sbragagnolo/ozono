@@ -12,14 +12,19 @@ OBDictionaryPrototype >> baseDisplayString [
 	^ 'aDictionary'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBDictionaryPrototype >> collectionMetaObjectClass [
 	^ OBDictionaryMetaObject
 ]
 
 { #category : #cloning }
+OBDictionaryPrototype >> collectionRealObjectClass [
+	^ OBDictionary
+]
+
+{ #category : #cloning }
 OBDictionaryPrototype >> createRealCollection [
-	^OBDictionary new.
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #accessing }

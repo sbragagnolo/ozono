@@ -12,14 +12,19 @@ OBSetPrototype >> baseDisplayString [
 	^ 'aSet'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBSetPrototype >> collectionMetaObjectClass [
 	^ OBSetMetaObject
 ]
 
 { #category : #cloning }
+OBSetPrototype >> collectionRealObjectClass [
+	^ OBSet
+]
+
+{ #category : #cloning }
 OBSetPrototype >> createRealCollection [
-	^OBSet new.
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #accessing }

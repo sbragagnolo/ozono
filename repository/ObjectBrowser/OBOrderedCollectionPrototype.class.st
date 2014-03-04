@@ -12,14 +12,19 @@ OBOrderedCollectionPrototype >> baseDisplayString [
 	^'anOrderedCollection'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBOrderedCollectionPrototype >> collectionMetaObjectClass [
 	^ OBOrderedCollectionMetaObject
 ]
 
 { #category : #cloning }
+OBOrderedCollectionPrototype >> collectionRealObjectClass [
+	^ OBOrderedCollection
+]
+
+{ #category : #cloning }
 OBOrderedCollectionPrototype >> createRealCollection [
-	^OBOrderedCollection new.
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #accessing }

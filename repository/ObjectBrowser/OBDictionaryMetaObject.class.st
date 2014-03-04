@@ -37,6 +37,11 @@ OBDictionaryMetaObject >> basicRelationships [
 		]
 ]
 
+{ #category : #'as yet unclassified' }
+OBDictionaryMetaObject >> classSelectorsToDisplay [ 
+	^ super classSelectorsToDisplay , #(at: at:put: keys: values:)
+]
+
 { #category : #references }
 OBDictionaryMetaObject >> hasReferencesTo: anOBObject [
 
@@ -52,11 +57,6 @@ OBDictionaryMetaObject >> keysReferenceTo: anOBObject [
 { #category : #printing }
 OBDictionaryMetaObject >> printString [
 	^'aDictionary'.
-]
-
-{ #category : #methods }
-OBDictionaryMetaObject >> selectorsToDispay [
-	^ super selectorsToDispay , #(#at: #at:put:)
 ]
 
 { #category : #references }

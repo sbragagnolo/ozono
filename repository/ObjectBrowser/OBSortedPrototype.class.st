@@ -12,14 +12,19 @@ OBSortedPrototype >> baseDisplayString [
 	^ 'aSorted'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBSortedPrototype >> collectionMetaObjectClass [
 	^ OBSortedMetaObject
 ]
 
 { #category : #cloning }
+OBSortedPrototype >> collectionRealObjectClass [
+	^ OBSortedCollection
+]
+
+{ #category : #cloning }
 OBSortedPrototype >> createRealCollection [
-	^OBSortedCollection new.
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #accessing }

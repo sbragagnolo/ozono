@@ -12,19 +12,19 @@ OBBagPrototype >> baseDisplayString [
 	^'aBag'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance-creation' }
 OBBagPrototype >> collectionMetaObjectClass [
 	^ OBBagMetaObject
 ]
 
-{ #category : #printing }
-OBBagPrototype >> collectionTypeName [
-	^'Bag'
+{ #category : #cloning }
+OBBagPrototype >> collectionRealObjectClass [
+	^ OBBag
 ]
 
 { #category : #cloning }
 OBBagPrototype >> createRealCollection [
-	^OBBag new.
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #accessing }

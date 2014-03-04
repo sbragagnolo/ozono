@@ -47,13 +47,17 @@ OBCollectionPrototype >> clone [
 
 { #category : #'instance-creation' }
 OBCollectionPrototype >> collectionMetaObjectClass [
-	^ self subclassResponsibility
+	^ self subclassResponsibility 
+]
+
+{ #category : #'instance-creation' }
+OBCollectionPrototype >> collectionRealObjectClass [
+	^ self subclassResponsibility  
 ]
 
 { #category : #cloning }
 OBCollectionPrototype >> createRealCollection [
-
-	self subclassResponsibility
+	^self collectionRealObjectClass new.
 ]
 
 { #category : #printing }
@@ -72,6 +76,11 @@ OBCollectionPrototype >> lesson: aLesson [
 OBCollectionPrototype >> methods [
 
 	^ #()
+]
+
+{ #category : #cloning }
+OBCollectionPrototype >> new [
+	^ self clone
 ]
 
 { #category : #'instance-creation' }

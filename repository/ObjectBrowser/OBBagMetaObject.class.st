@@ -16,6 +16,6 @@ Class {
 }
 
 { #category : #methods }
-OBBagMetaObject >> selectorsToDispay [
-	^ super selectorsToDispay , #(#add: #addAll: #intersection: #remove: #removeAll #removeAll: #removeAllSuchThat: #union:)
+OBBagMetaObject >> classSelectorsToDisplay [
+	^ super classSelectorsToDisplay , #(#add: #addAll: #intersection: #remove: #removeAll #removeAll: #removeAllSuchThat: #union:)
 ]

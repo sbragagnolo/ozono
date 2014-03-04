@@ -41,19 +41,47 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 ]
 
 { #category : #tests }
-ObjectBrowserCollectionTestCase >> testConstantMethodList [
-	self testConstantMethodListsForLiteral: #set.
-	self testConstantMethodListsForLiteral: #ordered.
-	self testConstantMethodListsForLiteral: #dictionary.
-	self testConstantMethodListsForLiteral: #sorted.
-	self testConstantMethodListsForLiteral: #bag.
+ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInMethods [
+	| pepita |
+	pepita := currentLesson createObject.
+	currentLesson createVariableNamed: 'pepita' pointingTo: pepita metaObject.
+	self assert: (currentLesson hasVariableNamed: 'pepita').
+	pepita addVariable: 'col'.
+	pepita compileMethod: 'initialize
+		col := Bag new.
+		col add: 1.
+		col add: 2'
+	pepita initialize.
+	pepita compileMethod: 'size
+		^ col size'.
+	self assert: pepita size equals: 2.
+	
+	
 ]
 
 { #category : #tests }
-ObjectBrowserCollectionTestCase >> testConstantMethodListsForLiteral: aSymbol [
+ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInTests [
+	| col |
+	col := Bag new.
+	col add: 1.
+	col add: 2.
+	self assert: col size equals: 2
+]
+
+{ #category : #tests }
+ObjectBrowserCollectionTestCase >> testConstantSelectorList [
+	self testConstantSelectorListsForLiteral: #set.
+	self testConstantSelectorListsForLiteral: #ordered.
+	self testConstantSelectorListsForLiteral: #dictionary.
+	self testConstantSelectorListsForLiteral: #sorted.
+	self testConstantSelectorListsForLiteral: #bag.
+]
+
+{ #category : #tests }
+ObjectBrowserCollectionTestCase >> testConstantSelectorListsForLiteral: aSymbol [
 	| aCollection |
 	aCollection := (currentLesson literalNamed: aSymbol) clone.
-	self assert: aCollection metaObject methods == aCollection metaObject methods
+	self assert: aCollection metaObject selectorsToDisplay == aCollection metaObject selectorsToDisplay
 ]
 
 { #category : #tests }
