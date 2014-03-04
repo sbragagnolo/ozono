@@ -48,12 +48,6 @@ OBCompilationBinder >> class: anOBClass [
 ]
 
 { #category : #compiling }
-OBCompilationBinder >> doesNotUnderstand: aMessage [
-	self halt.
-	^ super doesNotUnderstand: aMessage
-]
-
-{ #category : #compiling }
 OBCompilationBinder >> environment [
 
 	^ lesson lessonEnvironment
