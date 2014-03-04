@@ -137,14 +137,10 @@ OBLesson >> asString [
 ]
 
 { #category : #literals }
-OBLesson >> bindingOf: aName [
-	
-	^ (self includesLiteralNamed: aName)
+OBLesson >> bindingOf: aName [ 
+	^(self includesLiteralNamed: aName)
 		ifTrue: [ aName -> (self literalNamed: aName) ]
-		ifFalse: [ 
-			(self includesLiteralOfClass: aName) 
-			ifTrue: [ aName -> (self literalOfClass: aName) ]
-			ifFalse: [ nil ] ]
+		ifFalse: [ nil ]
 ]
 
 { #category : #diagram }
@@ -297,12 +293,6 @@ OBLesson >> includesLiteralNamed: aLiteralName [
 	^literals includesKey: aLiteralName 
 ]
 
-{ #category : #literals }
-OBLesson >> includesLiteralOfClass: aName [
-	
-	^ literals anySatisfy: [ :aPrototype | aPrototype collectionRealObjectClass superclass asString = aName ]
-]
-
 { #category : #'initialize-release' }
 OBLesson >> initialize [
 	
@@ -335,6 +325,8 @@ OBLesson >> initializeLiterals [
 	literals at:#sorted put: (OBSortedPrototype newForLesson: self).
 	literals at:#sortedcollection put: (OBSortedPrototype newForLesson: self).
 	literals at:#dictionary put: (OBDictionaryPrototype newForLesson: self).
+	
+	literals values copy do: [:value | literals at: value collectionRealObjectClass superclass asString put: value ].
 ]
 
 { #category : #accessing }
@@ -347,11 +339,6 @@ OBLesson >> lessonEnvironment [
 OBLesson >> literalNamed: aLiteralName [
 
 	^literals at: aLiteralName
-]
-
-{ #category : #literals }
-OBLesson >> literalOfClass: aName [
-	^ literals detect: [ :aPrototype | aPrototype collectionRealObjectClass superclass asString = aName ]
 ]
 
 { #category : #'ui-actions' }

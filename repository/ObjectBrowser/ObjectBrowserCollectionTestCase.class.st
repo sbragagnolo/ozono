@@ -44,28 +44,39 @@ ObjectBrowserCollectionTestCase >> testAddDuplicateVariablesSet [
 ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInMethods [
 	| pepita |
 	pepita := currentLesson createObject.
-	currentLesson createVariableNamed: 'pepita' pointingTo: pepita metaObject.
+	currentLesson createVariableNamed: 'pepita' pointingTo: pepita.
 	self assert: (currentLesson hasVariableNamed: 'pepita').
-	pepita addVariable: 'col'.
+	pepita addAttributeNamed: 'col'.
 	pepita compileMethod: 'initialize
 		col := Bag new.
 		col add: 1.
-		col add: 2'
-	pepita initialize.
+		col add: 2.'.
 	pepita compileMethod: 'size
 		^ col size'.
-	self assert: pepita size equals: 2.
+	pepita baseObject initialize.
+	self assert: pepita baseObject size equals: 2.
 	
 	
 ]
 
 { #category : #tests }
 ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInTests [
+	|test|
+	test := currentLesson compileTest: 'testHelloNurse
 	| col |
-	col := Bag new.
+	col := OrderedCollection new.
 	col add: 1.
 	col add: 2.
-	self assert: col size equals: 2
+	self assert: col size equals: 2.'.
+	
+	self assert: test run isSuccess.
+]
+
+{ #category : #tests }
+ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInWorkspace [
+	OrderedCollection new.
+	'must create workspace'
+	self assert: false.
 ]
 
 { #category : #tests }
