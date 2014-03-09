@@ -9,15 +9,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OBWorkspaceIntegrationTestCase >> executeOnWorkspace: aWorkspace code: aString [
-	| textMorphs textMorph |
-	aWorkspace setContent: aString.	"ws acceptContents: codigoParaWS."
-	textMorphs := aWorkspace dependents select: [ :c | c isKindOf: PluggableTextMorph ].
-	textMorph := textMorphs first.
-	textMorph doIt
-]
-
-{ #category : #'as yet unclassified' }
 OBWorkspaceIntegrationTestCase >> setUp [
 	super setUp.
 	lessonModel := OBLessonModel onLesson: currentLesson.

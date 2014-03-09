@@ -73,13 +73,6 @@ ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInTests 
 ]
 
 { #category : #tests }
-ObjectBrowserCollectionTestCase >> testCollectionsCreatedWithClassesWorkInWorkspace [
-	OrderedCollection new.
-	'must create workspace'
-	self assert: false.
-]
-
-{ #category : #tests }
 ObjectBrowserCollectionTestCase >> testConstantSelectorList [
 	self testConstantSelectorListsForLiteral: #set.
 	self testConstantSelectorListsForLiteral: #ordered.
