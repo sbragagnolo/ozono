@@ -527,7 +527,7 @@ ConfigurationOfObjectBrowser >> version30: spec [
 		for: #common
 		do: [ 
 			spec blessing: #development.
-			spec package: 'ObjectBrowser' with: 'ObjectBrowser-NicolasScarcella.550'. "Actualizar cuando termine Verano 2014"
+			spec package: 'ObjectBrowser' with: 'ObjectBrowser-PabloTesone.555'. "Actualizar cuando termine Verano 2014"
 			spec project: 'smallUML' with: '1.2'.
 			spec project: 'artefact' with: '1.3' ]
 ]
