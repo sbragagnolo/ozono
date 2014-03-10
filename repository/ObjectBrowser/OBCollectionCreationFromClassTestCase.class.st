@@ -62,7 +62,7 @@ OBCollectionCreationFromClassTestCase >> testNewOrderedCollectionInObject [
 { #category : #'as yet unclassified' }
 OBCollectionCreationFromClassTestCase >> testNewSet [
 	self executeOnWorkspace: workspace code: 'obj x: Set new'. 
-	self assert: obj pointsTo baseObject x class = Set.
+	self assert: obj pointsTo baseObject x class = OBSet.
 	self assert: obj pointsTo baseObject x isEmpty.
 ]
 

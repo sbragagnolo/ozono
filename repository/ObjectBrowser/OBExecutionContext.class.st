@@ -13,7 +13,10 @@ Class {
 	#name : #OBExecutionContext,
 	#superclass : #TestCase,
 	#instVars : [
-		'_lesson'
+		'_lesson',
+		'Set',
+		'Bag',
+		'OrderedCollection'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
@@ -41,13 +44,17 @@ OBExecutionContext >> getValueFromContext: anOBVariable [
 { #category : #accessing }
 OBExecutionContext >> lesson: aLesson [
 
-	_lesson := aLesson
+	_lesson := aLesson.
+	
+	Set := OBSetPrototype newForLesson: aLesson.
+	Bag := OBBagPrototype newForLesson: aLesson.
+	OrderedCollection := OBOrderedCollectionPrototype newForLesson: aLesson.
 ]
 
 { #category : #execution }
 OBExecutionContext >> prepare [
-
 	_lesson variables do:[:v | self putInContext: v].
+
 ]
 
 { #category : #execution }
