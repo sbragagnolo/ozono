@@ -41,6 +41,14 @@ OBWorkspace >> bindings [
 	^lesson variables collect: #name
 ]
 
+{ #category : #'as yet unclassified' }
+OBWorkspace >> buildTextMorph [
+	| morph |
+	morph := super buildTextMorph.
+	morph changedAction: [ :text | lesson changed ].
+	^morph.
+]
+
 { #category : #actions }
 OBWorkspace >> closeYourself [
 	window delete.

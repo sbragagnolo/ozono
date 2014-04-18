@@ -29,6 +29,11 @@ OBObject >> displayString [
 	^'unObjeto'
 ]
 
+{ #category : #'as yet unclassified' }
+OBObject >> doesNotUnderstand: aMessage [
+	self error: (self printString, ' no entiende el mensaje ', (aMessage selector))
+]
+
 { #category : #accessing }
 OBObject >> metaObject [
 
