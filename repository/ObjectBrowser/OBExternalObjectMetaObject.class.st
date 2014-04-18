@@ -5,11 +5,7 @@ I do not support all the same operations as an OBMetaObject, but mostly introspe
 "
 Class {
 	#name : #OBExternalObjectMetaObject,
-	#superclass : #Object,
-	#instVars : [
-		'methods',
-		'concreteObject'
-	],
+	#superclass : #OBAbstractMetaObject,
 	#category : #'ObjectBrowser-Objects'
 }
 
@@ -107,7 +103,14 @@ OBExternalObjectMetaObject >> menu: aMenuMorph [
 
 { #category : #methods }
 OBExternalObjectMetaObject >> methods [
-	^methods ifNil: [ methods := concreteObject class methods collect:[:m | OBMethod new selector: (m selector); object: self; yourself ]. ]
+	^ methods
+		ifNil: [ 
+			methods := concreteObject class methods
+				collect: [ :m | 
+					OBMethod new
+						selector: m selector;
+						object: self;
+						yourself ] ]
 ]
 
 { #category : #methods }

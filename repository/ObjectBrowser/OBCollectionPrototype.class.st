@@ -72,12 +72,6 @@ OBCollectionPrototype >> lesson: aLesson [
 	lesson := aLesson
 ]
 
-{ #category : #methods }
-OBCollectionPrototype >> methods [
-
-	^ #()
-]
-
 { #category : #cloning }
 OBCollectionPrototype >> new [
 	^ self clone
@@ -89,7 +83,6 @@ OBCollectionPrototype >> newMetaObjectForCollection: aRealCollection [
 	| metaCollection |
 	metaCollection := self collectionMetaObjectClass
 						newWithRealObject: aRealCollection
-						inLesson: lesson
 						prototype: self.
 	aRealCollection metaObject: metaCollection.
 	^metaCollection.

@@ -11,16 +11,10 @@ I also provide some information of the actions that can be performed on me that 
 "
 Class {
 	#name : #OBMetaObject,
-	#superclass : #Object,
+	#superclass : #OBAbstractMetaObject,
 	#instVars : [
-		'prototype',
-		'methods',
-		'lesson',
 		'attributes',
-		'concreteObject'
-	],
-	#classVars : [
-		'NextObjectBrowserClassNumber'
+		'lesson'
 	],
 	#category : #'ObjectBrowser-Objects'
 }
@@ -30,11 +24,6 @@ OBMetaObject class >> createNewObjectBrowserObjectClassIn: aLesson [
 	^ aLesson
 		createClass: (OBObject name, self takeSequencialNumber asString) asSymbol
 		subclassOf: OBObject
-]
-
-{ #category : #'class initialization' }
-OBMetaObject class >> initialize [
-	NextObjectBrowserClassNumber := 1
 ]
 
 { #category : #'instance-creation' }
@@ -80,21 +69,6 @@ OBMetaObject >> >> aSelector [
 OBMetaObject >> accept: aVisitor [
 
 	aVisitor visitObject: self.
-]
-
-{ #category : #'ui-actions' }
-OBMetaObject >> actionsForAttributeListWith: selectedAttribute [
-
-	| actions |
-	actions := OrderedCollection with: #('Crear nueva referencia' createAttribute).
-	actions addAll: (selectedAttribute actionsForAttributeList).
-	^actions asArray
-]
-
-{ #category : #'ui-actions' }
-OBMetaObject >> actionsForObjectBrowserReferencesList [
-
-	^#(#('Clonar objeto referenciado' #cloneObject)).
 ]
 
 { #category : #attributes }
@@ -170,12 +144,6 @@ OBMetaObject >> attributes [
 		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
-{ #category : #accessing }
-OBMetaObject >> baseObject [
-
-	^ concreteObject
-]
-
 { #category : #references }
 OBMetaObject >> basicObjectAtAttributeNamed: attributeName [
 
@@ -230,17 +198,6 @@ OBMetaObject >> compileMethod: aMethodCode notifying: someone [
 	^ obMethod
 ]
 
-{ #category : #accessing }
-OBMetaObject >> concreteObject: anObject [
-
-	concreteObject := anObject
-]
-
-{ #category : #ui }
-OBMetaObject >> deleteConfirmationMessage [
-	^ '¿Está seguro de eliminar la referencia a este objeto? El objeto referenciado aparecerá en la papelera si no tiene otras referencias.' translated
-]
-
 { #category : #printing }
 OBMetaObject >> displayString [
 
@@ -282,14 +239,6 @@ OBMetaObject >> inspect [
 	self baseObject inspect
 ]
 
-{ #category : #methods }
-OBMetaObject >> isRedefined: aSelector [
-
-	^OBPharoReflection uniqueInstance
-		inSubclassesOfClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
-		isRedefined: aSelector
-]
-
 { #category : #accessing }
 OBMetaObject >> lesson [
 
@@ -302,54 +251,20 @@ OBMetaObject >> lesson: aLesson [
 	lesson := aLesson
 ]
 
-{ #category : #'ui-actions' }
-OBMetaObject >> menu: aMenuMorph [
-
-	aMenuMorph addLine.
-	^aMenuMorph addList: (self actionsForObjectBrowserReferencesList).
-]
-
 { #category : #methods }
 OBMetaObject >> methods [
-
 	| allMethods dictionaryMethods |
 	dictionaryMethods := Dictionary new.
-	allMethods:= prototype methods.
-	allMethods do: [:method | dictionaryMethods at: method selector put: method ].	
-	methods do: [:method | dictionaryMethods at: method selector put: method ].
+	allMethods := prototype methods.
+	allMethods do: [ :method | dictionaryMethods at: method selector put: method ].
+	methods do: [ :method | dictionaryMethods at: method selector put: method ].
 	^ dictionaryMethods values
-]
-
-{ #category : #accessing }
-OBMetaObject >> posibleName [
-
-	^ ((OBPharoReflection uniqueInstance classNameOfObject: self baseObject), self baseObject hash asString) asLowercase.
 ]
 
 { #category : #printing }
 OBMetaObject >> printOn: aStream [
 
 	self baseObject printOn: aStream.
-]
-
-{ #category : #cloning }
-OBMetaObject >> prototype [
-
-	^prototype
-]
-
-{ #category : #cloning }
-OBMetaObject >> prototype: anObject [
-
-	prototype := anObject
-]
-
-{ #category : #methods }
-OBMetaObject >> redefines: aSelector [
-
-	^OBPharoReflection uniqueInstance
-		inClass: (OBPharoReflection uniqueInstance classOf: self baseObject)
-		isRedefined: aSelector
 ]
 
 { #category : #cloning }
@@ -385,12 +300,6 @@ OBMetaObject >> removeMethod: aMethod [
 	OBPharoReflection uniqueInstance inClassOf: self baseObject removeMethodWithSelector: aMethod selector.
 	methods removeKey: aMethod selector.
 	self changed.
-]
-
-{ #category : #accessing }
-OBMetaObject >> size [
-
-	^self baseObject size
 ]
 
 { #category : #methods }

@@ -11,7 +11,7 @@ I also provide some information of the actions that can be performed on me that 
 "
 Class {
 	#name : #OBCollectionMetaObject,
-	#superclass : #OBMetaObject,
+	#superclass : #OBAbstractMetaObject,
 	#instVars : [
 		'posibleName',
 		'allClassesMethods',
@@ -49,10 +49,9 @@ OBCollectionMetaObject class >> new: setName [
 ]
 
 { #category : #'instance creation' }
-OBCollectionMetaObject class >> newWithRealObject: realObject inLesson: aLesson prototype: aPrototypeObject [
+OBCollectionMetaObject class >> newWithRealObject: realObject prototype: aPrototypeObject [
 	^super new
 		concreteObject: realObject;
-		lesson: aLesson;
 		prototype: aPrototypeObject;
 		yourself.
 ]
@@ -82,6 +81,11 @@ OBCollectionMetaObject >> allRelationships [
 	| prototypeRelationship |
 	prototypeRelationship := self prototype relationWith: self.
 	^prototypeRelationship withRelationships: self basicRelationships
+]
+
+{ #category : #'as yet unclassified' }
+OBCollectionMetaObject >> attributes [
+	^ #()
 ]
 
 { #category : #printing }
@@ -125,6 +129,11 @@ OBCollectionMetaObject >> displayString [
 	^self baseObject displayString.
 ]
 
+{ #category : #attributes }
+OBCollectionMetaObject >> hasAttributeNamed: anAttributeName [
+	^ false
+]
+
 { #category : #references }
 OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 
@@ -146,6 +155,16 @@ OBCollectionMetaObject >> initialize [
 OBCollectionMetaObject >> makeSelectionOn: anObjectBrowser [
 
 	anObjectBrowser selectedPage: #objects.
+]
+
+{ #category : #methods }
+OBCollectionMetaObject >> methods [
+	^ self selectorsToDisplay
+		collect: [ :selector | 
+			OBMethod new
+				selector: selector;
+				object: self;
+				yourself ]
 ]
 
 { #category : #accessing }

@@ -39,7 +39,7 @@ OBDictionaryMetaObject >> basicRelationships [
 
 { #category : #'as yet unclassified' }
 OBDictionaryMetaObject >> classSelectorsToDisplay [ 
-	^ super classSelectorsToDisplay , #(at: at:put: keys: values:)
+	^ super classSelectorsToDisplay , #(at: at:put: keys values)
 ]
 
 { #category : #references }
