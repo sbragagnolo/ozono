@@ -136,7 +136,11 @@ OBWorkspace >> menu: aMenuBuilder [
 
 { #category : #'showing/creation' }
 OBWorkspace >> openInWorld [
-	window := self openLabel: self label.
+	(window = nil) 
+		ifTrue: [ window := self openLabel: self label ]
+		ifFalse: [ 
+			(window isDisplayed) ifTrue: [ window activate  ] ifFalse: [  window := self openLabel: self label ]
+		]
 ]
 
 { #category : #accessing }
