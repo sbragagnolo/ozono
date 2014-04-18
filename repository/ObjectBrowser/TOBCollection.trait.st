@@ -19,6 +19,12 @@ TOBCollection >> clone [
 	^ self metaObject clone realObject
 ]
 
+{ #category : #cloning }
+TOBCollection >> copyEmpty [
+
+	^ super copyEmpty metaObject: (self metaObject).
+]
+
 { #category : #printing }
 TOBCollection >> displayString [
 
@@ -27,12 +33,12 @@ TOBCollection >> displayString [
 
 { #category : #printing }
 TOBCollection >> printOn: aStream [
-
-	aStream nextPutAll: self displayString
+	aStream << self displayString.
+	self printElementsOn:aStream.
 ]
 
 { #category : #printing }
 TOBCollection >> printString [
 
-	^self displayString
+	^self printStringLimitedTo: 3000.
 ]
