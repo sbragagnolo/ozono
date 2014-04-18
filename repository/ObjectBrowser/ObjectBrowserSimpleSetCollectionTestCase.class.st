@@ -21,7 +21,7 @@ ObjectBrowserSimpleSetCollectionTestCase >> expectedOnCollect [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleSetCollectionTestCase >> expectedPrintString [
-	^'aSet' 
+	^'aSet(5 6 8)' 
 ]
 
 { #category : #'as yet unclassified' }

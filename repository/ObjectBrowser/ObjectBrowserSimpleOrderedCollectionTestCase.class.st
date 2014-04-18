@@ -20,7 +20,7 @@ ObjectBrowserSimpleOrderedCollectionTestCase >> expectedOnCollect [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserSimpleOrderedCollectionTestCase >> expectedPrintString [
-	^'anOrderedCollection'.
+	^'anOrderedCollection(5 6 8)'.
 ]
 
 { #category : #'as yet unclassified' }
