@@ -32,3 +32,8 @@ OBTreeMenuModel >> objectBrowser: anObjectBrowser [
 
 	objectBrowser := anObjectBrowser
 ]
+
+{ #category : #accessing }
+OBTreeMenuModel >> openInWorld [
+	"Does nothing. Cannot open variables"
+]

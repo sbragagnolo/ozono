@@ -89,13 +89,15 @@ OBLessonWindow >> buildObjectAttributeList [
 
 { #category : #view }
 OBLessonWindow >> buildObjectBrowserTree [
-	^objectBrowserTree := (PluggableTreeMorph 
+	objectBrowserTree := (PluggableTreeMorphWithDoubleClick 
 		on: self objectBrowser
 		list: #lessonOrganization
 		selected: #selectedItem
 		changeSelected: #selectedItem:
 		menu: #selectedItemMenu:
-		keystroke: nil)
+		keystroke: nil).
+	objectBrowserTree doubleClickSelector: #openInWorld.
+	^objectBrowserTree
 			
 ]
 

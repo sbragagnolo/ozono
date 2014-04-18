@@ -111,6 +111,11 @@ OBLessonVariable >> notifySelectionTo: anObserverCollection [
 	anObserverCollection do: [ :o | o selectedClassOrMetaClass: (OBPharoReflection uniqueInstance classOf: self pointsTo baseObject) ]
 ]
 
+{ #category : #'as yet unclassified' }
+OBLessonVariable >> openInWorld [
+	"Does nothing. Cannot open variables"
+]
+
 { #category : #accessing }
 OBLessonVariable >> pointTo: anMetaObject [
 
