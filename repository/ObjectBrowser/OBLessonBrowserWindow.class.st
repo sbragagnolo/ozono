@@ -39,6 +39,7 @@ OBLessonBrowserWindow >> buildImportLessonButton [
 { #category : #creation }
 OBLessonBrowserWindow >> buildLessonList [
 	^ PluggableListMorph new
+		doubleClickSelector: #openSelectedLesson;
 		on: (OBLessonListModel newOn: loopBrowser)
 		list: #listModel
 		selected: #listIndex
