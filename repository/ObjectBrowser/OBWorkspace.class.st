@@ -15,6 +15,12 @@ Class {
 	#category : #'ObjectBrowser-UILesson'
 }
 
+{ #category : #'as yet unclassified' }
+OBWorkspace >> accept [
+	self textMorph accept.
+
+]
+
 { #category : #visiting }
 OBWorkspace >> accept: aVisitor [
 
@@ -52,6 +58,14 @@ OBWorkspace >> buildTextMorph [
 { #category : #actions }
 OBWorkspace >> closeYourself [
 	window delete.
+]
+
+{ #category : #'as yet unclassified' }
+OBWorkspace >> createWindow: labelString [
+	| w |
+	w := OBWorkspaceWindow labelled: labelString.
+	w workspace: self.
+	^w
 ]
 
 { #category : #ui }
@@ -143,6 +157,17 @@ OBWorkspace >> openInWorld [
 		]
 ]
 
+{ #category : #'as yet unclassified' }
+OBWorkspace >> openLabel: labelString [
+	"Overrides to introduce a template method to change the window's concrete class"
+	| w  panel |
+	w := (self createWindow: labelString) model: self.
+	panel := self buildTextMorph.
+	w addMorph: panel frame: (0@0 corner: 1@1).
+	w openInWorld.
+	^ w
+]
+
 { #category : #accessing }
 OBWorkspace >> selectedClassOrMetaClass [  
 	^nil
@@ -151,6 +176,11 @@ OBWorkspace >> selectedClassOrMetaClass [
 { #category : #fileout }
 OBWorkspace >> stringContents [
 	^(window findDeeplyA:TextMorph) text asString
+]
+
+{ #category : #'as yet unclassified' }
+OBWorkspace >> textMorph [
+	^window findA: PluggableTextMorph.
 ]
 
 { #category : #accessing }
