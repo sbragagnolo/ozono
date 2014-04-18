@@ -16,7 +16,10 @@ Class {
 		'_lesson',
 		'Set',
 		'Bag',
-		'OrderedCollection'
+		'OrderedCollection',
+		'SortedCollection',
+		'Dictionary',
+		'Error'
 	],
 	#category : #'ObjectBrowser-Lessons'
 }
@@ -49,6 +52,9 @@ OBExecutionContext >> lesson: aLesson [
 	Set := OBSetPrototype newForLesson: aLesson.
 	Bag := OBBagPrototype newForLesson: aLesson.
 	OrderedCollection := OBOrderedCollectionPrototype newForLesson: aLesson.
+	SortedCollection := OBSortedPrototype newForLesson: aLesson.
+	Dictionary := OBDictionaryPrototype newForLesson: aLesson.
+	Error := Smalltalk at: #Error.
 ]
 
 { #category : #execution }

@@ -122,7 +122,13 @@ OBCollectionMetaObject >> createMethodWithSelector: aSelector [
 
 { #category : #printing }
 OBCollectionMetaObject >> displayString [
-	^self baseObject displayString.
+
+	| className prefix |
+	className := self baseObject class name.
+	className first isVowel 
+		ifTrue: [ prefix := 'an'. ]
+		ifFalse: [ prefix:= 'a' ].
+	^(prefix, self baseObject class name) asLegalSelector
 ]
 
 { #category : #references }

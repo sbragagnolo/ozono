@@ -327,6 +327,7 @@ OBLesson >> initializeLiterals [
 	literals at:#dictionary put: (OBDictionaryPrototype newForLesson: self).
 	
 	literals values copy do: [:value | literals at: value collectionRealObjectClass superclass asString put: value ].
+	literals at: #Error put: Error.
 ]
 
 { #category : #accessing }
