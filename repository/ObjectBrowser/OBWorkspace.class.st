@@ -50,9 +50,24 @@ OBWorkspace >> bindings [
 { #category : #'as yet unclassified' }
 OBWorkspace >> buildTextMorph [
 	| morph |
-	morph := super buildTextMorph.
-	morph changedAction: [ :text | lesson changed ].
+	"superclase cambiando clase concreta del textmorph"
+	morph := WorkspacePluggableTextMorph 
+					on: self 
+					text: #contents 
+					accept: #acceptContents:
+					readSelection: nil 
+					menu: #codePaneMenu:shifted:.
+	
+	morph font: StandardFonts codeFont.
+	morph styler workspace: self.
+	morph askBeforeDiscardingEdits: true.
 	^morph.
+]
+
+{ #category : #'as yet unclassified' }
+OBWorkspace >> changed [
+	super changed.
+	lesson changed.
 ]
 
 { #category : #actions }
