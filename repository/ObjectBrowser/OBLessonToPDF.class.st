@@ -19,8 +19,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-OBLessonToPDF class >> newOnLesson:aLesson [
-	^self new lesson:aLesson.
+OBLessonToPDF class >> newOnLesson: aLesson [
+	^ self new lesson: aLesson
 ]
 
 { #category : #builder }

@@ -65,9 +65,11 @@ OBLessonModel >> changed [
 
 { #category : #showing }
 OBLessonModel >> cloneObject [
-		self createObject: [:objectName | 
-			self createVariable: objectName referencingTo: (self selectedObjectBrowserVariable pointsTo clone)
-			].
+	self createObject: [ :objectName | 
+			| clone |
+			clone := self selectedObjectBrowserVariable pointsTo clone.
+			lesson addObject: clone.
+			self createVariable: objectName referencingTo: clone ]
 ]
 
 { #category : #'as yet unclassified' }

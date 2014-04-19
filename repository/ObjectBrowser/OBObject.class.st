@@ -19,7 +19,6 @@ OBObject class >> new [
 
 { #category : #cloning }
 OBObject >> clone [
-
 	^ self metaObject clone baseObject
 ]
 

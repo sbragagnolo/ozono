@@ -305,9 +305,7 @@ OBLesson >> initialize [
 	
 	lessonEnvironment := SystemDictionary withOrganizer: SystemOrganizer new.
 	loopExecutionContextClass := self createClass: #LessonExecutionContext subclassOf: OBExecutionContext.
-	executionContext := loopExecutionContextClass new
-		lesson: self;
-		yourself.
+	executionContext := loopExecutionContextClass new lesson: self; yourself.
 	objectDiagram := LOOPObjectDiagramFactory buildDiagram
 		lesson: self;
 		yourself.
@@ -318,13 +316,13 @@ OBLesson >> initialize [
 OBLesson >> initializeLiterals [
 	literals := Dictionary new.
 	
-	literals at:#bag put: (OBBagPrototype newForLesson: self).
-	literals at:#set put: (OBSetPrototype newForLesson: self).
-	literals at:#ordered put: (OBOrderedCollectionPrototype newForLesson: self).
-	literals at:#orderedcollection put: (OBOrderedCollectionPrototype newForLesson: self).
-	literals at:#sorted put: (OBSortedPrototype newForLesson: self).
-	literals at:#sortedcollection put: (OBSortedPrototype newForLesson: self).
-	literals at:#dictionary put: (OBDictionaryPrototype newForLesson: self).
+	literals at:#bag put: (OBBagPrototype new).
+	literals at:#set put: (OBSetPrototype new).
+	literals at:#ordered put: (OBOrderedCollectionPrototype new).
+	literals at:#orderedcollection put: (OBOrderedCollectionPrototype new).
+	literals at:#sorted put: (OBSortedPrototype new).
+	literals at:#sortedcollection put: (OBSortedPrototype new).
+	literals at:#dictionary put: (OBDictionaryPrototype new).
 	
 	literals values copy do: [:value | literals at: value collectionRealObjectClass superclass asString put: value ].
 	literals at: #Error put: Error.

@@ -45,16 +45,18 @@ OBExecutionContext >> getValueFromContext: anOBVariable [
 ]
 
 { #category : #accessing }
-OBExecutionContext >> lesson: aLesson [
-
-	_lesson := aLesson.
-	
-	Set := OBSetPrototype newForLesson: aLesson.
-	Bag := OBBagPrototype newForLesson: aLesson.
-	OrderedCollection := OBOrderedCollectionPrototype newForLesson: aLesson.
-	SortedCollection := OBSortedPrototype newForLesson: aLesson.
-	Dictionary := OBDictionaryPrototype newForLesson: aLesson.
+OBExecutionContext >> initialize [
+	Set := OBSetPrototype new.
+	Bag := OBBagPrototype new.
+	OrderedCollection := OBOrderedCollectionPrototype new.
+	SortedCollection := OBSortedPrototype new.
+	Dictionary := OBDictionaryPrototype new.
 	Error := Smalltalk at: #Error.
+]
+
+{ #category : #accessing }
+OBExecutionContext >> lesson: aLesson [
+	_lesson := aLesson
 ]
 
 { #category : #execution }

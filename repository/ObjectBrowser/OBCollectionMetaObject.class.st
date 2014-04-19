@@ -56,6 +56,11 @@ OBCollectionMetaObject class >> newWithRealObject: realObject prototype: aProtot
 		yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+OBCollectionMetaObject >> = anotherMetaObject [
+	^ anotherMetaObject class = self class and: [ self baseObject = anotherMetaObject baseObject ]
+]
+
 { #category : #visiting }
 OBCollectionMetaObject >> accept: aVisitor [
 
@@ -138,6 +143,11 @@ OBCollectionMetaObject >> hasAttributeNamed: anAttributeName [
 OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 
 	^self baseObject includes: anOBObject baseObject
+]
+
+{ #category : #'as yet unclassified' }
+OBCollectionMetaObject >> hash [
+	^ self baseObject hash 
 ]
 
 { #category : #'ui-actions' }

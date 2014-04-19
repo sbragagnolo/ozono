@@ -11,9 +11,7 @@ Class {
 
 { #category : #'instance-creation' }
 OBExternalObjectMetaObject class >> for: anObject [
-	^((anObject isKindOf: Collection) and: [ (anObject isKindOf: String) not ])
-		ifTrue: [ OBCollectionMetaObject newWithRealObject: anObject ]
-		ifFalse: [ self new: anObject ].
+	^ self new: anObject
 ]
 
 { #category : #'instance-creation' }

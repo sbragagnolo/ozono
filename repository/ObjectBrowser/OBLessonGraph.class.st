@@ -74,6 +74,7 @@ OBLessonGraph >> markObject: anObject [
 
 	derreferencedObjects remove: anObject.
 	anObject allRelationships do: [ :v | v accept: self ].
+
 ]
 
 { #category : #querying }
@@ -167,7 +168,6 @@ OBLessonGraph >> visitLessonVariable: aLessonVariable [
 
 { #category : #visiting }
 OBLessonGraph >> visitOBExternalObject: anExternalObject [
-
 	self addObject: anExternalObject
 ]
 

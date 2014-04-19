@@ -15,7 +15,6 @@ TOBCollection classSide >> sourceCodeAt: aSelector [
 
 { #category : #cloning }
 TOBCollection >> clone [
-
 	^ self metaObject clone realObject
 ]
 

@@ -5,7 +5,6 @@ Trait {
 
 { #category : #cloning }
 TOBObject >> clone [
-
 	^ self metaObject clone realObject
 ]
 
