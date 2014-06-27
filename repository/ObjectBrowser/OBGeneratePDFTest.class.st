@@ -57,7 +57,7 @@ OBGeneratePDFTest >> testControlCode [
 OBGeneratePDFTest >> testInfoPage [
 	| pdfDoc infoPage |
 	pdfDoc := lessonToPDF buildPDFDocument.
-	infoPage := pdfDoc pages at: 2.
+	infoPage := pdfDoc pages at: 1.
 	self asserts: infoPage containsAParagraphWith: lessonToPDF operatingSystem.
 	self asserts: infoPage containsAParagraphWith: lessonToPDF pharoVersion.
 	self asserts: infoPage containsAParagraphWith: lessonToPDF ozonoVersion.
@@ -69,7 +69,6 @@ OBGeneratePDFTest >> testInfoPage [
 OBGeneratePDFTest >> testTitle [
 	| pdfDoc titlePage|
 	pdfDoc := lessonToPDF buildPDFDocument.
-
 	titlePage := pdfDoc pages at:1.
 
 	self asserts:titlePage containsAParagraphWith:'A Test Lesson'.

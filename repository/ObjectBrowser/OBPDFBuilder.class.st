@@ -121,6 +121,14 @@ OBPDFBuilder >> createFooter [
 	page
 		add:
 			(PDFParagraphElement new
+				text: self model formattedDate;
+				from: (self pageWidth - self rightMargin - 15) mm @ (self pageHeight - self bottomMargin + 4) mm;
+				style: self footerRightStyleSheet;
+				dimension: 15 mm @ 15 mm).
+
+	page
+		add:
+			(PDFParagraphElement new
 				text: self pageNumber asString , '/' , '*#pages#*';
 				from: (self pageWidth - self rightMargin - 15) mm @ (self pageHeight - self bottomMargin + 4) mm;
 				style: self footerRightStyleSheet;
