@@ -71,9 +71,11 @@ OBPDFBuilder >> buildInfo [
 ]
 
 { #category : #builder }
-OBPDFBuilder >> buildMethods [
+OBPDFBuilder >> buildObjects [
+	| visitor |
 	self createHeading: 'Objetos'.
-	
+	visitor := OBPDFVisitor new builder:self; yourself.
+	self model lesson accept:visitor.
 ]
 
 { #category : #builder }
@@ -82,8 +84,23 @@ OBPDFBuilder >> buildOn: aPDFDocument [
 	self newPage.
 	
 	self buildInfo.
-	self buildMethods.
+	self buildObjects.
 	self buildDiagram.
+]
+
+{ #category : #styles }
+OBPDFBuilder >> codeStyleSheet [
+	| titleFont titleStyleSheet |
+	titleFont := (PDFCourierFont new fontSize: 10 pt).
+	titleStyleSheet := PDFStyleSheet new font: titleFont.
+	titleStyleSheet alignment: PDFAlignment left middle.
+	titleStyleSheet margin:0 mm.
+	^titleStyleSheet.
+]
+
+{ #category : #'create elements' }
+OBPDFBuilder >> createCode: text [
+	(text subStrings: String crlf) do: [ :e | self createText: (self replaceTabs:e) withStyle: self codeStyleSheet ]
 ]
 
 { #category : #'header and footer' }
@@ -146,15 +163,7 @@ OBPDFBuilder >> createHeader [
 
 { #category : #'create elements' }
 OBPDFBuilder >> createHeading: text [
-	| element |
-	element := (PDFParagraphElement new
-				styleSheet: self headingStyleSheet;
-				dimension: self usableWidth mm @ 0mm;
-				from: self leftMargin mm @ 0 mm;
-				text: text).
-	element shrinkToContent.
-	self addToPage: element.
-	self updateTop: (element dimension y as:#millimeters)value.
+	^self createText: text withStyle: self headingStyleSheet.
 ]
 
 { #category : #'create elements' }
@@ -185,6 +194,24 @@ OBPDFBuilder >> createLabel: labelText withText: text labelRatio: labelRatio [
 		addToPage:value.
 				
 	self updateTop: ((label dimension y as:#millimeters) value max:(value dimension y as:#millimeters) value) .
+]
+
+{ #category : #'create elements' }
+OBPDFBuilder >> createSubHeading: text [
+	^self createText: text withStyle: self headingStyleSheet.
+]
+
+{ #category : #'create elements' }
+OBPDFBuilder >> createText: text withStyle: style [
+	| element |
+	element := (PDFParagraphElement new
+				styleSheet: style;
+				dimension: self usableWidth mm @ 0mm;
+				from: self leftMargin mm @ 0 mm;
+				text: text).
+	element shrinkToContent.
+	self addToPage: element.
+	self updateTop: (element dimension y as:#millimeters)value.
 ]
 
 { #category : #accessing }
@@ -322,6 +349,18 @@ OBPDFBuilder >> pageNumber [
 { #category : #'calculated properties' }
 OBPDFBuilder >> pageWidth [
 	^(page format width convertTo: Unit mm) value floor.
+]
+
+{ #category : #convertion }
+OBPDFBuilder >> replaceTabs: aString [
+	| st |
+	st := WriteStream on: String new.
+	aString
+		do: [ :c | 
+			c = Character tab
+				ifTrue: [ st nextPutAll: '    ' ]
+				ifFalse: [ st nextPut: c ] ].
+	^ st contents
 ]
 
 { #category : #margins }
