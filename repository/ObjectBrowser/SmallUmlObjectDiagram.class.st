@@ -32,6 +32,11 @@ SmallUmlObjectDiagram >> exportDiagram [
 	self diagramMorph exportAsJPEG
 ]
 
+{ #category : #'*ObjectBrowser' }
+SmallUmlObjectDiagram >> imageForm [
+	^self diagramMorph imageFormForRectangle: (self diagramMorph bounds).
+]
+
 { #category : #'as yet unclassified' }
 SmallUmlObjectDiagram >> initialize [
 	diagram := ObjectDiagram new.

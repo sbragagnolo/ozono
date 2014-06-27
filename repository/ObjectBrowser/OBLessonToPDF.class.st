@@ -25,8 +25,7 @@ OBLessonToPDF class >> newOnLesson: aLesson [
 
 { #category : #builder }
 OBLessonToPDF >> addPagesTo: pdfDoc [
-	(OBTitlePageTemplate newFor:self) buildOn:pdfDoc.
-	(OBInfoPageTemplate newFor:self) buildOn:pdfDoc.
+	(OBPDFBuilder new lessonToPDF:self) buildOn:pdfDoc.
 ]
 
 { #category : #accessing }
@@ -57,7 +56,7 @@ OBLessonToPDF >> buildPDFDocument [
 	
 	pdfDoc format: PDFA4Format new.
 
-	self addPagesTo:pdfDoc.
+	self addPagesTo: pdfDoc.
 	
 	replacer := OBLabelReplacer new.
 	replacer at:#pages put: pdfDoc pages size.
@@ -96,6 +95,11 @@ OBLessonToPDF >> courseLabel [
 { #category : #accessing }
 OBLessonToPDF >> date [
 	^date ifNil:[ DateAndTime now].
+]
+
+{ #category : #labels }
+OBLessonToPDF >> diagramForm [
+	^ lesson objectDiagram imageForm.
 ]
 
 { #category : #accessing }
@@ -137,6 +141,7 @@ OBLessonToPDF >> generate [
 	| aStream |
 	aStream := FileStream fileNamed: self fullpath.
 	self buildPDFDocument exportTo: aStream.
+	aStream truncate:aStream size.
 	aStream close.
 
 ]
@@ -206,5 +211,8 @@ OBLessonToPDF >> title [
 
 { #category : #calculated }
 OBLessonToPDF >> vmVersion [
-	^ Smalltalk vm version.
+	| ver i |
+	ver := Smalltalk vm version.
+	i := ver indexOfSubCollection: 'Jenkins'.
+	^ (ver last: ver size - i + 1) trim
 ]
