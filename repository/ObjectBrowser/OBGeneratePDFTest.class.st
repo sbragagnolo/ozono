@@ -17,6 +17,18 @@ OBGeneratePDFTest >> asserts: aPDFPage containsAParagraphWith: aString [
 	self assert:(paragraphElements anySatisfy: [ :e | e text = aString ])
 ]
 
+{ #category : #running }
+OBGeneratePDFTest >> fillUpLesson [
+	| pepita |
+	currentLesson title: 'A Test Lesson'.
+	pepita := currentLesson createObject.
+	pepita addAttributeNamed: 'energia'.
+	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: 1234).	
+		
+	currentLesson createVariableNamed: 'pepita' pointingTo: pepita.
+
+]
+
 { #category : #utils }
 OBGeneratePDFTest >> formattedDate [
 	^DateAndTime now dayMonthYearDo: [ :d :m :y | d asString , '/' , m asString , '/' , y asString ]. 
@@ -25,17 +37,14 @@ OBGeneratePDFTest >> formattedDate [
 { #category : #running }
 OBGeneratePDFTest >> setUp [
 	super setUp.
-	
-	currentLesson title:'A Test Lesson'.
-	
+	self fillUpLesson.
 	lessonToPDF := OBLessonToPDF newOnLesson: currentLesson.
 	oldAuthor := lessonToPDF author.
 	oldTeacher := lessonToPDF teacher.
 	oldCourse := lessonToPDF course.
-	
-	lessonToPDF author:'anAuthor'.
-	lessonToPDF teacher:'aTeacher'.
-	lessonToPDF course:'aCourse'.
+	lessonToPDF author: 'anAuthor'.
+	lessonToPDF teacher: 'aTeacher'.
+	lessonToPDF course: 'aCourse'
 ]
 
 { #category : #running }
@@ -54,7 +63,20 @@ OBGeneratePDFTest >> testControlCode [
 ]
 
 { #category : #tests }
-OBGeneratePDFTest >> testInfoPage [
+OBGeneratePDFTest >> testHeaderAndFooter [
+	| pdfDoc|
+	pdfDoc := lessonToPDF buildPDFDocument.
+	pdfDoc pages
+		do: [ :page | 
+			self asserts: page containsAParagraphWith: 'A Test Lesson'.
+			self asserts: page containsAParagraphWith: 'anAuthor'.
+			self asserts: page containsAParagraphWith: 'aCourse'.
+			self asserts: page containsAParagraphWith: 'aTeacher'.
+			self asserts: page containsAParagraphWith: self formattedDate ]
+]
+
+{ #category : #tests }
+OBGeneratePDFTest >> testInfoSection [
 	| pdfDoc infoPage |
 	pdfDoc := lessonToPDF buildPDFDocument.
 	infoPage := pdfDoc pages at: 1.
@@ -66,14 +88,11 @@ OBGeneratePDFTest >> testInfoPage [
 ]
 
 { #category : #tests }
-OBGeneratePDFTest >> testTitle [
-	| pdfDoc titlePage|
+OBGeneratePDFTest >> testObjectSection [
+	| pdfDoc page |
 	pdfDoc := lessonToPDF buildPDFDocument.
-	titlePage := pdfDoc pages at:1.
-
-	self asserts:titlePage containsAParagraphWith:'A Test Lesson'.
-	self asserts:titlePage containsAParagraphWith:'anAuthor'.
-	self asserts:titlePage containsAParagraphWith:'aCourse'.
-	self asserts:titlePage containsAParagraphWith:'aTeacher'.
-	self asserts:titlePage containsAParagraphWith:self formattedDate.
+	page := pdfDoc pages at: 1.
+	
+	self asserts: page containsAParagraphWith: 'pepita'.
+	self asserts: page containsAParagraphWith: '1234'.
 ]
