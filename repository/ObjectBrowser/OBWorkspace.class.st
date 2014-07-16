@@ -61,6 +61,7 @@ OBWorkspace >> buildTextMorph [
 	morph font: StandardFonts codeFont.
 	morph styler workspace: self.
 	morph askBeforeDiscardingEdits: true.
+	morph changedAction: [ :text | lesson changed ].
 	^morph.
 ]
 
