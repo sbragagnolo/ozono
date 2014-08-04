@@ -41,7 +41,7 @@ OBPDFBuilder >> addToPage: element [
 
 { #category : #margins }
 OBPDFBuilder >> bottomMargin [
-	^35.
+	^15.
 ]
 
 { #category : #builder }
@@ -61,7 +61,6 @@ OBPDFBuilder >> buildDiagram [
 
 { #category : #builder }
 OBPDFBuilder >> buildInfo [
-	self createHeading: 'Información Adicional'.
 	self createLabel: 'Sistema Operativo:' translated withText: self model operatingSystem.
 	self createLabel: 'Fecha y Hora:' translated withText: self model date asString.
 	self createLabel: 'Pharo:' translated withText: self model pharoVersion.
@@ -116,15 +115,15 @@ OBPDFBuilder >> createFooter [
 				text: self model teacher;
 				from: self leftMargin mm @ (self pageHeight - self bottomMargin + 4) mm;
 				style: self footerLeftStyleSheet;
-				dimension: 15 mm @ 15 mm).
+				dimension: (self usableWidth / 3) mm @ 15 mm).
 
 	page
 		add:
 			(PDFParagraphElement new
 				text: self model formattedDate;
-				from: (self pageWidth - self rightMargin - 15) mm @ (self pageHeight - self bottomMargin + 4) mm;
+				from:  (self usableWidth / 3)  mm @ (self pageHeight - self bottomMargin + 4) mm;
 				style: self footerRightStyleSheet;
-				dimension: 15 mm @ 15 mm).
+				dimension:  (self usableWidth / 3)  mm @ 15 mm).
 
 	page
 		add:
@@ -132,7 +131,7 @@ OBPDFBuilder >> createFooter [
 				text: self pageNumber asString , '/' , '*#pages#*';
 				from: (self pageWidth - self rightMargin - 15) mm @ (self pageHeight - self bottomMargin + 4) mm;
 				style: self footerRightStyleSheet;
-				dimension: 15 mm @ 15 mm)
+				dimension:  (self usableWidth / 3) mm  @ 15 mm)
 ]
 
 { #category : #'header and footer' }
@@ -148,23 +147,23 @@ OBPDFBuilder >> createHeader [
 				text: self model author;
 				from: self leftMargin mm @ (self topMargin - 12) mm;
 				style: self headerLeftStyleSheet;
-				dimension: 15 mm @ 15 mm).
+				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 
 	page
 		add:
 			(PDFParagraphElement new
 				text: self model course;
-				from: (self leftMargin + (self usableWidth /2) ) mm @ (self topMargin - 12) mm;
+				from: (self leftMargin + (self usableWidth /3) ) mm @ (self topMargin - 12) mm;
 				style: self headerLeftStyleSheet;
-				dimension: 15 mm @ 15 mm).
+				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 
 	page
 		add:
 			(PDFParagraphElement new
 				text: self model lesson title;
-				from: (self pageWidth - self rightMargin - 40) mm @ (self topMargin - 12) mm;
+				from: (self usableWidth /3 * 2) mm @ (self topMargin - 12) mm;
 				style: self headerRightStyleSheet;
-				dimension: 15 mm @ 40 mm).
+				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 				
 	self currentTop: self topMargin.
 ]
@@ -304,16 +303,16 @@ OBPDFBuilder >> initialize [
 { #category : #styles }
 OBPDFBuilder >> labelStyleSheet [
 	| titleFont titleStyleSheet |
-	titleFont := (PDFTimesFont new fontSize: 10 pt) bold.
+	titleFont := (PDFTimesFont new fontSize: 9 pt) bold.
 	titleStyleSheet := PDFStyleSheet new font: titleFont.
 	titleStyleSheet alignment: PDFAlignment left middle.
-	titleStyleSheet margin:0 mm.
+	titleStyleSheet margin: 0 mm.
 	^titleStyleSheet.
 ]
 
 { #category : #margins }
 OBPDFBuilder >> leftMargin [
-	^30.
+	^15.
 ]
 
 { #category : #accessing }
@@ -373,7 +372,7 @@ OBPDFBuilder >> replaceTabs: aString [
 
 { #category : #margins }
 OBPDFBuilder >> rightMargin [
-	^30.
+	^10.
 ]
 
 { #category : #'calculated properties' }
@@ -401,7 +400,7 @@ OBPDFBuilder >> toggleDebug [
 
 { #category : #margins }
 OBPDFBuilder >> topMargin [
-	^35.
+	^15.
 ]
 
 { #category : #accessing }
@@ -422,10 +421,10 @@ OBPDFBuilder >> usableWidth [
 { #category : #styles }
 OBPDFBuilder >> valueStyleSheet [
 	| titleFont titleStyleSheet |
-	titleFont := (PDFTimesFont new fontSize: 12 pt).
+	titleFont := (PDFTimesFont new fontSize: 10 pt).
 	titleStyleSheet := PDFStyleSheet new font: titleFont.
 	titleStyleSheet alignment: PDFAlignment left middle.
-	titleStyleSheet margin:0 mm.
+	titleStyleSheet margin: (-10) mm.
 	^titleStyleSheet.
 ]
 
