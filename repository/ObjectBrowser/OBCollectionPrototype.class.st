@@ -4,8 +4,19 @@ I am an abstract collection prototype. My sub instances can create collections a
 Class {
 	#name : #OBCollectionPrototype,
 	#superclass : #Object,
+	#instVars : [
+		'lesson'
+	],
 	#category : #'ObjectBrowser-Collections'
 }
+
+{ #category : #'instance-creation' }
+OBCollectionPrototype class >> newForLesson: aLesson [
+
+	^self new
+			lesson: aLesson;
+			yourself.
+]
 
 { #category : #attributes }
 OBCollectionPrototype >> allAttributeNames [
@@ -24,6 +35,7 @@ OBCollectionPrototype >> basicClone [
 
 	| collection |
 	collection := self newMetaObjectForCollection: self createRealCollection.
+	lesson addObject: collection.
 	^collection
 ]
 
