@@ -35,7 +35,7 @@ OBCollectionPrototype >> basicClone [
 
 	| collection |
 	collection := self newMetaObjectForCollection: self createRealCollection.
-	lesson addObject: collection.
+	lesson ifNotNil: [  lesson addObject: collection].
 	^collection
 ]
 
