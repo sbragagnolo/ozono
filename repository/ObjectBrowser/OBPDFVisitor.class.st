@@ -34,6 +34,7 @@ OBPDFVisitor >> visitDirectAttribute: anOBDirectAttribute [
 { #category : #visitor }
 OBPDFVisitor >> visitLesson: lesson [
 	lesson variables do:[ :e | e accept: self].
+	self visitTests: lesson.
 ]
 
 { #category : #visitor }
@@ -56,4 +57,15 @@ OBPDFVisitor >> visitObject: anOBObject [
 	anOBObject methods do:[:e | e accept:self.].
 	
 
+]
+
+{ #category : #visitor }
+OBPDFVisitor >> visitTest: anOBTest [
+	builder createCode: anOBTest code.
+]
+
+{ #category : #visitor }
+OBPDFVisitor >> visitTests: lesson [
+	builder createSubHeading: 'Tests'.
+	lesson tests do: [ :test | test accept: self ]
 ]
