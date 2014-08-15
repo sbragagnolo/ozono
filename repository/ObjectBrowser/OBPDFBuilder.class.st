@@ -99,7 +99,7 @@ OBPDFBuilder >> codeStyleSheet [
 
 { #category : #'create elements' }
 OBPDFBuilder >> createCode: text [
-	(text subStrings: String crlf) do: [ :e | self createText: (self replaceTabs:e) withStyle: self codeStyleSheet ].
+	(self linesIn: text) do: [ :line | self createText: line withStyle: self codeStyleSheet ].
 	self createCodeSeparatorLine.
 ]
 
@@ -338,6 +338,13 @@ OBPDFBuilder >> lessonToPDF [
 { #category : #accessing }
 OBPDFBuilder >> lessonToPDF: anObject [
 	lessonToPDF := anObject
+]
+
+{ #category : #'create elements' }
+OBPDFBuilder >> linesIn: text [
+	^ (text subStrings: String crlf)
+		reject: #isAllSeparators
+		thenCollect: [ :line | self replaceTabs: line ].
 ]
 
 { #category : #'calculated properties' }
