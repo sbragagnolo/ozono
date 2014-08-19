@@ -52,7 +52,7 @@ OBFileOutV3 >> fileExistsMessage [
 
 { #category : #'as yet unclassified' }
 OBFileOutV3 >> fileExtension [
-	^ '.ob'
+	^ '.o3'
 ]
 
 { #category : #exporting }
