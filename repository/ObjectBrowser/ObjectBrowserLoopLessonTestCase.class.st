@@ -55,7 +55,7 @@ ObjectBrowserLoopLessonTestCase >> createRosarioObObject: lesson [
 
 { #category : #accessing }
 ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
-	^lessonTitle asLegalSelector , '.ob' .
+	^lessonTitle asLegalSelector , OBLesson fileOutter fileExtension.
 ]
 
 { #category : #actions }
@@ -202,7 +202,7 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithCollections [
 	lessonImported := self importLesson: lesson.
 	
 	self assert: lesson title equals:  lessonImported title.
-	self assert: lesson objects size equals:  lessonImported objects size.
+	self assert: lessonImported objects size equals:  lesson objects size.
 	self assert: (lessonImported objects anySatisfy: [ :obj |
 		(obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]
 	])

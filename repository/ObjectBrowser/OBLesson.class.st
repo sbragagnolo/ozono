@@ -67,7 +67,17 @@ OBLesson class >> deleteAllLessons [
 { #category : #importing }
 OBLesson class >> fileIn: aFileEntry [
 
-	^ OBFileinV3 new fileIn: aFileEntry
+	^ self fileInner fileIn: aFileEntry
+]
+
+{ #category : #importing }
+OBLesson class >> fileInner [
+	^ OBFileinV3 new.
+]
+
+{ #category : #importing }
+OBLesson class >> fileOutter [
+	^ OBFileOutV3 new.
 ]
 
 { #category : #accessing }
@@ -268,7 +278,7 @@ OBLesson >> exportDiagram [
 { #category : #'*ObjectBrowser-Fileout' }
 OBLesson >> fileOut [
 
-	OBFileOutV3 new export: self.
+	self class fileOutter export: self.
 ]
 
 { #category : #bindings }

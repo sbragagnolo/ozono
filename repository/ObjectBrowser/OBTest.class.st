@@ -39,7 +39,7 @@ OBTest >> deleteConfirmationMessage [
 { #category : #'*ObjectBrowser-Fileout' }
 OBTest >> fileOut [
 
-	OBFileOutV3 new export: self.
+	OBLesson fileOutter export: self.
 ]
 
 { #category : #ui }
