@@ -58,7 +58,7 @@ OBCollectionMetaObject class >> newWithRealObject: realObject prototype: aProtot
 
 { #category : #'as yet unclassified' }
 OBCollectionMetaObject >> = anotherMetaObject [
-	^ anotherMetaObject class = self class and: [ self baseObject = anotherMetaObject baseObject ]
+	^ self class = anotherMetaObject class and: [anotherMetaObject posibleName = self posibleName]
 ]
 
 { #category : #visiting }
@@ -147,7 +147,7 @@ OBCollectionMetaObject >> hasReferencesTo: anOBObject [
 
 { #category : #'as yet unclassified' }
 OBCollectionMetaObject >> hash [
-	^ self baseObject hash 
+	^ self posibleName hash 
 ]
 
 { #category : #'ui-actions' }
