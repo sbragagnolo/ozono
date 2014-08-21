@@ -527,7 +527,7 @@ ConfigurationOfObjectBrowser >> version30: spec [
 		for: #common
 		do: [ 
 			spec blessing: #development.
-			spec package: 'ObjectBrowser' with: 'ObjectBrowser-AlfredoSanzo.579'. 
+			spec package: 'ObjectBrowser' with: 'ObjectBrowser-MarianaMatos.583'. 
 			spec project: 'smallUML' with: '1.2'.
 			spec project: 'artefact' with: '1.3' ]
 ]
