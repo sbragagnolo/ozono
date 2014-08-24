@@ -26,7 +26,12 @@ OBPDFVisitor >> objectName [
 	^objectName.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #visitor }
+OBPDFVisitor >> visitCollection: anOBCollectionMetaObject [ 
+	builder createLabel: 'Tipo y elementos: ' translated  withText: anOBCollectionMetaObject baseObject asString.
+]
+
+{ #category : #visitor }
 OBPDFVisitor >> visitDirectAttribute: anOBDirectAttribute [ 
 	builder createLabel: anOBDirectAttribute name asString withText: anOBDirectAttribute objectPointed asString.
 ]
