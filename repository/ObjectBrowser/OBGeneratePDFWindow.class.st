@@ -87,6 +87,7 @@ OBGeneratePDFWindow >> createView. [
 OBGeneratePDFWindow >> generate [
 	self accept.
 	self model generate.
+	UIManager inform: self pdfGenerationSuccessMessage.
 	self close.
 
 ]
@@ -96,5 +97,11 @@ OBGeneratePDFWindow >> openInWorld [
 	self createView.
 	super openInWorld.
 	self extent:312.0@130.0.
+
+]
+
+{ #category : #'as yet unclassified ' }
+OBGeneratePDFWindow >> pdfGenerationSuccessMessage [
+	^ '¡El PDF se generó correctamente!' translated.
 
 ]
