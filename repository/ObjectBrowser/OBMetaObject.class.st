@@ -139,8 +139,12 @@ OBMetaObject >> attributeNames [
 
 { #category : #attributes }
 OBMetaObject >> attributes [
+	^ self attributesByName: self allAttributeNames
+]
 
-	^(self allAttributeNames collect: [ :var | OBDirectAttribute newNamed: var owner: self ]) 
+{ #category : #attributes }
+OBMetaObject >> attributesByName: someAttributes [
+	^ (someAttributes collect: [ :var | OBDirectAttribute newNamed: var owner: self ])
 		asSortedCollection: [ :var1 :var2 | var1 name <= var2 name ]
 ]
 
@@ -256,6 +260,16 @@ OBMetaObject >> methods [
 	allMethods do: [ :method | dictionaryMethods at: method selector put: method ].
 	methods do: [ :method | dictionaryMethods at: method selector put: method ].
 	^ dictionaryMethods values
+]
+
+{ #category : #attributes }
+OBMetaObject >> ownAttributes [
+	^ self attributesByName: self attributeNames
+]
+
+{ #category : #methods }
+OBMetaObject >> ownMethods [
+	^ methods
 ]
 
 { #category : #printing }

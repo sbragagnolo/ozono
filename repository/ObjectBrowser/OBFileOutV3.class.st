@@ -258,8 +258,8 @@ OBFileOutV3 >> visitObjectForDefinition: anObject [
 	self modePrototypeDefinition.
 	anObject prototype accept: self.
 	self modeObjectDefinition.
-	anObject attributes do: [ :anAttribute | anAttribute accept: self ].
-	anObject methods do: [ :aMethod | aMethod accept: self ]
+	anObject ownAttributes do: [ :anAttribute | anAttribute accept: self ].
+	anObject ownMethods do: [ :aMethod | aMethod accept: self ]
 ]
 
 { #category : #visiting }
