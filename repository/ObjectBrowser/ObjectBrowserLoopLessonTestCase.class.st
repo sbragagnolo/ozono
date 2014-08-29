@@ -18,6 +18,14 @@ ObjectBrowserLoopLessonTestCase >> addObjectsTo: lesson [
 	^lesson.
 ]
 
+{ #category : #tests }
+ObjectBrowserLoopLessonTestCase >> assertEquals: block inAllObjectsFrom: aLesson and: otherLesson [
+	aLesson variables do: [ :variable 
+			 |  self assert: (block value: (self find: variable in: otherLesson) pointsTo)
+				equals:  (block value: variable pointsTo) ]
+
+]
+
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> contentPointedTo: anObjectBrowserObject byAtribute: atributeName [
 	^(anObjectBrowserObject attributeNamed: atributeName ) objectPointed.
@@ -58,6 +66,11 @@ ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
 	^lessonTitle asLegalSelector , OBLesson fileOutter fileExtension.
 ]
 
+{ #category : #tests }
+ObjectBrowserLoopLessonTestCase >> find: variable in: aLesson [
+	^ aLesson variables detect: [ :v | v name = variable name ]
+]
+
 { #category : #actions }
 ObjectBrowserLoopLessonTestCase >> importLesson: aLesson [
 	^ OBLesson fileIn: (FileStream fileNamed: (self fileName: aLesson name asFileName)).
@@ -79,6 +92,12 @@ ObjectBrowserLoopLessonTestCase >> lessonWithCollectionTitle [
 ObjectBrowserLoopLessonTestCase >> lessonWithObjectsTitle [
 	
 	^'Lesson Without State'.
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> lessonWithPrototypesTitle [
+	
+	^'LessonWithPrototypes'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -129,6 +148,26 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
 	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
 	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).
+	
+	^ aLesson
+]
+
+{ #category : #'as yet unclassified' }
+ObjectBrowserLoopLessonTestCase >> prepareLessonWithPrototypes [
+	|  aLesson clon rosario fileEntry |
+	fileEntry := self lessonWithPrototypesTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry ensureDelete.
+	aLesson := OBLesson new title: self lessonWithPrototypesTitle.
+	
+	rosario := self createRosarioObObject: aLesson .
+	aLesson createVariableNamed: 'rosario' pointingTo: rosario .
+	
+	clon := rosario clone.
+	aLesson addObject: clon.
+	aLesson createVariableNamed: 'clon' pointingTo: clon.
+	
+	clon compileMethod: 'otroMetodo
+	^''Soy un clon'''.
 	
 	^ aLesson
 ]
@@ -232,6 +271,17 @@ ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithObjectsStateSuccess
 			(obj hasAttributeNamed: 'energia') and: [(self contentPointedTo: obj byAtribute: 'energia') isNil ]
 		]).
 		self assert: (self variablesFrom: lesson equalVariablesFrom: lessonImported)
+]
+
+{ #category : #tests }
+ObjectBrowserLoopLessonTestCase >> testExportImportLessonWithPrototypesSuccess [
+
+		lesson := self prepareLessonWithPrototypes.
+		lesson fileOut.
+		lessonImported := self importLesson: lesson.
+		
+		self assertEquals: [ :obo | (obo methods collect: #selector) , obo attributeNames ] inAllObjectsFrom: lesson and: lessonImported.
+
 ]
 
 { #category : #tests }
