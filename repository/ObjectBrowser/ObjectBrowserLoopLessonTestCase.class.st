@@ -160,6 +160,7 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithPrototypes [
 	aLesson := OBLesson new title: self lessonWithPrototypesTitle.
 	
 	rosario := self createRosarioObObject: aLesson .
+	rosario addAttributeNamed: 'ubicacion'.
 	aLesson createVariableNamed: 'rosario' pointingTo: rosario .
 	
 	clon := rosario clone.
