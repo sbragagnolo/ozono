@@ -114,7 +114,7 @@ OBLessonBrowserModel >> importLesson: aFileEntry [
 { #category : #labels }
 OBLessonBrowserModel >> importLessonLabel [
 
-	^'Importar Leccion'
+	^'Importar Lección' translated
 ]
 
 { #category : #'initialize-release' }
@@ -178,7 +178,7 @@ OBLessonBrowserModel >> pdfSelectedLesson [
 
 { #category : #labels }
 OBLessonBrowserModel >> printLessonLabel [
-	^'Imprimir Leccion'
+	^'Imprimir Lección' translated
 ]
 
 { #category : #actions }
@@ -236,8 +236,8 @@ OBLessonBrowserModel >> updateLOOP [
 	] on: Warning do: [ :w | w resume  ]
 ]
 
-{ #category : #updating }
+{ #category : #labels }
 OBLessonBrowserModel >> updateLOOPLabel [
 
-	^'Actualizar Software!' translated 
+	^'¡Actualizar Software!' translated 
 ]

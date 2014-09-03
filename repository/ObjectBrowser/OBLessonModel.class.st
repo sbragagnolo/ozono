@@ -217,7 +217,7 @@ OBLessonModel >> createWorkspace: workspaceLabel contents: someContents [
 	^workspace 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'submorphs-add/remove' }
 OBLessonModel >> delete [
 	window delete.
 ]
@@ -362,13 +362,13 @@ OBLessonModel >> initialize [
 	self selectedObjectBrowserVariable: OBNullLessonVariable new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 OBLessonModel >> isDiagramSelected [ 
 	"Está hardcodeado el índice 3 para el diagrama..."
 	^self selectedTabIndex = 3
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 OBLessonModel >> lesson [
 	^lesson
 ]
@@ -497,13 +497,13 @@ OBLessonModel >> runAllTestsLabel [
 	^'Probar Todos'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'garbage-collection' }
 OBLessonModel >> runGarbageCollector [
 	self lesson runGarbageCollector.
 	self changed .
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 OBLessonModel >> runTest [
 	self selectedTest run.
 	self changed.
@@ -700,7 +700,7 @@ OBLessonModel >> validateVariableName: aVariableNameString usingExistingVariable
 		ifTrue: [ self error: 'Ya se ha definido una variable de nombre ' translated, aVariableNameString  ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'lesson-variables' }
 OBLessonModel >> variableNamed: aVariableNameString [
 	^self lesson variableNamed: aVariableNameString.
 ]

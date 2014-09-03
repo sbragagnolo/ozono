@@ -102,7 +102,7 @@ OBLessonBrowserWindow >> loopBrowser: aLOOPBrowser [
 { #category : #showing }
 OBLessonBrowserWindow >> show [
 	window openInWorld.
-	window extent: 400@300.
+	window extent: 650@300.
 	window center: World center.
 	^window.
 ]
