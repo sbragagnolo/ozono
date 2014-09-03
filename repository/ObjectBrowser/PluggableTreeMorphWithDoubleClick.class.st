@@ -14,7 +14,7 @@ Class {
 { #category : #'as yet unclassified' }
 PluggableTreeMorphWithDoubleClick >> doubleClick: event [
 	doubleClickSelector ifNil: [^super doubleClick: event].
-	^ ((self itemFromPoint: (event position)) withoutListWrapper) perform: doubleClickSelector
+	^ (self selectedItemFrom: event) perform: doubleClickSelector
 ]
 
 { #category : #'as yet unclassified' }
@@ -24,6 +24,18 @@ PluggableTreeMorphWithDoubleClick >> doubleClickSelector: aSelector [
 
 { #category : #'as yet unclassified' }
 PluggableTreeMorphWithDoubleClick >> mouseDown: event [
-	 super mouseDown: event.
-	event hand waitForClicksOrDrag: self event: event.
+	event yellowButtonPressed
+		ifTrue: [ self updateSelectionForEvent: event ].
+	super mouseDown: event.
+	event hand waitForClicksOrDrag: self event: event
+]
+
+{ #category : #'as yet unclassified' }
+PluggableTreeMorphWithDoubleClick >> selectedItemFrom: event [
+	^ (self itemFromPoint: event position) withoutListWrapper
+]
+
+{ #category : #'as yet unclassified' }
+PluggableTreeMorphWithDoubleClick >> updateSelectionForEvent: event [
+	self model perform: setSelectionSelector with: (self selectedItemFrom: event)
 ]
