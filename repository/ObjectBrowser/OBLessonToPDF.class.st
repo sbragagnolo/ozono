@@ -164,7 +164,7 @@ OBLessonToPDF >> lesson: anOBLesson [
 
 { #category : #calculated }
 OBLessonToPDF >> operatingSystem [
-	^Smalltalk platform version
+	^Smalltalk platform prettyName.
 ]
 
 { #category : #calculated }
