@@ -19,7 +19,9 @@ Class {
 		'statusTextMorph',
 		'groupTab',
 		'pages',
-		'diagram'
+		'diagram',
+		'selectedTestResultTextMorph',
+		'selectedTestResultBoxMorph'
 	],
 	#category : #'ObjectBrowser-UILesson'
 }
@@ -27,6 +29,89 @@ Class {
 { #category : #showing }
 OBLessonWindow class >> show: anObjectBrowser [
 	^self new show: anObjectBrowser
+]
+
+{ #category : #'test-runner' }
+OBLessonWindow >> addNewEditorMorphTo: panel [
+	| testEditor hSepFrac testEditorModel |
+	hSepFrac := 0.45.
+	testEditor := (PluggableTextMorph
+		on: (testEditorModel := OBTestEditorModel newOn: self objectBrowser)
+		text: #selectedTestCode
+		accept: #acceptCode:notifying:
+		readSelection: nil
+		menu: #menu:)
+		setNameTo: #textoTest;
+		color: Color white;
+		yourself.
+	testEditor styler workspace: self lesson.
+	testEditor styled: true.
+	self objectBrowser addTestSelectionInterested: testEditor.
+	testEditorModel testEditorMorph: methodEditor.
+
+	panel
+		addMorph:
+			((PluggableIconListMorph
+				on: (OBTestsListModel newOn: self objectBrowser)
+				list: #listModel
+				selected: #listIndex
+				changeSelected: #listIndex:
+				menu: #listMenu:shifted:
+				keystroke: #listKey:from:)
+				borderWidth: 0;
+				enableDragNDrop: false;
+				autoDeselect: true;
+				getIconSelector: #iconAt:;
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0 @ 0 corner: 0.4999 @ hSepFrac - 0.01)).
+	panel addMorph: testEditor fullFrame: (LayoutFrame fractions: (0 @ hSepFrac corner: 1 @ 1)).
+	^ panel
+]
+
+{ #category : #'test-runner' }
+OBLessonWindow >> addNewRunAllTestsButtonMorphTo: panel [
+	panel
+		addMorph:
+			(PluggableButtonMorph
+				on: self objectBrowser
+				getState: nil
+				action: #runAllTests
+				label: #runAllTestsLabel)
+		fullFrame: (LayoutFrame fractions: (0.499 @ 0.1 corner: 0.99 @ 0.2))
+]
+
+{ #category : #'test-runner' }
+OBLessonWindow >> addNewSelectedTestResultMorphTo: panel [
+	panel
+		addMorph:
+			(selectedTestResultBoxMorph := PanelMorph new
+				changeProportionalLayout;
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.499 @ 0.21 corner: 0.99 @ 0.44)).
+	selectedTestResultBoxMorph
+		addMorph:
+			((selectedTestResultTextMorph := PluggableTextMorph on: self objectBrowser text: #selectedTestResultDescription accept: nil)
+				disable;
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.1 @ 0.1 corner: 0.9 @ 0.9))
+]
+
+{ #category : #'test-runner' }
+OBLessonWindow >> addNewStatusMorphTo: panel [
+	panel
+		addMorph:
+			(statusMorph := PanelMorph new
+				changeProportionalLayout;
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.499 @ 0 corner: 0.99 @ 0.09)).
+	statusMorph color: Color green.
+	statusMorph
+		addMorph:
+			(statusTextMorph := LabelMorph new
+				color: Color black;
+				contents: '';
+				yourself)
+		fullFrame: (LayoutFrame fractions: (0.1 @ 0.1 corner: 0.9 @ 0.9))
 ]
 
 { #category : #view }
@@ -143,64 +228,14 @@ OBLessonWindow >> createObjectEditionTab [
 
 { #category : #'test-runner' }
 OBLessonWindow >> createTestRunnerTab [
-	| hSepFrac panel testEditor testEditorModel |
-	hSepFrac := 0.45.
-	testEditor := (PluggableTextMorph
-		on: (testEditorModel := OBTestEditorModel newOn: self objectBrowser)
-		text: #selectedTestCode
-		accept: #acceptCode:notifying:
-		readSelection: nil
-		menu: #menu:)
-		setNameTo: #textoTest;
-		color: Color white;
-		yourself.
-		
-	testEditor styler workspace: self lesson.
-	
-	testEditor styled: true.
-	self objectBrowser addTestSelectionInterested: testEditor.
-	testEditorModel testEditorMorph: methodEditor.
+	|  panel   |
 	panel := PanelMorph new
 		color: Color gray;
 		changeProportionalLayout.
-	panel
-		addMorph:
-				((PluggableIconListMorph
-						on: (OBTestsListModel newOn: self objectBrowser)
-						list: #listModel
-						selected: #listIndex
-						changeSelected: #listIndex:
-						menu: #listMenu:shifted:
-						keystroke: #listKey:from:)
-						borderWidth: 0;
-						enableDragNDrop: false;
-						autoDeselect: true;
-						getIconSelector: #iconAt:;
-						yourself)
-		fullFrame: (LayoutFrame fractions: (0 @ 0 corner: 0.4999 @ hSepFrac - 0.01)).
-	panel addMorph: testEditor fullFrame: (LayoutFrame fractions: (0 @ hSepFrac corner: 1 @ 1)).
-	panel
-		addMorph:
-			(statusMorph := PanelMorph new
-				changeProportionalLayout;
-				yourself)
-		fullFrame: (LayoutFrame fractions: (0.499 @ 0 corner: 0.99 @ 0.09)).
-	statusMorph color: Color green.
-	statusMorph
-		addMorph:
-			(statusTextMorph := LabelMorph new
-				color: Color black;
-				contents: '';
-				yourself)
-		fullFrame: (LayoutFrame fractions: (0.1 @ 0.1 corner: 0.9 @ 0.9)).
-	panel
-		addMorph:
-			(PluggableButtonMorph
-				on: self objectBrowser
-				getState: nil
-				action: #runAllTests
-				label: #runAllTestsLabel)
-		fullFrame: (LayoutFrame fractions: (0.499 @ 0.1 corner: 0.99 @ 0.2)).
+	self addNewEditorMorphTo: panel.	
+	self addNewStatusMorphTo: panel.
+	self addNewRunAllTestsButtonMorphTo: panel.
+	self addNewSelectedTestResultMorphTo: panel.
 	^ panel
 ]
 
@@ -225,7 +260,7 @@ OBLessonWindow >> createView [
 	^window.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #actions }
 OBLessonWindow >> expandReferences [
 	(objectBrowserTree allItems at: 1) isExpanded
 		ifFalse: [ 
@@ -261,16 +296,39 @@ OBLessonWindow >> objectGraphButtonLabel [
 
 { #category : #view }
 OBLessonWindow >> refresh [
-	objectBrowserTree ifNotNil: [ objectBrowserTree list: self objectBrowser lessonOrganization ].
+	self refreshObjectBrowserTree.
+	self refreshPagesVisibility.
+	self refreshDiagram.
+	self refreshTestResult
+]
 
-	objectBrowserTree ifNotNil: [ 
-		objectBrowserTree selection: self objectBrowser selectedItem ].
-
-	pages keysAndValuesDo: [ :k :v | v visible: k == self objectBrowser selectedPage ].
-
+{ #category : #view }
+OBLessonWindow >> refreshDiagram [
 	self objectBrowser selectedPage = #diagram
-		ifTrue: [ diagram update ].
+		ifTrue: [ diagram update ]
+]
 
+{ #category : #view }
+OBLessonWindow >> refreshObjectBrowserTree [
+	objectBrowserTree
+		ifNotNil: [ 
+			objectBrowserTree list: self objectBrowser lessonOrganization.
+			objectBrowserTree selection: self objectBrowser selectedItem ]
+]
+
+{ #category : #view }
+OBLessonWindow >> refreshPagesVisibility [
+	pages keysAndValuesDo: [ :k :v | v visible: k == self objectBrowser selectedPage ]
+]
+
+{ #category : #view }
+OBLessonWindow >> refreshTestResult [
+	| selectedTest |
+	selectedTest := self objectBrowser selectedTest.
+	selectedTest isNotNil & selectedTestResultTextMorph isNotNil
+		ifTrue: [ 
+			selectedTestResultTextMorph update: selectedTestResultTextMorph getTextSelector.
+			selectedTestResultBoxMorph color: selectedTest resultColor ]
 ]
 
 { #category : #accessing }
@@ -287,7 +345,7 @@ OBLessonWindow >> setGroupTabIndex: anIndex [
 { #category : #accessing }
 OBLessonWindow >> setTestsResults: result [
 	statusTextMorph contents: result printString.
-	statusMorph color: (result color).
+	statusMorph color: result color
 ]
 
 { #category : #view }
