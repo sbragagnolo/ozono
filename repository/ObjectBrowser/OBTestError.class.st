@@ -13,11 +13,6 @@ OBTestError class >> new: aSignal [
 		yourself 
 ]
 
-{ #category : #testing }
-OBTestError >> color [
-	^ Color red
-]
-
 { #category : #accessing }
 OBTestError >> icon [
 	^OBIcons badIcon

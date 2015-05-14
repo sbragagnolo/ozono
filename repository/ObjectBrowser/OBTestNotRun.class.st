@@ -8,16 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-OBTestNotRun >> color [
-	^ Color transparent
-]
-
-{ #category : #testing }
-OBTestNotRun >> description [
-	^ ''
-]
-
-{ #category : #accessing }
 OBTestNotRun >> icon [
 	^OBIcons notRanIcon
 ]

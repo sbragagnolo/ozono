@@ -62,13 +62,11 @@ OBFileOutV3 >> fileNameFor: anObject [
 
 { #category : #exporting }
 OBFileOutV3 >> fileNamedAfter: anObject [
-	| fileName |
-	fileName := self fileNameFor: anObject.
-	^ [ FileStream newFileNamed: fileName ]
+	^ [ FileStream newFileNamed: (self fileNameFor: anObject) ]
 		on: FileExistsException
 		do: [ :anException | 
 			self fileCreationIsConfirmed
-				ifTrue: [ FileStream forceNewFileNamed: fileName ]
+				ifTrue: [ FileStream fileNamed: (self fileNameFor: anObject) ]
 				ifFalse: [ anException pass ] ]
 ]
 

@@ -7,16 +7,6 @@ Class {
 	#category : #'ObjectBrowser-TestFramework'
 }
 
-{ #category : #testing }
-OBTestSuccess >> color [
-	^ Color green
-]
-
-{ #category : #testing }
-OBTestSuccess >> description [
-	^ '¡Un éxito!' translated
-]
-
 { #category : #accessing }
 OBTestSuccess >> icon [
 	^OBIcons okIcon

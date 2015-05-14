@@ -76,16 +76,6 @@ OBTest >> printString [
 ]
 
 { #category : #running }
-OBTest >> resultColor [
-	^ result color
-]
-
-{ #category : #running }
-OBTest >> resultDescription [
-	^ result description
-]
-
-{ #category : #running }
 OBTest >> run [
 
 	| context |

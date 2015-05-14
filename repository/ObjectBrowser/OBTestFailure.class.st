@@ -13,16 +13,6 @@ OBTestFailure class >> new: aSignal [
 		yourself 
 ]
 
-{ #category : #testing }
-OBTestFailure >> color [
-	^ Color yellow
-]
-
-{ #category : #testing }
-OBTestFailure >> description [
-	^ signal messageText 
-]
-
 { #category : #accessing }
 OBTestFailure >> icon [
 	^OBIcons warnIcon

@@ -407,8 +407,8 @@ OBLesson >> removeObject: anObjectBrowserObject [
 
 { #category : #tests }
 OBLesson >> removeTest: aTest [
-	tests removeKey: aTest selector.
-	OBPharoReflection uniqueInstance inClassOf: self executionContext removeMethodWithSelector: aTest selector
+
+	tests removeKey: aTest selector
 ]
 
 { #category : #'lesson-variables' }

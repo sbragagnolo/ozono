@@ -630,13 +630,6 @@ OBLessonModel >> selectedTest: aTest [
 ]
 
 { #category : #accessing }
-OBLessonModel >> selectedTestResultDescription [
-	self selectedTest ifNil: [ ^ '' ].
-	^self selectedTest resultDescription
-	
-]
-
-{ #category : #accessing }
 OBLessonModel >> selectedWorkspace: aWorkspace [
 	selectedWorkspace := aWorkspace
 ]

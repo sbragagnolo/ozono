@@ -10,16 +10,6 @@ Class {
 	#category : #'ObjectBrowser-TestFramework'
 }
 
-{ #category : #testing }
-OBTestResult >> color [
-	self subclassResponsibility 
-]
-
-{ #category : #testing }
-OBTestResult >> description [
-	^ signal description
-]
-
 { #category : #accessing }
 OBTestResult >> icon [
 
@@ -48,11 +38,6 @@ OBTestResult >> isNotRun [
 OBTestResult >> isSuccess [
 
 	^false
-]
-
-{ #category : #accessing }
-OBTestResult >> signal [
-	^ signal
 ]
 
 { #category : #accessing }
