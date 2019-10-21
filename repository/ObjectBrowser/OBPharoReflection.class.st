@@ -77,18 +77,18 @@ OBPharoReflection >> compileUnsuspended: code inLesson: aLesson inClass: aClass 
 
 { #category : #classes }
 OBPharoReflection >> createClassNamed: aClassName subclassOf: aSuperclass inEnvironment: anEnvironment [
-
-	OBPharoSystem uniqueInstance suspendSystemEventsWhile: [
-		^OldClassBuilderAdapter new
-			name: aClassName
-			inEnvironment: anEnvironment
-			subclassOf: aSuperclass
-			type: aSuperclass typeOfClass
-			instanceVariableNames: ''
-			classVariableNames: ''
-			poolDictionaries: ''
-			category: 'Useless'.
-	]
+	OBPharoSystem uniqueInstance
+		suspendSystemEventsWhile: [ ^ self class classInstaller
+				make: [ :builder | 
+					builder
+						name: aClassName;
+						environment: anEnvironment;
+						superclass: aSuperclass;
+						layoutClass: aSuperclass classLayout class;
+						slots: '' asSlotCollection;
+						classSlots: '' asSlotCollection;
+						sharedPools: '';
+						category: 'Useless' ] ]
 ]
 
 { #category : #classes }

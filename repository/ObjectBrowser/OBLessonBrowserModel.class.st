@@ -52,7 +52,7 @@ OBLessonBrowserModel class >> on: aLOOPLessonContainer [
 { #category : #labels }
 OBLessonBrowserModel >> aboutText [
 	^(TextStream on: String new)
-		nextPutAll: 'Ozono version: ', (ConfigurationOfObjectBrowser project currentVersion) versionString;
+		nextPutAll: 'Ozono version: ', (BaselineOfOzono project currentVersion) versionString;
 		crlf;
 		nextPutAll: 'Ozono mcz: ', OBLessonToPDF new ozonoVersion ;
 		crlf;		
