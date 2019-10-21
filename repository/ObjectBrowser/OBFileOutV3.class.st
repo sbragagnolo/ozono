@@ -57,7 +57,7 @@ OBFileOutV3 >> fileExtension [
 
 { #category : #exporting }
 OBFileOutV3 >> fileNameFor: anObject [
-	^ anObject name asLegalSelector , self fileExtension
+	^ (OBUtils legalSelectorFor: anObject name ) , self fileExtension
 ]
 
 { #category : #exporting }
@@ -72,8 +72,7 @@ OBFileOutV3 >> fileNamedAfter: anObject [
 
 { #category : #template }
 OBFileOutV3 >> lessonIdentification [
-
-	^lesson title asLegalSelector
+	^ OBUtils legalSelectorFor: lesson title
 ]
 
 { #category : #modes }

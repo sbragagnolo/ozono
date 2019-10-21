@@ -63,7 +63,7 @@ ObjectBrowserLoopLessonTestCase >> createRosarioObObject: lesson [
 
 { #category : #accessing }
 ObjectBrowserLoopLessonTestCase >> fileName: lessonTitle [
-	^lessonTitle asLegalSelector , OBLesson fileOutter fileExtension.
+	^ (OBUtils legalSelectorFor:lessonTitle ) , OBLesson fileOutter fileExtension.
 ]
 
 { #category : #tests }
@@ -130,32 +130,32 @@ ObjectBrowserLoopLessonTestCase >> prepareLesson [
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithCollections [
 	| aLesson pepita rosario fileEntry theSet theDictionary |
-	fileEntry := self lessonWithCollectionTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry := (OBUtils legalSelectorFor: self lessonWithCollectionTitle)
+		asFileName asFileReference , '.st'.
 	fileEntry ensureDelete.
 	aLesson := OBLesson new title: self lessonWithCollectionTitle.
-	pepita := self createPepitaObObject: aLesson .
-	rosario := self createRosarioObObject: aLesson .
+	pepita := self createPepitaObObject: aLesson.
+	rosario := self createRosarioObObject: aLesson.
 	aLesson createVariableNamed: 'pepita' pointingTo: pepita.
-	aLesson createVariableNamed: 'rosario' pointingTo: rosario .
+	aLesson createVariableNamed: 'rosario' pointingTo: rosario.
 	theSet := (aLesson literalNamed: #set) clone.
 	theSet add: pepita baseObject.
 	theSet add: rosario baseObject.
-	
 	theDictionary := (aLesson literalNamed: #dictionary) clone.
 	theDictionary at: pepita baseObject put: rosario baseObject.
 	theDictionary at: 1 put: 'hola'.
 	theDictionary at: 1 put: pepita baseObject.
-	
 	pepita attributeNamed: 'dondeEstas' pointTo: rosario.
-	pepita attributeNamed: 'energia' pointTo: (OBExternalObjectMetaObject for: nil).
-	
+	pepita
+		attributeNamed: 'energia'
+		pointTo: (OBExternalObjectMetaObject for: nil).
 	^ aLesson
 ]
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithPrototypes [
 	|  aLesson clon rosario fileEntry |
-	fileEntry := self lessonWithPrototypesTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry := (OBUtils legalSelectorFor: self lessonWithPrototypesTitle ) asFileName asFileReference, '.st'.
 	fileEntry ensureDelete.
 	aLesson := OBLesson new title: self lessonWithPrototypesTitle.
 	
@@ -176,7 +176,7 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithPrototypes [
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 	|  aLesson pepita rosario fileEntry |
-	fileEntry := self lessonWithStateTitle asLegalSelector asFileName asFileReference, '.st'.
+	fileEntry := (OBUtils legalSelectorFor:self lessonWithStateTitle ) asFileName asFileReference, '.st'.
 	fileEntry ensureDelete.
 	aLesson := OBLesson new title: self lessonWithStateTitle.
 	pepita := self createPepitaObObject: aLesson .
@@ -192,13 +192,12 @@ ObjectBrowserLoopLessonTestCase >> prepareLessonWithState [
 
 { #category : #'as yet unclassified' }
 ObjectBrowserLoopLessonTestCase >> prepareLessonWithTest [
-	|  aLesson fileEntry |
-	fileEntry := self lessonWithTestTitle asLegalSelector asFileName asFileReference, '.st'.
+	| aLesson fileEntry |
+	fileEntry := (OBUtils legalSelectorFor: self lessonWithTestTitle)
+		asFileName asFileReference , '.st'.
 	fileEntry ensureDelete.
 	aLesson := OBLesson new title: self lessonWithTestTitle.
-
 	aLesson compileTest: 'testSomething ^''all is cool'''.
-		
 	^ aLesson
 ]
 
@@ -212,10 +211,11 @@ ObjectBrowserLoopLessonTestCase >> setUp [
 
 { #category : #tests }
 ObjectBrowserLoopLessonTestCase >> tearDown [
-
-	lesson ifNotNilDo: [:l | self tearDownLesson: l. l clean].
-	lessonImported ifNotNilDo: #clean.
-
+	lesson
+		ifNotNil: [ :l | 
+			self tearDownLesson: l.
+			l clean ].
+	lessonImported ifNotNil: #clean
 ]
 
 { #category : #'as yet unclassified' }
