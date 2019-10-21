@@ -129,7 +129,7 @@ OBPDFBuilder >> createFooter [
 			(PDFParagraphElement new
 				text: self model teacher;
 				from: self leftMargin mm @ (self pageHeight - self bottomMargin + 4) mm;
-				style: self footerLeftStyleSheet;
+				styles: self footerLeftStyleSheet;
 				dimension: (self usableWidth / 3) mm @ 15 mm).
 
 	page
@@ -137,7 +137,7 @@ OBPDFBuilder >> createFooter [
 			(PDFParagraphElement new
 				text: self model formattedDate;
 				from:  (self usableWidth / 3)  mm @ (self pageHeight - self bottomMargin + 4) mm;
-				style: self footerRightStyleSheet;
+				styles: self footerRightStyleSheet;
 				dimension:  (self usableWidth / 3)  mm @ 15 mm).
 
 	page
@@ -145,7 +145,7 @@ OBPDFBuilder >> createFooter [
 			(PDFParagraphElement new
 				text: self pageNumber asString , '/' , '*#pages#*';
 				from: (self pageWidth - self rightMargin - 15) mm @ (self pageHeight - self bottomMargin + 4) mm;
-				style: self footerRightStyleSheet;
+				styles: self footerRightStyleSheet;
 				dimension:  (self usableWidth / 3) mm  @ 15 mm)
 ]
 
@@ -161,7 +161,7 @@ OBPDFBuilder >> createHeader [
 			(PDFParagraphElement new
 				text: self model author;
 				from: self leftMargin mm @ (self topMargin - 12) mm;
-				style: self headerLeftStyleSheet;
+				styles: self headerLeftStyleSheet;
 				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 
 	page
@@ -169,7 +169,7 @@ OBPDFBuilder >> createHeader [
 			(PDFParagraphElement new
 				text: self model course;
 				from: (self leftMargin + (self usableWidth /3) ) mm @ (self topMargin - 12) mm;
-				style: self headerLeftStyleSheet;
+				styles: self headerLeftStyleSheet;
 				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 
 	page
@@ -177,7 +177,7 @@ OBPDFBuilder >> createHeader [
 			(PDFParagraphElement new
 				text: self model lesson title;
 				from: (self usableWidth /3 * 2) mm @ (self topMargin - 12) mm;
-				style: self headerRightStyleSheet;
+				styles: self headerRightStyleSheet;
 				dimension: (self usableWidth / 3 ) mm @ 15 mm).
 				
 	self currentTop: self topMargin.
@@ -264,16 +264,16 @@ OBPDFBuilder >> doc: aPDFDocument [
 { #category : #styles }
 OBPDFBuilder >> footerLeftStyleSheet [
 	| styleSheet |
-	styleSheet := PDFStyleSheet new font:PDFHelveticaFont new.
+	styleSheet := StyleSheet new font: PDFHelveticaFont new.
 	styleSheet alignment: PDFAlignment left middle.
-	styleSheet margin:0.
-	^styleSheet.
+	styleSheet margin: 0.
+	^ styleSheet
 ]
 
 { #category : #styles }
 OBPDFBuilder >> footerRightStyleSheet [
 	| styleSheet |
-	styleSheet := PDFStyleSheet new font:PDFHelveticaFont new.
+	styleSheet := StyleSheet new font:PDFHelveticaFont new.
 	styleSheet alignment: PDFAlignment right middle.
 	styleSheet filled:true.
 	styleSheet fillColor: (PDFColor formatRGB:Color orange).
@@ -284,7 +284,7 @@ OBPDFBuilder >> footerRightStyleSheet [
 { #category : #styles }
 OBPDFBuilder >> headerLeftStyleSheet [
 	| styleSheet |
-	styleSheet := PDFStyleSheet new font:PDFHelveticaFont new.
+	styleSheet := StyleSheet new font:PDFHelveticaFont new.
 	styleSheet alignment: PDFAlignment left middle.
 	styleSheet margin:0.
 	^styleSheet.
@@ -293,17 +293,17 @@ OBPDFBuilder >> headerLeftStyleSheet [
 { #category : #styles }
 OBPDFBuilder >> headerRightStyleSheet [
 	| styleSheet |
-	styleSheet := PDFStyleSheet new font:PDFHelveticaFont new.
+	styleSheet := StyleSheet new font: PDFHelveticaFont new.
 	styleSheet alignment: PDFAlignment right middle.
-	styleSheet margin:0.
-	^styleSheet.
+	styleSheet margin: 0.
+	^ styleSheet
 ]
 
 { #category : #styles }
 OBPDFBuilder >> headingStyleSheet [
 	| titleFont titleStyleSheet |
 	titleFont := (PDFTimesFont new fontSize: 16 pt) bold italic.
-	titleStyleSheet := PDFStyleSheet new font: titleFont.
+	titleStyleSheet := StyleSheet new font: titleFont.
 	titleStyleSheet alignment: PDFAlignment left middle.
 	titleStyleSheet margin:0 mm.
 	^titleStyleSheet.
@@ -319,7 +319,7 @@ OBPDFBuilder >> initialize [
 OBPDFBuilder >> labelStyleSheet [
 	| titleFont titleStyleSheet |
 	titleFont := (PDFTimesFont new fontSize: 9 pt) bold.
-	titleStyleSheet := PDFStyleSheet new font: titleFont.
+	titleStyleSheet := StyleSheet new font: titleFont.
 	titleStyleSheet alignment: PDFAlignment left middle.
 	titleStyleSheet margin: 0 mm.
 	^titleStyleSheet.
@@ -444,7 +444,7 @@ OBPDFBuilder >> usableWidth [
 OBPDFBuilder >> valueStyleSheet [
 	| titleFont titleStyleSheet |
 	titleFont := (PDFTimesFont new fontSize: 10 pt).
-	titleStyleSheet := PDFStyleSheet new font: titleFont.
+	titleStyleSheet := StyleSheet new font: titleFont.
 	titleStyleSheet alignment: PDFAlignment left middle.
 	titleStyleSheet margin: (-10) mm.
 	^titleStyleSheet.

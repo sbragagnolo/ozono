@@ -189,6 +189,15 @@ OBWorkspace >> selectedClassOrMetaClass [
 	^nil
 ]
 
+{ #category : #setting }
+OBWorkspace >> setContent: aString [
+	| textMorphs textMorph |
+	textMorphs := self dependents select: [ :c | c isKindOf: PluggableTextMorph ].
+	textMorphs ifEmpty: [ ^ true ].	"This case should normally not happen"
+	textMorph := textMorphs first.
+	textMorph setText: aString
+]
+
 { #category : #fileout }
 OBWorkspace >> stringContents [
 	^(window findDeeplyA:TextMorph) text asString
