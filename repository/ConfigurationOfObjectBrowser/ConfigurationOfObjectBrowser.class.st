@@ -263,11 +263,6 @@ ConfigurationOfObjectBrowser >> development: spec [
 
 ]
 
-{ #category : #'initialize-release' }
-ConfigurationOfObjectBrowser >> initializeOSProcess. [
-	(Smalltalk globals at: #ThisOSProcess) initialize
-]
-
 { #category : #accessing }
 ConfigurationOfObjectBrowser >> project [
 
