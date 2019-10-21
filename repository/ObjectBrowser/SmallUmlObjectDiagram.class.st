@@ -1,6 +1,6 @@
 Class {
 	#name : #SmallUmlObjectDiagram,
-	#superclass : #Object,
+	#superclass : #Diagram,
 	#instVars : [
 		'diagram',
 		'lesson',
